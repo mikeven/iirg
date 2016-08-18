@@ -22,7 +22,7 @@
                     <?php foreach( $cotizaciones as $c ){?>  
                     <tr>
                         <td><?php echo $c["Fecha"];?></td>
-                        <td><a href="nuevo-pedido.php?idc=<?php echo $c["id"]; ?>"><?php echo $c["Nombre"]; ?></a></td>
+                        <td><a href="nuevo-pedido.php?idc=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a></td>
                         <td><?php echo $c["Total"]; ?></td>
                     </tr>
                     <?php } ?>
@@ -49,7 +49,7 @@
       "iDisplayLength": 10,
       "lengthChange": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false,
       "language": {

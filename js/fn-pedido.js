@@ -45,7 +45,7 @@ function obtenerVectorDetalleC(){
 	var detallef = new Array();
 	var renglon = new Object();
 	
-	$("#df_table input").each(function (){ 
+	$("#dp_table input").each(function (){ 
 		name = $(this).attr("name");
 		renglon["" + name + ""] = $(this).val();
 
@@ -57,41 +57,45 @@ function obtenerVectorDetalleC(){
 	return JSON.stringify( detallef );
 }
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, iva ){
+function obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, iva ){
 	encabezado = new Object();
 	encabezado.numero = numero;
-	encabezado.idc = idc;
+	encabezado.idcotiz = idcotiz;
+	encabezado.idcliente = idcliente;
 	encabezado.femision = femision;
-	encabezado.cvalidez = cvalidez;
-	encabezado.pcontacto = pcontacto;
+	encabezado.total = total;
 	encabezado.iva = iva;
 
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function guardarCotizacion(){
+function guardarPedido(){
 	
-	var idc = $( '#idCliente' ).val();
-	var numero = $( '#ncotiz' ).val();
+	var idcliente = $( '#idCliente' ).val();
+	var numero = $( '#npedido' ).val();
+	var idcotiz = $( '#idCotizacion' ).val();
 	var femision = $( '#femision' ).val();
-	var cvalidez = $( '#cvalidez' ).val();
-	var pcontacto = $( '#cpcontacto' ).val();
+	var total = $( '#ftotal' ).val().replace(",", ".");
 	var iva = $( '#iva' ).val();
 	
-	cencabezado = obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, iva );
-	cdetalle = obtenerVectorDetalleC();
+	if( idcliente != "" && total != "" && total != 0.00 && idcotiz != "" ){
+		
+		pencabezado = obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, iva );
+		pdetalle = obtenerVectorDetalleC();
 	
-	$.ajax({
-		type:"POST",
-		url:"bd/data-cotizacion.php",
-		data:{ encabezado: cencabezado, detalle: cdetalle, reg_cotizacion : 1 },
-		beforeSend: function () {
-			$("#waitconfirm").html("Espere...");
-		},
-		success: function( response ){
-			$("#waitconfirm").html( response );
-		}
-	});
+		$.ajax({
+			type:"POST",
+			url:"bd/data-pedido.php",
+			data:{ encabezado: pencabezado, detalle: pdetalle, reg_pedido : 1 },
+			beforeSend: function () {
+				$("#waitconfirm").html("Espere...");
+			},
+			success: function( response ){
+				$("#waitconfirm").html( response );
+			}
+		});	
+	}
+	
 }
 /* --------------------------------------------------------- */
 function isNumberKey(evt){
@@ -226,8 +230,8 @@ $( document ).ready(function() {
 	
 	/*===============================================================================*/
 	
-	$("#bt_reg_cotizacion").on( "click", function(){
-		guardarCotizacion();	
+	$("#bt_reg_pedido").on( "click", function(){
+		guardarPedido();	
     });
 	
 });

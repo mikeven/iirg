@@ -6,8 +6,8 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaCotizaciones( $link ){
 		$lista_c = array();
-		$q = "Select IdCotizacion2 as id, numero, date_format(fecha_emision,'%d/%m/%Y') as Fecha, Nombre, Total 
-		from cotizacion order by Nombre asc";
+		$q = "Select c.IdCotizacion2 as idc, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total
+				from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -49,9 +49,9 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.IdCliente2 as idcliente, c.fecha_emision as femision, c.validez as validez, 
-		c.pcontacto as pcontacto, c.iva as iva, c.Observaciones1 as obs1, k.Nombre as nombre, k.Rif as rif, k.Direccion as direccion, 
-		k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.IdCliente2 as idcliente, date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, c.iva as iva, c.Observaciones1 as obs1, k.Nombre as nombre, 
+		k.Rif as rif, k.Direccion as direccion, k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email 
+		FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
@@ -65,6 +65,7 @@
 		$q = "insert into detallecotizacion ( IdCotizacion2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idc, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
+		
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
@@ -78,11 +79,10 @@
 	function guardarCotizacion( $dbh, $encabezado, $detalle ){
 		//Guarda el registro de la cotización
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into cotizacion ( numero, IdCliente2, fecha_emision, pcontacto, iva, validez  ) 
-		values ( $encabezado->numero, $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', $encabezado->iva, '$encabezado->cvalidez' )";
+		$q = "insert into cotizacion ( numero, IdCliente2, fecha_emision, pcontacto, iva, Total, validez  ) 
+		values ( $encabezado->numero, $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', $encabezado->iva, 
+		$encabezado->total, '$encabezado->cvalidez' )";
 		$data = mysql_query( $q, $dbh );
-
-		//echo $q;
 
 		return mysql_insert_id();
 	}

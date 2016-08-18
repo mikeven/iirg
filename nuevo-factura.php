@@ -53,11 +53,11 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--<link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">-->
     <style>
-    	.input-space{
-			width:95%;
+    .input-space{
+		  width:95%;
 		}
 		.itemtotal_detalle, .itemtotalcotizacion{ width:95%; border:0; background:#FFF; text-align:right;}
 		.totalitem_detalle, .ftotalizacion{ width:100%; text-align:right; }
@@ -191,12 +191,12 @@
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                       <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_cotizaciones">PEDIDO</button>
+                                      data-target="#lista_pedidos">PEDIDO</button>
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="fpedido" readonly 
                                     name="pedido" value="<?php echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                    <input type="hidden" class="form-control" id="idCotizacion" value="<?php echo $encabezado["idc"]?>">
+                                    <input type="hidden" class="form-control" id="idCotizacion" value="<?php echo $encabezado["idp"]?>">
                                     <input type="hidden" class="form-control" id="iva" value="<?php echo $encabezado["iva"]?>">
                                 </div>
                             </div><!-- /.form group -->
@@ -213,7 +213,7 @@
                             	</div>
                             </div><!-- /.form group -->
                             <!-- Modal -->
-                            	<?php include( "subforms/tablas/tabla_cotizaciones_modal.php" ); ?>
+                            	<?php include( "subforms/tablas/tabla_pedidos_modal.php" ); ?>
                             <!-- /.Modal -->
                                 <div class="row">
                                     <div class="col-md-5">
@@ -223,7 +223,7 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="npedido" name="numero" required readonly value="<?php echo $num_nvopedido; ?>">
+                                                <input type="text" class="form-control" id="npedido" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>

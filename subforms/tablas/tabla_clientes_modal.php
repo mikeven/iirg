@@ -23,8 +23,8 @@
                     <td>
                     	<div class="item_cliente_lmodal" data-label="<?php echo $c["Nombre"];?>" 
                         data-idc="<?php echo $c["idCliente2"];?>" data-npc="<?php echo $c["pcontacto"];?>">
-							<?php echo $c["Nombre"];?>
-                        </div>
+							           <a href="#!"><?php echo $c["Nombre"];?></a>
+                      </div>
                     </td>
                 </tr>
                 <?php } ?>

@@ -57,13 +57,14 @@ function obtenerVectorDetalleC(){
 	return JSON.stringify( detallef );
 }
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, iva ){
+function obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, total, iva ){
 	encabezado = new Object();
 	encabezado.numero = numero;
 	encabezado.idc = idc;
 	encabezado.femision = femision;
 	encabezado.cvalidez = cvalidez;
 	encabezado.pcontacto = pcontacto;
+	encabezado.total = total;
 	encabezado.iva = iva;
 
 	return JSON.stringify( encabezado );
@@ -76,9 +77,10 @@ function guardarCotizacion(){
 	var femision = $( '#femision' ).val();
 	var cvalidez = $( '#cvalidez' ).val();
 	var pcontacto = $( '#cpcontacto' ).val();
+	var total = $( '#ftotal' ).val();
 	var iva = $( '#iva' ).val();
 	
-	cencabezado = obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, iva );
+	cencabezado = obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, total, iva );
 	cdetalle = obtenerVectorDetalleC();
 	
 	$.ajax({

@@ -3,23 +3,25 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaPedidos( $link ){
-		$lista_c = array();
-		$q = "Select IdCotizacion, date_format(fecha_emision,'%d/%m/%Y') as Fecha, 
-				Nombre, Total from cotizacion order by Nombre asc";
+		$lista_p = array();
+		$q = "Select p.IdPedido2 as idp, date_format(p.fecha_emision,'%d/%m/%Y') as Fecha, c.Nombre as Nombre, p.Total as Total
+				from pedido p, cliente c where p.IdCliente2 = c.IdCliente2 order by p.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
-		while( $c = mysql_fetch_array( $data ) ){
-			$lista_c[] = $c;	
+		while( $p = mysql_fetch_array( $data ) ){
+			$lista_p[] = $p;	
 		}
-		return $lista_c;	
+		return $lista_p;	
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	function obtenerProximoNumeroPedido( $dbh ){
+		//Obtiene el número correspondiente a una nueva factura
 		$q = "select MAX(numero) as num from pedido";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	function mostrarItemDocumento( $ditem, $i ){
+		//Muestra el renglón con el ítem de detalle al cargar el pedido para generar Factura (nuevo-factura-php)
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
 		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
@@ -39,7 +41,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetallePedido( $dbh, $idp ){
-		
+		// Obtiene los ítems del detalle de un pedido
 		$detalle = array();
 		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
 		PrecioUnit as punit, PrecioTotal as ptotal, und from detallepedido where IdPedido2 = $idp";
@@ -82,10 +84,12 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarPedido( $dbh, $encabezado, $detalle ){
 		//Guarda el registro de un pedido
-		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, iva  ) 
-		values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', $encabezado->iva )";
-		//$data = mysql_query( $q, $dbh );
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$total = number_format( $encabezado->total, 2, ".", "" );
+		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, iva, Total  ) 
+			values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', 
+			$encabezado->iva, $encabezado->total )";
+		$data = mysql_query( $q, $dbh );
 
 		echo $q;
 

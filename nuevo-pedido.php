@@ -194,9 +194,12 @@
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="pcotizacion" readonly 
-                                    name="cotizacion" value="<?php echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                    <input type="hidden" class="form-control" id="idCotizacion" value="<?php echo $encabezado["idc"]?>">
-                                    <input type="hidden" class="form-control" id="iva" value="<?php echo $encabezado["iva"]?>">
+                                    name="cotizacion" 
+                                    value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
+                                    <input type="hidden" class="form-control" id="idCotizacion" 
+                                      value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
+                                    <input type="hidden" class="form-control" id="iva" 
+                                      value="<?php if( isset($encabezado) ) echo  $encabezado["iva"]?>">
                                 </div>
                             </div><!-- /.form group -->
                             <div class="form-group">
@@ -207,8 +210,9 @@
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
-                                    value="<?php echo $encabezado["nombre"]?>">
-                                    <input type="hidden" class="form-control" id="idCliente" value="<?php echo $encabezado["idcliente"]?>">
+                                    value="<?php if(isset($encabezado)) echo $encabezado["nombre"]?>">
+                                    <input type="hidden" class="form-control" id="idCliente" 
+                                    value="<?php if ( isset($encabezado) ) echo $encabezado["idcliente"]?>">
                             	</div>
                             </div><!-- /.form group -->
                             <!-- Modal -->
@@ -304,85 +308,86 @@
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        <div class="row" id="ficha_cotizacion">
-                        	<div class="col-md-10 col-md-offset-1">
-                            	
-                                <div id="detalle_cotizacion">
-                                    
-                                    <div class="box box-primary">	
-                                        <div class="box-body">
-                                        	<input id="itemcont" name="contadoritems" type="hidden" value="0">
-                                            <table class="table table-condensed" id="dp_table">
-                                                <tbody>
-                                                    <tr>
-                                                        <th width="45%" class="tit_tdf_i">Descripción</th>
-                                                        <th width="10%" class="tit_tdf">Cantidad</th>
-                                                        <th width="10%" class="tit_tdf">UND</th>
-                                                        <th width="15%" class="tit_tdf">Precio Unit</th>
-                                                        <th width="15%" class="tit_tdf">Total item</th>
-                                                        <th width="5%" class="tit_tdf"></th>
-                                                    </tr>
-                                                    <?php $ni=0; 
-                                                      foreach( $detalle as $item ){ $ni++;
-                                                        echo mostrarItemDocumento( $item, $ni );
-                                                    }?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    					
-                                </div><!--/.detalle_cotizacion-->
-                                
-                                <div class="row" id="pie_cotizacion">
-                                	<table class="table table-condensed" id="pietabla_table">
-                                        <tbody>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">SubTotal</th>
-                                                <th width="15%">
-                                                	<div id="fsub_total" class="ftotalizacion">
-                                                    	<div class="input-group">
-                                                    		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                            id="fstotal" value="<?php echo $totales["subtotal"]?>" readonly>
-                                                		</div>
-                                                	</div>
-                                                </th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
-                                                <th width="15%">
-                                                	<div id="fimpuesto" class="ftotalizacion">
-                                                    	<div class="input-group">
-                                                        	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                                    		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                            id="fiva" value="<?php echo $totales["iva"]?>" readonly>
-                                                		</div>
-                                                	</div></th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">Total</th>
-                                                <th width="15%">
-                                                	<div id="fac_total" class="ftotalizacion">
-                                                    	<div class="input-group">
-                                                    		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                            id="ftotal" value="<?php echo $totales["total"]?>" readonly>
-                                                		</div>
-                                                	</div>
-                                                </th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                        </tbody>
-                                    </table>			
-                                </div>
-                            
-                            </div><!--/.col-md-8-->
-                        	
-                        </div><!-- /.pie_cotizacion -->
-                    
+                        
+                        <?php if(isset( $cotizacion )) { ?>
+                          <div class="row" id="ficha_cotizacion">
+                          	<div class="col-md-10 col-md-offset-1">
+                              	
+                                  <div id="detalle_cotizacion">
+                                      
+                                      <div class="box box-primary">	
+                                          <div class="box-body">
+                                          	<input id="itemcont" name="contadoritems" type="hidden" value="0">
+                                              <table class="table table-condensed" id="dp_table">
+                                                  <tbody>
+                                                      <tr>
+                                                          <th width="45%" class="tit_tdf_i">Descripción</th>
+                                                          <th width="10%" class="tit_tdf">Cantidad</th>
+                                                          <th width="10%" class="tit_tdf">UND</th>
+                                                          <th width="15%" class="tit_tdf">Precio Unit</th>
+                                                          <th width="15%" class="tit_tdf">Total item</th>
+                                                          <th width="5%" class="tit_tdf"></th>
+                                                      </tr>
+                                                      <?php $ni=0; 
+                                                        foreach( $detalle as $item ){ $ni++;
+                                                          echo mostrarItemDocumento( $item, $ni );
+                                                      }?>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div><!--/.detalle_cotizacion-->
+                                  
+                                  <div class="row" id="pie_cotizacion">
+                                  	<table class="table table-condensed" id="pietabla_table">
+                                          <tbody>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">SubTotal</th>
+                                                  <th width="15%">
+                                                  	<div id="fsub_total" class="ftotalizacion">
+                                                      	<div class="input-group">
+                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
+                                                              id="fstotal" value="<?php echo $totales["subtotal"]?>" readonly>
+                                                  		</div>
+                                                  	</div>
+                                                  </th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
+                                                  <th width="15%">
+                                                  	<div id="fimpuesto" class="ftotalizacion">
+                                                      	<div class="input-group">
+                                                          	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
+                                                              id="fiva" value="<?php echo $totales["iva"]?>" readonly>
+                                                  		</div>
+                                                  	</div></th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">Total</th>
+                                                  <th width="15%">
+                                                  	<div id="fac_total" class="ftotalizacion">
+                                                      	<div class="input-group">
+                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
+                                                              id="ftotal" value="<?php echo $totales["total"]?>" readonly>
+                                                  		</div>
+                                                  	</div>
+                                                  </th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                          </tbody>
+                                      </table>			
+                                  </div>
+                              </div><!--/.col-md-8-->
+                          </div><!-- /.pie_cotizacion -->
+                        
+                        <?php } ?>
+
                     </div><!-- /.box-body -->
 					<div id="waitconfirm"></div>
                     <div class="box-footer" align="center">

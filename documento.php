@@ -13,27 +13,30 @@
 
 	checkSession( '' );
 	
-	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
-		
-		$id = $_GET["id"];
-		$tdd = $_GET["tipo_documento"]; 
-		
-		if( $tdd == "ctz" ){
-			$documento = obtenerCotizacionPorId( $dbh, $id );
-			$encabezado = $documento["encabezado"];
+  if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
+    $id = $_GET["id"];
+    $tdd = $_GET["tipo_documento"]; 
+
+    if( $tdd == "ctz" ){
+    	$documento = obtenerCotizacionPorId( $dbh, $id );
+    	$encabezado = $documento["encabezado"];
+      $obs1 = $encabezado["obs1"];
+      $obs2 = "Validez".$encabezado["validez"];
       $detalle_d = $documento["detalle"];
       $tdocumento = "Cotización";
-		}
+    }
     if( $tdd == "ped" ){
       $documento = obtenerPedidoPorId( $dbh, $id );
       $encabezado = $documento["encabezado"];
       $detalle_d = $documento["detalle"];
       $tdocumento = "Pedido";
     }
+    $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
-	}
-	else{
-	}
+  }
+  else{
+
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,8 +120,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Invoice
-            <small>#007612</small>
+            <?php echo $tdocumento." #".$encabezado["nro"]; ?>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -142,7 +144,7 @@
             <div class="row invoice-info" id="membrete">
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
                 <div class="col-sm-8 invoice-col" align="center">
-                    <div id="lin1">INSUMOS INFORMATICOS R & G, C.A.</div>
+                    <div id="lin1">INSUMOS INFORMÁTICOS R & G, C.A.</div>
                     <div id="lin2">Suministros para Computación y Papelería</div>
                     <div id="lin3" class="membrete3">Calle Este 16, Sordo a Peláez, Residencias Sorpe, P.B. Local 1</div>
                     <div id="lin4" class="membrete3">Parroquia Santa Rosalía - Caracas</div>
@@ -160,9 +162,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
                 <div class="col-sm-3 invoice-col" id="dcotizacion">
-                    
-                    <div id="dctz_numero"><?php echo $tdocumento.":".$encabezado["nro"];?></div>
-                    <div id="dctz_fecha">Fecha: <?php echo $encabezado["femision"];?></div>
+                    <div id="dctz_numero"><?php echo $tdocumento.":   ".$encabezado["nro"];?></div>
+                    <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
                     <div id="dctz_tlf">Teléfono: 0212 - 5456529</div>
                     <div id="dctz_fax">Fax:</div>
                 </div><!-- /.col -->
@@ -200,7 +201,8 @@
             <!-- accepted payments column -->
             <div class="col-xs-6">
               <p class="lead">Observaciones:</p>
-                Validez de este documento es solo por 3 días  
+                <div><?php echo $obs1; ?></div>
+                <div><?php echo $obs2; ?></div>  
               </p>
             </div><!-- /.col -->
             <div class="col-xs-6">
@@ -212,7 +214,7 @@
                     <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
                   </tr>
                   <tr>
-                    <th>IVA (<?php echo $encabezado["iva"]?>%)</th>
+                    <th>IVA (<?php echo $eiva; ?>%)</th>
                     <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
                   </tr>
                   <tr>
