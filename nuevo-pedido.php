@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Registro de nuevo proveedor
+	* IIRG - Registro de nuevo pedido
 	* 
 	*/
 	session_start();
@@ -14,11 +14,12 @@
 	
   checkSession( '' );
 
-	$iva = 0.12;
+	
   if( isset( $_GET["idc"] ) ){
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
+    $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
   $num_nvopedido = obtenerProximoNumeroPedido( $dbh );

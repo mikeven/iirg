@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Registro de nuevo proveedor
+	* IIRG - Registro de nueva cotización
 	* 
 	*/
 	session_start();
