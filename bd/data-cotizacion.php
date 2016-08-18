@@ -1,5 +1,5 @@
 <?php
-	/* R&G - Funciones de clentes */
+	/* R&G - Gestión de datos de cotizaciones */
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	ini_set( 'display_errors', 1 );
@@ -27,9 +27,9 @@
 			$subtotal += ($d["punit"] * $d["cantidad"]);	
 		}
 
-		$totales["subtotal"] = number_format( $subtotal, 2, ",", "." ); 
-		$totales["iva"] = number_format( $subtotal * $pcge, 2, ",", "." );
-		$totales["total"] = number_format( $subtotal + ($subtotal * $pcge), 2, ",", "." );
+		$totales["subtotal"] = number_format( $subtotal, 2, ",", "" ); 
+		$totales["iva"] = number_format( $subtotal * $pcge, 2, ",", "" );
+		$totales["total"] = number_format( $subtotal + ($subtotal * $pcge), 2, ",", "" );
 		
 		return $totales;
 	}

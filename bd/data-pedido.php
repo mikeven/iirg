@@ -1,5 +1,5 @@
 <?php
-	/* R&G - Funciones de clentes */
+	/* R&G - Gestión de datos de pedidos */
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaPedidos( $link ){
@@ -85,9 +85,9 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
 		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, iva  ) 
 		values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', $encabezado->iva )";
-		$data = mysql_query( $q, $dbh );
+		//$data = mysql_query( $q, $dbh );
 
-		//echo $q;
+		echo $q;
 
 		return mysql_insert_id();
 	}
