@@ -1,0 +1,44 @@
+## Asignar la clave foránea de la tabla DetalleFactura con el id de la tabla Producto (Producto - Detalle Factura)
+
+UPDATE detallefactura INNER JOIN Producto
+ON detallefactura.codigo_producto = Producto.Codigo
+SET detallefactura.IdProducto = Producto.IdProducto
+
+## Asignar la clave foránea de la tabla Factura con el id de la tabla Cliente (Factura-Cliente)
+
+UPDATE factura INNER JOIN cliente
+ON factura.IdCliente = cliente.IdCliente
+SET factura.IdCliente2 = cliente.IdCliente2
+
+
+## Asignar la clave foránea de la tabla DetalleFactura con el id de la tabla Factura (Factura-DetalleFactura)
+
+UPDATE detallefactura INNER JOIN factura
+ON detallefactura.IdFactura = factura.IdFactura
+SET detallefactura.IdFactura2 = factura.IdFactura2
+
+## Relación (DetallePedido - Pedido)
+UPDATE detallepedido INNER JOIN pedido
+ON pedido.IdPedido = detallepedido.IdPedido
+SET detallepedido.IdPedido2 = pedido.IdPedido2
+
+## Relación (DetallePedido - Producto)
+UPDATE detallepedido INNER JOIN Producto
+ON detallepedido.Idarticulo = Producto.Codigo
+SET detallepedido.IdProducto = Producto.IdProducto
+
+## Relación (Cliente - Pedido)
+UPDATE pedido INNER JOIN cliente
+ON pedido.IdCliente = cliente.IdCliente
+SET pedido.IdCliente2 = cliente.IdCliente2
+
+## Relación (DetalleCotizacion - Cotizacion)
+UPDATE detallecotizacion INNER JOIN cotizacion
+ON cotizacion.IdCotizacion = detalleCotizacion.IdCotizacion
+SET detalleCotizacion.IdCotizacion2 = cotizacion.IdCotizacion2
+
+## Fecha emisión de cotizacion
+UPDATE cotizacion SET fecha_emision = STR_TO_DATE ( Fecha, '%d/%m/%Y')
+
+#Ajuste de valores numéricos de varchar a float (de coma a punto)
+UPDATE detallecotizacion SET PrecioTotal = CAST( REPLACE ( PrecioTotal, ",", "." ) AS DECIMAL(10,2))

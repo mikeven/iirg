@@ -1,0 +1,55 @@
+# Activar RewriteEngine
+RewriteEngine on
+#===================================================== 
+# Reglas para url amigables
+# Input:  example/key/
+# Output: example.php?id=key
+
+
+
+#=====================================================
+# [User session]
+#=====================================================
+# [HOSTS]
+# main.php
+RewriteRule ^principal$ main.php
+
+#=====================================================
+#CLIENTES
+#=====================================================
+
+# clientes.php
+RewriteRule ^clientes$ clientes.php
+# nuevo-clientes.php
+RewriteRule ^nuevo-cliente$ nuevo-clientes.php
+# ficha_cliente.php?c=id
+RewriteRule ^cliente/([0-9]+)$ ficha_cliente.php?c=$1       
+
+
+#=====================================================
+#PROVEEDORES
+#=====================================================
+
+# clientes.php
+RewriteRule ^clientes$ clientes.php
+# nuevo-proveedor.php
+RewriteRule ^nuevo-proveedor$ nuevo-proveedor.php
+# ficha_proveedor.php?c=id
+RewriteRule ^proveedor/([0-9]+)$ ficha_proveedor.php?p=$1
+
+#=====================================================
+#ARTICULOS
+#=====================================================
+
+# articulos.php
+RewriteRule ^articulos$ articulos.php
+# nuevo-proveedor.php
+RewriteRule ^nuevo-articulo$ nuevo-articulo.php
+# ficha_articulo.php?a=id
+RewriteRule ^articulo/([0-9]+)$ ficha_articulo.php?a=$1
+
+# categorias.php
+RewriteRule ^categorias-art$ categorias.php
+
+
+
