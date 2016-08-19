@@ -3,9 +3,9 @@
 	Conexión a base de datos */
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	$servidor = "127.0.0.1";
-	$usuariobd = "mgideasn_admin";
+	$usuariobd = "admin";
 	$passbd = "adminrg";
-	$basedatos = "mgideasn_iirg";
+	$basedatos = "IIRG";
 	//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
 	
 	$dbh = mysql_connect ( $servidor, $usuariobd, $passbd ) or die('No se puede conectar a '.$servidor.": ". mysql_error());
