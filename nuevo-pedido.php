@@ -310,7 +310,7 @@
                         <!-- ************************************************************************************************ -->
                         
                         <?php if(isset( $cotizacion )) { ?>
-                          <div class="row" id="ficha_cotizacion">
+                          <div class="row" id="contenido_pedido">
                           	<div class="col-md-10 col-md-offset-1">
                               	
                                   <div id="detalle_cotizacion">
