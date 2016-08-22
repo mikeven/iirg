@@ -9,6 +9,7 @@
 	include( "bd/data-usuario.php" );
   include( "bd/data-pedido.php" );
 	include( "bd/data-articulo.php" );
+  include( "bd/data-factura.php" );
 	include( "bd/data-cotizacion.php" );
 
 	checkSession( '' );
@@ -29,7 +30,17 @@
       $documento = obtenerPedidoPorId( $dbh, $id );
       $encabezado = $documento["encabezado"];
       $detalle_d = $documento["detalle"];
+      $obs1 = $encabezado["obs1"];
+      $obs2 = $encabezado["obs2"];
       $tdocumento = "Pedido";
+    }
+    if( $tdd == "fac" ){
+      $documento = obtenerFacturaPorId( $dbh, $id );
+      $encabezado = $documento["encabezado"];
+      $detalle_d = $documento["detalle"];
+      $obs1 = $encabezado["obs1"];
+      $obs2 = $encabezado["obs2"];
+      $tdocumento = "Factura";
     }
     $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );

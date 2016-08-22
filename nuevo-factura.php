@@ -20,6 +20,7 @@
     $pedido = obtenerPedidoPorId( $dbh, $_GET["idp"] );
     $encabezado = $pedido["encabezado"];
     $detalle = $pedido["detalle"];
+    $nitems = count( $detalle );
     $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
@@ -94,7 +95,6 @@
     <script src="plugins/fastclick/fastclick.min.js"></script>
     <script src="dist/js/app.min.js"></script>
     <script src="dist/js/demo.js"></script>
-    <script src="js/fn-cotizacion.js"></script>
     <script src="js/fn-factura.js"></script>
     <script>
         $( document ).ready(function() {
@@ -179,10 +179,10 @@
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">REGISTRAR NUEVA FACTURA</h3>
-                  <div class="icon-color"><i class="fa fa-clipboard fa-2x"></i></div>
+                  <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_npedido" name="form_agregar_cotizacion">
+                <form role="form" id="frm_nfactura" name="form_agregar_factura">
                 	<input name="reg_cliente" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
@@ -316,8 +316,8 @@
                                       
                                       <div class="box box-primary">	
                                           <div class="box-body">
-                                          	<input id="itemcont" name="contadoritems" type="hidden" value="0">
-                                              <table class="table table-condensed" id="dp_table">
+                                          	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
+                                              <table class="table table-condensed" id="df_table">
                                                   <tbody>
                                                       <tr>
                                                           <th width="45%" class="tit_tdf_i">Descripción</th>

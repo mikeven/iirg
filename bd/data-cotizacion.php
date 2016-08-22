@@ -6,8 +6,9 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaCotizaciones( $link ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total
-				from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 order by c.fecha_emision DESC";
+		$q = "Select c.IdCotizacion2 as idc, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, 
+		k.Nombre as Nombre, c.Total as Total 
+		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	

@@ -19,11 +19,75 @@
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
-	if( isset( $_POST["reg_factura"] ) ){
-		//echo "FACTURA ".$_POST["form"];
-		$dataform = json_decode($_POST["form"]);
-		print_r($dataform);
+
+	function obtenerDetalleFactura( $dbh, $idf ){
+		// Obtiene los ítems del detalle de una factura
+		$detalle = array();
+		$q = "select IdDetalle as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
+		PrecioUnit as punit, PrecioTotal as ptotal, und from detallefactura where IdFactura2 = $idf";
+		
+		$data = mysql_query( $q, $dbh );
+		while( $item = mysql_fetch_array( $data ) ){
+			$detalle[] = $item;	
+		}
+		return $detalle;
+	}
+
+	function obtenerFacturaPorId( $dbh, $idf ){
+		//Retorna el registro de factura y sus ítems de detalle
+		$q = "select f.numero as nro, f.IdFactura2 as idf, f.IdCliente2 as idcliente, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
+		f.iva as iva, f.Observaciones1 as obs1, f.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, c.Direccion as direccion, 
+		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
+		FROM factura f, cliente c where f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
+		
+		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
+		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
+		
+		return $factura;
+	}
+
+	function guardarItemDetalleF( $dbh, $idf, $item ){
+		//Guarda el registro individual de un ítem del detalle de pedido
+		$ptotal = $item->dfcant * $item->dfpunit;
+		$q = "insert into detallefactura ( IdFactura2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
+		values ( $idf, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
+		$data = mysql_query( $q, $dbh );
+		//echo $q."<br>";
+
+		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-?>
+	function guardarDetalleFactura( $dbh, $idp, $detalle ){
+		//Registra los ítems contenidos en el detalle de la factura
+		foreach ( $detalle as $item ){
+			guardarItemDetalleF( $dbh, $idp, $item );	
+		}
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function guardarFactura( $dbh, $encabezado, $detalle ){
+		//Guarda el registro de una factura
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$total = number_format( $encabezado->total, 2, ".", "" );
+		$q = "insert into factura ( numero, IdPedido, IdCliente2, fecha_emision, iva, Total  ) 
+			values ( $encabezado->numero, $encabezado->idpedido, $encabezado->idcliente, '$fecha_mysql', 
+			$encabezado->iva, $encabezado->total )";
+		$data = mysql_query( $q, $dbh );
+
+		//echo $q;
+		return mysql_insert_id();
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	if( isset( $_POST["reg_factura"] ) ){
+		include( "bd.php" );
+		$encabezado = json_decode( $_POST["encabezado"] );
+		$detalle = json_decode( $_POST["detalle"] );
+		
+		$idf = guardarFactura( $dbh, $encabezado, $detalle );
+		
+		if( ( $idf != 0 ) && ( $idf != "" ) ){
+			guardarDetalleFactura( $dbh, $idf, $detalle );		
+		}
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+
+	

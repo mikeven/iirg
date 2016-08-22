@@ -127,7 +127,7 @@ function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
 	return campo;
 }
 /* --------------------------------------------------------- */
-function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
+function agregarItemPedido( nitem, idart, art, qant, und, punit, ptot ){
 	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
 	c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
 	c_ptot = obtenerItemDCotizacion( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly", "text" );
@@ -145,7 +145,8 @@ function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
 				c_ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onClick='elimItemF("+ id_bot_elim +")'>"+
 				"<i class='fa fa-times'></i></button></th></tr>";
 	
-	$( itemf ).appendTo("#df_table tbody").show("slow");
+	//alert(itemf);
+	$( itemf ).appendTo("#dp_table tbody").show("slow");
 	resetItemsCotizacion();
 	calcularTotales();
 }
@@ -224,7 +225,7 @@ $( document ).ready(function() {
 		nitem++;
 		
 		if( $("#idArticulo").val() != "0" && $( "#fptotal" ).val() != "0.00" ){
-			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
+			agregarItemPedido( nitem, idart, art, qant, und, punit, ptot );	
 		}
     });
 	

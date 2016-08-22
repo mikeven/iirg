@@ -19,6 +19,7 @@
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
+    $nitems = count( $detalle );
     $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
@@ -93,7 +94,6 @@
     <script src="plugins/fastclick/fastclick.min.js"></script>
     <script src="dist/js/app.min.js"></script>
     <script src="dist/js/demo.js"></script>
-    <script src="js/fn-cotizacion.js"></script>
     <script src="js/fn-pedido.js"></script>
     <script>
         $( document ).ready(function() {
@@ -317,7 +317,7 @@
                                       
                                       <div class="box box-primary">	
                                           <div class="box-body">
-                                          	<input id="itemcont" name="contadoritems" type="hidden" value="0">
+                                          	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
                                               <table class="table table-condensed" id="dp_table">
                                                   <tbody>
                                                       <tr>

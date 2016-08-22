@@ -7,7 +7,7 @@
 /* --------------------------------------------------------- */
 function initValid(){
   
-	$('#frm_ncotizacion').bootstrapValidator({
+	$('#frm_nfactura').bootstrapValidator({
 		message: 'Revise el contenido del campo',
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',
@@ -45,7 +45,7 @@ function obtenerVectorDetalleP(){
 	var detallef = new Array();
 	var renglon = new Object();
 	
-	$("#dp_table input").each(function (){ 
+	$("#df_table input").each(function (){ 
 		name = $(this).attr("name");
 		renglon["" + name + ""] = $(this).val();
 
@@ -80,13 +80,13 @@ function guardarFactura(){
 	
 	if( idcliente != "" && total != "" && total != 0.00 && idpedido != "" ){
 		
-		pencabezado = obtenerVectorEncabezado( numero, idpedido, idcliente, femision, total, iva );
-		pdetalle = obtenerVectorDetalleP();
+		fencabezado = obtenerVectorEncabezado( numero, idpedido, idcliente, femision, total, iva );
+		fdetalle = obtenerVectorDetalleP();
 	
 		$.ajax({
 			type:"POST",
 			url:"bd/data-factura.php",
-			data:{ encabezado: pencabezado, detalle: pdetalle, reg_pedido : 1 },
+			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
 			beforeSend: function () {
 				$("#waitconfirm").html("Espere...");
 			},

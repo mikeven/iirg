@@ -4,7 +4,8 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaPedidos( $link ){
 		$lista_p = array();
-		$q = "Select p.IdPedido2 as idp, date_format(p.fecha_emision,'%d/%m/%Y') as Fecha, c.Nombre as Nombre, p.Total as Total
+		$q = "Select p.IdPedido2 as idp, p.numero as numero, date_format(p.fecha_emision,'%d/%m/%Y') as Fecha, 
+				c.Nombre as Nombre, p.Total as Total
 				from pedido p, cliente c where p.IdCliente2 = c.IdCliente2 order by p.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $p = mysql_fetch_array( $data ) ){
@@ -70,7 +71,7 @@
 		$q = "insert into detallepedido ( IdPedido2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idp, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
-		echo $q."<br>";
+		//echo $q."<br>";
 
 		return mysql_insert_id();
 	}

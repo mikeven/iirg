@@ -15,12 +15,13 @@
             <table id="lcotizaciones" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Fecha</th><th>Cliente</th><th>Total</th>
+                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
                     <?php foreach( $cotizaciones as $c ){?>  
                     <tr>
+                        <td><?php echo $c["numero"];?></td>
                         <td><?php echo $c["Fecha"];?></td>
                         <td><a href="nuevo-pedido.php?idc=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a></td>
                         <td><?php echo $c["Total"]; ?></td>
@@ -29,7 +30,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Nombre</th><th>Descripción</th><th>Total</th>
+                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
                     </tr>
                 </tfoot>
             </table>
