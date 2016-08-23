@@ -201,7 +201,7 @@
                       <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                          <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" data-mask name="pcontacto">
+                          <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto">
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
                       <div class="form-group">

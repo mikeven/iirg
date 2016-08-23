@@ -12,7 +12,7 @@ function reg_cliente( frm_cliente ){
         url:url_data,
         data:{ form: frm_cliente.serialize(), reg_cliente:1 },
         success: function( response ){
-			alert(response);
+			//alert(response);
 			/*if( response == 1 ){
 				window.location = "main.php";
 			}

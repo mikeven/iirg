@@ -5,10 +5,12 @@
 	ini_set( 'display_errors', 1 );
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarCliente( $cliente, $dbh ){
-		$q = "insert into cliente (Nombre, Rif, Email, telefono1, telefono2, Direccion ) 
-		values ( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion]' )";
+		$q = "insert into cliente (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion ) 
+		values ( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[pcontacto]', 
+			'$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion]' )";
 		$data = mysql_query( $q, $dbh );
 		
+		//echo $q;
 		return mysql_insert_id();		
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------*/
@@ -44,10 +46,13 @@
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_cliente"] ) || isset( $_POST["mod_cliente"] ) ){
+		
+		include("bd.php");
 		$cliente["nombre"] = $_POST["nombre"];
 		$cliente["rif"] = $_POST["rif"];
 		$cliente["email"] = $_POST["email"];
 		$cliente["direccion"] = $_POST["direccion"];
+		$cliente["pcontacto"] = $_POST["pcontacto"];
 		$cliente["tel1"] = $_POST["telefono1"];
 		$cliente["tel2"] = $_POST["telefono2"];
 		

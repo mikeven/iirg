@@ -5,12 +5,12 @@
 */
 /* --------------------------------------------------------- */	
 /* --------------------------------------------------------- */
-function reg_cliente( frm_cliente ){
+function reg_proveedor( frm_nproveedor ){
 	url_data = "bd/data-proveedor.php";
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ form: frm_cliente.serialize(), reg_cliente:1 },
+        data:{ form: frm_nproveedor.serialize(), reg_proveedor:1 },
         success: function( response ){
 			alert(response);
 			/*if( response == 1 ){
@@ -23,8 +23,7 @@ function reg_cliente( frm_cliente ){
 }
 /* --------------------------------------------------------- */
 $(document).ready(function(){
-	$("#bt_reg_proveedor_X").click(function(e){ 
-		var frm = $("#frm_ncliente");
-		reg_cliente( frm );
+	$("#bt_reg_proveedor").click(function(e){ 
+		reg_proveedor( $("#frm_nproveedor") );
 	});
 });

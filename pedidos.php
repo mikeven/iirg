@@ -58,33 +58,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <!-- page script -->
-    <script>
-      $(function () {
-        $('#example2').DataTable({
-          "paging": true,
-		  "iDisplayLength": 10,
-          "lengthChange": true,
-          "searching": true,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false,
-		  "language": {
-            "lengthMenu": "Mostrar _MENU_ resultados por página",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando pág _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros",
-            "infoFiltered": "(filtrados de _MAX_ regs)",
-			"search": "Buscar:",
-			"paginate": {
-				"first":      "Primero",
-				"last":       "Último",
-				"next":       "Próximo",
-				"previous":   "Anterior"
-			}
-        }
-        });
-      });
-    </script>
+    
 
   <script src="js/fn-clientes.js"></script>
 </head>

@@ -6,6 +6,7 @@
 	session_start();
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
+  include( "bd/data-forms.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	checkSession( '' );
@@ -182,7 +183,7 @@
                       Más acciones <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar cliente</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar artículo</a></li>
                     </ul>
                   </li>
                   

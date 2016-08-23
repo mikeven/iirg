@@ -110,6 +110,9 @@
     </script>
     
     <script src="js/fn-clientes.js"></script>
+    <style>
+      .iconlab{ line-height: 0; }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -217,48 +220,69 @@
                         <div class="form-group">
                           <!--<label for="exampleInputEmail1">Email address</label>-->
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-bookmark-o"></i>
+                                <label for="nombre" class="iconlab">Nombre:</label>
+                              </div>
                               <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
                               required value="<?php echo $cliente["Nombre"];?>">
                             </div>
                         </div><!-- /.form group -->
                           <div class="form-group">
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-registered"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-registered"></i>
+                                <label for="rif" class="iconlab">RIF:</label>
+                              </div>
                               <input id="crif" type="text" class="form-control" placeholder="RIF" 
                               data-mask name="rif" value="<?php echo $cliente["Rif"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                          <div class="form-group">
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-envelope-o"></i>
+                                <label for="email" class="iconlab">Email:</label>
+                              </div>
                               <input id="cemail" type="text" class="form-control" placeholder="Email" 
                               data-mask name="email" value="<?php echo $cliente["Email"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           <div class="form-group">
                           <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                              <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" data-mask name="pcontacto" value="<?php echo $cliente["pcontacto"];?>">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                                <label for="pcontacto" class="iconlab">Persona de contacto:</label>
+                              </div>
+                              <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $cliente["pcontacto"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           <div class="form-group">
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                                <label for="dir" class="iconlab">Dirección:</label>
+                              </div>
                               <input id="cdir" type="text" class="form-control" placeholder="Dirección" 
                               data-mask name="direccion" value="<?php echo $cliente["Direccion"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           <div class="form-group">
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                                <label for="tel1" class="iconlab">Teléfono 1:</label>
+                              </div>
                               <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" 
                               data-mask name="telefono1" value="<?php echo $cliente["telefono1"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           <div class="form-group">
                             <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                              <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                                <label for="tel2" class="iconlab">Teléfono 2:</label>
+                              </div>
                               <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
                               data-mask name="telefono2" value="<?php echo $cliente["telefono2"];?>">
                             </div><!-- /.input group -->

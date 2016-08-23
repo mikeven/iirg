@@ -4,8 +4,8 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarProveedor( $p, $dbh ){
-		$q = "insert into proveedor (Nombre, Rif, Email, telefono1, telefono2, Direccion ) 
-		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[tel1]', '$p[tel2]', '$p[direccion]' )";
+		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion ) 
+		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion]' )";
 		$data = mysql_query( $q, $dbh );
 		
 		return mysql_insert_id();		
@@ -14,7 +14,8 @@
 	function modificarProveedor( $p, $dbh ){
 		
 		$resp["cambio"] = "exito";
-		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion = '$p[direccion]' where idProveedor = $p[id]";
+		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', pcontacto = '$p[pcontacto]', 
+		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion = '$p[direccion]' where idProveedor = $p[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $p["id"];
@@ -33,9 +34,11 @@
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_proveedor"] ) || isset( $_POST["mod_proveedor"] ) ){
+		include("bd.php");
 		$p["nombre"] = $_POST["nombre"];
 		$p["rif"] = $_POST["rif"];
 		$p["email"] = $_POST["email"];
+		$p["pcontacto"] = $_POST["pcontacto"];
 		$p["direccion"] = $_POST["direccion"];
 		$p["tel1"] = $_POST["telefono1"];
 		$p["tel2"] = $_POST["telefono2"];

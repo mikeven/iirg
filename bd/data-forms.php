@@ -2,13 +2,6 @@
 	/* R&G - Funciones de formularios */
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function cambiaf_a_mysql( $fecha ){
-		//Obtiene una fecha del formato dd/mm/YYYY al formato YYYY-mm-dd
-		ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})", $fecha, $mifecha ); 
-		$lafecha = $mifecha[3]."-".$mifecha[2]."-".$mifecha[1];
-		return $lafecha; 
-	}
-
 	function obtenerDataForm( $pairs ){
 		$dataform = array();
 		//Chequeo por pares (campo=valor),(campo=valor),...,(campo=valor)

@@ -4,14 +4,17 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarArticulo( $articulo, $dbh ){
-		$q = "insert into articulo ( Codigo, Descripcion, Presentacion, Foto ) 
-		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[pres]', '$articulo[foto]' )";
+		//Agrega un registro de artículo
+
+		$q = "insert into articulo ( Codigo, Descripcion, Presentacion, idCategoria ) 
+		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[presentacion]', $articulo[categoria] )";
 		$data = mysql_query( $q, $dbh );
-		
+		//echo $q;
 		return mysql_insert_id();		
 	}
 
 	function obtenerArticuloPorId( $ida, $dbh ){
+		//Devuelve registro de artículo dado el ID
 		$q = "Select a.idArticulo as idArticulo, a.Descripcion as descripcion, a.Codigo as codigo, 
 		a.Presentacion as presentacion, c.nombre as categoria from articulo a, categoria c 
 		where a.idArticulo = $ida and a.idCategoria = c.idCategoria";
@@ -24,22 +27,23 @@
 		$q = "insert into categoria ( nombre, descripcion ) values ( '$categoria[nombre]', '$categoria[descripcion]' )";
 		$data = mysql_query( $q, $dbh );
 		
-		return $q;
-		//return mysql_insert_id();		
+		//return $q;
+		return mysql_insert_id();		
 	}
 
 	function agregarUnidad( $nombre, $dbh ){
 		$q = "insert into unidad ( nombre ) values ( '$nombre' )";
 		$data = mysql_query( $q, $dbh );
 		
-		return $q;
-		//return mysql_insert_id();		
+		//return $q;
+		return mysql_insert_id();		
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function modificarArticulo( $articulo, $dbh ){
 		
 		$resp["cambio"] = "exito";
-		$q = "update articulo set Codigo = '$articulo[codigo]', Descripcion = '$articulo[descripcion]', Presentacion = '$articulo[pres]', Foto = '$articulo[foto]' where idArticulo = $articulo[id]";
+		$q = "update articulo set Codigo = '$articulo[codigo]', Descripcion = '$articulo[descripcion]', 
+		Presentacion = '$articulo[pres]', idCategoria = $articulo[categoria] where idArticulo = $articulo[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $articulo["id"];
@@ -98,14 +102,13 @@
 	}	
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_articulo"] ) || isset( $_POST["mod_articulo"] ) ){
-		$articulo["nombre"] = $_POST["nombre"];
-		$articulo["rif"] = $_POST["rif"];
-		$articulo["email"] = $_POST["email"];
-		$articulo["direccion"] = $_POST["direccion"];
-		$articulo["tel1"] = $_POST["telefono1"];
-		$articulo["tel2"] = $_POST["telefono2"];
-		
-		if( isset( $_POST["reg_cliente"] )){
+		include( "bd.php" );
+		$articulo["descripcion"] = $_POST["descripcion"];
+		$articulo["codigo"] = $_POST["codigo"];
+		$articulo["presentacion"] = $_POST["presentacion"];
+		$articulo["categoria"] = $_POST["categoria"];
+
+		if( isset( $_POST["reg_articulo"] )){
 			$idr = agregarArticulo( $articulo, $dbh );
 		}
 		if( isset( $_POST["mod_articulo"] )){
@@ -113,7 +116,7 @@
 			$res = modificarArticulo( $articulo, $dbh );
 			$idr = $res["id"]."&res=$res[cambio]";
 		}
-		
+		//echo $idr;
 		echo "<script>window.location.href='../ficha_articulo.php?a=$idr'</script>";	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/

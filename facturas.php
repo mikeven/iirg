@@ -5,6 +5,7 @@
 	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
+  include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-factura.php" );
 	checkSession( '' );
@@ -14,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Listado de Facturas</title>
+  <title>IIRG | Registro de Facturas</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -57,33 +58,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <!-- page script -->
-    <script>
-      $(function () {
-        $('#example2').DataTable({
-          "paging": true,
-		  "iDisplayLength": 10,
-          "lengthChange": true,
-          "searching": true,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false,
-		  "language": {
-            "lengthMenu": "Mostrar _MENU_ resultados por página",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando pág _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros",
-            "infoFiltered": "(filtrados de _MAX_ regs)",
-			"search": "Buscar:",
-			"paginate": {
-				"first":      "Primero",
-				"last":       "Último",
-				"next":       "Próximo",
-				"previous":   "Anterior"
-			}
-        }
-        });
-      });
-    </script>
+    
 
   <script src="js/fn-clientes.js"></script>
 </head>

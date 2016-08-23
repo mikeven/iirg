@@ -16,6 +16,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>IIRG | Registro de artículos</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -93,7 +94,7 @@
                     descripcion: {
                         validators: { notEmpty: { message: 'Debe indicar descripción' } }
                     },
-					codigo: {
+					          codigo: {
                         validators: { notEmpty: { message: 'Debe indicar código' } }
                     }
                 },

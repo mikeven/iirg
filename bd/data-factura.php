@@ -5,8 +5,8 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link ){
 		$lista_c = array();
-		$q = "Select F.IdFactura as id, C.Nombre as cliente, date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, 
-				F.total as Total from factura F, cliente C where F.IdCliente2 = C.IdCliente2 order by cliente asc";
+		$q = "Select F.IdFactura2 as id, C.Nombre as cliente, date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, 
+				F.total as Total from factura F, cliente C where F.IdCliente2 = C.IdCliente2 order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -68,9 +68,9 @@
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
-		$q = "insert into factura ( numero, IdPedido, IdCliente2, fecha_emision, iva, Total  ) 
+		$q = "insert into factura ( numero, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
 			values ( $encabezado->numero, $encabezado->idpedido, $encabezado->idcliente, '$fecha_mysql', 
-			$encabezado->iva, $encabezado->total )";
+			$encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;

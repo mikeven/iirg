@@ -5,8 +5,8 @@
 	*/
 	session_start();
 	ini_set( 'display_errors', 1 );
-	include( "bd/bd.php" );
-	include( "bd/data-usuario.php" );
+  include( "bd/data-usuario.php" );
+	include( "bd/data-proveedor.php" );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -176,7 +176,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nproveedor" name="form_agregar_proveedor" action="bd/data-proveedor.php" method="post">
-					<input name="reg_proveedor" type="hidden" value="1">
+					          <input name="reg_proveedor" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
                         	<!--<label for="exampleInputEmail1">Email address</label>-->
@@ -196,7 +196,13 @@
                               <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
                               <input id="cemail" type="text" class="form-control" placeholder="Email" data-mask name="email">
                             </div><!-- /.input group -->
-                    	</div><!-- /.form group -->
+                    	  </div><!-- /.form group -->
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                            <input id="pcontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
                         <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
