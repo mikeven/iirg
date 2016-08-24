@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Registro de nuevo proveedor
+	* IIRG - Registro de nuevo artículo
 	* 
 	*/
 	session_start();
@@ -101,27 +101,6 @@
 				callback: function () {
                 	alert("OK");
                 }
-            });
-        });
-		
-		$( document ).ready(function() {
-            $('#frm_ncategoria').bootstrapValidator({
-                message: 'Revise el contenido del campo',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    nombre: {
-                        validators: { notEmpty: { message: 'Debe indicar nombre de categoría' } }
-                    }
-                },
-				onSuccess: function(e, data) {
-					e.preventDefault();
-					reg_categoria( $('#frm_ncategoria') );
-					//document.getElementById("frm_ncategoria").reset();
-				}
             });
         });
     </script>
