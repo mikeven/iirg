@@ -14,7 +14,7 @@
         <tr>
             <td> <?php echo $p["numero"];?></td>
             <td> <?php echo $p["Fecha"];?></td>
-            <td> <a href="documento.php?tipo_documento=fac&id=<?php echo $p["id"]; ?>"><?php echo $p["Nombre"]; ?></a> </td>
+            <td> <a href="documento.php?tipo_documento=ped&id=<?php echo $p["idp"]; ?>"><?php echo $p["Nombre"]; ?></a> </td>
             <td> <?php echo $p["Total"]; ?></td>
         </tr>
         <?php } ?>

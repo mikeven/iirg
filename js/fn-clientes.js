@@ -25,6 +25,6 @@ function reg_cliente( frm_cliente ){
 $(document).ready(function(){
 	$("#bt_reg_cliente").click(function(e){ 
 		var frm = $("#frm_ncliente");
-		reg_cliente( frm );
+		//reg_cliente( frm );
 	});
 });

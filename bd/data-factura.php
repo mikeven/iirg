@@ -73,7 +73,8 @@
 			$encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
-		//echo $q;
+		echo $q;
+		
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */

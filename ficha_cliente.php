@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Registro de nuevo proveedor
+	* IIRG - Ficha de datos de cliente
 	* 
 	*/
 	session_start();

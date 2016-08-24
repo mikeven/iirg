@@ -15,7 +15,7 @@
     <tbody>
         <?php foreach( $clientes as $c ){?>  
         <tr>
-            <td><?php echo $c["Nombre"];?></td>
+            <td><a href="ficha_cliente.php?c=<?php echo $c["idCliente2"]; ?>"><?php echo $c["Nombre"];?></a></td>
             <td><?php echo $c["Rif"]; ?></td>
             <td><?php echo $c["Nit"];?></td>
             <td><?php echo $c["Email"];?></td>

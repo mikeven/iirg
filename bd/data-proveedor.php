@@ -7,7 +7,7 @@
 		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion ) 
 		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion]' )";
 		$data = mysql_query( $q, $dbh );
-		
+		//echo $q;
 		return mysql_insert_id();		
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------*/
@@ -17,7 +17,8 @@
 		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', pcontacto = '$p[pcontacto]', 
 		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion = '$p[direccion]' where idProveedor = $p[id]";
 		$data = mysql_query( $q, $dbh );
-		
+		echo $q;
+
 		$resp["id"] = $p["id"];
 		if( mysql_affected_rows() != 1 )
 			$resp["cambio"] = "";
@@ -27,7 +28,7 @@
 	/* ----------------------------------------------------------------------------------------------------- */
 	function obtenerProveedorPorId( $id, $dbh ){
 		
-		$q = "Select * from proveedor where idProveedor = $id";
+		$q = "select * from proveedor where idProveedor = $id";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		
 		return $data;	
@@ -51,7 +52,7 @@
 			$res = modificarProveedor( $p, $dbh );
 			$idr = $res["id"]."&res=$res[cambio]";
 		}
-		
+		//echo $idr;
 		echo "<script>window.location.href='../ficha_proveedor.php?p=$idr'</script>";	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
