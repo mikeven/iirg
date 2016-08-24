@@ -17,7 +17,7 @@
 		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', pcontacto = '$p[pcontacto]', 
 		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion = '$p[direccion]' where idProveedor = $p[id]";
 		$data = mysql_query( $q, $dbh );
-		echo $q;
+		//echo $q;
 
 		$resp["id"] = $p["id"];
 		if( mysql_affected_rows() != 1 )
