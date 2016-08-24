@@ -8,19 +8,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Registro de Cotizaciones</h4>
+        <h4 class="modal-title" id="myModalLabel">Registro de Pedidos</h4>
       </div>
       <div class="modal-body">
 
             <table id="lpedidos" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Fecha</th><th>Cliente</th><th>Total</th>
+                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <?php foreach( $pedidos as $p ){?>  
+                    <?php foreach( $pedidos as $p ){ ?>  
                     <tr>
+                        <td><?php echo $p["numero"];?></td>
                         <td><?php echo $p["Fecha"];?></td>
                         <td><a href="nuevo-factura.php?idp=<?php echo $p["idp"]; ?>"><?php echo $p["Nombre"]; ?></a></td>
                         <td><?php echo $p["Total"]; ?></td>
@@ -29,7 +30,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Nombre</th><th>Descripción</th><th>Total</th>
+                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
                     </tr>
                 </tfoot>
             </table>
