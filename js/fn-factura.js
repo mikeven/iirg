@@ -57,9 +57,10 @@ function obtenerVectorDetalleP(){
 	return JSON.stringify( detallef );
 }
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, idpedido, idcliente, femision, total, iva ){
+function obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva ){
 	encabezado = new Object();
 	encabezado.numero = numero;
+	encabezado.noc = noc;
 	encabezado.idpedido = idpedido;
 	encabezado.idcliente = idcliente;
 	encabezado.femision = femision;
@@ -67,35 +68,6 @@ function obtenerVectorEncabezado( numero, idpedido, idcliente, femision, total, 
 	encabezado.iva = iva;
 
 	return JSON.stringify( encabezado );
-}
-/* --------------------------------------------------------- */
-function guardarFactura(){
-	
-	var idcliente = $( '#idCliente' ).val();
-	var numero = $( '#npedido' ).val();
-	var idpedido = $( '#idPedido' ).val();
-	var femision = $( '#femision' ).val();
-	var total = $( '#ftotal' ).val().replace(",", ".");
-	var iva = $( '#iva' ).val();
-	
-	if( idcliente != "" && total != "" && total != 0.00 && idpedido != "" ){
-		
-		fencabezado = obtenerVectorEncabezado( numero, idpedido, idcliente, femision, total, iva );
-		fdetalle = obtenerVectorDetalleP();
-	
-		$.ajax({
-			type:"POST",
-			url:"bd/data-factura.php",
-			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
-			beforeSend: function () {
-				$("#waitconfirm").html("Espere...");
-			},
-			success: function( response ){
-				$("#waitconfirm").html( response );
-			}
-		});	
-	}
-	
 }
 /* --------------------------------------------------------- */
 function isNumberKey(evt){
@@ -191,6 +163,48 @@ function actItemF( itemf ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
+function guardarFactura(){
+	
+	var idcliente = $( '#idCliente' ).val();
+	var numero = $( '#npedido' ).val();
+	var noc = $( '#fordc' ).val();
+	var idpedido = $( '#idPedido' ).val();
+	var femision = $( '#femision' ).val();
+	var total = $( '#ftotal' ).val().replace(",", ".");
+	var iva = $( '#iva' ).val();
+	
+	if( idcliente != "" && total != "" && total != 0.00 && idpedido != "" ){
+		
+		fencabezado = obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva );
+		fdetalle = obtenerVectorDetalleP();
+	
+		$.ajax({
+			type:"POST",
+			url:"bd/data-factura.php",
+			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
+			beforeSend: function () {
+				//$("#waitconfirm").html("Espere...");	
+			},
+			success: function( response ){
+				res = jQuery.parseJSON(response);
+				//$("#waitconfirm").html(response);
+				if( res.exito == '1' ){
+					$("#txexi").html(res.mje);
+					$("#mje_exito").show();
+					
+				}
+				if( res.exito == '0' ){
+					$("#mje_error").show();
+					$("#txerr").html(res.mje);
+				}
+			}
+		});	
+	}
+	
+}
+
+/* --------------------------------------------------------- */
+
 $( document ).ready(function() {
 	
 	var cant = "";

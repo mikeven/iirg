@@ -106,6 +106,8 @@
               title:true
             });
             initValid();
+
+            $(".alert").hide();
         });
     </script>
     
@@ -187,31 +189,48 @@
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		<div class="col-md-6">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                        data-target="#lista_pedidos">PEDIDO</button>
+                                      </div>
+                                      <!-- /btn-group -->
+                                      <input type="text" class="form-control" id="fpedido" readonly 
+                                      name="pedido" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
+                                      <input type="hidden" class="form-control" id="idPedido" value="<?php if( isset($encabezado) ) echo $encabezado["idp"]?>">
+                                      <input type="hidden" class="form-control" id="iva" 
+                                      value="<?php if( isset($encabezado) ) echo $encabezado["iva"]?>">
+                                    </div>
+                                </div><!-- /.form group -->
+                              </div><!-- /.col6 -->
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-slack"></i> 
+                                        <label for="oc" class="iconlab">O/C:</label>
+                                      </div>
+                                      <input type="text" class="form-control" id="fordc" name="orden_compra">
+                                    </div>
+                                </div><!-- /.form group -->
+                              </div><!-- /.col6 -->
+                            </div><!-- /.row -->
+                            
                             <div class="form-group">
                                 <div class="input-group">
-                                    <div class="input-group-btn">
-                                      <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_pedidos">PEDIDO</button>
-                                    </div>
-                                    <!-- /btn-group -->
-                                    <input type="text" class="form-control" id="fpedido" readonly 
-                                    name="pedido" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                    <input type="hidden" class="form-control" id="idPedido" value="<?php if( isset($encabezado) ) echo $encabezado["idp"]?>">
-                                    <input type="hidden" class="form-control" id="iva" 
-                                    value="<?php if( isset($encabezado) ) echo $encabezado["iva"]?>">
-                                </div>
-                            </div><!-- /.form group -->
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                      <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_clientes">CLIENTE</button>
-                                    </div>
-                                    <!-- /btn-group -->
-                                    <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
-                                    value="<?php if( isset($encabezado) ) echo $encabezado["nombre"]?>">
-                                    <input type="hidden" class="form-control" id="idCliente" 
-                                    value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]?>">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                    data-target="#lista_clientes">CLIENTE</button>
+                                  </div>
+                                  <!-- /btn-group -->
+                                  <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                                  value="<?php if( isset($encabezado) ) echo $encabezado["nombre"]?>">
+                                  <input type="hidden" class="form-control" id="idCliente" 
+                                  value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]?>">
                             	</div>
                             </div><!-- /.form group -->
                             <!-- Modal -->
@@ -389,8 +408,19 @@
                           </div><!-- /.pie_cotizacion -->
                         <?php } ?>
                     
+                        <div id="waitconfirm">
+                          <div class="alert alert-danger alert-dismissable" id="mje_error">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i><span id="txerr"></span></h4>
+                          </div>
+                          <div class="alert alert-success alert-dismissable" id="mje_exito">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i><span id="txexi"></span></h4>
+                          </div>
+                        </div>
+
                     </div><!-- /.box-body -->
-					<div id="waitconfirm"></div>
+					          
                     <div class="box-footer" align="center">
                     	<button type="button" class="btn btn-primary" id="bt_reg_factura">Guardar</button>
                     </div>

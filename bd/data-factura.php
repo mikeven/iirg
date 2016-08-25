@@ -13,13 +13,13 @@
 		}
 		return $lista_c;	
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerProximoNumeroFactura( $dbh ){
 		$q = "select MAX(numero) as num from factura";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetalleFactura( $dbh, $idf ){
 		// Obtiene los ítems del detalle de una factura
 		$detalle = array();
@@ -32,7 +32,7 @@
 		}
 		return $detalle;
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
 		$q = "select f.numero as nro, f.IdFactura2 as idf, f.IdCliente2 as idcliente, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
@@ -45,7 +45,7 @@
 		
 		return $factura;
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalleF( $dbh, $idf, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		$ptotal = $item->dfcant * $item->dfpunit;
@@ -59,21 +59,29 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarDetalleFactura( $dbh, $idp, $detalle ){
 		//Registra los ítems contenidos en el detalle de la factura
+		$exito = true;
+		$nitems = count( $detalle );
+		$citem = 0;
 		foreach ( $detalle as $item ){
-			guardarItemDetalleF( $dbh, $idp, $item );	
+			$id_item = guardarItemDetalleF( $dbh, $idp, $item );
+			if( $id_item != 0 ) $citem++;
 		}
+		
+		if( $citem != $nitems ) $exito = false;
+		
+		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarFactura( $dbh, $encabezado, $detalle ){
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
-		$q = "insert into factura ( numero, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
-			values ( $encabezado->numero, $encabezado->idpedido, $encabezado->idcliente, '$fecha_mysql', 
+		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
+			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, '$fecha_mysql', 
 			$encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
-		echo $q;
+		//echo $q."<br>";
 		
 		return mysql_insert_id();
 	}
@@ -86,8 +94,21 @@
 		$idf = guardarFactura( $dbh, $encabezado, $detalle );
 		
 		if( ( $idf != 0 ) && ( $idf != "" ) ){
-			guardarDetalleFactura( $dbh, $idf, $detalle );		
+			$exito = guardarDetalleFactura( $dbh, $idf, $detalle );
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al registrar detalle de factura";
+			}	
 		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar factura";
+		}
+		
+		echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 
