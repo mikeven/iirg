@@ -41,7 +41,7 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
-function obtenerVectorDetalleP(){
+function obtenerVectorDetalleF(){
 	var detallef = new Array();
 	var renglon = new Object();
 	
@@ -99,7 +99,7 @@ function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
 	return campo;
 }
 /* --------------------------------------------------------- */
-function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
+function agregarItemFactura( nitem, idart, art, qant, und, punit, ptot ){
 	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
 	c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
 	c_ptot = obtenerItemDCotizacion( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly", "text" );
@@ -176,14 +176,15 @@ function guardarFactura(){
 	if( idcliente != "" && total != "" && total != 0.00 && idpedido != "" ){
 		
 		fencabezado = obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva );
-		fdetalle = obtenerVectorDetalleP();
+		fdetalle = obtenerVectorDetalleF();
 	
 		$.ajax({
 			type:"POST",
 			url:"bd/data-factura.php",
 			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
 			beforeSend: function () {
-				//$("#waitconfirm").html("Espere...");	
+				//$("#waitconfirm").html("Espere...");
+				$("#bt_reg_cotizacion").fadeOut(200);
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);
@@ -238,7 +239,7 @@ $( document ).ready(function() {
 		nitem++;
 		
 		if( $("#idArticulo").val() != "0" && $( "#fptotal" ).val() != "0.00" ){
-			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
+			agregarItemFactura( nitem, idart, art, qant, und, punit, ptot );	
 		}
     });
 	

@@ -78,15 +78,24 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarDetallePedido( $dbh, $idp, $detalle ){
 		//Registra los ítems contenidos en el detalle de pedido
+		$exito = true;
+		$nitems = count( $detalle );
+		$citem = 0;
 		foreach ( $detalle as $item ){
-			guardarItemDetalleP( $dbh, $idp, $item );	
+			$id_item = guardarItemDetalleP( $dbh, $idp, $item );
+			if( $id_item != 0 ) $citem++;	
 		}
+
+		if( $citem != $nitems ) $exito = false;
+		
+		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarPedido( $dbh, $encabezado, $detalle ){
 		//Guarda el registro de un pedido
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
+		if( !$encabezado->idcotiz ) $encabezado->idcotiz = "NULL";
 		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, iva, Total  ) 
 			values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', 
 			$encabezado->iva, $encabezado->total )";
@@ -105,8 +114,21 @@
 		$idp = guardarPedido( $dbh, $encabezado, $detalle );
 		
 		if( ( $idp != 0 ) && ( $idp != "" ) ){
-			guardarDetallePedido( $dbh, $idp, $detalle );		
+			$exito = guardarDetallePedido( $dbh, $idp, $detalle );
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al registrar detalle de factura";
+			}		
 		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar factura";
+		}
+
+		echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 ?>

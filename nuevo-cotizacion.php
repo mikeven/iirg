@@ -12,6 +12,7 @@
   	include( "bd/data-cotizacion.php" );
 	
 	$iva = 0.12;
+  $eiva = $iva * 100;
   $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh );
 	checkSession( '' );
 ?>
@@ -93,7 +94,9 @@
               language:'es',
               title:true
             });
+            
             initValid();
+            $(".alert").hide();
         });
     </script>
     
@@ -262,7 +265,7 @@
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
-                                        <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
@@ -351,7 +354,7 @@
                                             </tr>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">IVA (<?php echo $iva*100;?>%)</th>
+                                                <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
                                                 <th width="15%">
                                                 	<div id="fimpuesto" class="ftotalizacion">
                                                     	<div class="input-group">
@@ -382,9 +385,12 @@
                             </div><!--/.col-md-8-->
                         	
                         </div><!-- /.pie_cotizacion -->
+                        
+                        <!-- Bloque de respuesta del servidor -->
+                          <?php include("subforms/nav/mensaje_rcpf.php");?>
+                        <!-- /.Bloque de respuesta del servidor -->
                     
                     </div><!-- /.box-body -->
-					<div id="waitconfirm"></div>
                     <div class="box-footer" align="center">
                     	<button type="button" class="btn btn-primary" id="bt_reg_cotizacion">Guardar</button>
                     </div>

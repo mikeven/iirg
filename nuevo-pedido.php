@@ -20,8 +20,13 @@
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
-    $eiva = $encabezado["iva"] * 100;
+    $iva = $encabezado["iva"];
+    $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
+  }
+  else{
+    $iva = 0.12;
+    $eiva = $iva * 100; 
   }
   $num_nvopedido = obtenerProximoNumeroPedido( $dbh );
 	
@@ -105,6 +110,7 @@
               title:true
             });
             initValid();
+            $(".alert").hide();
         });
     </script>
     
@@ -197,16 +203,14 @@
                                     name="cotizacion" 
                                     value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
                                     <input type="hidden" class="form-control" id="idCotizacion" 
-                                      value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
-                                    <input type="hidden" class="form-control" id="iva" 
-                                      value="<?php if( isset($encabezado) ) echo  $encabezado["iva"]?>">
+                                      value="<?php if( isset($encabezado) ) echo $encabezado["idc"]; ?>">
                                 </div>
                             </div><!-- /.form group -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                       <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_clientes">CLIENTE</button>
+                                      data-target="#lista_clientes" <?php if( isset($encabezado) ) echo "disabled";?>>CLIENTE</button>
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -216,7 +220,10 @@
                             	</div>
                             </div><!-- /.form group -->
                             <!-- Modal -->
-                            	<?php include( "subforms/tablas/tabla_cotizaciones_modal.php" ); ?>
+                            	<?php 
+                                include( "subforms/tablas/tabla_cotizaciones_modal.php" );
+                                include( "subforms/tablas/tabla_clientes_modal.php" ); 
+                              ?>
                             <!-- /.Modal -->
                                 <div class="row">
                                     <div class="col-md-5">
@@ -309,7 +316,7 @@
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
                         
-                        <?php if(isset( $cotizacion )) { ?>
+                        
                           <div class="row" id="contenido_pedido">
                           	<div class="col-md-10 col-md-offset-1">
                               	
@@ -328,9 +335,12 @@
                                                           <th width="15%" class="tit_tdf">Total item</th>
                                                           <th width="5%" class="tit_tdf"></th>
                                                       </tr>
-                                                      <?php $ni=0; 
-                                                        foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumento( $item, $ni );
+                                                      <?php 
+                                                        if(isset( $cotizacion )) {
+                                                          $ni=0; 
+                                                          foreach( $detalle as $item ){ $ni++;
+                                                            echo mostrarItemDocumento( $item, $ni );
+                                                          }
                                                       }?>
                                                   </tbody>
                                               </table>
@@ -348,7 +358,7 @@
                                                   	<div id="fsub_total" class="ftotalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fstotal" value="<?php echo $totales["subtotal"]?>" readonly>
+                                                              id="fstotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -362,7 +372,7 @@
                                                       	<div class="input-group">
                                                           	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fiva" value="<?php echo $totales["iva"]?>" readonly>
+                                                              id="fiva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -374,7 +384,7 @@
                                                   	<div id="fac_total" class="ftotalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="ftotal" value="<?php echo $totales["total"]?>" readonly>
+                                                              id="ftotal" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -385,11 +395,11 @@
                                   </div>
                               </div><!--/.col-md-8-->
                           </div><!-- /.pie_cotizacion -->
-                        
-                        <?php } ?>
-
+                          <!-- Bloque de respuesta del servidor -->
+                            <?php include("subforms/nav/mensaje_rcpf.php");?>
+                          <!-- /.Bloque de respuesta del servidor -->
                     </div><!-- /.box-body -->
-					<div id="waitconfirm"></div>
+					
                     <div class="box-footer" align="center">
                     	<button type="button" class="btn btn-primary" id="bt_reg_pedido">Guardar</button>
                     </div>

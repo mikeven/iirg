@@ -41,6 +41,30 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
+function contarItems(){
+	var contitems = 0;
+	$("#df_table input").each(function (){ 
+		contitems++;
+	});
+	return contitems;
+}
+/* --------------------------------------------------------- */
+function checkCotizacion(){
+	var error = 0;
+	if( contarItems() == 0 ){
+		$("#mje_error").fadeIn("slow");
+		$("#txerr").html("Debe ingresar ítems en la cotización");
+		error = 1;
+	}
+	if( $("#idCliente").val() == "" ){
+		$("#mje_error").fadeIn("slow");
+		$("#txerr").html("Debe indicar un cliente");
+		$("#ncliente").css({'border-color' : '#dd4b39'});
+		error = 1;
+	}
+	return error;	
+}
+/* --------------------------------------------------------- */
 function obtenerVectorDetalleC(){
 	var detallef = new Array();
 	var renglon = new Object();
@@ -49,7 +73,8 @@ function obtenerVectorDetalleC(){
 		name = $(this).attr("name");
 		renglon["" + name + ""] = $(this).val();
 
-		if( name == "dfptotal" ){
+		if( name == "dfptotal" ){	
+			//name: campo referencia para indicar fin de renglón, guardar y pasar al siguiente
 			detallef.push( renglon );
 			renglon = new Object();
 		}
@@ -88,10 +113,20 @@ function guardarCotizacion(){
 		url:"bd/data-cotizacion.php",
 		data:{ encabezado: cencabezado, detalle: cdetalle, reg_cotizacion : 1 },
 		beforeSend: function () {
-			$("#waitconfirm").html("Espere...");
+			//$("#waitconfirm").html("Espere...");
+			$("#bt_reg_cotizacion").fadeOut(200);
 		},
 		success: function( response ){
-			$("#waitconfirm").html( response );
+			res = jQuery.parseJSON(response);
+			//$("#waitconfirm").html(response);
+			if( res.exito == '1' ){
+				$("#txexi").html(res.mje);
+				$("#mje_exito").show();
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show();
+				$("#txerr").html(res.mje);
+			}
 		}
 	});
 }
@@ -189,14 +224,36 @@ function actItemF( itemf ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
+function checkItemForm( idart, punit, qant ){
+	var valido = 1;
+
+	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
+	
+	if( punit == "" ) { $("#fpunit").css({'border-color' : '#dd4b39'}); valido = 0; }
+		else $("#fpunit").css({'border-color' : '#ccc'});
+	
+	if( qant == "" || qant == "0" ) { $("#fcantidad").css({'border-color' : '#dd4b39'}); valido = 0; } 
+		else $("#fcantidad").css({'border-color' : '#ccc'});
+	
+	if( $( "#fptotal" ).val() == "0.00" ){ $( "#fptotal" ).css({'border-color' : '#dd4b39'}); valido = 0; }
+		else $("#fptotal").css({'border-color' : '#ccc'});
+
+	return valido;
+}
+/* --------------------------------------------------------- */
 $( document ).ready(function() {
 	
 	var cant = "";
+	$(".alert").click( function(){
+		$(this).hide("slow");
+    });
+
 	$(".item_cliente_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
 		$("#ncliente").val(texto);
 		$("#idCliente").val( $(this).attr("data-idc") );
 		$("#cpcontacto").val( $(this).attr("data-npc") );
+		$("#ncliente").css({'border-color' : '#ccc'});
 		$("#xmodalcliente").click();
     });
 	
@@ -204,6 +261,7 @@ $( document ).ready(function() {
 		texto = $(this).attr("data-label"); 
 		$("#narticulo").val( texto );
 		$("#idArticulo").val( $(this).attr("data-ida") );
+		$("#narticulo").css({'border-color' : '#ccc'});
 		$("#undart").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
@@ -221,17 +279,18 @@ $( document ).ready(function() {
 		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
 		nitem++;
 		
-		if( $("#idArticulo").val() != "0" && $( "#fptotal" ).val() != "0.00" ){
+		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
 		}
+		
     });
 	
 	/*===============================================================================*/
-	
 	$("#bt_reg_cotizacion").on( "click", function(){
-		guardarCotizacion();	
+		if( checkCotizacion() == 0 )
+			guardarCotizacion();
     });
-	
+    
 });
 /* --------------------------------------------------------- */
 

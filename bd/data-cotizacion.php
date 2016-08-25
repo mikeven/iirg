@@ -66,15 +66,22 @@
 		$q = "insert into detallecotizacion ( IdCotizacion2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idc, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
-		
+		//echo $q."<br>";
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarDetalleCotizacion( $dbh, $idc, $detalle, $iva ){
 		//Registra los ítems contenidos en el detalle de la cotización
+		$exito = true;
+		$nitems = count( $detalle );
+		$citem = 0;
 		foreach ( $detalle as $item ){
-			guardarItemDetalle( $dbh, $idc, $item, $iva );	
+			$id_item = guardarItemDetalle( $dbh, $idc, $item, $iva );
+			if( $id_item != 0 ) $citem++;	
 		}
+		if( $citem != $nitems ) $exito = false;
+		
+		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarCotizacion( $dbh, $encabezado, $detalle ){
@@ -96,7 +103,20 @@
 		$idc = guardarCotizacion( $dbh, $encabezado, $detalle );
 		
 		if( ( $idc != 0 ) && ( $idc != "" ) ){
-			guardarDetalleCotizacion( $dbh, $idc, $detalle, $encabezado->iva );		
+			$exito = guardarDetalleCotizacion( $dbh, $idc, $detalle, $encabezado->iva );
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al registrar detalle de factura";
+			}	
 		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar factura";
+		}
+
+		echo json_encode( $res );
 	}
 ?>
