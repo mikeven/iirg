@@ -76,9 +76,10 @@
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
+		if( !$encabezado->idpedido ) $encabezado->idpedido = "NULL";
 		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
-			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, '$fecha_mysql', 
-			$encabezado->iva, $encabezado->total, NOW() )";
+			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, 
+			'$fecha_mysql', $encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q."<br>";

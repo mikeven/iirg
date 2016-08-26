@@ -68,7 +68,7 @@
 	function guardarItemDetalleP( $dbh, $idp, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		$ptotal = $item->dfcant * $item->dfpunit;
-		$q = "insert into detallepedido ( IdPedido2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
+		$q = "insert into detallepedido ( IdPedido2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal) 
 		values ( $idp, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";

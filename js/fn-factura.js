@@ -15,22 +15,19 @@ function initValid(){
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
+		  orden_compra: {
+		      validators: { notEmpty: { message: 'Debe indicar orden de compra' } }
+		  },
 		  punit: {
 		      validators: { 
-		        notEmpty: { message: 'Debe indicar precio' }, 
-		        regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/,    message: 'Formato inválido de monto'} 
-		      }
-		  },
-		  dfpunit: {
-		      validators: { 
-		        notEmpty: { message: 'Debe indicar precio' }, 
 		        regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/,    message: 'Formato inválido de monto'} 
 		      }
 		  }
 		},
-		callback: function () {
-        	alert("OK");
-      	}
+		onSuccess: function(e, data) {
+         	e.preventDefault();
+        	bt_reg_facturaclick();
+        }
   });
 }
 /* --------------------------------------------------------- */
@@ -173,7 +170,7 @@ function guardarFactura(){
 	var total = $( '#ftotal' ).val().replace(",", ".");
 	var iva = $( '#iva' ).val();
 	
-	if( idcliente != "" && total != "" && total != 0.00 && idpedido != "" ){
+	if( idcliente != "" && total != "" && total != 0.00 ){
 		
 		fencabezado = obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva );
 		fdetalle = obtenerVectorDetalleF();
@@ -183,8 +180,7 @@ function guardarFactura(){
 			url:"bd/data-factura.php",
 			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
 			beforeSend: function () {
-				//$("#waitconfirm").html("Espere...");
-				$("#bt_reg_cotizacion").fadeOut(200);
+				$("#bt_reg_factura").fadeOut(200);
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);
@@ -192,7 +188,6 @@ function guardarFactura(){
 				if( res.exito == '1' ){
 					$("#txexi").html(res.mje);
 					$("#mje_exito").show();
-					
 				}
 				if( res.exito == '0' ){
 					$("#mje_error").show();
@@ -203,15 +198,71 @@ function guardarFactura(){
 	}
 	
 }
+function contarItems(){
+	var contitems = 0;
+	$("#df_table input").each(function (){ 
+		contitems++;
+	});
+	return contitems;
+}
+/* --------------------------------------------------------- */
+function checkFactura(){
+	var error = 0;
+	if( contarItems() == 0 ){
+		$("#mje_error").fadeIn("slow");
+		$("#txerr").html("Debe ingresar ítems en la factura");
+		error = 1;
+	}
+	if( $("#idCliente").val() == "" ){
+		$("#mje_error").fadeIn("slow");
+		$("#txerr").html("Debe indicar un cliente");
+		$("#ncliente").css({'border-color' : '#dd4b39'});
+		error = 1;
+	}
+	if( $("#fordc").val() == "" ){
+		$("#mje_error").fadeIn("slow");
+		$("#txerr").html("Debe indicar número de orden de compra");
+		$("#fordc").css({'border-color' : '#dd4b39'});
+		error = 1;
+	}
+	
+	return error;	
+}
+/* --------------------------------------------------------- */
+function checkItemForm( idart, punit, qant ){
+	var valido = 1;
 
+	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
+	
+	if( punit == "" ) { $("#fpunit").css({'border-color' : '#dd4b39'}); valido = 0; }
+		else $("#fpunit").css({'border-color' : '#ccc'});
+	
+	if( qant == "" || qant == "0" ) { $("#fcantidad").css({'border-color' : '#dd4b39'}); valido = 0; } 
+		else $("#fcantidad").css({'border-color' : '#ccc'});
+	
+	if( $( "#fptotal" ).val() == "0.00" ){ $( "#fptotal" ).css({'border-color' : '#dd4b39'}); valido = 0; }
+		else $("#fptotal").css({'border-color' : '#ccc'});
+
+	return valido;
+}
 /* --------------------------------------------------------- */
 
 $( document ).ready(function() {
 	
 	var cant = "";
+	$(".alert").click( function(){
+		$(this).hide("slow");
+    });
+
+	$("#fordc").blur( function(){
+		if( $(this).val() != "" )
+			$(this).css({'border-color' : '#ccc'});
+    });
+
 	$(".item_cliente_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
 		$("#ncliente").val(texto);
+		$("#ncliente").css({'border-color' : '#ccc'});
 		$("#idCliente").val( $(this).attr("data-idc") );
 		$("#cpcontacto").val( $(this).attr("data-npc") );
 		$("#xmodalcliente").click();
@@ -220,6 +271,7 @@ $( document ).ready(function() {
 	$(".item_articulo_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
 		$("#narticulo").val( texto );
+		$("#narticulo").css({'border-color' : '#ccc'});
 		$("#idArticulo").val( $(this).attr("data-ida") );
 		$("#undart").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
@@ -238,17 +290,16 @@ $( document ).ready(function() {
 		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
 		nitem++;
 		
-		if( $("#idArticulo").val() != "0" && $( "#fptotal" ).val() != "0.00" ){
+		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			agregarItemFactura( nitem, idart, art, qant, und, punit, ptot );	
 		}
     });
 	
 	/*===============================================================================*/
-	
-	$("#bt_reg_factura").on( "click", function(){
-		guardarFactura();	
+    $("#bt_reg_factura").on( "click", function(){
+		if( checkFactura() == 0 )
+			guardarFactura();
     });
-	
 });
 /* --------------------------------------------------------- */
 

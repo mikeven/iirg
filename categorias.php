@@ -120,7 +120,6 @@
           onSuccess: function(e, data) {
             e.preventDefault();
             reg_unidad();
-            //document.getElementById("frm_ncategoria").reset();
           }
       });
       });
