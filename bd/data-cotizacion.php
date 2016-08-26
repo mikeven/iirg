@@ -51,7 +51,7 @@
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.IdCliente2 as idcliente, date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, c.iva as iva, c.Observaciones1 as obs1, k.Nombre as nombre, 
-		k.Rif as rif, k.Direccion as direccion, k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email 
+		k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email 
 		FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	

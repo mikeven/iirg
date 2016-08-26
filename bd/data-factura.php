@@ -36,8 +36,8 @@
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
 		$q = "select f.numero as nro, f.IdFactura2 as idf, f.IdCliente2 as idcliente, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
-		f.iva as iva, f.Observaciones1 as obs1, f.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, c.Direccion as direccion, 
-		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
+		f.iva as iva, f.orden_compra as oc, f.Observaciones1 as obs1, f.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, 
+		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
 		FROM factura f, cliente c where f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	

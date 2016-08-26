@@ -57,7 +57,9 @@
 	function obtenerPedidoPorId( $dbh, $idp ){
 		//Retorna el registro de pedido y sus ítems de detalle
 		$q = "select p.numero as nro, p.IdPedido2 as idp, p.IdCliente2 as idcliente, DATE_FORMAT(p.fecha_emision,'%d/%m/%Y') as femision, p.iva as iva, p.Observaciones1 as obs1, 
-		p.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, c.Direccion as direccion, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM pedido p, cliente c where p.IdPedido2 = ".$idp." and p.IdCliente2 = c.IdCliente2";
+		p.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
+		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM pedido p, cliente c 
+		where p.IdPedido2 = ".$idp." and p.IdCliente2 = c.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetallePedido( $dbh, $idp );

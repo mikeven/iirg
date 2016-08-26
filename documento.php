@@ -22,7 +22,7 @@
     	$documento = obtenerCotizacionPorId( $dbh, $id );
     	$encabezado = $documento["encabezado"];
       $obs1 = $encabezado["obs1"];
-      $obs2 = "Validez".$encabezado["validez"];
+      $obs2 = "Validez: ".$encabezado["validez"];
       $detalle_d = $documento["detalle"];
       $tdocumento = "Cotización";
     }
@@ -44,6 +44,7 @@
     }
     $eiva = $encabezado["iva"] * 100;
     $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+    $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id";
   }
   else{
 
@@ -152,6 +153,7 @@
             </div>
           </div>-->
           <!-- info row -->
+            <?php if($tdd != "fac") { ?>
             <div class="row invoice-info" id="membrete">
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
                 <div class="col-sm-8 invoice-col" align="center">
@@ -164,20 +166,29 @@
                 </div><!-- /.col -->
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
           	</div><!-- /.row -->
-			
+			      <?php }?>
             <div class="row invoice-info" id="encabezado" style="margin:20px 0;">
                 <div class="col-sm-4 invoice-col" id="dcliente">
                     <div id="dc_nombre">Señores</div>
-                    <div id="dc_nombre">Nombre del cliente: <?php echo $encabezado["nombre"]?></div>
+                    <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
+                    <div id="dc_nombre"><?php echo $encabezado["dir1"]?></div>
+                    <div id="dc_nombre"><?php echo $encabezado["dir2"]?></div>
                     <div id="dc_nombre">Ciudad: Caracas</div>
                 </div><!-- /.col -->
                 <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
+                
                 <div class="col-sm-3 invoice-col" id="dcotizacion">
                     <div id="dctz_numero"><?php echo $tdocumento.":   ".$encabezado["nro"];?></div>
                     <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
-                    <div id="dctz_tlf">Teléfono: 0212 - 5456529</div>
-                    <div id="dctz_fax">Fax:</div>
+                    <?php if($tdd == "ctz") { ?>
+                      <div id="dctz_tlf">Vendedor: Nidia</div>
+                    <?php } ?>
+                    <?php if($tdd == "fac") { ?>
+                      <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
+                      <div id="dctz_tlf">Orden de compra: <?php echo $encabezado["oc"]; ?></div>
+                    <?php } ?>
                 </div><!-- /.col -->
+                
             </div><!-- /.row -->
           
           <!-- Table row -->
@@ -240,20 +251,24 @@
           <!-- this row will not appear when printing -->
           <div class="row no-print">
             <div class="col-xs-12">
-              <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+              <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank"><i class="fa fa-print fa-2x"></i> Imprimir</a>
               <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
               <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
             </div>
           </div>
+
         </section><!-- /.content -->
         <div class="clearfix"></div>
       </div><!-- /.content-wrapper -->
+      
+
       <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.3.0
         </div>
         <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
       </footer>
+
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">

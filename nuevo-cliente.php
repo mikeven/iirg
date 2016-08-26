@@ -1,10 +1,11 @@
 <?php
 	/*
-	 * R&G - Inicio de sesión
-	 * 
-	 */
+	* IIRG - Registro de nuevo proveedor
+	* 
+	*/
 	session_start();
 	ini_set( 'display_errors', 1 );
+	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	checkSession( '' );
 ?>
@@ -13,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Principal</title>
+  <title>IIRG | Registro de clientes</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -38,6 +39,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -48,42 +50,59 @@
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- Select2 -->
     <script src="plugins/select2/select2.full.min.js"></script>
-    <!-- InputMask -->
     <script src="plugins/input-mask/jquery.inputmask.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <!-- date-range-picker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap color picker -->
     <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <!-- bootstrap time picker -->
     <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <!-- SlimScroll 1.3.0 -->
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- iCheck 1.0.1 -->
     <script src="plugins/iCheck/icheck.min.js"></script>
-    <!-- FastClick -->
     <script src="plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
+	<script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
     <script src="dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-    <!-- Page script -->
     <script>
       $(function () {
         //Initialize Select2 Elements
         $(".select2").select2();
-
         //Datemask dd/mm/yyyy
 		$("#crif").inputmask({mask: "a-99999999-9"});
 		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
+		$("#ctel2").inputmask({mask: "(9999)-999.99.99"});
       });
     </script>
-
-  <script src="js/fn-clientes.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('#frm_ncliente').bootstrapValidator({
+                message: 'Revise el contenido del campo',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    email: {
+                        validators: { notEmpty: { message: 'Debe indicar un email' },
+						emailAddress: { message: 'Debe especificar un email válido' } }
+                    },
+					nombre: {
+                        validators: { notEmpty: { message: 'Debe indicar nombre' } }
+                    },
+					rif: {
+                        validators: { notEmpty: { message: 'Debe indicar RIF' } }
+                    }
+                },
+				callback: function () {
+                	alert("OK");
+                }
+            });
+        });
+    </script>
+    
+    <script src="js/fn-clientes.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -157,28 +176,50 @@
                   <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_ncliente" name="form_agregar_cliente">
+                <form role="form" id="frm_ncliente" name="form_agregar_cliente" method="post" action="bd/data-cliente.php">
+                  <input name="reg_cliente" type="hidden" value="1">
                   <div class="box-body">
                     <div class="form-group">
                       <!--<label for="exampleInputEmail1">Email address</label>-->
                       	<div class="input-group">
-                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                          <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre">
+                          <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
+                          <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" required>
                     	</div>
                     </div><!-- /.form group -->
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                          <div class="input-group-addon"><i class="fa fa-registered"></i></div>
                           <input id="crif" type="text" class="form-control" placeholder="RIF" data-mask name="rif">
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
-                     
-                      <div class="form-group">
+                     <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                          <input id="cdir" type="text" class="form-control" placeholder="Dirección" data-mask name="direccion">
+                          <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
+                          <input id="cemail" type="text" class="form-control" placeholder="Email" data-mask name="email">
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                          <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto">
+                        </div><!-- /.input group -->
+                      </div><!-- /.form group -->
+                      
+                      <!-- Bloque de dirección -->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                          <input id="cdir1" type="text" class="form-control" placeholder="Dirección -1-" data-mask name="direccion1">
+                        </div><!-- /.input group -->
+                      </div><!-- /.form group -->
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                          <input id="cdir2" type="text" class="form-control" placeholder="Dirección -2-" data-mask name="direccion2">
+                        </div><!-- /.input group -->
+                      </div><!-- /.form group -->
+                      <!-- /.Bloque de dirección -->
+
                   	  <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-phone"></i></div>
@@ -192,16 +233,11 @@
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
                   
-                  	<div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
-                          <input id="cemail" type="text" class="form-control" placeholder="Email" data-mask name="email">
-                        </div><!-- /.input group -->
-                      </div><!-- /.form group -->
+                  		
                   </div><!-- /.box-body -->
 
                   <div class="box-footer" align="center">
-                    <button type="button" class="btn btn-primary" id="bt_reg_cliente">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="bt_reg_cliente">Guardar</button>
                   </div>
                 </form>
               </div><!-- /.box -->
@@ -422,44 +458,5 @@
 
 </div>
 <!-- ./wrapper -->
-
-<!-- jQuery 2.1.4 -->
-    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- Select2 -->
-    <script src="plugins/select2/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <!-- date-range-picker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap color picker -->
-    <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <!-- bootstrap time picker -->
-    <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <!-- SlimScroll 1.3.0 -->
-    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- iCheck 1.0.1 -->
-    <script src="plugins/iCheck/icheck.min.js"></script>
-    <!-- FastClick -->
-    <script src="plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <!-- Page script -->
-    <script>
-      $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-
-        //Datemask dd/mm/yyyy
-		$("#crif").inputmask({mask: "a-99999999-9"});
-		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
-      });
-    </script>
 </body>
 </html>

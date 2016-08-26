@@ -5,9 +5,9 @@
 	ini_set( 'display_errors', 1 );
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarCliente( $cliente, $dbh ){
-		$q = "insert into cliente (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion ) 
+		$q = "insert into cliente (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
 		values ( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[pcontacto]', 
-			'$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion]' )";
+			'$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion1]', '$cliente[direccion2]' )";
 		$data = mysql_query( $q, $dbh );
 		
 		//echo $q;
@@ -17,7 +17,9 @@
 	function modificarCliente( $cliente, $dbh ){
 		
 		$resp["cambio"] = "exito";
-		$q = "update cliente set Nombre = '$cliente[nombre]', Rif = '$cliente[rif]', Email = '$cliente[email]', telefono1 = '$cliente[tel1]', telefono2 = '$cliente[tel2]', Direccion = '$cliente[direccion]' where idCliente2 = $cliente[id]";
+		$q = "update cliente set Nombre = '$cliente[nombre]', Rif = '$cliente[rif]', Email = '$cliente[email]', 
+		telefono1 = '$cliente[tel1]', telefono2 = '$cliente[tel2]', direccion1 = '$cliente[direccion1]', direccion2 = '$cliente[direccion2]'
+		where idCliente2 = $cliente[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $cliente["id"];
@@ -51,7 +53,8 @@
 		$cliente["nombre"] = $_POST["nombre"];
 		$cliente["rif"] = $_POST["rif"];
 		$cliente["email"] = $_POST["email"];
-		$cliente["direccion"] = $_POST["direccion"];
+		$cliente["direccion1"] = $_POST["direccion1"];
+		$cliente["direccion2"] = $_POST["direccion2"];
 		$cliente["pcontacto"] = $_POST["pcontacto"];
 		$cliente["tel1"] = $_POST["telefono1"];
 		$cliente["tel2"] = $_POST["telefono2"];

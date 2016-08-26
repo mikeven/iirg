@@ -210,7 +210,7 @@
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                       <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_clientes" <?php if( isset($encabezado) ) echo "disabled";?>>CLIENTE</button>
+                                      data-target="#lista_clientes_X" <?php if( isset($encabezado) ) echo "disabled";?>>CLIENTE</button>
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -222,7 +222,7 @@
                             <!-- Modal -->
                             	<?php 
                                 include( "subforms/tablas/tabla_cotizaciones_modal.php" );
-                                include( "subforms/tablas/tabla_clientes_modal.php" ); 
+                                //include( "subforms/tablas/tabla_clientes_modal.php" ); 
                               ?>
                             <!-- /.Modal -->
                                 <div class="row">

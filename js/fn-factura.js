@@ -187,7 +187,8 @@ function guardarFactura(){
 				//$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
 					$("#txexi").html(res.mje);
-					$("#mje_exito").show();
+					$("#mje_exito").show("slow");
+					$("#mje_error").hide(100);
 				}
 				if( res.exito == '0' ){
 					$("#mje_error").show();
@@ -246,7 +247,6 @@ function checkItemForm( idart, punit, qant ){
 	return valido;
 }
 /* --------------------------------------------------------- */
-
 $( document ).ready(function() {
 	
 	var cant = "";

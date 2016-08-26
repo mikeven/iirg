@@ -201,7 +201,8 @@
                   <div class="tab-pane active" id="tab_1">
                     <div><span class="txh"><b><?php echo $cliente["Nombre"];?></b></span></div>
                     <div><span class="tx1"><?php echo $cliente["Rif"];?></span></div>
-                    <div><span class="tx1"><?php echo $cliente["Direccion"];?></span></div>
+                    <div><span class="tx1"><?php echo $cliente["direccion1"];?></span></div>
+                    <div><span class="tx1"><?php echo $cliente["direccion2"];?></span></div>
                     <div class="info_tab3">
                     <div><span class="tx1"><span class="fa fa-envelope"></span> <?php echo $cliente["Email"];?></span></div>
                     <div><span class="tx1"><span class="fa fa-user"></span> <?php echo $cliente["pcontacto"];?></span></div>
@@ -257,16 +258,28 @@
                               <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $cliente["pcontacto"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
+                          
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">
                                 <i class="fa fa-map-marker"></i>
-                                <label for="dir" class="iconlab">Dirección:</label>
+                                <label for="dir" class="iconlab">Dirección - 1 -</label>
                               </div>
-                              <input id="cdir" type="text" class="form-control" placeholder="Dirección" 
-                              data-mask name="direccion" value="<?php echo $cliente["Direccion"];?>">
+                              <input id="cdir1" type="text" class="form-control" placeholder="Dirección" 
+                              data-mask name="direccion1" value="<?php echo $cliente["direccion1"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                                <label for="dir" class="iconlab">Dirección - 2 -</label>
+                              </div>
+                              <input id="cdir2" type="text" class="form-control" placeholder="Dirección" 
+                              data-mask name="direccion2" value="<?php echo $cliente["direccion2"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">

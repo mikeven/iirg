@@ -10,7 +10,7 @@
           </a>
           <ul class="treeview-menu">
 			<li><a href="clientes.php"><i class="fa fa-list-alt"></i>Consultar clientes</a></li>
-            <li><a href="nuevo-clientes.php"><i class="fa fa-plus"></i>Agregar nuevo cliente</a></li>
+            <li><a href="nuevo-cliente.php"><i class="fa fa-plus"></i>Agregar nuevo cliente</a></li>
           </ul>
         </li>
         <li class="treeview">
