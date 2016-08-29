@@ -62,6 +62,7 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalle( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de cotización
+		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
 		$ptotal = $item->dfcant * $item->dfpunit;
 		$q = "insert into detallecotizacion ( IdCotizacion2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idc, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";

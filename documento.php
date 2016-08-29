@@ -171,9 +171,14 @@
                 <div class="col-sm-4 invoice-col" id="dcliente">
                     <div id="dc_nombre">Señores</div>
                     <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                    <div id="dc_nombre"><?php echo $encabezado["dir1"]?></div>
-                    <div id="dc_nombre"><?php echo $encabezado["dir2"]?></div>
-                    <div id="dc_nombre">Ciudad: Caracas</div>
+                    <?php if($tdd == "fac") { ?>
+                      <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
+                      <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
+                      <div id="dc_ciudad">Ciudad: Caracas</div>
+                    <?php } ?>
+                    <?php if($tdd == "ctz") { ?>
+                      <div id="dc_pcontacto"> Attn <?php echo $encabezado["pcontacto"]?></div>
+                    <?php } ?>
                 </div><!-- /.col -->
                 <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
                 

@@ -175,7 +175,7 @@ function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
 				c_qant + "</th><th>" +
 				c_und + "</th><th>" +
 				c_punit + "</th><th>" +
-				c_ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onClick='elimItemF("+ id_bot_elim +")'>"+
+				c_ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-sm bedf' onClick='elimItemF("+ id_bot_elim +")'>"+
 				"<i class='fa fa-times'></i></button></th></tr>";
 	
 	$( itemf ).appendTo("#df_table tbody").show("slow");
