@@ -353,10 +353,10 @@
                                                       </tr>
                                                       <?php 
                                                         if(isset( $pedido )) {
-                                                          $ni=0; 
+                                                          $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
                                                             echo mostrarItemDocumento( $item, $ni );
-                                                          }
+                                                        }
                                                       }?>
                                                   </tbody>
                                               </table>
