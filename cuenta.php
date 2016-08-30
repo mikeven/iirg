@@ -12,7 +12,7 @@
   $nombre_usuario = $_SESSION["user"]["nombre"];
   $usuario = obtenerUsuarioPorId( $_SESSION["user"]["idUsuario"], $dbh );
   $title = $usuario["empresa"];
-  if( $usuario["empresa"] == "") $title = $nombre_usuario;
+  if( $usuario["empresa"] == "" ) $title = $nombre_usuario;
 ?>
 <!DOCTYPE html>
 <html>
@@ -192,18 +192,18 @@
                     <div><span class="txh"><b> <i class="fa fa-user"></i> 
                     <?php echo $usuario["usuario"];?></b></span></div>
                     <hr>
-                    <div> <i class="fa fa-industry"></i> <span class="tx1"> <?php echo $usuario["empresa"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-black-tie"></i> <?php echo $usuario["subtitulo"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-map-marker"></i> <?php echo $usuario["direccion1"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-map-marker"></i> <?php echo $usuario["direccion2"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-registered"></i> <?php echo $usuario["rif"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-phone-square"></i> <?php echo $usuario["telefonos"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-at"></i> <?php echo $usuario["email"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-briefcase"></i> <?php echo $usuario["vendedor"];?></span></div>
+                    <div><b><i class="fa fa-industry"></i> Empresa: </b><span class="tx1"> <?php echo $usuario["empresa"];?></span></div>
+                    <div><b><i class="fa fa-black-tie"></i> Subtítulo: </b><span class="tx1"> <?php echo $usuario["subtitulo"];?></span></div>
+                    <div><b><i class="fa fa-map-marker"></i> Dirección -1-: </b><span class="tx1"> <?php echo $usuario["direccion1"];?></span></div>
+                    <div><b><i class="fa fa-map-marker"></i> Dirección -2-: </b><span class="tx1"> <?php echo $usuario["direccion2"];?></span></div>
+                    <div><b><i class="fa fa-registered"></i> RIF: </b><span class="tx1"> <?php echo $usuario["rif"];?></span></div>
+                    <div><b><i class="fa fa-phone-square"></i> Teléfonos: </b><span class="tx1"> <?php echo $usuario["telefonos"];?></span></div>
+                    <div><b><i class="fa fa-at"></i> Emails: </b><span class="tx1"> <?php echo $usuario["email"];?></span></div>
+                    <div><b><i class="fa fa-briefcase"></i> Vendedor: </b><span class="tx1"> <?php echo $usuario["vendedor"];?></span></div>
                   </div><!-- /.tab-pane -->
                   
                   <div class="tab-pane" id="tab_2">
-                    
+                     
                   </div><!-- /.tab-pane -->
                   
                   <div class="tab-pane" id="tab_3">

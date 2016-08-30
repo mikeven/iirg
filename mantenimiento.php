@@ -1,10 +1,11 @@
 <?php
 	/*
-	 * R&G - Inicio de sesión
+	 * R&G - Mantenimiento y configuración
 	 * 
 	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
+  include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	checkSession( '' );
 ?>

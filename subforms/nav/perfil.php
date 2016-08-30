@@ -1,3 +1,6 @@
+<?php 
+  $usuario = obtenerUsuarioPorId( $_SESSION["user"]["idUsuario"], $dbh );
+?>
 <li class="dropdown user user-menu">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
   <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
@@ -9,22 +12,14 @@
     <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
     <p>
       <?php echo $_SESSION["user"]["nombre"]; ?>
-      <small>Member since Nov. 2012</small>
+      <small><?php echo $usuario["usuario"]; ?></small>
     </p>
   </li>
   <!-- Menu Body -->
-  <!--<li class="user-body">
+  <li class="user-body">
     <div class="row">
-      <div class="col-xs-4 text-center">
-        <a href="#">Followers</a>
-      </div>
-      <div class="col-xs-4 text-center">
-        <a href="#">Sales</a>
-      </div>
-      <div class="col-xs-4 text-center">
-        <a href="#">Friends</a>
-      </div>
-    </div>-->
+      <div align="center"><h4><?php echo $usuario["empresa"]; ?></h3></div> 
+    </div>
     <!-- /.row -->
   </li>
   <!-- Menu Footer-->

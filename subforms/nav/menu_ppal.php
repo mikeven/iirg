@@ -81,6 +81,12 @@
             <span>Mantenimiento</span>
           </a>
         </li>
+        <li class="treeview">
+          <a href="formatos.php">
+            <i class="fa fa-indent"></i>
+            <span>Formatos</span>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
