@@ -135,7 +135,6 @@
 		$usuario["vendedor"] = $_POST["vendedor"];
 		
 		$idr = modificarUsuario( $usuario, $dbh );
-		echo "EXITO";
 		echo "<script>window.location.href='../cuenta.php'</script>";	
 	}
 ?>

@@ -39,6 +39,7 @@
     .login-box{ margin: 7% auto 1% auto; }
     .register-box{ margin: 1% auto; }
     .login-box-msg{ font-size: 18px; }
+    #waitconfirm{ width: 100% !important; margin: 50px auto 0 auto; }
     </style>
   </head>
   <body class="hold-transition login-page">

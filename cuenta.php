@@ -187,7 +187,10 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
-                    <div><span class="txh"><b><?php echo $nombre_usuario;?></b></span></div>
+                    <div><span class="txh"><b> <i class="fa fa-smile-o"></i>
+                    <?php echo $nombre_usuario;?></b></span></div>
+                    <div><span class="txh"><b> <i class="fa fa-user"></i> 
+                    <?php echo $usuario["usuario"];?></b></span></div>
                     <hr>
                     <div> <i class="fa fa-industry"></i> <span class="tx1"> <?php echo $usuario["empresa"];?></span></div>
                     <div><span class="tx1"> <i class="fa fa-black-tie"></i> <?php echo $usuario["subtitulo"];?></span></div>
@@ -196,7 +199,7 @@
                     <div><span class="tx1"> <i class="fa fa-registered"></i> <?php echo $usuario["rif"];?></span></div>
                     <div><span class="tx1"> <i class="fa fa-phone-square"></i> <?php echo $usuario["telefonos"];?></span></div>
                     <div><span class="tx1"> <i class="fa fa-at"></i> <?php echo $usuario["email"];?></span></div>
-                    <div><span class="tx1"> <i class="fa fa-smile-o"></i> <?php echo $usuario["vendedor"];?></span></div>
+                    <div><span class="tx1"> <i class="fa fa-briefcase"></i> <?php echo $usuario["vendedor"];?></span></div>
                   </div><!-- /.tab-pane -->
                   
                   <div class="tab-pane" id="tab_2">
@@ -283,7 +286,7 @@
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">
-                                <i class="fa fa-smile-o"></i>
+                                <i class="fa fa-briefcase"></i>
                                 <label for="vendedor" class="iconlab">Vendedor</label>
                               </div>
                               <input id="clvend" type="text" class="form-control" name="vendedor" value="<?php echo $usuario["vendedor"];?>">
