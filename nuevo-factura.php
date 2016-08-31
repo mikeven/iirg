@@ -398,7 +398,7 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">Total</th>
                                                   <th width="15%">
-                                                  	<div id="fac_total" class="ftotalizacion">
+                                                  	  <div id="fac_total" class="ftotalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
                                                               id="ftotal" value="<?php if(isset( $pedido )) echo $totales["total"]?>" readonly>

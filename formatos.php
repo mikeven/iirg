@@ -7,6 +7,7 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
+  include( "bd/data-formato.php" );
 	checkSession( '' );
 	
   $nombre_usuario = $_SESSION["user"]["nombre"];
@@ -67,46 +68,8 @@
 	<script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
     <script src="dist/js/app.min.js"></script>
     <script src="dist/js/demo.js"></script>
-    <script>
-      $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-        //Datemask dd/mm/yyyy
-    		$("#crif").inputmask({mask: "a-99999999-9"});
-    		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
-    		$("#ctel2").inputmask({mask: "(9999)-999.99.99"});
-      });
-    </script>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            $('#frm_mcliente').bootstrapValidator({
-                message: 'Revise el contenido del campo',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    email: {
-                        validators: { notEmpty: { message: 'Debe indicar un email' },
-						emailAddress: { message: 'Debe especificar un email válido' } }
-                    },
-					nombre: {
-                        validators: { notEmpty: { message: 'Debe indicar nombre' } }
-                    },
-					rif: {
-                        validators: { notEmpty: { message: 'Debe indicar RIF' } }
-                    }
-                },
-				callback: function () {
-                	alert("OK");
-                }
-            });
-        });
-		
-    </script>
-    
-    <script src="js/fn-clientes.js"></script>
+
+    <script src="js/fn-formato.js"></script>
     <style>
       .iconlab{ line-height: 0; }
     </style>
@@ -156,12 +119,16 @@
   <!-- Left side column. contains the logo and sidebar -->
   <?php 
     include("subforms/nav/menu_ppal.php");
-    if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"];
-    if( $usuario["subtitulo"] != "" ) $datau[1] = $usuario["subtitulo"];
-    if( $usuario["direccion1"] != "" ) $datau[2] = $usuario["direccion1"];
-    if( $usuario["direccion2"] != "" ) $datau[3] = $usuario["direccion2"];
-    if( $usuario["telefonos"] != "" ) $datau[4] = $usuario["telefonos"];
-    if( $usuario["email"] != "" ) $datau[5] = $usuario["email"];
+    
+    $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
+    
+    if( $frt_c["enc1"] == "" ) { if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"]; } else $datau[0] = $frt_c["enc1"];
+    if( $frt_c["enc2"] == "" ) { if( $usuario["subtitulo"] != "" ) $datau[1] = $usuario["subtitulo"]; } else $datau[1] = $frt_c["enc2"];
+    if( $frt_c["enc3"] == "" ) { if( $usuario["direccion1"] != "" ) $datau[2] = $usuario["direccion1"]; } else $datau[2] = $frt_c["enc3"];
+    if( $frt_c["enc4"] == "" ) { if( $usuario["direccion2"] != "" ) $datau[3] = $usuario["direccion2"]; } else $datau[3] = $frt_c["enc4"];
+    if( $frt_c["enc5"] == "" ) { if( $usuario["telefonos"] != "" ) $datau[4] = $usuario["telefonos"]; } else $datau[4] = $frt_c["enc5"];
+    if( $frt_c["enc6"] == "" ) { if( $usuario["email"] != "" ) $datau[5] = $usuario["email"]; } else $datau[5] = $frt_c["enc6"];
+
   ?>
   <!-- Left side column. contains the logo and sidebar -->
 
@@ -194,18 +161,16 @@
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <i class="fa fa-book"></i> Formato de Cotizaciones
+                            <i class="fa fa-book"></i>Formato de Cotizaciones
                           </a>
                         </h4>
                       </div>
                       <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="box-body">
                           
-
-
-
                           <!-- Custom Tabs -->
                           <div class="nav-tabs-custom">
+                            <input name="idUsuario" type="hidden" id="idUsuario" value="<?php echo $usuario["idUsuario"];?>">
                             <ul class="nav nav-tabs">
                               <li class="active"><a href="#tab_1" data-toggle="tab">Resumen</a></li>
                               <li><a href="#tab_2" data-toggle="tab">Modificar Datos de Encabezado</a></li>
@@ -228,16 +193,16 @@
                               </div><!-- /.tab-pane -->
                               
                               <div class="tab-pane" id="tab_2">
-                                <form role="form" id="frm_mencabez" name="form_mencabezadoc" method="post" action="bd/data-usuario.php">
-                                  <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                                
+                                <form role="form" id="frm_mencabezc" name="form_mencabezadoc" method="post" action="bd/data-usuario.php">
+                                  
                                   <input name="mod_enc_ctz" type="hidden" value="1">
                                   <div class="box-body">
-                                    
+                                    <input name="idUsuario" type="hidden" id="idUsuario" value="<?php echo $usuario["idUsuario"];?>">
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l1" 
-                                        value="<?php echo $datau[0]; ?>">
+                                        <input type="text" class="form-control" name="l1" value="<?php echo $datau[0]; ?>">
                                         <span class="input-group-addon">L1</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -245,8 +210,7 @@
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l2" 
-                                        value="<?php echo $datau[1]; ?>">
+                                        <input type="text" class="form-control" name="l2" value="<?php echo $datau[1]; ?>">
                                         <span class="input-group-addon">L2</span>
                                       </div>                                        
                                     </div><!-- /.form group -->
@@ -254,8 +218,7 @@
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l3" 
-                                        value="<?php echo $datau[2]; ?>">
+                                        <input type="text" class="form-control" name="l3" value="<?php echo $datau[2]; ?>">
                                         <span class="input-group-addon">L3</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -263,16 +226,14 @@
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l4" 
-                                        value="<?php echo $datau[3]; ?>">
+                                        <input type="text" class="form-control" name="l4" value="<?php echo $datau[3]; ?>">
                                         <span class="input-group-addon">L4</span>
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l5" 
-                                        value="<?php echo $datau[4]; ?>">
+                                        <input type="text" class="form-control" name="l5" value="<?php echo $datau[4]; ?>">
                                         <span class="input-group-addon">L5</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -280,12 +241,11 @@
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="l6" 
-                                        value="<?php echo $datau[5]; ?>">
+                                        <input type="text" class="form-control" name="l6" value="<?php echo $datau[5]; ?>">
                                         <span class="input-group-addon">L6</span>
                                       </div>                                        
                                     </div><!-- /.form group -->
-                                      
+                                    <div id="cres"></div> 
                                   </div><!-- /.box-body -->
                 
                                   <div class="box-footer" align="center">
@@ -295,15 +255,15 @@
                               </div><!-- /.tab-pane -->
                               
                               <div class="tab-pane" id="tab_3">
-                                <form role="form" id="frm_mctzent" name="form_ent_ctz" method="post" action="bd/data-usuario.php">
-                                  <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                                <form role="form" id="frm_mctzent" name="form_ent_ctz" method="post">
+                                  
                                   <input name="mod_fctz_ent" type="hidden" value="1">
                                   <div class="box-body">
                                     
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <textarea class="form-control" name="entrada" rows="3" cols="50"></textarea>
+                                        <textarea class="form-control" name="entrada" rows="3" cols="50" id="tentctz"></textarea>
                                         <span class="input-group-addon">Entrada</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -317,15 +277,15 @@
                               </div><!-- /.tab-pane -->
 
                               <div class="tab-pane" id="tab_4">
-                                <form role="form" id="frm_mctzobs" name="form_mobs_ctz" method="post" action="bd/data-usuario.php">
+                                <form role="form" id="frm_mctzobs" name="form_mobs_ctz" method="post">
                                   <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                                  <input name="mod_fctz_ent" type="hidden" value="1">
+                                  <input name="mod_fctz_obs" type="hidden" value="1">
                                   <div class="box-body">
                                     
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <input type="textarea" class="form-control" name="obs1" rows="3">
+                                        <input type="text" class="form-control" name="obs1">
                                         <span class="input-group-addon">Observación 1</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -353,7 +313,6 @@
                               </div><!-- /.tab-pane -->
                             </div><!-- /.tab-content -->
                           </div><!-- nav-tabs-custom -->
-
 
 
                         </div>
@@ -460,6 +419,9 @@
                       </div>
                     </div>
                   </div>
+                  <!-- Bloque de respuesta del servidor -->
+                  <?php include("subforms/nav/mensaje_rcpf.php");?>
+                  <!-- /.Bloque de respuesta del servidor -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
