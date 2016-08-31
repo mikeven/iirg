@@ -54,7 +54,7 @@
           </ul>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="#">
             <i class="fa fa-file-text-o"></i> <span>Facturas</span>
           </a>
           <ul class="treeview-menu">
@@ -62,6 +62,17 @@
             <li><a href="nuevo-factura.php"><i class="fa fa-plus"></i>Crear nueva factura</a></li>
           </ul>
         </li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-sticky-note"></i><span>Notas</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="notas.php"><i class="fa fa-list-alt"></i>Consultar notas</a></li>
+            <li><a href="nuevo-nota.php"><i class="fa fa-plus"></i>Crear nueva nota</a></li>
+          </ul>
+        </li>
+        
         <li class="header">REPORTES</li>
         <li class="treeview">
           <a href="#">
