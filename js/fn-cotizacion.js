@@ -82,30 +82,27 @@ function obtenerVectorDetalleC(){
 	return JSON.stringify( detallef );
 }
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, total, iva ){
+function obtenerVectorEncabezado(){
 	encabezado = new Object();
-	encabezado.numero = numero;
-	encabezado.idc = idc;
-	encabezado.femision = femision;
-	encabezado.cvalidez = cvalidez;
-	encabezado.pcontacto = pcontacto;
-	encabezado.total = total;
-	encabezado.iva = iva;
+	encabezado.numero = $( '#ncotiz' ).val();
+	encabezado.idc = $( '#idCliente' ).val();
+	encabezado.femision = $( '#femision' ).val();
+	encabezado.cvalidez = $( '#cvalidez' ).val();
+	encabezado.pcontacto = $( '#cpcontacto' ).val();
+
+	encabezado.obs1 = $( '#tobs1' ).val();
+	encabezado.obs2 = $( '#tobs2' ).val();
+	encabezado.obs3 = $( '#tobs3' ).val();
+
+	encabezado.total = $( '#ftotal' ).val();
+	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
 function guardarCotizacion(){
-	
-	var idc = $( '#idCliente' ).val();
-	var numero = $( '#ncotiz' ).val();
-	var femision = $( '#femision' ).val();
-	var cvalidez = $( '#cvalidez' ).val();
-	var pcontacto = $( '#cpcontacto' ).val();
-	var total = $( '#ftotal' ).val();
-	var iva = $( '#iva' ).val();
-	
-	cencabezado = obtenerVectorEncabezado( numero, idc, femision, cvalidez, pcontacto, total, iva );
+		
+	cencabezado = obtenerVectorEncabezado();
 	cdetalle = obtenerVectorDetalleC();
 	
 	$.ajax({
@@ -284,12 +281,17 @@ $( document ).ready(function() {
 		}
 		
     });
-	
+	/* --------------------------------------------------------- */
+	$("#cvalidez").on( "change", function(){
+		var valor = $(this).val();
+		$("#nval").html(valor);
+    });
 	/*===============================================================================*/
 	$("#bt_reg_cotizacion").on( "click", function(){
 		if( checkCotizacion() == 0 )
 			guardarCotizacion();
     });
+
     
 });
 /* --------------------------------------------------------- */

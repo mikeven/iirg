@@ -9,7 +9,9 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
+  include( "bd/data-formato.php" );
   include( "bd/data-cotizacion.php" );
+  include( "fn/fn-formato.php" );
   //require_once( 'lib/FirePHPCore/fb.php' );
 	
 	$iva = 0.12;
@@ -142,6 +144,10 @@
 
     </nav>
   </header>
+  <?php 
+    $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
+    $obs = obtenerObservacionesCtz( $frt_c );
+  ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -380,7 +386,19 @@
                                         </tbody>
                                     </table>			
                                 </div>
-                            
+                                <dic id="observaciones">
+                                  <div class="titobs"><?php echo $obs[0]["t"];?></div>
+                                  
+                                  <div class="obsctz"><?php echo $obs[1]["t"];?>
+                                    <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>">
+                                  </div>
+                                  <div class="obsctz"><?php echo $obs[2]["t"];?>
+                                    <input id="tobs2" type="hidden" value="<?php echo $obs[2]["v"];?>">
+                                  </div>
+                                  <div class="obsctz"><?php echo $obs[3]["t"];?>
+                                    <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>">
+                                  </div>
+                                </dic>
                             </div><!--/.col-md-8-->
                         	
                         </div><!-- /.pie_cotizacion -->

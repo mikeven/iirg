@@ -10,7 +10,9 @@
   include( "bd/data-pedido.php" );
 	include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
-	include( "bd/data-cotizacion.php" );
+	include( "bd/data-formato.php" );
+  include( "bd/data-cotizacion.php" );
+  include( "fn/fn-formato.php" );
 
 	checkSession( '' );
 	
@@ -22,7 +24,8 @@
     	$documento = obtenerCotizacionPorId( $dbh, $id );
     	$encabezado = $documento["encabezado"];
       $obs1 = $encabezado["obs1"];
-      $obs2 = "Validez: ".$encabezado["validez"];
+      $obs2 = $encabezado["obs2"];
+      $obs3 = $encabezado["obs3"];
       $detalle_d = $documento["detalle"];
       $tdocumento = "Cotización";
     }
@@ -123,8 +126,12 @@
           </div>
         </nav>
       </header>
+      <?php 
+        $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
+        $obs = obtenerObservacionesCtz( $frt_c );
+      ?>
       <!-- Left side column. contains the logo and sidebar -->
-	  <?php include( "subforms/nav/menu_ppal.php" );?>
+	     <?php include( "subforms/nav/menu_ppal.php" );?>
       <!-- Left side column. contains the logo and sidebar -->
 
       <!-- Content Wrapper. Contains page content -->
@@ -227,9 +234,10 @@
           <div class="row">
             <!-- accepted payments column -->
             <div class="col-xs-6">
-              <p class="lead">Observaciones:</p>
+              <p class="lead"><?php echo $obs[0]["t"];?></p>
                 <div><?php echo $obs1; ?></div>
-                <div><?php echo $obs2; ?></div>  
+                <div><?php echo $obs2; ?></div>
+                <div><?php echo $obs3; ?></div>  
               </p>
             </div><!-- /.col -->
             <div class="col-xs-6">

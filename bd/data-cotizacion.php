@@ -50,9 +50,10 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.IdCliente2 as idcliente, date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, c.iva as iva, c.Observaciones1 as obs1, k.Nombre as nombre, 
-		k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email 
-		FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.IdCliente2 as idcliente, date_format(c.fecha_emision,'%d/%m/%Y') as femision, 
+		c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, c.iva as iva, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
+		c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, 
+		k.telefono2 as tlf2, k.Email as email FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
@@ -85,14 +86,14 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarCotizacion( $dbh, $encabezado, $detalle ){
+	function guardarCotizacion( $dbh, $encabezado ){
 		//Guarda el registro de la cotización
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into cotizacion ( numero, IdCliente2, fecha_emision, pcontacto, iva, Total, validez  ) 
-		values ( $encabezado->numero, $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', $encabezado->iva, 
-		$encabezado->total, '$encabezado->cvalidez' )";
+		$q = "insert into cotizacion ( numero, IdCliente2, fecha_emision, pcontacto, observaciones1, observaciones2, observaciones3, iva, Total, validez  ) 
+		values ( $encabezado->numero, $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', '$encabezado->obs1', '$encabezado->obs2', 
+			'$encabezado->obs3', $encabezado->iva, $encabezado->total, '$encabezado->cvalidez' )";
 		$data = mysql_query( $q, $dbh );
-
+		
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
@@ -101,7 +102,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idc = guardarCotizacion( $dbh, $encabezado, $detalle );
+		$idc = guardarCotizacion( $dbh, $encabezado );
 		
 		if( ( $idc != 0 ) && ( $idc != "" ) ){
 			$exito = guardarDetalleCotizacion( $dbh, $idc, $detalle, $encabezado->iva );
