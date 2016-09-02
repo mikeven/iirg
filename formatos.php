@@ -7,7 +7,7 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-  include( "bd/data-formato.php" );
+    include( "bd/data-formato.php" );
 	checkSession( '' );
 	
   $nombre_usuario = $_SESSION["user"]["nombre"];
@@ -41,8 +41,9 @@
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
+
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,7 +72,7 @@
 
     <script src="js/fn-formato.js"></script>
     <style>
-      .iconlab{ line-height: 0; }
+      .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -161,7 +162,7 @@
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <i class="fa fa-book"></i>Formato de Cotizaciones
+                            <i class="fa fa-book"></i> Formato de Cotizaciones
                           </a>
                         </h4>
                       </div>
@@ -179,23 +180,27 @@
                             </ul>
                             <div class="tab-content">
                               <div class="tab-pane active" id="tab_1">
-                                <div><b>Datos de encabezado</b></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                                <div class="tcontab"><b>Datos de encabezado</b></div>
+                                <div><?php echo $frt_c["enc1"]; ?></div>
+                                <div><?php echo $frt_c["enc2"]; ?></div>
+                                <div><?php echo $frt_c["enc3"]; ?></div>
+                                <div><?php echo $frt_c["enc4"]; ?></div>
+                                <div><?php echo $frt_c["enc5"]; ?></div>
+                                <div><?php echo $frt_c["enc6"]; ?></div>
                                 <hr>
-                                <div><b>Observaciones</b></div>
-                                <div></div>
-                                <div></div>
+                                <div class="tcontab"><b>Texto introductorio</b></div>
+                                <div><?php echo $frt_c["entrada"]; ?></div>
+                                <hr>
+                                <div class="tcontab"><b>Observaciones</b></div>
+                                <div><b><?php echo $frt_c["titulo_obs"]; ?></b></div>
+                                <div><?php echo $frt_c["obs1"]; ?></div>
+                                <div><?php echo $frt_c["obs2"]; ?></div>
+                                <div><?php echo $frt_c["obs3"]; ?></div>
                               </div><!-- /.tab-pane -->
                               
                               <div class="tab-pane" id="tab_2">
                                 
-                                <form role="form" id="frm_mencabezc" name="form_mencabezadoc" method="post" action="bd/data-usuario.php">
-                                  
+                                <form role="form" id="frm_mencabezc" method="post">
                                   <input name="mod_enc_ctz" type="hidden" value="1">
                                   <div class="box-body">
                                     <input name="idUsuario" type="hidden" id="idUsuario" value="<?php echo $usuario["idUsuario"];?>">
@@ -263,7 +268,7 @@
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <textarea class="form-control" name="entrada" rows="3" cols="50" id="tentctz"></textarea>
+                                        <textarea class="form-control" name="entrada" rows="3" cols="50" id="tentctz"><?php echo $frt_c["entrada"];?></textarea>
                                         <span class="input-group-addon">Entrada</span>
                                       </div>
                                     </div><!-- /.form group -->
@@ -283,31 +288,65 @@
                                   <div class="box-body">
                                     
                                     <div class="form-group">
-                                      <!--<label for="obs1">obs1</label>-->
+                                      <!--<label for="tobs">Titulo_obs</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="obs1">
-                                        <span class="input-group-addon">Observación 1</span>
+                                        <input type="text" class="form-control" name="tobs" value="<?php echo $frt_c["titulo_obs"]?>">
+                                        <span class="input-group-addon">Título sección observaciones</span>
+                                      </div>
+                                    </div><!-- /.form group -->
+                                    <div class="form-group">
+                                      <!--<label for="obs1">obs1</label>-->
+                                      <div class="input-group margin">
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresc" data-c="toc1">Texto</a></li>
+                                            <li><a href="#" class="solectura" data-c="toc1">Validez de cotización</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampo" data-c="toc1">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csctzobs" name="obs1" id="toc1" data-v="" 
+                                        value="<?php echo $frt_c["obs1"]?>">
                                       </div>
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="obs2">
-                                        <span class="input-group-addon">Observación 2</span>
+                                      <div class="input-group margin">
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresc" data-c="toc2">Texto</a></li>
+                                            <li><a href="#" class="solectura" data-c="toc2">Validez de cotización</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampo" data-c="toc2">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csctzobs" name="obs2" id="toc2" data-v="" 
+                                        value="<?php echo $frt_c["obs2"]?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs3">obs3</label>-->
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="obs3">
-                                        <span class="input-group-addon">Observación 3</span>
+                                      <div class="input-group margin">
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" class="libresc">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresc" data-c="toc3">Texto</a></li>
+                                            <li><a href="#" class="solectura" data-c="toc3">Validez de cotización</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampo" data-c="toc3">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csctzobs" name="obs3" id="toc3" data-v="" 
+                                        value="<?php echo $frt_c["obs3"]?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     
                                   </div><!-- /.box-body -->
                 
                                   <div class="box-footer" align="center">
-                                    <button type="submit" class="btn btn-primary" id="bt_mod_cuenta">Guardar</button>
+                                    <button type="submit" class="btn btn-primary" id="bt_ctzobs">Guardar</button>
                                   </div>
                               </form>
                               </div><!-- /.tab-pane -->
@@ -379,9 +418,9 @@
                               </div><!-- /.tab-pane -->
 
                               <div class="tab-pane" id="tab_f3">
-                                <form role="form" id="frm_mctzobs" name="form_mobs_ctz" method="post" action="bd/data-usuario.php">
+                                <form role="form" id="frm_mfacobs" name="form_mobs_ctz" method="post" action="bd/data-usuario.php">
                                   <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                                  <input name="mod_fctz_ent" type="hidden" value="1">
+                                  <input name="mod_fctz_obs" type="hidden" value="1">
                                   <div class="box-body">
                                     
                                     <div class="form-group">

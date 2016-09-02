@@ -4,7 +4,6 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerFormatoPorUsuarioDocumento( $dbh, $doc, $idu ){
 		$q = "select * from formato where doc = '$doc' and idUsuario = $idu";
-		echo $q;
 		return mysql_fetch_array( mysql_query ( $q, $dbh ) );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
@@ -14,11 +13,11 @@
 		enc4 = '$form->l4', enc5 = '$form->l5', enc6 = '$form->l6' where idUsuario = $form->idUsuario";
 		
 		if( $sec == "ent" )
-			$q = "update formato set entrada = '$form->entrada' where idUsuario = $form->idUsuario";
+			$q = "update formato set doc = '$documento', entrada = '$form->entrada' where idUsuario = $form->idUsuario";
 		
 		if( $sec == "obs" )
-			$q = "update formato set obs1 = '$form->obs1', obs2 = '$form->obs2', obs3 = '$form->obs3' 
-					where idUsuario = $form->idUsuario";
+			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->obs1', 
+			obs2 = '$form->obs2', obs3 = '$form->obs3' where idUsuario = $form->idUsuario";
 
 
 		$data = mysql_query( $q, $dbh );
