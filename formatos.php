@@ -7,7 +7,8 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-    include( "bd/data-formato.php" );
+  include( "bd/data-formato.php" );
+  include( "fn/fn-formato.php" );
 	checkSession( '' );
 	
   $nombre_usuario = $_SESSION["user"]["nombre"];
@@ -122,13 +123,8 @@
     include("subforms/nav/menu_ppal.php");
     
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    
-    if( $frt_c["enc1"] == "" ) { if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"]; } else $datau[0] = $frt_c["enc1"];
-    if( $frt_c["enc2"] == "" ) { if( $usuario["subtitulo"] != "" ) $datau[1] = $usuario["subtitulo"]; } else $datau[1] = $frt_c["enc2"];
-    if( $frt_c["enc3"] == "" ) { if( $usuario["direccion1"] != "" ) $datau[2] = $usuario["direccion1"]; } else $datau[2] = $frt_c["enc3"];
-    if( $frt_c["enc4"] == "" ) { if( $usuario["direccion2"] != "" ) $datau[3] = $usuario["direccion2"]; } else $datau[3] = $frt_c["enc4"];
-    if( $frt_c["enc5"] == "" ) { if( $usuario["telefonos"] != "" ) $datau[4] = $usuario["telefonos"]; } else $datau[4] = $frt_c["enc5"];
-    if( $frt_c["enc6"] == "" ) { if( $usuario["email"] != "" ) $datau[5] = $usuario["email"]; } else $datau[5] = $frt_c["enc6"];
+    $datau = dataU( $frt_c, $usuario );
+    $do = dataObs( $frt_c );
 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -296,7 +292,7 @@
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
-                                      <div class="input-group margin">
+                                      <div class="input-group">
                                         <div class="input-group-btn">
                                           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                                           <ul class="dropdown-menu menuobs">
@@ -306,13 +302,15 @@
                                             <li><a href="#" class="blocampo" data-c="toc1">No mostrar</a></li>
                                           </ul>
                                         </div><!-- /btn-group -->
-                                        <input type="text" class="form-control csctzobs" name="obs1" id="toc1" data-v="" 
-                                        value="<?php echo $frt_c["obs1"]?>">
+                                        <input type="text" class="form-control csctzobs" name="obs1" id="toc1" 
+                                        data-v="<?php echo $do[1]["dv"]; ?>" 
+                                        value="<?php echo $do[1]["t"]; ?>" <?php echo $do[1]["p"]; ?>>
+                                        <input type="hidden" name="vobs1" id="vtoc1" value="<?php echo $do[1]["v"];?>">
                                       </div>
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
-                                      <div class="input-group margin">
+                                      <div class="input-group">
                                         <div class="input-group-btn">
                                           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                                           <ul class="dropdown-menu menuobs">
@@ -322,13 +320,15 @@
                                             <li><a href="#" class="blocampo" data-c="toc2">No mostrar</a></li>
                                           </ul>
                                         </div><!-- /btn-group -->
-                                        <input type="text" class="form-control csctzobs" name="obs2" id="toc2" data-v="" 
-                                        value="<?php echo $frt_c["obs2"]?>">
+                                        <input type="text" class="form-control csctzobs" name="obs2" id="toc2" 
+                                        data-v="<?php echo $do[2]["dv"]; ?>" 
+                                        value="<?php echo $do[2]["t"];?>" <?php echo $do[2]["p"]; ?>>
+                                        <input type="hidden" name="vobs2" id="vtoc2" value="<?php echo $do[2]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs3">obs3</label>-->
-                                      <div class="input-group margin">
+                                      <div class="input-group">
                                         <div class="input-group-btn">
                                           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" class="libresc">Mostrar <span class="fa fa-caret-down"></span></button>
                                           <ul class="dropdown-menu menuobs">
@@ -338,8 +338,10 @@
                                             <li><a href="#" class="blocampo" data-c="toc3">No mostrar</a></li>
                                           </ul>
                                         </div><!-- /btn-group -->
-                                        <input type="text" class="form-control csctzobs" name="obs3" id="toc3" data-v="" 
-                                        value="<?php echo $frt_c["obs3"]?>">
+                                        <input type="text" class="form-control csctzobs" name="obs3" id="toc3" 
+                                        data-v="<?php echo $do[3]["dv"]; ?>" 
+                                        value="<?php echo $do[3]["t"];?>" <?php echo $do[3]["p"]; ?>>
+                                        <input type="hidden" name="vobs3" id="vtoc3" value="<?php echo $do[3]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     

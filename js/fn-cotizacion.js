@@ -284,7 +284,8 @@ $( document ).ready(function() {
 	/* --------------------------------------------------------- */
 	$("#cvalidez").on( "change", function(){
 		var valor = $(this).val();
-		$("#nval").html(valor);
+		$('#vvalz').html(valor);
+		$('input[data-v=VCTZ]').val( "Validez: " + valor );
     });
 	/*===============================================================================*/
 	$("#bt_reg_cotizacion").on( "click", function(){

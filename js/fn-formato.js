@@ -83,8 +83,9 @@ $( document ).ready(function() {
             if( $(this).attr("data-v") == "VCTZ" ){ $(this).val(""); $(this).attr("data-v", "");  } 
         });
         $(".csctzobs").removeAttr("readonly");
-        $("#" + target).val("VALIDEZ DE COTIZACIÓN");
+        $("#" + target).val("Validez cotización");
         $("#" + target).attr("readonly", "true"); $("#" + target).attr( "data-v", "VCTZ" );
+        $("#v" + target).val("#vctz");
     });
 
     $('.blocampo').click( function(){
@@ -96,6 +97,11 @@ $( document ).ready(function() {
         var target = $(this).attr("data-c");
         if( $("#" + target).attr("data-v") == "VCTZ" ){ $("#" + target).val(""); $("#" + target).attr("data-v", ""); } 
         $("#" + target).removeAttr("readonly");
+    });
+
+    $('.csctzobs').blur( function(){
+        var target = "v" + $(this).attr("id");
+        $("#" + target).val( $(this).val() );
     });
 });
 /* --------------------------------------------------------- */

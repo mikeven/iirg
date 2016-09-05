@@ -16,8 +16,8 @@
 			$q = "update formato set doc = '$documento', entrada = '$form->entrada' where idUsuario = $form->idUsuario";
 		
 		if( $sec == "obs" )
-			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->obs1', 
-			obs2 = '$form->obs2', obs3 = '$form->obs3' where idUsuario = $form->idUsuario";
+			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->vobs1', 
+			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario";
 
 
 		$data = mysql_query( $q, $dbh );

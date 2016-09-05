@@ -390,13 +390,16 @@
                                   <div class="titobs"><?php echo $obs[0]["t"];?></div>
                                   
                                   <div class="obsctz"><?php echo $obs[1]["t"];?>
-                                    <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>">
+                                    <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>" 
+                                    data-v="<?php echo $obs[1]["dv"];?>">
                                   </div>
                                   <div class="obsctz"><?php echo $obs[2]["t"];?>
-                                    <input id="tobs2" type="hidden" value="<?php echo $obs[2]["v"];?>">
+                                    <input id="tobs2" type="hidden" value="<?php echo $obs[2]["v"];?>" 
+                                    data-v="<?php echo $obs[2]["dv"];?>">
                                   </div>
                                   <div class="obsctz"><?php echo $obs[3]["t"];?>
-                                    <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>">
+                                    <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>" 
+                                    data-v="<?php echo $obs[3]["dv"];?>">
                                   </div>
                                 </dic>
                             </div><!--/.col-md-8-->
