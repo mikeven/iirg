@@ -72,11 +72,23 @@ $( document ).ready(function() {
         }
     });
 
+    $('#frm_mfacobs').bootstrapValidator({
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+          e.preventDefault();
+          reg_formato( "fac", "#frm_mfacobs", "obs" );
+        }
+    });
+
+
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
       checkboxClass: 'icheckbox_minimal-blue',
       radioClass: 'iradio_minimal-blue'
     });
 
+    /* Configuración de observaciones formato cotización */
     $('.solectura').click( function(){
         var target = $(this).attr("data-c");
         $(".csctzobs").each(function (){ 
@@ -103,5 +115,34 @@ $( document ).ready(function() {
         var target = "v" + $(this).attr("id");
         $("#" + target).val( $(this).val() );
     });
+
+    /* Configuración de observaciones formato factura */
+    $('.solecturaf').click( function(){
+        var target = $(this).attr("data-f");
+        $(".csfacobs").each(function (){ 
+            if( $(this).attr("data-v") == "VFAC" ){ $(this).val(""); $(this).attr("data-v", "");  } 
+        });
+        $(".csfacobs").removeAttr("readonly");
+        $("#" + target).val("Condición de pago");
+        $("#" + target).attr("readonly", "true"); $("#" + target).attr( "data-v", "VFAC" );
+        $("#v" + target).val("#vfac");
+    });
+
+    $('.blocampof').click( function(){
+        var target = $(this).attr("data-f");
+        $("#" + target).val(""); $("#" + target).attr("readonly", "true");
+    });
+    
+    $('.libresf').click( function(){
+        var target = $(this).attr("data-f");
+        if( $("#" + target).attr("data-v") == "VFAC" ){ $("#" + target).val(""); $("#" + target).attr("data-v", ""); } 
+        $("#" + target).removeAttr("readonly");
+    });
+
+    $('.csfacobs').blur( function(){
+        var target = "v" + $(this).attr("id");
+        $("#" + target).val( $(this).val() );
+    });
+
 });
 /* --------------------------------------------------------- */

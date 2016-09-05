@@ -10,15 +10,15 @@
 	function guardarFormato( $dbh, $documento, $form, $sec ){
 		if( $sec == "enc" )
 			$q = "update formato set doc = '$documento', enc1 = '$form->l1', enc2 = '$form->l2', enc3 = '$form->l3', 
-		enc4 = '$form->l4', enc5 = '$form->l5', enc6 = '$form->l6' where idUsuario = $form->idUsuario";
+			enc4 = '$form->l4', enc5 = '$form->l5', enc6 = '$form->l6' where idUsuario = $form->idUsuario and doc = '$documento'";
 		
 		if( $sec == "ent" )
-			$q = "update formato set doc = '$documento', entrada = '$form->entrada' where idUsuario = $form->idUsuario";
+			$q = "update formato set doc = '$documento', entrada = '$form->entrada' where idUsuario = $form->idUsuario 
+			and doc = '$documento'";
 		
 		if( $sec == "obs" )
 			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->vobs1', 
-			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario";
-
+			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario and doc = '$documento'";
 
 		$data = mysql_query( $q, $dbh );
 		//echo $q;

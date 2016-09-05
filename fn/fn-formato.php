@@ -19,7 +19,19 @@
 		$obs[0]["t"] = $fctz["titulo_obs"]; $obs[0]["v"] = $fctz["titulo_obs"];
 		return $obs;
 	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function obtenerResumenObs( $frt ){
 
+		$obs = array();
+		for ( $i = 1; $i <= 3; $i++ ) { 
+			$obs[$i] = $frt["obs$i"];
+			if( $frt["obs$i"] == "#vctz" ) $obs[$i] = "Validez cotización"; 
+			if( $frt["obs$i"] == "#vfac" ) $obs[$i] = "Condición de pago";	 
+		}
+		$obs[0] = $frt["titulo_obs"];
+		return $obs;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function dataU( $frt_c, $usuario ){
 
 		if( $frt_c["enc1"] == "" ) { if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"]; } 
@@ -43,29 +55,37 @@
 		return $datau;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function configDoc( $doc ){
+		$config["ctz"] = array( 'idcampo' => '#vctz', 'texto' => 'Validez cotización', 'data-param' => 'VCTZ' );
+		$config["fac"] = array( 'idcampo' => '#vfac', 'texto' => 'Condición de pago', 'data-param' => 'VFAC' );
+		
+		return $config[$doc];
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function dataObs( $frt, $doc ){
 
-	function dataObs( $frt_c ){
+		$cfg = configDoc( $doc );
 		$do[1]["p"] = ""; $do[2]["p"] = ""; $do[3]["p"] = "";
-		$do[1]["t"] = $frt_c["obs1"]; $do[2]["t"] = $frt_c["obs2"]; $do[3]["t"] = $frt_c["obs3"];
-		$do[1]["v"] = $frt_c["obs1"]; $do[2]["v"] = $frt_c["obs2"]; $do[3]["v"] = $frt_c["obs3"];
+		$do[1]["t"] = $frt["obs1"]; $do[2]["t"] = $frt["obs2"]; $do[3]["t"] = $frt["obs3"];
+		$do[1]["v"] = $frt["obs1"]; $do[2]["v"] = $frt["obs2"]; $do[3]["v"] = $frt["obs3"];
 		$do[1]["dv"] = ""; $do[2]["dv"] = ""; $do[3]["dv"] = "";
     	
-    	if( $frt_c["obs1"] == "#vctz" ) { 
-    		$do[1]["p"] = "readonly"; $do[1]["t"] = "Validez cotización"; 
-    		$do[1]["v"] = "#vctz";  $do[1]["dv"] = "VCTZ"; 
+    	if( $frt["obs1"] == $cfg["idcampo"] ) { 
+    		$do[1]["p"] = "readonly"; $do[1]["t"] = $cfg["texto"]; 
+    		$do[1]["v"] = $cfg["idcampo"];  $do[1]["dv"] = $cfg["data-param"]; 
     	}
 
-    	if( $frt_c["obs2"] == "#vctz" ) { 
-    		$do[2]["p"] = "readonly"; $do[2]["t"] = "Validez cotización"; 
-    		$do[2]["v"] = "#vctz"; $do[2]["dv"] = "VCTZ"; 
+    	if( $frt["obs2"] == $cfg["idcampo"] ) { 
+    		$do[2]["p"] = "readonly"; $do[2]["t"] = $cfg["texto"]; 
+    		$do[2]["v"] = $cfg["idcampo"]; $do[2]["dv"] = $cfg["data-param"]; 
     	}
 
-    	if( $frt_c["obs3"] == "#vctz" ) { 
-    		$do[3]["p"] = "readonly"; $do[3]["t"] = "Validez cotización"; 
-    		$do[3]["v"] = "#vctz"; $do[3]["dv"] = "VCTZ"; 
+    	if( $frt["obs3"] == $cfg["idcampo"] ) { 
+    		$do[3]["p"] = "readonly"; $do[3]["t"] = $cfg["texto"]; 
+    		$do[3]["v"] = $cfg["idcampo"]; $do[3]["dv"] = $cfg["data-param"]; 
     	}
 
     	return $do;
 	}
-	
+	/*--------------------------------------------------------------------------------------------------------*/
 ?>

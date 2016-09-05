@@ -124,7 +124,13 @@
     
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $datau = dataU( $frt_c, $usuario );
-    $do = dataObs( $frt_c );
+    $doc = dataObs( $frt_c, "ctz" );
+    $cobs = obtenerResumenObs( $frt_c );
+
+    $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
+    $dof = dataObs( $frt_f, "fac" );
+
+    $fobs = obtenerResumenObs( $frt_f );
 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -154,7 +160,7 @@
                 <div class="box-body">
                   <div class="box-group" id="accordion">
                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                    <div class="panel box box-primary">
+                    <div class="panel box box-default">
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -188,10 +194,10 @@
                                 <div><?php echo $frt_c["entrada"]; ?></div>
                                 <hr>
                                 <div class="tcontab"><b>Observaciones</b></div>
-                                <div><b><?php echo $frt_c["titulo_obs"]; ?></b></div>
-                                <div><?php echo $frt_c["obs1"]; ?></div>
-                                <div><?php echo $frt_c["obs2"]; ?></div>
-                                <div><?php echo $frt_c["obs3"]; ?></div>
+                                <div><b><?php echo $cobs[0]; ?></b></div>
+                                <div><?php echo $cobs[1]; ?></div>
+                                <div><?php echo $cobs[2]; ?></div>
+                                <div><?php echo $cobs[3]; ?></div>
                               </div><!-- /.tab-pane -->
                               
                               <div class="tab-pane" id="tab_2">
@@ -303,9 +309,9 @@
                                           </ul>
                                         </div><!-- /btn-group -->
                                         <input type="text" class="form-control csctzobs" name="obs1" id="toc1" 
-                                        data-v="<?php echo $do[1]["dv"]; ?>" 
-                                        value="<?php echo $do[1]["t"]; ?>" <?php echo $do[1]["p"]; ?>>
-                                        <input type="hidden" name="vobs1" id="vtoc1" value="<?php echo $do[1]["v"];?>">
+                                        data-v="<?php echo $doc[1]["dv"]; ?>" 
+                                        value="<?php echo $doc[1]["t"]; ?>" <?php echo $doc[1]["p"]; ?>>
+                                        <input type="hidden" name="vobs1" id="vtoc1" value="<?php echo $doc[1]["v"];?>">
                                       </div>
                                     </div><!-- /.form group -->
                                     <div class="form-group">
@@ -321,9 +327,9 @@
                                           </ul>
                                         </div><!-- /btn-group -->
                                         <input type="text" class="form-control csctzobs" name="obs2" id="toc2" 
-                                        data-v="<?php echo $do[2]["dv"]; ?>" 
-                                        value="<?php echo $do[2]["t"];?>" <?php echo $do[2]["p"]; ?>>
-                                        <input type="hidden" name="vobs2" id="vtoc2" value="<?php echo $do[2]["v"];?>">
+                                        data-v="<?php echo $doc[2]["dv"]; ?>" 
+                                        value="<?php echo $doc[2]["t"];?>" <?php echo $doc[2]["p"]; ?>>
+                                        <input type="hidden" name="vobs2" id="vtoc2" value="<?php echo $doc[2]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     <div class="form-group">
@@ -339,9 +345,9 @@
                                           </ul>
                                         </div><!-- /btn-group -->
                                         <input type="text" class="form-control csctzobs" name="obs3" id="toc3" 
-                                        data-v="<?php echo $do[3]["dv"]; ?>" 
-                                        value="<?php echo $do[3]["t"];?>" <?php echo $do[3]["p"]; ?>>
-                                        <input type="hidden" name="vobs3" id="vtoc3" value="<?php echo $do[3]["v"];?>">
+                                        data-v="<?php echo $doc[3]["dv"]; ?>" 
+                                        value="<?php echo $doc[3]["t"];?>" <?php echo $doc[3]["p"]; ?>>
+                                        <input type="hidden" name="vobs3" id="vtoc3" value="<?php echo $doc[3]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     
@@ -359,7 +365,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="panel box box-danger">
+                    
+                    <div class="panel box box-default">
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -373,7 +380,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="panel box box-success">
+                    
+                    <div class="panel box box-default">
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -401,8 +409,10 @@
                                 <div></div>
                                 <hr>
                                 <div><b>Observaciones</b></div>
-                                <div></div>
-                                <div></div>
+                                <div><b><?php echo $fobs[0]; ?></b></div>
+                                <div><?php echo $fobs[1]; ?></div>
+                                <div><?php echo $fobs[2]; ?></div>
+                                <div><?php echo $fobs[3]; ?></div>
                               </div><!-- /.tab-pane -->
                               
                               <div class="tab-pane" id="tab_f2">
@@ -420,37 +430,78 @@
                               </div><!-- /.tab-pane -->
 
                               <div class="tab-pane" id="tab_f3">
-                                <form role="form" id="frm_mfacobs" name="form_mobs_ctz" method="post" action="bd/data-usuario.php">
+
+                                <form role="form" id="frm_mfacobs" name="form_mobs_fac" method="post">
                                   <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                                  <input name="mod_fctz_obs" type="hidden" value="1">
+                                  <input name="mod_fac_obs" type="hidden" value="1">
                                   <div class="box-body">
                                     
                                     <div class="form-group">
+                                      <!--<label for="tobs">Titulo_obs</label>-->
+                                      <div class="input-group">
+                                        <input type="text" class="form-control" name="tobs" value="<?php echo $frt_f["titulo_obs"]?>">
+                                        <span class="input-group-addon">Título sección observaciones</span>
+                                      </div>
+                                    </div><!-- /.form group -->
+                                    <div class="form-group">
                                       <!--<label for="obs1">obs1</label>-->
                                       <div class="input-group">
-                                        <input type="textarea" class="form-control" name="obs1" rows="3">
-                                        <span class="input-group-addon">Observación 1</span>
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresf" data-f="tof1">Texto</a></li>
+                                            <li><a href="#" class="solecturaf" data-f="tof1">Condición de pago</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampof" data-f="tof1">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csfacobs" name="obs1" id="tof1" 
+                                        data-v="<?php echo $dof[1]["dv"]; ?>" 
+                                        value="<?php echo $dof[1]["t"]; ?>" <?php echo $dof[1]["p"]; ?>>
+                                        <input type="hidden" name="vobs1" id="vtof1" value="<?php echo $dof[1]["v"];?>">
                                       </div>
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs2">obs2</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="obs2">
-                                        <span class="input-group-addon">Observación 2</span>
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresf" data-f="tof2">Texto</a></li>
+                                            <li><a href="#" class="solecturaf" data-f="tof2">Condición de pago</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampof" data-f="tof2">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csfacobs" name="obs2" id="tof2" 
+                                        data-v="<?php echo $dof[2]["dv"]; ?>" 
+                                        value="<?php echo $dof[2]["t"];?>" <?php echo $dof[2]["p"]; ?>>
+                                        <input type="hidden" name="vobs2" id="vtof2" value="<?php echo $dof[2]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     <div class="form-group">
                                       <!--<label for="obs3">obs3</label>-->
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="obs3">
-                                        <span class="input-group-addon">Observación 3</span>
+                                        <div class="input-group-btn">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" class="libresc">Mostrar <span class="fa fa-caret-down"></span></button>
+                                          <ul class="dropdown-menu menuobs">
+                                            <li><a href="#" class="libresf" data-f="tof3">Texto</a></li>
+                                            <li><a href="#" class="solecturaf" data-f="tof3">Condición de pago</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" class="blocampof" data-f="tof3">No mostrar</a></li>
+                                          </ul>
+                                        </div><!-- /btn-group -->
+                                        <input type="text" class="form-control csfacobs" name="obs3" id="tof3" 
+                                        data-v="<?php echo $dof[3]["dv"]; ?>" 
+                                        value="<?php echo $dof[3]["t"];?>" <?php echo $dof[3]["p"]; ?>>
+                                        <input type="hidden" name="vobs3" id="vtof3" value="<?php echo $dof[3]["v"];?>">
                                       </div>                                        
                                     </div><!-- /.form group -->
                                     
                                   </div><!-- /.box-body -->
                 
                                   <div class="box-footer" align="center">
-                                    <button type="submit" class="btn btn-primary" id="bt_mod_cuenta">Guardar</button>
+                                    <button type="submit" class="btn btn-primary" id="bt_facobs">Guardar</button>
                                   </div>
                               </form>
                               </div><!-- /.tab-pane -->
@@ -459,9 +510,25 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="panel box box-default">
+                      <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#formatnotas">
+                            <i class="fa fa-sticky-note"></i> Formato de Notas
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="formatnotas" class="panel-collapse collapse">
+                        <div class="box-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                   <!-- Bloque de respuesta del servidor -->
-                  <?php include("subforms/nav/mensaje_rcpf.php");?>
+                  <?php include("subforms/nav/mensaje_rcpf.php"); ?>
                   <!-- /.Bloque de respuesta del servidor -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
