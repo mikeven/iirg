@@ -5,7 +5,7 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link ){
 		$lista_c = array();
-		$q = "Select F.IdFactura2 as id, C.Nombre as cliente, date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, 
+		$q = "Select F.IdFactura2 as id, F.numero as numero, C.IdCliente2 as idc, C.Nombre as cliente, date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, 
 				F.total as Total from factura F, cliente C where F.IdCliente2 = C.IdCliente2 order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
@@ -85,6 +85,26 @@
 		//echo $q."<br>";
 		
 		return mysql_insert_id();
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function mostrarItemDocumento( $ditem, $i ){
+		//Muestra el renglón con el ítem de detalle al cargar la factura para generar Nota de Crédito/Débito (nuevo-nota.php)
+		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
+		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
+		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
+		 <th><div class='input-group input-space'>
+		 <input id='idfq_$i' name='dfcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemF( this )'></div>
+		 </th><th><div class='input-group input-space'>
+		 <input id='idfund_$i' name='dfund' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[und]' data-nitem='$i'></div>
+		 </th><th><div class='input-group input-space'>
+		 <input id='idfpu_$i' name='dfpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
+		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemF( this )' onblur='initValid()'></div>
+		</th><th><div class='input-group input-space'><input id='idfpt_$i' name='dfptotal' type='text' class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
+		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemF(it$i)'>
+		<i class='fa fa-times'></i></button></th>
+		</tr>";
+
+		return $renglon;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_factura"] ) ){

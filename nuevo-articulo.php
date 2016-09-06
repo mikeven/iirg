@@ -179,7 +179,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_narticulo" name="form_agregar_articulo" action="bd/data-articulo.php" method="post">
-					<input name="reg_articulo" type="hidden" value="1">
+					         <input name="reg_articulo" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
                         	<!--<label for="exampleInputEmail1">Email address</label>-->
