@@ -32,10 +32,7 @@
 
   if( isset( $_GET["t"] ) ){
     $tn = $_GET["t"];
-  }
-  
-  
-	
+  }	
 ?>
 <!DOCTYPE html>
 <html>
@@ -116,10 +113,9 @@
             });
             
             initValid();
-
             $(".alert").hide();
             $(".bloque_nota").hide();
-
+            $("#bloque_concepto").hide();
         });
     </script>
     
@@ -226,7 +222,7 @@
                                         <label for="nfac" class="iconlab">N° Fact:</label>
                                       </div>
                                       <input type="text" class="form-control" id="nFactura" name="num_factura" 
-                                      value="<?php if(isset($encabezado)) echo $encabezado["nro"]; ?>">
+                                      value="<?php if(isset($encabezado)) echo $encabezado["nro"]; ?>" readonly>
                                     </div>
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
@@ -382,6 +378,16 @@
                                                       }?>
                                                   </tbody>
                                               </table>
+                                              <div id="bloque_concepto">
+                                                <div class="form-group">
+                                                  <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                      <label for="nfac" class="iconlab">Concepto:</label>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="nconcepto" name="concepto">
+                                                  </div>
+                                                </div><!-- /.form group --> 
+                                              </div>
                                           </div>
                                       </div>
                                       					
@@ -424,8 +430,8 @@
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
                                                               id="ftotal" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
-                                                  		</div>
-                                                  	</div>
+                                                  		  </div>
+                                                  	  </div>
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>

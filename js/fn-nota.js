@@ -38,15 +38,16 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
-function obtenerVectorDetalleF(){
+function obtenerVectorDetalleN(){
 	var detallef = new Array();
 	var renglon = new Object();
 	
-	$("#df_table input").each(function (){ 
+	$("#dn_table input").each(function (){ 
 		name = $(this).attr("name");
 		renglon["" + name + ""] = $(this).val();
 
 		if( name == "dfptotal" ){
+			//Campo final de renglón
 			detallef.push( renglon );
 			renglon = new Object();
 		}
@@ -54,11 +55,11 @@ function obtenerVectorDetalleF(){
 	return JSON.stringify( detallef );
 }
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva ){
+function obtenerVectorEncabezado( numero, nfactura, idfactura, idcliente, femision, total, iva ){
 	encabezado = new Object();
 	encabezado.numero = numero;
-	encabezado.noc = noc;
-	encabezado.idpedido = idpedido;
+	encabezado.nfactura = nfactura;
+	encabezado.idfactura = idfactura;
 	encabezado.idcliente = idcliente;
 	encabezado.femision = femision;
 	encabezado.total = total;
@@ -160,31 +161,55 @@ function actItemF( itemf ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
+function obtenerNumeroNota( tipo_nota ){
+	$.ajax({
+		type:"POST",
+		url:"bd/data-nota.php",
+		data:{ tn:tipo_nota },
+		beforeSend: function () {
+			
+		},
+		success: function( response ){
+			//res = jQuery.parseJSON(response);
+			$("#waitconfirm").html(response);
+			if( res.exito == '1' ){
+				$("#txexi").html(res.mje);
+				$("#mje_exito").show("slow");
+				$("#mje_error").hide(100);
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show();
+				$("#txerr").html(res.mje);
+			}
+		}
+	});		
+}
+/* --------------------------------------------------------- */
 function guardarNota(){
 	
 	var idcliente = $( '#idCliente' ).val();
-	var numero = $( '#npedido' ).val();
-	var noc = $( '#fordc' ).val();
-	var idpedido = $( '#idPedido' ).val();
+	var numero = $( '#nnota' ).val();
+	var nfactura = $( '#nFactura' ).val();
+	var idfactura = $( '#idFactura' ).val();
 	var femision = $( '#femision' ).val();
 	var total = $( '#ftotal' ).val().replace(",", ".");
 	var iva = $( '#iva' ).val();
 	
 	if( idcliente != "" && total != "" && total != 0.00 ){
 		
-		fencabezado = obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva );
-		fdetalle = obtenerVectorDetalleF();
+		fencabezado = obtenerVectorEncabezado( numero, nfactura, idfactura, idcliente, femision, total, iva );
+		fdetalle = obtenerVectorDetalleN();
 	
 		$.ajax({
 			type:"POST",
-			url:"bd/data-factura.php",
-			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
+			url:"bd/data-nota.php",
+			data:{ encabezado: fencabezado, detalle: fdetalle, reg_nota : 1 },
 			beforeSend: function () {
-				$("#bt_reg_factura").fadeOut(200);
+				$("#bt_reg_nota").fadeOut(200);
 			},
 			success: function( response ){
-				res = jQuery.parseJSON(response);
-				//$("#waitconfirm").html(response);
+				//res = jQuery.parseJSON(response);
+				$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
 					$("#txexi").html(res.mje);
 					$("#mje_exito").show("slow");
@@ -200,7 +225,7 @@ function guardarNota(){
 }
 function contarItems(){
 	var contitems = 0;
-	$("#df_table input").each(function (){ 
+	$("#dn_table input").each(function (){ 
 		contitems++;
 	});
 	return contitems;
@@ -213,12 +238,20 @@ function checkNota(){
 	
 	if ( tipo_nota != "" ){
 		$("#tnota").css({'border-color' : '#ccc'});
+
 		if( $("#idCliente").val() == "" ){
 			$("#mje_error").fadeIn("slow");
 			$("#txerr").html("Debe indicar un cliente");
 			$("#ncliente").css({'border-color' : '#dd4b39'});
 			error = 1;
+		}else{
+			if( contarItems() == 0 ){
+				$("#mje_error").fadeIn("slow");
+				$("#txerr").html("Debe ingresar ítems en la nota");
+				error = 1;
+			}
 		}
+
 		if( tipo_nota != "nota_entrega" ){
 			if( $("#nFactura").val() == "" ){
 				$("#mje_error").fadeIn("slow");
@@ -226,7 +259,7 @@ function checkNota(){
 				$("#nFactura").css({'border-color' : '#dd4b39'});
 				error = 1;
 			}
-		} 
+		}
 	}else{
 		$("#mje_error").fadeIn("slow");
 		$("#txerr").html("Debe seleccionar tipo de nota");
@@ -311,18 +344,23 @@ $( document ).ready(function() {
     });
 
     $("#tnota").change( function(){
-		
-		$("#tipofte").val( $(this).val() );
-		if( $(this).val() == "nota_entrega" ){
+		var tipo_nota = $(this).val();
+		$("#nnota").val( obtenerNumeroNota( tipo_nota ) );
+		$("#tipofte").val( tipo_nota );
+
+		if( tipo_nota == "nota_entrega" ){
+			
 			$("#bloquen_facturas").hide(150);
+			$("#bloque_concepto").hide(100);
 			$("#bloquen_clientes").show(300);
 			if ( $("#tipofte").val() != "" && $("#tipofte").val() != "nota_entrega" ) 
 				window.location.href = "nuevo-nota.php?t=nota_entrega";
 		}
 		else{
+			$("#bloque_concepto").show(300);
 			$("#bloquen_facturas").show(300);
 			$("#bloquen_clientes").hide(300);
-			$(".enlnn").attr("href", $(".enlnn").attr("href") + "&t=" + $(this).val() );
+			$(".enlnn").attr("href", $(".enlnn").attr("href") + "&t=" + tipo_nota );
 		}
     });
 	

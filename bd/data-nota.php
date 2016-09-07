@@ -15,7 +15,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerProximoNumeroNota( $dbh ){
-		$q = "select MAX(numero) as num from factura";
+		$q = "select MAX(numero) as num from nota";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -58,7 +58,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarDetalleNota( $dbh, $idp, $detalle ){
-		//Registra los ítems contenidos en el detalle de la factura
+		//Registra los ítems contenidos en el detalle de la nota
 		$exito = true;
 		$nitems = count( $detalle );
 		$citem = 0;
@@ -73,21 +73,21 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarNota( $dbh, $encabezado, $detalle ){
-		//Guarda el registro de una factura
+		//Guarda el registro de una nota
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
-		if( !$encabezado->idpedido ) $encabezado->idpedido = "NULL";
-		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
-			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, 
+		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
+		$q = "insert into nota ( numero, nfactura, IdFactura, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
+			values ( $encabezado->numero, '$encabezado->nfactura', $encabezado->idfactura, $encabezado->idcliente, 
 			'$fecha_mysql', $encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
-		//echo $q."<br>";
+		echo $q."<br>";
 		
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	if( isset( $_POST["reg_factura"] ) ){
+	if( isset( $_POST["reg_nota"] ) ){
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
@@ -101,7 +101,7 @@
 				$res["mje"] = "Registro exitoso";
 			}else{
 				$res["exito"] = 0;
-				$res["mje"] = "Error al registrar detalle de factura";
+				$res["mje"] = "Error al registrar detalle de nota";
 			}	
 		}
 		else {
@@ -109,7 +109,7 @@
 			$res["mje"] = "Error al registrar factura";
 		}
 		
-		echo json_encode( $res );
+		//echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 
