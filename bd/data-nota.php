@@ -14,8 +14,8 @@
 		return $lista_c;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerProximoNumeroNota( $dbh ){
-		$q = "select MAX(numero) as num from nota";
+	function obtenerProximoNumeroNota( $dbh, $tipo ){
+		$q = "select MAX(numero) as num from nota where tipo = '$tipo'";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -46,13 +46,13 @@
 		return $factura;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarItemDetalleN( $dbh, $idf, $item ){
+	function guardarItemDetalleN( $dbh, $idn, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		$ptotal = $item->dfcant * $item->dfpunit;
-		$q = "insert into detallefactura ( IdFactura2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
-		values ( $idf, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
+		$q = "insert into detallenota ( IdNota, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
+		values ( $idn, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
-		//echo $q."<br>";
+		echo $q."<br>";
 
 		return mysql_insert_id();
 	}
@@ -77,25 +77,31 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
-		$q = "insert into nota ( numero, nfactura, IdFactura, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
-			values ( $encabezado->numero, '$encabezado->nfactura', $encabezado->idfactura, $encabezado->idcliente, 
+		$q = "insert into nota ( numero, tipo, nfactura, IdFactura, IdCliente, fecha_emision, iva, Total, fecha_reg  ) 
+			values ( $encabezado->numero, '$encabezado->tipo','$encabezado->nfactura', $encabezado->idfactura, $encabezado->idcliente, 
 			'$fecha_mysql', $encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
-		echo $q."<br>";
+		//echo $q."<br>";
 		
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
+	if( isset( $_POST["prox_num"] ) ){
+		include( "bd.php" );
+		$tn = $_POST["prox_num"];
+		echo obtenerProximoNumeroNota( $dbh, $tn );
+	}
+
 	if( isset( $_POST["reg_nota"] ) ){
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idf = guardarNota( $dbh, $encabezado, $detalle );
+		$idn = guardarNota( $dbh, $encabezado, $detalle );
 		
-		if( ( $idf != 0 ) && ( $idf != "" ) ){
-			$exito = guardarDetalleNota( $dbh, $idf, $detalle );
+		if( ( $idn != 0 ) && ( $idn != "" ) ){
+			$exito = guardarDetalleNota( $dbh, $idn, $detalle );
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";

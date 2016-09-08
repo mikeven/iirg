@@ -71,6 +71,7 @@
   		.iconlab{ line-height: 0; }
   		.form-group { margin-bottom: 5px; }
       .nti{ padding: 25px 0;}
+      #nconcepto{ width: 75%; }
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -115,7 +116,7 @@
             initValid();
             $(".alert").hide();
             $(".bloque_nota").hide();
-            $("#bloque_concepto").hide();
+            //$("#bloque_concepto").hide();
         });
     </script>
     
@@ -378,16 +379,7 @@
                                                       }?>
                                                   </tbody>
                                               </table>
-                                              <div id="bloque_concepto">
-                                                <div class="form-group">
-                                                  <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                      <label for="nfac" class="iconlab">Concepto:</label>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="nconcepto" name="concepto">
-                                                  </div>
-                                                </div><!-- /.form group --> 
-                                              </div>
+                                              
                                           </div>
                                       </div>
                                       					
@@ -410,7 +402,30 @@
                                                   <th width="5%"></th>
                                               </tr>
                                               <tr>
-                                                  <th width="65%"></th>
+                                                  <th width="65%">
+                                                    <?php if(isset( $factura )) {?>
+                                                      <div id="bloque_concepto">
+                                                        <div class="form-group">
+                                                          <!--<label for="obs2">obs2</label>-->
+                                                          <div class="input-group">
+                                                            <div class="input-group-btn">
+                                                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                                                              aria-expanded="false">Concepto <span class="fa fa-caret-down"></span></button>
+                                                              <ul class="dropdown-menu menuobs">
+                                                                <li><a href="#" class="libresc" data-c="toc2">Devolución sobre compra</a></li>
+                                                                <li><a href="#" class="solectura" data-c="toc2">Descuento o beneficio</a></li>
+                                                                <li><a href="#" class="solectura" data-c="toc2">Ajuste</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#" class="blocampo" data-c="toc2">No mostrar</a></li>
+                                                              </ul>
+                                                            </div><!-- /btn-group -->
+                                                            <input type="text" class="form-control csctzobs" name="obs2" id="toc2"> 
+                                                            <input type="hidden" name="vobs2" id="vtoc2" value="">
+                                                          </div>                                        
+                                                        </div><!-- /.form group --> 
+                                                      </div> <!-- /.bloque_concepto -->
+                                                    <?php } ?>
+                                                  </th>
                                                   <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
                                                   <th width="15%">
                                                   	<div id="fimpuesto" class="ftotalizacion">
