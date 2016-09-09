@@ -52,7 +52,7 @@
 		$q = "insert into detallenota ( IdNota, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idn, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
-		echo $q."<br>";
+		//echo $q."<br>";
 
 		return mysql_insert_id();
 	}
@@ -115,7 +115,7 @@
 			$res["mje"] = "Error al registrar factura";
 		}
 		
-		//echo json_encode( $res );
+		echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 

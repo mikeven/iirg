@@ -247,13 +247,21 @@ function checkNota(){
 				$("#ndatafac").css({'border-color' : '#dd4b39'});
 				error = 1;
 			}
+			var monto_inicial = parseFloat( $("#mototalnota").val() );
+			var monto_ajuste = parseFloat( $("#ftotal").val() );
+			if( monto_ajuste > monto_inicial ){
+				$("#mje_error").fadeIn("slow");
+				$("#txerr").html("El monto de ajuste supera al valor inicial de la factura");
+				$("#fstotal").css({'border-color' : '#dd4b39'});
+				error = 1;
+			}
 		}
 	}else{
 		$("#mje_error").fadeIn("slow");
 		$("#txerr").html("Debe seleccionar tipo de nota");
 		$("#tnota").css({'border-color' : '#dd4b39'});	
 	}
-	
+	$("#closeModal").click();
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -273,9 +281,28 @@ function checkItemForm( idart, punit, qant ){
 
 	return valido;
 }
+
+function asignarOpcionesConcepto( tn ){
+	if( tn == "nota_credito" ){
+		$("#on1").html("Devolución de mercancía");
+		$("#on2").html("Descuento o beneficio");
+		$("#on3").html("Ajuste global");
+	}
+	if( tn == "nota_debito" ){
+		$("#on1").html("Error en factura");
+		$("#on2").html("Gastos adicionales");
+		$("#on3").html("Ajuste global");
+	}
+}
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
 	
+	$(".alert").hide();
+    $(".bloque_nota").hide();
+    $("#titulo_emergente").html("Guardar Nota");
+	$("#mje_confirmacion").html("¿Confirmar registro?");
+	$("#btn_confirm").attr("id", "bt_reg_nota");
+
 	var cant = "";
 	$(".alert").click( function(){
 		$(this).hide("slow");
@@ -307,8 +334,21 @@ $( document ).ready(function() {
 		$("#undart").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
-	
-	$(".itemtotal").on( "blur keyup", function(){
+	/*-------------------------------------------------------------------------------------*/
+	$("#fstotal").on( "blur keyup", function(){
+		var subtotal = parseFloat( $(this).val() ); 
+		var piva = subtotal * $("#iva").val();
+		var total = subtotal + parseFloat( piva );
+		
+		$("#fiva").val( piva.toFixed( 2 ) );
+		$("#ftotal").val( total.toFixed( 2 ) );
+    });
+    $("#fstotal").on( "blur", function(){ 
+    	var subtotal = parseFloat( $(this).val() );  
+    	$("#fstotal").val( subtotal.toFixed( 2 ) );   
+    });
+    /*-------------------------------------------------------------------------------------*/
+    $(".itemtotal").on( "blur keyup", function(){
 		var cant = $("#fcantidad").val(); 
 		var punit = $("#fpunit").val();
 		
@@ -326,10 +366,20 @@ $( document ).ready(function() {
 		}
     });
 
+    $(".ocn").click( function(){ //Selección de ajuste global
+		if( $(this).html() == "Ajuste global" ){
+			$("#dn_table").fadeOut(200); $("#fstotal").removeAttr("readonly");
+
+		}else{
+			$("#dn_table").fadeIn(200); $("#fstotal").attr("readonly", "true"); calcularTotales();
+		}
+    });
+
     $("#tnota").change( function(){
 		var tipo_nota = $(this).val();
 		obtenerNumeroNota( tipo_nota );
 		$("#tipofte").val( tipo_nota );
+		asignarOpcionesConcepto( tipo_nota );
 
 		if( tipo_nota == "nota_entrega" ){
 			
@@ -340,6 +390,7 @@ $( document ).ready(function() {
 				window.location.href = "nuevo-nota.php?t=nota_entrega";
 		}
 		else{
+
 			$("#bloque_concepto").show(300);
 			$("#bloquen_facturas").show(300);
 			$("#bloquen_clientes").hide(300);

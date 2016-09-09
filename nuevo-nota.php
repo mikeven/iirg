@@ -32,6 +32,7 @@
 
   if( isset( $_GET["t"] ) ){
     $tn = $_GET["t"];
+    $num = obtenerProximoNumeroNota( $dbh, $tn );
   }	
 ?>
 <!DOCTYPE html>
@@ -71,7 +72,7 @@
   		.iconlab{ line-height: 0; }
   		.form-group { margin-bottom: 5px; }
       .nti{ padding: 25px 0;}
-      #nconcepto{ width: 75%; }
+      #cnc{ width: 90%; }
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -114,11 +115,10 @@
             });
             
             initValid();
-            $(".alert").hide();
-            $(".bloque_nota").hide();
-            //$("#bloque_concepto").hide();
+            
         });
     </script>
+
     
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -268,7 +268,8 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nnota" name="numero" required readonly value="">
+                                                <input type="text" class="form-control" id="nnota" name="numero" 
+                                                required readonly value="<?php echo $num; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -411,15 +412,13 @@
                                                             <div class="input-group-btn">
                                                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                                                               aria-expanded="false">Concepto <span class="fa fa-caret-down"></span></button>
-                                                              <ul class="dropdown-menu menuobs">
-                                                                <li><a href="#" class="libresc" data-c="toc2">Devolución sobre compra</a></li>
-                                                                <li><a href="#" class="solectura" data-c="toc2">Descuento o beneficio</a></li>
-                                                                <li><a href="#" class="solectura" data-c="toc2">Ajuste</a></li>
-                                                                <li class="divider"></li>
-                                                                <li><a href="#" class="blocampo" data-c="toc2">No mostrar</a></li>
-                                                              </ul>
+                                                                <ul class="dropdown-menu">
+                                                                  <li><a href="#" class="ocn" id="on1" data-val=""></a></li>
+                                                                  <li><a href="#" class="ocn" id="on2" data-val=""></a></li>
+                                                                  <li><a href="#" class="ocn" id="on3" data-val=""></a></li>
+                                                                </ul>
                                                             </div><!-- /btn-group -->
-                                                            <input type="text" class="form-control csctzobs" name="obs2" id="toc2"> 
+                                                            <input type="text" class="form-control" name="concepto" id="cnc"> 
                                                             <input type="hidden" name="vobs2" id="vtoc2" value="">
                                                           </div>                                        
                                                         </div><!-- /.form group --> 
@@ -447,6 +446,7 @@
                                                               id="ftotal" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
                                                   		  </div>
                                                   	  </div>
+                                                      <input id="mototalnota" name="totaln" type="hidden" value="<?php if(isset( $factura )) echo $totales["total"]?>">
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>
@@ -463,8 +463,12 @@
                     </div><!-- /.box-body -->
 					          
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="bt_reg_nota">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="" data-toggle="modal" 
+                      data-target="#ventana_confirmacion">Guardar</button>
                     </div>
+                    <?php 
+                      include( "subforms/nav/mensaje_confirmacion.php" );
+                    ?>
                 </form>
               
               </div><!-- /.box -->
@@ -684,6 +688,7 @@
   <script>
     $( document ).ready(function() {
       $("#bloquen_facturas").show(300);
+      asignarOpcionesConcepto( $("#tipofte").val() );
     });
   </script>
 <?php } ?>
