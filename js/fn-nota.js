@@ -193,6 +193,7 @@ function guardarNota(){
 			data:{ encabezado: fencabezado, detalle: fdetalle, reg_nota : 1 },
 			beforeSend: function () {
 				$("#bt_reg_nota").fadeOut(200);
+				$("#btn_confirmacion").fadeOut(200);
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);

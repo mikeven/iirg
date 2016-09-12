@@ -375,7 +375,7 @@
                                                         if(isset( $factura )) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumento( $item, $ni );
+                                                            echo mostrarItemDocumentoFactura( $item, $ni );
                                                         }
                                                       }?>
                                                   </tbody>
@@ -463,7 +463,7 @@
                     </div><!-- /.box-body -->
 					          
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="" data-toggle="modal" 
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
                       data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 

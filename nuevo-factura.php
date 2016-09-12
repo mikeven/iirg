@@ -355,7 +355,7 @@
                                                         if(isset( $pedido )) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumento( $item, $ni );
+                                                            echo mostrarItemDocumentoFactura( $item, $ni );
                                                         }
                                                       }?>
                                                   </tbody>
@@ -420,8 +420,12 @@
                     </div><!-- /.box-body -->
 					          
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="bt_reg_factura">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
+                      data-target="#ventana_confirmacion">Guardar</button>
                     </div>
+                    <?php 
+                      include( "subforms/nav/mensaje_confirmacion.php" );
+                    ?>
                 </form>
               
               </div><!-- /.box -->

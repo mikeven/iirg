@@ -87,7 +87,7 @@
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	function mostrarItemDocumento( $ditem, $i ){
+	function mostrarItemDocumentoFactura( $ditem, $i ){
 		//Muestra el renglón con el ítem de detalle al cargar la factura para generar Nota de Crédito/Débito (nuevo-nota.php)
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>

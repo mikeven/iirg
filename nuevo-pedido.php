@@ -339,7 +339,7 @@
                                                         if(isset( $cotizacion )) {
                                                           $ni=0; 
                                                           foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumento( $item, $ni );
+                                                            echo mostrarItemDocumentoPedido( $item, $ni );
                                                           }
                                                       }?>
                                                   </tbody>

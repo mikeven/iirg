@@ -21,7 +21,7 @@
 		return $data["num"] + 1;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	function mostrarItemDocumento( $ditem, $i ){
+	function mostrarItemDocumentoPedido( $ditem, $i ){
 		//Muestra el renglón con el ítem de detalle al cargar el pedido para generar Factura (nuevo-factura-php)
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>

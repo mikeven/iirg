@@ -64,7 +64,7 @@
 			$nitems = count( $detalle );
 			$citem = 0;
 			foreach ( $detalle as $item ){
-				$id_item = guardarItemDetalleN( $dbh, $idp, $item );
+				$id_item = guardarItemDetalleN( $dbh, $idn, $item );
 				if( $id_item != 0 ) $citem++;
 			}
 			if( $citem != $nitems ) $exito = false;

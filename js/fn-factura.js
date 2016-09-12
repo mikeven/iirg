@@ -181,6 +181,7 @@ function guardarFactura(){
 			data:{ encabezado: fencabezado, detalle: fdetalle, reg_factura : 1 },
 			beforeSend: function () {
 				$("#bt_reg_factura").fadeOut(200);
+				$("#btn_confirmacion").fadeOut(200);
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);
@@ -226,7 +227,7 @@ function checkFactura(){
 		$("#fordc").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
-	
+	$("#closeModal").click();
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -248,7 +249,10 @@ function checkItemForm( idart, punit, qant ){
 }
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
-	
+	$("#titulo_emergente").html("Guardar Factura");
+	$("#mje_confirmacion").html("¿Confirmar registro?");
+	$("#btn_confirm").attr("id", "bt_reg_factura");
+
 	var cant = "";
 	$(".alert").click( function(){
 		$(this).hide("slow");

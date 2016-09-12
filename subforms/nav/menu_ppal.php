@@ -42,6 +42,7 @@
           <ul class="treeview-menu">
           	<li><a href="cotizaciones.php"><i class="fa fa-list-alt"></i>Consultar cotizaciones</a></li>
             <li><a href="nuevo-cotizacion.php"><i class="fa fa-plus"></i>Crear nueva cotización</a></li>
+            <li><a href="nuevo-solicitud-cotizacion.php"><i class="fa fa-plus"></i>Crear solicitud de cotización</a></li>
           </ul>
         </li>
         <li>
@@ -51,6 +52,7 @@
           <ul class="treeview-menu">
           	<li><a href="pedidos.php"><i class="fa fa-list-alt"></i>Consultar pedidos</a></li>
             <li><a href="nuevo-pedido.php"><i class="fa fa-plus"></i>Crear nuevo pedido</a></li>
+            <li><a href="nuevo-orden-compra.php"><i class="fa fa-plus"></i>Crear orden de compra</a></li>
           </ul>
         </li>
         <li>
