@@ -190,7 +190,7 @@
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">REGISTRAR NUEVA NOTA</h3>
-                  <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
+                  <div class="icon-color"><i class="fa fa-sticky-note-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nnota" name="form_agregar_nota">
@@ -269,7 +269,7 @@
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="nnota" name="numero" 
-                                                required readonly value="<?php echo $num; ?>">
+                                                required readonly value="<?php if( isset($num) ) echo $num; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -419,7 +419,7 @@
                                                                 </ul>
                                                             </div><!-- /btn-group -->
                                                             <input type="text" class="form-control" name="concepto" id="cnc"> 
-                                                            <input type="hidden" name="vobs2" id="vtoc2" value="">
+                                                            <input type="hidden" name="tipo_concepto" id="tconcepto" value="">
                                                           </div>                                        
                                                         </div><!-- /.form group --> 
                                                       </div> <!-- /.bloque_concepto -->

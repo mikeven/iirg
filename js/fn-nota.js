@@ -64,6 +64,8 @@ function obtenerVectorEncabezado(){
 	encabezado.idcliente = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
 	encabezado.tipo = $( '#tipofte' ).val();
+	encabezado.concepto = $("#cnc").val();
+	encabezado.tipo_concepto = $("#tconcepto").val();
 	encabezado.total = $( '#ftotal' ).val().replace(",", ".");
 	encabezado.iva = $( '#iva' ).val();
 
@@ -170,9 +172,7 @@ function obtenerNumeroNota( tipo_nota ){
 		data:{ prox_num:tipo_nota },
 		beforeSend: function () {},
 		success: function( response ){
-			//res = jQuery.parseJSON(response);
 			$("#nnota").val(response);
-			
 		}
 	});		
 }
@@ -192,11 +192,11 @@ function guardarNota(){
 			url:"bd/data-nota.php",
 			data:{ encabezado: fencabezado, detalle: fdetalle, reg_nota : 1 },
 			beforeSend: function () {
-				//$("#bt_reg_nota").fadeOut(200);
+				$("#bt_reg_nota").fadeOut(200);
 			},
 			success: function( response ){
-				//res = jQuery.parseJSON(response);
-				$("#waitconfirm").html(response);
+				res = jQuery.parseJSON(response);
+				//$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
 					$("#txexi").html(res.mje);
 					$("#mje_exito").show("slow");
@@ -367,6 +367,7 @@ $( document ).ready(function() {
     });
 
     $(".ocn").click( function(){ //Selección de ajuste global
+		$("#tconcepto").val( $(this).html() );
 		if( $(this).html() == "Ajuste global" ){
 			$("#dn_table").fadeOut(200); $("#fstotal").removeAttr("readonly");
 
