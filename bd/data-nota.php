@@ -27,21 +27,24 @@
 		PrecioUnit as punit, PrecioTotal as ptotal, und from detallenota where IdFactura2 = $idf";
 		
 		$data = mysql_query( $q, $dbh );
-		while( $item = mysql_fetch_array( $data ) ){
-			$detalle[] = $item;	
+		if($data){
+			while( $item = mysql_fetch_array( $data ) ){
+				$detalle[] = $item;	
+			}
 		}
 		return $detalle;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerNotaPorId( $dbh, $idf ){
+	function obtenerNotaPorId( $dbh, $idn ){
 		//Retorna el registro de nota y sus ítems de detalle
-		$q = "select N.numero as nro, N.IdFactura2 as idf, N.IdCliente2 as idcliente, DATE_FORMAT(N.fecha_emision,'%d/%m/%Y') as femision, 
-		f.iva as iva, f.orden_compra as oc, N.Observaciones1 as obs1, f.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, 
-		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
-		FROM factura f, cliente c where f.IdFactura2 = ".$idf." and N.IdCliente = c.IdCliente2";
+		$q = "SELECT n.numero AS nro, n.idNota AS idn, n.tipo AS tipo, n.IdCliente AS idcliente, 
+		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') AS femision, n.iva AS iva, n.tipo_concepto AS tipo_concepto, 
+		n.concepto AS concepto, c.Nombre AS nombre, c.Rif AS rif, c.direccion1 AS dir1, c.direccion2 AS dir2, 
+		c.telefono1 AS tlf1, c.telefono2 AS tlf2, c.Email AS email 
+		FROM nota n, cliente c WHERE n.idNota = $idn AND n.IdCliente = c.IdCliente2";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
-		$factura["detalle"] = obtenerDetalleNota( $dbh, $idf );
+		$factura["detalle"] = obtenerDetalleNota( $dbh, $idn );
 		
 		return $factura;
 	}

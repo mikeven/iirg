@@ -146,7 +146,7 @@
   </header>
   <?php 
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $obs = obtenerObservacionesCtz( $frt_c );
+    $obs = obtenerFormatoObservacionesCtz( $frt_c );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -412,8 +412,12 @@
                     
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="bt_reg_cotizacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
+                      data-target="#ventana_confirmacion">Guardar</button>
                     </div>
+                    <?php 
+                      include( "subforms/nav/mensaje_confirmacion.php" );
+                    ?>
                 </form>
               
               </div><!-- /.box -->

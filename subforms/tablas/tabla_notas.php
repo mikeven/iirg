@@ -13,7 +13,7 @@
         <?php foreach( $facturas as $f ){?>  
         <tr>
             <td> <?php echo $f["Fecha"];?> </td>
-            <td> <a href="documento.php?tipo_documento=fac&id=<?php echo $f["id"]; ?>"><?php echo $f["cliente"]; ?></a> </td>
+            <td> <a href="documento.php?tipo_documento=nota&id=<?php echo $f["id"]; ?>"><?php echo $f["cliente"]; ?></a> </td>
             <td> <?php echo $f["Total"]; ?> </td>
         </tr>
         <?php } ?>

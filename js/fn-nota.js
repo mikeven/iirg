@@ -64,8 +64,9 @@ function obtenerVectorEncabezado(){
 	encabezado.idcliente = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
 	encabezado.tipo = $( '#tipofte' ).val();
-	encabezado.concepto = $("#cnc").val();
-	encabezado.tipo_concepto = $("#tconcepto").val();
+	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); else encabezado.concepto = "";
+	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); else encabezado.tipo_concepto = "";
+	
 	encabezado.total = $( '#ftotal' ).val().replace(",", ".");
 	encabezado.iva = $( '#iva' ).val();
 

@@ -10,48 +10,15 @@
   include( "bd/data-pedido.php" );
 	include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
+  include( "bd/data-nota.php" );
 	include( "bd/data-formato.php" );
   include( "bd/data-cotizacion.php" );
   include( "fn/fn-formato.php" );
+  include( "fn/fn-documento.php" );
 
 	checkSession( '' );
 	
-  if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
-    $id = $_GET["id"];
-    $tdd = $_GET["tipo_documento"]; 
 
-    if( $tdd == "ctz" ){
-    	$documento = obtenerCotizacionPorId( $dbh, $id );
-    	$encabezado = $documento["encabezado"];
-      $obs1 = $encabezado["obs1"];
-      $obs2 = $encabezado["obs2"];
-      $obs3 = $encabezado["obs3"];
-      $detalle_d = $documento["detalle"];
-      $tdocumento = "Cotización";
-    }
-    if( $tdd == "ped" ){
-      $documento = obtenerPedidoPorId( $dbh, $id );
-      $encabezado = $documento["encabezado"];
-      $detalle_d = $documento["detalle"];
-      $obs1 = $encabezado["obs1"];
-      $obs2 = $encabezado["obs2"];
-      $tdocumento = "Pedido";
-    }
-    if( $tdd == "fac" ){
-      $documento = obtenerFacturaPorId( $dbh, $id );
-      $encabezado = $documento["encabezado"];
-      $detalle_d = $documento["detalle"];
-      $obs1 = $encabezado["obs1"];
-      $obs2 = $encabezado["obs2"];
-      $tdocumento = "Factura";
-    }
-    $eiva = $encabezado["iva"] * 100;
-    $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
-    $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id";
-  }
-  else{
-
-  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -127,8 +94,8 @@
         </nav>
       </header>
       <?php 
-        $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-        $obs = obtenerObservacionesCtz( $frt_c );
+        $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
+        $titulo_obs = $frt["titulo_obs"];
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -141,11 +108,11 @@
           <h1>
             <?php echo $tdocumento." #".$encabezado["nro"]; ?>
           </h1>
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Examples</a></li>
             <li class="active">Invoice</li>
-          </ol>
+          </ol> -->
         </section>
 
         <!-- Main content -->
@@ -178,7 +145,7 @@
                 <div class="col-sm-4 invoice-col" id="dcliente">
                     <div id="dc_nombre">Señores</div>
                     <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                    <?php if($tdd == "fac") { ?>
+                    <?php if( $tdd == "fac" ) { ?>
                       <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                       <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
                       <div id="dc_ciudad">Ciudad: Caracas</div>
@@ -190,7 +157,7 @@
                 <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
                 
                 <div class="col-sm-3 invoice-col" id="dcotizacion">
-                    <div id="dctz_numero"><?php echo $tdocumento.":   ".$encabezado["nro"];?></div>
+                    <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
                     <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
                     <?php if($tdd == "ctz") { ?>
                       <div id="dctz_tlf">Vendedor: Nidia</div>
@@ -232,9 +199,9 @@
           </div><!-- /.row -->
 
           <div class="row">
-            <!-- accepted payments column -->
+            <!-- Observaciones -->
             <div class="col-xs-6">
-              <p class="lead"><?php echo $obs[0]["t"];?></p>
+              <p class="lead"><?php echo $titulo_obs;?></p>
                 <div><?php echo $obs1; ?></div>
                 <div><?php echo $obs2; ?></div>
                 <div><?php echo $obs3; ?></div>  

@@ -62,6 +62,7 @@ function checkCotizacion(){
 		$("#ncliente").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
+	$("#closeModal").click();
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -241,6 +242,11 @@ function checkItemForm( idart, punit, qant ){
 $( document ).ready(function() {
 	
 	var cant = "";
+
+	$("#titulo_emergente").html("Guardar Cotización");
+	$("#mje_confirmacion").html("¿Confirmar registro?");
+	$("#btn_confirm").attr("id", "bt_reg_cotizacion");
+
 	$(".alert").click( function(){
 		$(this).hide("slow");
     });

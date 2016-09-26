@@ -353,7 +353,7 @@
                         <!-- ************************************************************************************************ -->
                         
 
-                          <div class="row" id="contenido_factura">
+                          <div class="row" id="contenido_nota">
                           	<div class="col-md-10 col-md-offset-1">
                               	
                                   <div id="detalle_nota">
@@ -386,7 +386,7 @@
                                       					
                                   </div><!--/.detalle_nota-->
                                   
-                                  <div class="row" id="pie_cotizacion">
+                                  <div class="row" id="pie_nota">
                                   	<table class="table table-condensed" id="pietabla_table">
                                           <tbody>
                                               <tr>
@@ -418,7 +418,7 @@
                                                                   <li><a href="#" class="ocn" id="on3" data-val=""></a></li>
                                                                 </ul>
                                                             </div><!-- /btn-group -->
-                                                            <input type="text" class="form-control" name="concepto" id="cnc"> 
+                                                            <input type="text" class="form-control" name="concepto" id="cnc" value=""> 
                                                             <input type="hidden" name="tipo_concepto" id="tconcepto" value="">
                                                           </div>                                        
                                                         </div><!-- /.form group --> 
