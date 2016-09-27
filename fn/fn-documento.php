@@ -36,12 +36,12 @@
 			$documento = obtenerNotaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
-			$tipo = $encabezado["tipo"];
+			$tipo_n = $encabezado["tipo"];
 			$obs1 = "";
 			$obs2 = $encabezado["concepto"];
 			$obs3 = "";
-			$tdocumento = etiquetaNota( $tipo );
-			$ftdd = $tipo;
+			$tdocumento = etiquetaNota( $tipo_n );
+			$ftdd = $tipo_n;
 	    }
 
 	    $eiva = $encabezado["iva"] * 100;

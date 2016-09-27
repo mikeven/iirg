@@ -156,16 +156,24 @@
                 </div><!-- /.col -->
                 <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
                 
-                <div class="col-sm-3 invoice-col" id="dcotizacion">
+                <div class="col-sm-3 invoice-col" id="ddocumento">
+                    
                     <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
                     <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
+                    
+                    <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
+                      <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
+                    <?php } ?>
+                    
                     <?php if($tdd == "ctz") { ?>
                       <div id="dctz_tlf">Vendedor: Nidia</div>
                     <?php } ?>
+                    
                     <?php if($tdd == "fac") { ?>
                       <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
                       <div id="dctz_tlf">Orden de compra: <?php echo $encabezado["oc"]; ?></div>
                     <?php } ?>
+                
                 </div><!-- /.col -->
                 
             </div><!-- /.row -->

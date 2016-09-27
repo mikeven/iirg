@@ -1,8 +1,8 @@
 <?php
 	/* R&G - Funciones de notas */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/	
+	/*-------------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaNotas( $link ){
 		$lista_c = array();
 		$q = "Select N.IdNota as id, C.Nombre as cliente, date_format(N.fecha_emision,'%d/%m/%Y') as Fecha, 
@@ -20,11 +20,11 @@
 		return $data["num"] + 1;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerDetalleNota( $dbh, $idf ){
+	function obtenerDetalleNota( $dbh, $idn ){
 		// Obtiene los ítems del detalle de una nota
 		$detalle = array();
 		$q = "select IdDetalle as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
-		PrecioUnit as punit, PrecioTotal as ptotal, und from detallenota where IdFactura2 = $idf";
+		PrecioUnit as punit, PrecioTotal as ptotal, und from detallenota where idNota = $idn";
 		
 		$data = mysql_query( $q, $dbh );
 		if($data){
@@ -37,11 +37,12 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerNotaPorId( $dbh, $idn ){
 		//Retorna el registro de nota y sus ítems de detalle
-		$q = "SELECT n.numero AS nro, n.idNota AS idn, n.tipo AS tipo, n.IdCliente AS idcliente, 
-		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') AS femision, n.iva AS iva, n.tipo_concepto AS tipo_concepto, 
-		n.concepto AS concepto, c.Nombre AS nombre, c.Rif AS rif, c.direccion1 AS dir1, c.direccion2 AS dir2, 
-		c.telefono1 AS tlf1, c.telefono2 AS tlf2, c.Email AS email 
-		FROM nota n, cliente c WHERE n.idNota = $idn AND n.IdCliente = c.IdCliente2";
+		$q = "select n.numero  nro, n.idNota as idn, n.tipo as tipo, f.numero as nfact, n.IdCliente as idcliente, 
+		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, n.iva as iva, n.tipo_concepto as tipo_concepto, 
+		n.concepto as concepto, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
+		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
+		FROM nota n, cliente c, factura f 
+		where n.idNota = $idn and n.IdCliente = c.IdCliente2 and f.idFactura2 = n.IdFactura";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleNota( $dbh, $idn );
