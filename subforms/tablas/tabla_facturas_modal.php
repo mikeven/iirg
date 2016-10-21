@@ -25,7 +25,7 @@
                         <td><?php echo $f["numero"];?></td>
                         <td><?php echo $f["Fecha"];?></td>
                         <td>
-                          <a href="nuevo-nota.php?idf=<?php echo $f["id"]; ?>" class="enlnn"><?php echo $f["cliente"]; ?></a>
+                          <a href="#!" data-href="nuevo-nota.php?idf=<?php echo $f["id"]; ?>" class="enlnn"><?php echo $f["cliente"]; ?></a>
                         </td>
                         <td><?php echo $f["Total"]; ?></td>
                     </tr>

@@ -35,6 +35,7 @@
 	    if( $tdd == "nota" ){
 			$documento = obtenerNotaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
+			$t_concepto = $encabezado["tipo_concepto"];
 			$detalle_d = $documento["detalle"];
 			$tipo_n = $encabezado["tipo"];
 			$obs1 = "";
@@ -42,10 +43,15 @@
 			$obs3 = "";
 			$tdocumento = etiquetaNota( $tipo_n );
 			$ftdd = $tipo_n;
+			if( $t_concepto != "Ajuste global" )
+	    		$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+	    	else
+	    		$totales = obtenerTotalesFijos( $encabezado );
 	    }
 
 	    $eiva = $encabezado["iva"] * 100;
-	    $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+	    if( $tdd != "nota" )
+	    	$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
 	    $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id";
   	}
   else{

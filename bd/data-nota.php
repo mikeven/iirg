@@ -82,10 +82,10 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
-		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, fecha_emision, iva, Total, concepto, tipo_concepto, fecha_reg ) 
+		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, fecha_emision, iva, SubTotal, Total, concepto, tipo_concepto, fecha_reg ) 
 			values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, 
-		$encabezado->idcliente, '$fecha_mysql', $encabezado->iva, $encabezado->total, '$encabezado->concepto', 
-		'$encabezado->tipo_concepto', NOW() )";
+		$encabezado->idcliente, '$fecha_mysql', $encabezado->iva, $encabezado->subtotal, 
+		$encabezado->total, '$encabezado->concepto', '$encabezado->tipo_concepto', NOW() )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q."<br>";

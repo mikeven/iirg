@@ -67,6 +67,7 @@ function obtenerVectorEncabezado(){
 	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); else encabezado.concepto = "";
 	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); else encabezado.tipo_concepto = "";
 	
+	encabezado.subtotal = $( '#fstotal' ).val().replace(",", ".");
 	encabezado.total = $( '#ftotal' ).val().replace(",", ".");
 	encabezado.iva = $( '#iva' ).val();
 
@@ -397,8 +398,13 @@ $( document ).ready(function() {
 			$("#bloque_concepto").show(300);
 			$("#bloquen_facturas").show(300);
 			$("#bloquen_clientes").hide(300);
-			$(".enlnn").attr("href", $(".enlnn").attr("href") + "&t=" + tipo_nota );
+			//$(".enlnn").attr("href", $(".enlnn").attr("href") + "&t=" + tipo_nota );
 		}
+    });
+
+    $(".enlnn").on( "click", function(){
+		var lnk = $(this).attr("data-href") + "&t=" + $("#tipofte").val();
+		window.location.href = lnk;
     });
 	
 	/*===============================================================================*/
