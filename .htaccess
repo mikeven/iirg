@@ -30,8 +30,8 @@ RewriteRule ^cliente/([0-9]+)$ ficha_cliente.php?c=$1
 #PROVEEDORES
 #=====================================================
 
-# clientes.php
-RewriteRule ^clientes$ clientes.php
+# proveedores.php
+RewriteRule ^proveedores$ proveedores.php
 # nuevo-proveedor.php
 RewriteRule ^nuevo-proveedor$ nuevo-proveedor.php
 # ficha_proveedor.php?c=id
