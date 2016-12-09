@@ -7,14 +7,14 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-  include( "bd/data-pedido.php" );
+	include( "bd/data-pedido.php" );
 	include( "bd/data-articulo.php" );
-  include( "bd/data-factura.php" );
-  include( "bd/data-nota.php" );
+	include( "bd/data-factura.php" );
+	include( "bd/data-nota.php" );
 	include( "bd/data-formato.php" );
-  include( "bd/data-cotizacion.php" );
-  include( "fn/fn-formato.php" );
-  include( "fn/fn-documento.php" );
+	include( "bd/data-cotizacion.php" );
+	include( "fn/fn-formato.php" );
+	include( "fn/fn-documento.php" );
 
 	checkSession( '' );
 	

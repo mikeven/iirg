@@ -21,6 +21,7 @@
 			$detalle_d = $documento["detalle"];
 			$obs1 = $encabezado["obs1"];
 			$obs2 = $encabezado["obs2"];
+			$obs3 = "";
 			$tdocumento = "Pedido"; $ftdd = $tdd;
 	    }
 	    if( $tdd == "fac" ){
