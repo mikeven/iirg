@@ -28,9 +28,9 @@
             <span>Artículos</span>
           </a>
          <ul class="treeview-menu">
-          	<li><a href="articulos"><i class="fa fa-list-alt"></i>Consultar artículos</a></li>
-            <li><a href="nuevo-articulo"><i class="fa fa-plus"></i>Agregar nuevo artículo</a></li>
-            <li><a href="categorias-art"><i class="fa fa-cubes"></i>Categorías</a></li>
+          	<li><a href="articulos.php"><i class="fa fa-list-alt"></i>Consultar artículos</a></li>
+            <li><a href="nuevo-articulo.php"><i class="fa fa-plus"></i>Agregar nuevo artículo</a></li>
+            <li><a href="categorias.php"><i class="fa fa-cubes"></i>Categorías</a></li>
           </ul>
         </li>
         <li class="header">MOVIMIENTOS</li>
