@@ -36,6 +36,7 @@
 	    if( $tdd == "nota" ){
 			$documento = obtenerNotaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
+
 			$t_concepto = $encabezado["tipo_concepto"];
 			$detalle_d = $documento["detalle"];
 			$tipo_n = $encabezado["tipo"];

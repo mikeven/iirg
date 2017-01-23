@@ -19,6 +19,7 @@
             <span>Proveedores</span>
           </a>
           <ul class="treeview-menu">
+          	<li><a href="proveedores.php"><i class="fa fa-list-alt"></i>Consultar proveedores</a></li>
             <li><a href="nuevo-proveedor.php"><i class="fa fa-plus"></i>Agregar nuevo proveedor</a></li>
           </ul>
         </li>

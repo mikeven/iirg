@@ -7,7 +7,7 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-	include( "bd/data-cliente.php" );
+	include( "bd/data-proveedor.php" );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@
     <!-- page script -->
     <script>
       $(function () {
-        $('#example2').DataTable({
+        $('#tproveedores').DataTable({
           "paging": true,
 		  "iDisplayLength": 10,
           "lengthChange": true,
@@ -155,11 +155,11 @@
               <!-- general form elements -->
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">DIRECTORIO DE CLIENTES</h3>
+                  <h3 class="box-title">DIRECTORIO DE PROVEEDORES</h3>
                   <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	<div class="box-body">
-                	<?php include( "subforms/tablas/tabla_clientes.php" )?>
+                	<?php include("subforms/tablas/tabla_proveedores.php")?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!--/.col (left) -->

@@ -9,9 +9,9 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
-  include( "bd/data-formato.php" );
-  include( "bd/data-cotizacion.php" );
-  include( "fn/fn-formato.php" );
+	include( "bd/data-formato.php" );
+	include( "bd/data-cotizacion.php" );
+	include( "fn/fn-formato.php" );
   //require_once( 'lib/FirePHPCore/fb.php' );
 	
 	$iva = 0.12;

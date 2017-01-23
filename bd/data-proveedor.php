@@ -26,6 +26,16 @@
 		return $resp;		
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
+	function obtenerListaProveedores( $link ){
+		$lista_c = array();
+		$q = "Select * from proveedor order by Nombre asc";
+		$data = mysql_query( $q, $link );
+		while( $c = mysql_fetch_array( $data ) ){
+			$lista_c[] = $c;	
+		}
+		return $lista_c;	
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
 	function obtenerProveedorPorId( $id, $dbh ){
 		
 		$q = "select * from proveedor where idProveedor = $id";

@@ -148,7 +148,7 @@
           <?php include("subforms/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          	<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -222,7 +222,7 @@
                                 <label for="nombre" class="iconlab">Nombre:</label>
                               </div>
                               <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
-                              required value="<?php echo $proveedor["Nombre"];?>">
+                              required value="<?php echo $proveedor["Nombre"]; ?>">
                             </div>
                         </div><!-- /.form group -->
                           <div class="form-group">
