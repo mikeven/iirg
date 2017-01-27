@@ -197,8 +197,8 @@
                     <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf"><?php echo $item["und"];?></td>
-                    <td align="right"><?php echo $item["punit"];?></td>
-                    <td align="right"><?php echo ($item["ptotal"]);?></td>
+                    <td align="center"><?php echo $item["punit"];?></td>
+                    <td align="center"><?php echo $item["ptotal"];?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -215,25 +215,29 @@
                 <div><?php echo $obs3; ?></div>  
               </p>
             </div><!-- /.col -->
+            
             <div class="col-xs-6">
-              <p class="lead">Totales</p>
-              <div class="table-responsive">
-                <table class="table">
-                  <tr>
-                    <th style="width:50%">Subtotal:</th>
-                    <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
-                  </tr>
-                  <tr>
-                    <th>IVA (<?php echo $eiva; ?>%)</th>
-                    <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Total:</th>
-                    <td class="tit_tdf_d"><?php echo $totales["total"]; ?></td>
-                  </tr>
-                </table>
-              </div>
+              <?php if($tdd != "sctz") { ?>
+                <p class="lead">Totales</p>
+                <div class="table-responsive">
+                  <table class="table">
+                    <tr>
+                      <th style="width:50%">Subtotal:</th>
+                      <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
+                    </tr>
+                    <tr>
+                      <th>IVA (<?php echo $eiva; ?>%)</th>
+                      <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
+                    </tr>
+                    <tr>
+                      <th>Total:</th>
+                      <td class="tit_tdf_d"><?php echo $totales["total"]; ?></td>
+                    </tr>
+                  </table>
+                </div>
+              <?php } ?>
             </div><!-- /.col -->
+          
           </div><!-- /.row -->
 
           <!-- this row will not appear when printing -->

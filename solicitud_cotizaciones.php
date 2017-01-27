@@ -1,25 +1,21 @@
 <?php
 	/*
-	* IIRG - Ficha de datos de cliente
-	* 
-	*/
+	 * R&G - Inicio de sesión
+	 * 
+	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
-  include( "bd/bd.php" );
-  include( "bd/data-usuario.php" );
-	include( "bd/data-formato.php" );
-	include( "fn/fn-formato.php" );
+  	include( "bd/bd.php" );
+	include( "bd/data-usuario.php" );
+	include( "bd/data-cotizacion.php" );
 	checkSession( '' );
-	
-  	$nombre_usuario = $_SESSION["user"]["nombre"];
-  	for ( $i = 0; $i <= 5; $i++ ) { $datau[$i] = ""; }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Formato de documentos </title>
+  <title>IIRG | Solicitud de cotizaciones</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -28,24 +24,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/iCheck/all.css">
-    <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
-    <!-- Bootstrap time Picker -->
-    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-	  <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -56,25 +46,19 @@
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/select2/select2.full.min.js"></script>
-    <script src="plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- DataTables -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
     <script src="plugins/fastclick/fastclick.min.js"></script>
-	<script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <!-- AdminLTE App -->
     <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-
-    <script src="js/fn-formato.js"></script>
-    <style>
-      .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
-    </style>
+    <!-- page script -->
+    <script src="js/fn-clientes.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -119,41 +103,7 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php 
-    include("subforms/nav/menu_ppal.php");
-    
-    /* Data cotizaciones */
-    $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $datau = dataU( $frt_c, $usuario ); 	// en: "fn/fn-formato.php"
-    $doc = dataObs( $frt_c, "ctz" );		  // en: "fn/fn-formato.php"
-    $cobs = obtenerResumenObs( $frt_c );	// en: "fn/fn-formato.php"
-
-    /* Data solicitud cotizaciones */
-    $frt_sc = obtenerFormatoPorUsuarioDocumento( $dbh, "sctz", $usuario["idUsuario"] );
-    $scobs = obtenerResumenObs( $frt_sc );  // en: "fn/fn-formato.php"
-	
-    /* Data facturas */
-    $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
-    $dof = dataObs( $frt_f, "fac" );
-    $fobs = obtenerResumenObs( $frt_f );
-
-    /* Data orden de compra */
-    $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
-    $ocobs = obtenerResumenObs( $frt_oc );
-
-    /* Data Nota de crédito */
-    $frt_nc = obtenerFormatoPorUsuarioDocumento( $dbh, "ndc", $usuario["idUsuario"] );
-    $ncobs = obtenerResumenObs( $frt_nc );
-
-    /* Data Nota de débito */
-    $frt_nd = obtenerFormatoPorUsuarioDocumento( $dbh, "ndd", $usuario["idUsuario"] );
-    $ndobs = obtenerResumenObs( $frt_nd );
-
-    /* Data Nota de entrega */
-    $frt_ne = obtenerFormatoPorUsuarioDocumento( $dbh, "nde", $usuario["idUsuario"] );
-    $neobs = obtenerResumenObs( $frt_ne );
-
-  ?>
+  <?php include("subforms/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -169,58 +119,23 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <div class="col-md-8">
-              <div class="box box-solid">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- general form elements -->
+              <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Formato de documentos</h3>
+                  <h3 class="box-title">REGISTRO DE SOLICITUDES DE COTIZACIONES</h3>
+                  <div class="icon-color"><i class="fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                  <div class="box-group" id="accordion">
-                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                    
-                    <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/cotizaciones.php" ); ?>
-                    <!-- /.Sección panel formato de cotizaciones -->
-                    
-                    <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/solicitud_cotizaciones.php" ); ?>
-                    <!-- /.Sección panel formato de cotizaciones -->
-                    
-                    <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/pedidos.php" ); ?>
-                    <!-- /.Sección panel formato de cotizaciones -->
-                    
-                    <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/facturas.php" ); ?>
-                    <!-- /.Sección panel formato de facturas -->
-
-                    <!-- Sección panel formato de orden de compra -->
-                    <?php include( "subforms/config-formatos/orden_compra.php" ); ?>
-                    <!-- /.Sección panel formato de orden de compra -->
-
-                    <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/notas.php" ); ?>
-                    <!-- /.Sección panel formato de facturas -->
-
-                  </div>
-                  <!-- Bloque de respuesta del servidor -->
-                  <?php include("subforms/nav/mensaje_rcpf.php"); ?>
-                  <!-- /.Bloque de respuesta del servidor -->
+             	<div class="box-body">
+                	<?php include( "subforms/tablas/tabla_cotizaciones.php" ); ?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
-            </div><!-- /.col -->
-            <!-- right column -->
-            <div class="col-md-6">
-              <!-- Horizontal Form -->
-              
-              
-            </div><!--/.col (right) -->
+            </div><!--/.col (left) -->
           </div>  
-      
     </section>
     <!-- /.content -->
   </div>
@@ -428,5 +343,6 @@
 
 </div>
 <!-- ./wrapper -->
+    
 </body>
 </html>

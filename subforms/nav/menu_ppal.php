@@ -42,6 +42,7 @@
           </a>
           <ul class="treeview-menu">
           	<li><a href="cotizaciones.php"><i class="fa fa-list-alt"></i>Consultar cotizaciones</a></li>
+            <li><a href="cotizaciones.php?t=solicitud"><i class="fa fa-list-alt"></i>Solicitudes de cotizaciones</a></li>
             <li><a href="nuevo-cotizacion.php"><i class="fa fa-plus"></i>Crear nueva cotización</a></li>
             <li><a href="nuevo-solicitud-cotizacion.php"><i class="fa fa-plus"></i>Crear solicitud de cotización</a></li>
           </ul>

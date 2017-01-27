@@ -15,6 +15,17 @@
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Cotización"; $ftdd = $tdd;
 	    }
+
+	    if( $tdd == "sctz" ){
+			$documento = obtenerCotizacionPorId( $dbh, $id );
+			$encabezado = $documento["encabezado"];
+			$obs1 = $encabezado["obs1"];
+			$obs2 = $encabezado["obs2"];
+			$obs3 = $encabezado["obs3"];
+			$detalle_d = $documento["detalle"];
+			$tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
+	    }
+
 	    if( $tdd == "ped" ){
 			$documento = obtenerPedidoPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];

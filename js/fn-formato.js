@@ -7,13 +7,19 @@
 /* --------------------------------------------------------- */
 function dataform( frm, param ){
 	vector = new Object();
-	if(param != "ent"){
-		$( frm + " input" ).each( function (){ vector["" + $(this).attr("name") + ""] = $(this).val(); 	} );
+	
+	if( param != "ent" ){
+		$( frm + " input" ).each(function (){  
+			vector["" + $(this).attr("name") + ""] = $(this).val(); 	
+		});
 	}
-	if(param == "ent"){
-		vector["entrada"] = $("#tentctz").val();  vector["idUsuario"] = $("#idUsuario").val();
+	
+	if( param == "ent" ){
+		vector["entrada"] = $( frm + " #tentrada" ).val();  
+		vector["idUsuario"] = $("#idUsuario").val();
 	}
-	console.log(JSON.stringify( vector ));	
+	
+	console.log( JSON.stringify( vector ) );	
 	return JSON.stringify( vector );
 }
 /* --------------------------------------------------------- */
@@ -27,7 +33,7 @@ function reg_formato( documento, frm, param ){
 			res = jQuery.parseJSON(response);
 			//$("#waitconfirm").html(response);
 			if( res.exito == '1' ){
-				$("#txexi").html(res.mje);
+				$("#txexi").html( res.mje );
 				$("#mje_exito").show("slow").delay(5000).hide("slow");
 				$("#mje_error").hide();
 			}
@@ -41,14 +47,18 @@ function reg_formato( documento, frm, param ){
 }
 /* -------------------------------------------------------------------------------------------------------------- */
 $( document ).ready(function() {
-    $(".alert").hide();
-    $('#frm_mencabezc').bootstrapValidator({
+    
+	$(".alert").hide();
+    
+	/* --------------------------------------------------------------------------- */ 
+	/* Validaciones: cotizaciones */ 
+	$('#frm_mencabezc').bootstrapValidator({
         fields: {
-				  l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+			l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
         },
 		onSuccess: function( e, data ) {
-          e.preventDefault();
-          reg_formato( "ctz", "#frm_mencabezc", "enc" );
+			e.preventDefault();
+			reg_formato( "ctz", "#frm_mencabezc", "enc" );
         }
     });
 
@@ -57,8 +67,8 @@ $( document ).ready(function() {
             entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
         },
         onSuccess: function(e, data) {
-          e.preventDefault();
-          reg_formato( "ctz", "#frm_mctzent", "ent" );
+			e.preventDefault();
+			reg_formato( "ctz", "#frm_mctzent", "ent" );
         }
     });
 
@@ -67,27 +77,89 @@ $( document ).ready(function() {
             obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
         },
         onSuccess: function(e, data) {
-          e.preventDefault();
-          reg_formato( "ctz", "#frm_mctzobs", "obs" );
+			e.preventDefault();
+			reg_formato( "ctz", "#frm_mctzobs", "obs" );
+        }
+    });
+	
+	/* --------------------------------------------------------------------------- */
+	/* Validaciones: solicitud de cotizaciones */
+	$('#frm_mencabez_solc').bootstrapValidator({	// Encabezado
+        fields: {
+			l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+        },
+		onSuccess: function( e, data ) {
+        	e.preventDefault();
+        	reg_formato( "sctz", "#frm_mencabez_solc", "enc" );
         }
     });
 
+    $('#frm_msol_ctzent').bootstrapValidator({		// Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "sctz", "#frm_msol_ctzent", "ent" );
+        }
+    });
+
+    $('#frm_msolctzobs').bootstrapValidator({		// Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "sctz", "#frm_msolctzobs", "obs" );
+        }
+    });
+	/* --------------------------------------------------------------------------- */
+	/* Validaciones: facturas */
     $('#frm_mfacobs').bootstrapValidator({
         fields: {
             obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
         },
         onSuccess: function(e, data) {
-          e.preventDefault();
-          reg_formato( "fac", "#frm_mfacobs", "obs" );
+			e.preventDefault();
+			reg_formato( "fac", "#frm_mfacobs", "obs" );
         }
     });
-
-
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
+	/* --------------------------------------------------------------------------- */
+	/* Validaciones: orden de compra */
+    $('#frm_mencabezado_oc').bootstrapValidator({	// Encabezado
+        fields: {
+        },
+		onSuccess: function( e, data ) {
+        	e.preventDefault();
+        	reg_formato( "odc", "#frm_mencabezado_oc", "enc" );
+        }
     });
-
+	
+	$('#frm_mocent').bootstrapValidator({			// Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "odc", "#frm_mocent", "ent" );
+        }
+    });
+	
+	$('#frm_mocobs').bootstrapValidator({			// Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "odc", "#frm_mocobs", "obs" );
+        }
+    });
+	/* --------------------------------------------------------------------------- */
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+		checkboxClass: 'icheckbox_minimal-blue',
+		radioClass: 'iradio_minimal-blue'
+    });
+	/* --------------------------------------------------------------------------- */
     /* Configuración de observaciones formato cotización */
     $('.solectura').click( function(){
         var target = $(this).attr("data-c");
@@ -115,7 +187,7 @@ $( document ).ready(function() {
         var target = "v" + $(this).attr("id");
         $("#" + target).val( $(this).val() );
     });
-
+	/* --------------------------------------------------------------------------- */
     /* Configuración de observaciones formato factura */
     $('.solecturaf').click( function(){
         var target = $(this).attr("data-f");

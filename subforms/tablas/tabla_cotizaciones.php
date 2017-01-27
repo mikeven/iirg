@@ -1,28 +1,45 @@
 <?php 
 	/*
 	*/
-	$cotizaciones = obtenerListaCotizaciones( $dbh );
+	$tipo = "";
+	if( isset( $_GET["t"] ) ) $tipo = $_GET["t"];
+	
+	if( $tipo == "solicitud" )
+		$cotizaciones = obtenerSolicitudesCotizaciones( $dbh );
+	else
+		$cotizaciones = obtenerListaCotizaciones( $dbh );
 ?>
 <table id="lista_ctz" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+        <th>Número</th>
+        <th>Fecha</th>
+        <?php if( $tipo != "solicitud" ) { ?> <th>Cliente</th> <?php } else { ?><th>Proveedor</th> <?php } ?> 
+		<?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
       </tr>
     </thead>
     <tbody>
-        <?php foreach( $cotizaciones as $c ){ ?>  
+        <?php 
+          foreach( $cotizaciones as $c ){ 
+            if ( $tipo == "solicitud" ) $td = "sctz"; else $td = "ctz"; 
+        ?>  
         <tr>
             <td> <?php echo $c["numero"];  ?></td>
             <td> <?php echo $c["Fecha"];  ?></td>
-            <td> <a href="documento.php?tipo_documento=ctz&id=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a> </td>
-            <td> <?php echo $c["Total"];  ?></td>
+            <td>
+              <a href="documento.php?tipo_documento=<?php echo $td; ?>&id=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a>
+            </td>
+            <?php if( $tipo != "solicitud" ) { ?> <td> <?php echo $c["Total"];  ?></td><?php } ?>
         </tr>
         <?php } ?>
     </tbody>
     <tfoot>
         <tr>
-          <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
-        </tr>
+        <th>Número</th>
+        <th>Fecha</th>
+        <?php if( $tipo != "solicitud" ) { ?> <th>Cliente</th> <?php } else { ?><th>Proveedor</th> <?php } ?> 
+		<?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
+      </tr>
     </tfoot>
 </table>
 <script>

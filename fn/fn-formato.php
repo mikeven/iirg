@@ -21,7 +21,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerResumenObs( $frt ){
-
+		/* Retorna el bloque de información referente a las observaciones del formato del documento */
 		$obs = array();
 		for ( $i = 1; $i <= 3; $i++ ) { 
 			$obs[$i] = $frt["obs$i"];
@@ -56,6 +56,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function configDoc( $doc ){
+		/*Retorna el vector de parámetros */
 		$config["ctz"] = array( 'idcampo' => '#vctz', 'texto' => 'Validez cotización', 'data-param' => 'VCTZ' );
 		$config["fac"] = array( 'idcampo' => '#vfac', 'texto' => 'Condición de pago', 'data-param' => 'VFAC' );
 		
@@ -63,7 +64,11 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function dataObs( $frt, $doc ){
-
+		/*	p: parametro para indicar si el campo es readonly o no
+			t: texto de la observación
+			v: valor del campo de la observación
+			dv: 
+		*/
 		$cfg = configDoc( $doc );
 		$do[1]["p"] = ""; $do[2]["p"] = ""; $do[3]["p"] = "";
 		$do[1]["t"] = $frt["obs1"]; $do[2]["t"] = $frt["obs2"]; $do[3]["t"] = $frt["obs3"];

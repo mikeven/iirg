@@ -8,15 +8,15 @@
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
-	include( "bd/data-cliente.php" );
+	include( "bd/data-proveedor.php" );
 	include( "bd/data-formato.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "fn/fn-formato.php" );
-  //require_once( 'lib/FirePHPCore/fb.php' );
+	//require_once( 'lib/FirePHPCore/fb.php' );
 	
 	$iva = 0.12;
-  $eiva = $iva * 100;
-  $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh );
+	$eiva = $iva * 100;
+	$num_nvacotiz = obtenerProximoNumeroSolicitudCotizacion( $dbh );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Registro de cotización</title>
+  <title>IIRG | Solicitud de cotización</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -145,8 +145,7 @@
     </nav>
   </header>
   <?php 
-    $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c );
+    $frt_sctz = obtenerFormatoPorUsuarioDocumento( $dbh, "sctz", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -174,11 +173,11 @@
               <!-- general form elements -->
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">REGISTRAR NUEVA COTIZACIÓN</h3>
+                  <h3 class="box-title">CREAR NUEVA SOLICITUD DE COTIZACIÓN</h3>
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion">
+                <form role="form" id="frm_nscotizacion" name="form_agregar_solicitud_cotizacion">
                 	<input name="reg_cliente" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
@@ -187,16 +186,16 @@
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                           <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                          data-target="#lista_clientes">CLIENTE</button>
+                                          data-target="#lista_proveedores">PROVEEDOR</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente">
+                                        <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
                                         <input type="hidden" class="form-control" id="idCliente" value="">
-                                        <input type="hidden" class="form-control" id="tipo" value="cotizacion">
+                                        <input type="hidden" class="form-control" id="tipo" value="solicitud">
                                 	</div>
                                 </div><!-- /.form group -->
                                 <!-- Modal -->
-                                	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
+                                	<?php include( "subforms/tablas/tabla_proveedores_modal.php" ); ?>
                                 <!-- /.Modal -->
                                 <div class="row">
                                 <div class="col-md-6">
@@ -214,7 +213,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
-                                        <div class="input-group">
+                                        <!--<div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                             <select name="validez" id="cvalidez" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
@@ -222,7 +221,7 @@
                                                 <option value="5 días">5 días</option>
                                                 <option value="8 días">8 días</option>
                                             </select>
-                                        </div><!-- /.input group -->
+                                        </div>-->
                                     </div><!-- /.form group -->
                     			       </div>
                                 </div>
@@ -290,8 +289,7 @@
                                               <!--<label for="punit" class="">Precio unitario:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tag"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fpunit" name="punit" 
-                                                  placeholder="P.Unit" onkeypress="return isNumberKey(event)">
+                                                  <input type="text" class="form-control itemtotal" id="fpunit" name="punit" value="0.00" readonly>
                                               </div>
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
@@ -307,7 +305,7 @@
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                       <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="aitemf">Agregar</button>
+                                      	<button class="btn btn-block btn-success" type="button" id="aitemfsol">Agregar</button>
                                       </div><!-- /.col -->
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
@@ -341,8 +339,10 @@
                                     </div>
                                     					
                                 </div><!--/.detalle_cotizacion-->
-                                
-                                <div class="row" id="pie_cotizacion">
+                                <input id="cvalidez" name="validez" type="hidden" value="">
+                                <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                <input id="ftotal" name="ivap" type="hidden" value="0.00" >
+                                <!--<div class="row" id="pie_cotizacion">
                                 	<table class="table table-condensed" id="pietabla_table">
                                         <tbody>
                                             <tr>
@@ -360,11 +360,11 @@
                                             </tr>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
+                                                <th width="15%">IVA (<?php //echo $eiva; ?>%)</th>
                                                 <th width="15%">
                                                 	<div id="fimpuesto" class="ftotalizacion">
                                                     	<div class="input-group">
-                                                        	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                        	<input id="iva" name="ivap" type="hidden" value="<?php //echo $iva;?>">
                                                     		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
                                                             id="fiva" value="0.00" readonly>
                                                 		</div>
@@ -386,21 +386,22 @@
                                             </tr>
                                         </tbody>
                                     </table>			
-                                </div>
+                                </div>-->
+                                
                                 <dic id="observaciones">
-                                  <div class="titobs"><?php echo $obs[0]["t"];?></div>
+                                  <div class="titobs"><?php echo $frt_sctz["titulo_obs"];?></div>
                                   
-                                  <div class="obsctz"><?php echo $obs[1]["t"];?>
-                                    <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>" 
-                                    data-v="<?php echo $obs[1]["dv"];?>">
+                                  <div class="obsctz"><?php echo $frt_sctz["obs1"];?>
+                                    <input id="tobs1" type="hidden" value="<?php echo $frt_sctz["obs1"];?>" 
+                                    data-v="<?php echo $obs[1];?>">
                                   </div>
-                                  <div class="obsctz"><?php echo $obs[2]["t"];?>
-                                    <input id="tobs2" type="hidden" value="<?php echo $obs[2]["v"];?>" 
-                                    data-v="<?php echo $obs[2]["dv"];?>">
+                                  <div class="obsctz"><?php echo $frt_sctz["obs2"];?>
+                                    <input id="tobs2" type="hidden" value="<?php echo $frt_sctz["obs2"];?>" 
+                                    data-v="<?php echo $obs[2];?>">
                                   </div>
-                                  <div class="obsctz"><?php echo $obs[3]["t"];?>
-                                    <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>" 
-                                    data-v="<?php echo $obs[3]["dv"];?>">
+                                  <div class="obsctz"><?php echo $frt_sctz["obs3"];?>
+                                    <input id="tobs3" type="hidden" value="<?php echo $frt_sctz["obs3"];?>" 
+                                    data-v="<?php echo $obs[3];?>">
                                   </div>
                                 </dic>
                             </div><!--/.col-md-8-->
