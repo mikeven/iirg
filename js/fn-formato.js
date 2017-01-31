@@ -154,6 +154,36 @@ $( document ).ready(function() {
 			reg_formato( "odc", "#frm_mocobs", "obs" );
         }
     });
+	/* --------------------------------------------------------------------------- */
+	/* Validaciones: pedidos */
+    $('#frm_mencabezado_p').bootstrapValidator({	// Encabezado
+        fields: {
+        },
+		onSuccess: function( e, data ) {
+        	e.preventDefault();
+        	reg_formato( "ped", "#frm_mencabezado_p", "enc" );
+        }
+    });
+	
+	$('#frm_mpent').bootstrapValidator({			// Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "ped", "#frm_mpent", "ent" );
+        }
+    });
+	
+	$('#frm_mpobs').bootstrapValidator({			// Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+			e.preventDefault();
+			reg_formato( "ped", "#frm_mpobs", "obs" );
+        }
+    });
     /* --------------------------------------------------------------------------- */
     /* Validaciones: nota de crédito */
     $('#frm_mencabeznc').bootstrapValidator({    // Encabezado

@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_cotizaciones">
-        <i class="fa fa-book"></i> Formato de Cotizaciones
+        <i class="fa fa-book"></i> Formato de cotizaciones
       </a>
     </h4>
   </div>

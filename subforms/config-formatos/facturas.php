@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_facturas">
-        <i class="fa fa-file-text-o"></i> Formato de Facturas
+        <i class="fa fa-file-text-o"></i> Formato de facturas
       </a>
     </h4>
   </div>

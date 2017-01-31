@@ -8,7 +8,7 @@
     </h4>
   </div>
   
-  <div id="formato_nota_d" class="panel-collapse collapse in"> <!-- #formato_cotizaciones-->
+  <div id="formato_nota_d" class="panel-collapse collapse"> <!-- #formato_cotizaciones-->
     
     <div class="box-body">
       

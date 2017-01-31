@@ -141,6 +141,10 @@
     $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
     $ocobs = obtenerResumenObs( $frt_oc );
 
+    /* Data orden de compra */
+    $frt_p = obtenerFormatoPorUsuarioDocumento( $dbh, "ped", $usuario["idUsuario"] );
+    $pobs = obtenerResumenObs( $frt_p );
+
     /* Data Nota de crédito */
     $frt_nc = obtenerFormatoPorUsuarioDocumento( $dbh, "ndc", $usuario["idUsuario"] );
     $ncobs = obtenerResumenObs( $frt_nc );
@@ -234,14 +238,10 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.2
-    </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
-
+  <!-- /footer -->
+  <?php include("subforms/nav/footer.php"); ?>
+  <!-- /.footer -->
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->

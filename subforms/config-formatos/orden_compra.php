@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_oc">
-        <i class="fa fa-file-text-o"></i> Formato de Orden de Compra
+        <i class="fa fa-file-text-o"></i> Formato de orden de compra
       </a>
     </h4>
   </div>
@@ -206,6 +206,6 @@
     
     </div> <!--/.box-body-->
   
-  </div><!-- /.formato_facturas-->
+  </div><!-- /.formato_oc-->
 
 </div> <!-- /.Panel sección -->

@@ -158,8 +158,8 @@
                   <h3 class="box-title">LISTADO DE PRODUCTOS</h3>
                   <div class="icon-color"><i class="fa fa-barcode fa-2x"></i></div>
                 </div><!-- /.box-header -->
-             	<div class="box-body">
-                	<?php include("subforms/tablas/tabla_productos.php")?>
+             	  <div class="box-body">
+                	<?php include("subforms/tablas/tabla_productos.php");?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!--/.col (left) -->
@@ -169,13 +169,9 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.2
-    </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
+  <!-- /footer -->
+  <?php include("subforms/nav/footer.php"); ?>
+  <!-- /.footer -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
