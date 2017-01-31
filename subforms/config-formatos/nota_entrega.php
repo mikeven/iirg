@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_nota_e">
-        <i class="fa fa-book"></i> Formato de nota de entrega
+        <i class="fa fa-sticky-note"></i> Formato de nota de entrega
       </a>
     </h4>
   </div>

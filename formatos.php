@@ -203,7 +203,15 @@
                     <!-- /.Sección panel formato de orden de compra -->
 
                     <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/notas.php" ); ?>
+                    <?php include( "subforms/config-formatos/nota_credito.php" ); ?>
+                    <!-- /.Sección panel formato de facturas -->
+
+                    <!-- Sección panel formato de facturas -->
+                    <?php include( "subforms/config-formatos/nota_debito.php" ); ?>
+                    <!-- /.Sección panel formato de facturas -->
+
+                    <!-- Sección panel formato de facturas -->
+                    <?php include( "subforms/config-formatos/nota_entrega.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
 
                   </div>

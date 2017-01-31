@@ -154,6 +154,99 @@ $( document ).ready(function() {
 			reg_formato( "odc", "#frm_mocobs", "obs" );
         }
     });
+    /* --------------------------------------------------------------------------- */
+    /* Validaciones: nota de crédito */
+    $('#frm_mencabeznc').bootstrapValidator({    // Encabezado
+        fields: {
+            l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+        },
+        onSuccess: function( e, data ) {
+            e.preventDefault();
+            reg_formato( "ndc", "#frm_mencabeznc", "enc" );
+        }
+    });
+
+    $('#frm_mnotcent').bootstrapValidator({      // Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "ndc", "#frm_mnotcent", "ent" );
+        }
+    });
+
+    $('#frm_mnotcobs').bootstrapValidator({       // Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "ndc", "#frm_mnotcobs", "obs" );
+        }
+    });
+    /* --------------------------------------------------------------------------- */
+    /* Validaciones: nota de débito */
+    $('#frm_mencabeznd').bootstrapValidator({    // Encabezado
+        fields: {
+            l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+        },
+        onSuccess: function( e, data ) {
+            e.preventDefault();
+            reg_formato( "ndd", "#frm_mencabeznd", "enc" );
+        }
+    });
+
+    $('#frm_mnotdent').bootstrapValidator({      // Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "ndd", "#frm_mnotdent", "ent" );
+        }
+    });
+
+    $('#frm_mnotdobs').bootstrapValidator({       // Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "ndd", "#frm_mnotdobs", "obs" );
+        }
+    });
+    /* --------------------------------------------------------------------------- */
+    /* Validaciones: nota de entrega */
+    $('#frm_mencabezne').bootstrapValidator({    // Encabezado
+        fields: {
+            l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+        },
+        onSuccess: function( e, data ) {
+            e.preventDefault();
+            reg_formato( "nde", "#frm_mencabezne", "enc" );
+        }
+    });
+
+    $('#frm_mnoteent').bootstrapValidator({      // Texto entrada
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "nde", "#frm_mnoteent", "ent" );
+        }
+    });
+
+    $('#frm_mnoteobs').bootstrapValidator({       // Observaciones
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "nde", "#frm_mnoteobs", "obs" );
+        }
+    });
 	/* --------------------------------------------------------------------------- */
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 		checkboxClass: 'icheckbox_minimal-blue',

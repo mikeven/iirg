@@ -8,7 +8,7 @@
     </h4>
   </div>
   
-  <div id="formato_oc" class="panel-collapse collapse in"> <!-- formato_facturas -->
+  <div id="formato_oc" class="panel-collapse collapse"> <!-- formato_facturas -->
     
     <div class="box-body">
       <!-- Custom Tabs -->

@@ -3,12 +3,12 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_nota_d">
-        <i class="fa fa-book"></i> Formato de nota de débito
+        <i class="fa fa-sticky-note"></i> Formato de nota de débito
       </a>
     </h4>
   </div>
   
-  <div id="formato_nota_d" class="panel-collapse collapse"> <!-- #formato_cotizaciones-->
+  <div id="formato_nota_d" class="panel-collapse collapse in"> <!-- #formato_cotizaciones-->
     
     <div class="box-body">
       
@@ -26,10 +26,10 @@
           <div class="tab-pane active" id="tab_nd1">
           
             <div class="tcontab"><b>Datos de encabezado</b></div>
-            <div><?php echo $frt_ndd["enc1"]; ?></div>
-            <div><?php echo $frt_ndd["enc2"]; ?></div>
-            <div><?php echo $frt_ndd["enc3"]; ?></div>
-            <div><?php echo $frt_ndd["enc4"]; ?></div>
+            <div><?php echo $frt_nd["enc1"]; ?></div>
+            <div><?php echo $frt_nd["enc2"]; ?></div>
+            <div><?php echo $frt_nd["enc3"]; ?></div>
+            <div><?php echo $frt_nd["enc4"]; ?></div>
             <div><?php echo $frt_nd["enc5"]; ?></div>
             <div><?php echo $frt_nd["enc6"]; ?></div>
             <hr>

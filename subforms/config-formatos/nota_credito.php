@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#formato_nota_c">
-        <i class="fa fa-book"></i> Formato de nota de crédito
+        <i class="fa fa-sticky-note"></i> Formato de nota de crédito
       </a>
     </h4>
   </div>
@@ -153,7 +153,7 @@
                         <li><a href="#" class="blocampo" data-c="tonc1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs1" id="tonc1" value="<?php echo $frt_nc["obs1"]; ?>" <?php echo $frt_n["obs1"]; ?>>
+                    <input type="text" class="form-control csctzobs" name="obs1" id="tonc1" value="<?php echo $frt_nc["obs1"]; ?>" <?php echo $frt_nc["obs1"]; ?>>
                     <input type="hidden" name="vobs1" id="vtonc1" value="<?php echo $frt_nc["obs1"];?>">
                   </div>
                 </div><!-- /.form group -->
@@ -170,7 +170,7 @@
                         <li><a href="#" class="blocampo" data-c="tonc2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs2" id="ton2" 
+                    <input type="text" class="form-control csctzobs" name="obs2" id="tonc2" 
                     value="<?php echo $frt_nc["obs2"];?>" <?php echo $frt_nc["obs2"]; ?>>
                     <input type="hidden" name="vobs2" id="vtonc2" value="<?php echo $frt_nc["obs2"];?>">
                   </div>                                        
