@@ -36,11 +36,10 @@
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
 		$q = "select f.numero as nro, f.IdFactura2 as idf, f.IdCliente2 as idcliente, 
-		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, f.iva as iva, f.orden_compra as oc, 
-		f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, c.Nombre as nombre, 
-		c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, 
-		c.Email as email FROM factura f, cliente c 
-		where f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
+		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, f.iva as iva, f.orden_compra as oc, f.introduccion as intro, 
+		f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, 
+		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, 
+		c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c where f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
@@ -79,12 +78,14 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idpedido ) $encabezado->idpedido = "NULL";
-		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, iva, Total, fecha_reg  ) 
+		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, introduccion, observaciones, 
+		observaciones1, observaciones2, observaciones3, iva, Total, fecha_reg  ) 
 			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, 
-			'$fecha_mysql', $encabezado->iva, $encabezado->total, NOW() )";
+			'$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
+			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW() )";
 		$data = mysql_query( $q, $dbh );
 
-		//echo $q."<br>";
+		//echo $q;
 		
 		return mysql_insert_id();
 	}

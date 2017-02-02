@@ -92,6 +92,7 @@ function obtenerVectorEncabezado(){
 	encabezado.cvalidez = $( '#cvalidez' ).val();
 	encabezado.pcontacto = $( '#cpcontacto' ).val();
 
+	encabezado.introduccion = $( '#tentrada' ).val();
 	encabezado.obs1 = $( '#tobs1' ).val();
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
@@ -116,8 +117,8 @@ function guardarCotizacion(){
 			$("#bt_reg_cotizacion").fadeOut(200);
 		},
 		success: function( response ){
-			//res = jQuery.parseJSON(response);
-			$("#waitconfirm").html(response);
+			res = jQuery.parseJSON(response);
+			//$("#waitconfirm").html(response);
 			if( res.exito == '1' ){
 				$("#txexi").html(res.mje);
 				$("#mje_exito").show();

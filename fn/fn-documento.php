@@ -8,10 +8,7 @@
 
 	    if( $tdd == "ctz" ){
 			$documento = obtenerCotizacionPorId( $dbh, $id );
-			$encabezado = $documento["encabezado"];
-			$obs1 = $encabezado["obs1"];
-			$obs2 = $encabezado["obs2"];
-			$obs3 = $encabezado["obs3"];
+			$encabezado = $documento["encabezado"];;
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Cotización"; $ftdd = $tdd;
 	    }
@@ -19,9 +16,6 @@
 	    if( $tdd == "sctz" ){
 			$documento = obtenerCotizacionPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
-			$obs1 = $encabezado["obs1"];
-			$obs2 = $encabezado["obs2"];
-			$obs3 = $encabezado["obs3"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
 	    }
@@ -30,18 +24,13 @@
 			$documento = obtenerPedidoPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
-			$obs1 = $encabezado["obs1"];
-			$obs2 = $encabezado["obs2"];
-			$obs3 = "";
 			$tdocumento = "Pedido"; $ftdd = $tdd;
 	    }
 	    if( $tdd == "fac" ){
 			$documento = obtenerFacturaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
-			$obs1 = $encabezado["obs1"];
-			$obs2 = $encabezado["obs2"];
-			$obs3 = $encabezado["obs3"];
+			
 			$tdocumento = "Factura"; $ftdd = $tdd;			
 	    }
 	    if( $tdd == "nota" ){
@@ -51,9 +40,6 @@
 			$t_concepto = $encabezado["tipo_concepto"];
 			$detalle_d = $documento["detalle"];
 			$tipo_n = $encabezado["tipo"];
-			$obs1 = "";
-			$obs2 = $encabezado["concepto"];
-			$obs3 = "";
 			$tdocumento = etiquetaNota( $tipo_n );
 			$ftdd = $tipo_n;
 			if( $t_concepto != "Ajuste global" )
@@ -62,9 +48,14 @@
 	    		$totales = obtenerTotalesFijos( $encabezado );
 	    }
 
+	    $obs1 = $encabezado["obs1"];
+		$obs2 = $encabezado["obs2"];
+		$obs3 = $encabezado["obs3"];
+
 	    $eiva = $encabezado["iva"] * 100;
-	    if( $tdd != "nota" )
+	    if( $tdd != "nota" ) //Los totales se calculan para todos los documentos excepto las notas
 	    	$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+	    
 	    $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id";
   	}
   else{

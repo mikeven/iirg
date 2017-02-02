@@ -23,17 +23,21 @@
 	/* ----------------------------------------------------------------------------------------------------- */
 	function mostrarItemDocumentoPedido( $ditem, $i ){
 		//Muestra el renglón con el ítem de detalle al cargar el pedido para generar Factura (nuevo-factura-php)
+		
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
 		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
 		 <th><div class='input-group input-space'>
-		 <input id='idfq_$i' name='dfcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemF( this )'></div>
+		 <input id='idfq_$i' name='dfcant' type='text' class='form-control itemtotal_detalle input-sm' 
+		 value='$ditem[cantidad]' data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemF( this )'></div>
 		 </th><th><div class='input-group input-space'>
-		 <input id='idfund_$i' name='dfund' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[und]' data-nitem='$i'></div>
+		 <input id='idfund_$i' name='dfund' type='text' class='form-control itemtotal_detalle input-sm' 
+		 value='$ditem[und]' data-nitem='$i'></div>
 		 </th><th><div class='input-group input-space'>
 		 <input id='idfpu_$i' name='dfpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
 		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemF( this )' onblur='initValid()'></div>
-		</th><th><div class='input-group input-space'><input id='idfpt_$i' name='dfptotal' type='text' class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
+		</th><th><div class='input-group input-space'><input id='idfpt_$i' name='dfptotal' type='text' 
+		class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
 		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemF(it$i)'>
 		<i class='fa fa-times'></i></button></th>
 		</tr>";
@@ -56,8 +60,9 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerPedidoPorId( $dbh, $idp ){
 		//Retorna el registro de pedido y sus ítems de detalle
-		$q = "select p.numero as nro, p.IdPedido2 as idp, p.IdCliente2 as idcliente, DATE_FORMAT(p.fecha_emision,'%d/%m/%Y') as femision, p.iva as iva, p.Observaciones1 as obs1, 
-		p.Observaciones2 as obs2, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
+		$q = "select p.numero as nro, p.IdPedido2 as idp, p.IdCliente2 as idcliente, DATE_FORMAT(p.fecha_emision,'%d/%m/%Y') as femision, 
+		p.iva as iva, p.introduccion as intro, p.Observaciones as obs0, p.Observaciones1 as obs1, p.Observaciones2 as obs2, 
+		p.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
 		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM pedido p, cliente c 
 		where p.IdPedido2 = ".$idp." and p.IdCliente2 = c.IdCliente2";
 		
@@ -98,8 +103,10 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotiz ) $encabezado->idcotiz = "NULL";
-		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, iva, Total  ) 
+		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, introduccion, observaciones, 
+		observaciones1, observaciones2, observaciones3, iva, Total  ) 
 			values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', 
+				'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', 
 			$encabezado->iva, $encabezado->total )";
 		$data = mysql_query( $q, $dbh );
 
@@ -122,12 +129,12 @@
 				$res["mje"] = "Registro exitoso";
 			}else{
 				$res["exito"] = 0;
-				$res["mje"] = "Error al registrar detalle de factura";
+				$res["mje"] = "Error al registrar detalle de pedido";
 			}		
 		}
 		else {
 			$res["exito"] = 0;
-			$res["mje"] = "Error al registrar factura";
+			$res["mje"] = "Error al registrar pedido";
 		}
 
 		echo json_encode( $res );

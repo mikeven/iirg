@@ -63,6 +63,13 @@ function obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, i
 	encabezado.idcotiz = idcotiz;
 	encabezado.idcliente = idcliente;
 	encabezado.femision = femision;
+
+	encabezado.introduccion = $( '#tentrada' ).val();
+	encabezado.obs0 = $( '#tobs0' ).val();
+	encabezado.obs1 = $( '#tobs1' ).val();
+	encabezado.obs2 = $( '#tobs2' ).val();
+	encabezado.obs3 = $( '#tobs3' ).val();
+
 	encabezado.total = total;
 	encabezado.iva = iva;
 
@@ -187,6 +194,7 @@ function guardarPedido(){
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);
+				//$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
 					$("#txexi").html(res.mje);
 					$("#mje_exito").show();

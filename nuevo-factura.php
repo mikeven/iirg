@@ -12,6 +12,7 @@
   include( "bd/data-cotizacion.php" );
   include( "bd/data-factura.php" );
 	include( "bd/data-pedido.php" );
+  include( "bd/data-formato.php" );
 	
   checkSession( '' );
 	
@@ -156,6 +157,9 @@
 
     </nav>
   </header>
+  <?php 
+    $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
+  ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -330,13 +334,11 @@
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        
-
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_f["entrada"];?>">
                           <div class="row" id="contenido_factura">
                           	<div class="col-md-10 col-md-offset-1">
-                              	
-                                  <div id="detalle_cotizacion">
-                                      
+                                  
+                                  <div id="detalle_factura">
                                       <div class="box box-primary">	
                                           <div class="box-body">
                                           	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
@@ -362,9 +364,9 @@
                                           </div>
                                       </div>
                                       					
-                                  </div><!--/.detalle_cotizacion-->
+                                  </div><!--/.detalle_factura-->
                                   
-                                  <div class="row" id="pie_cotizacion">
+                                  <div class="row" id="pie_factura">
                                   	<table class="table table-condensed" id="pietabla_table">
                                           <tbody>
                                               <tr>
@@ -409,13 +411,29 @@
                                           </tbody>
                                       </table>			
                                   </div>
-                              
+                                  
+                                  <div id="observaciones">
+                                    <div class="titobs"><?php echo $frt_f["titulo_obs"];?></div>
+                                    <input id="tobs0" type="hidden" value="<?php echo $frt_f["titulo_obs"];?>">
+                                    <div class="obsctz"><?php echo $frt_f["obs1"];?>
+                                      <input id="tobs1" type="hidden" value="<?php echo $frt_f["obs1"];?>">
+                                    </div>
+                                    <div class="obsctz"><?php echo $frt_f["obs2"];?>
+                                      <input id="tobs2" type="hidden" value="<?php echo $frt_f["obs2"];?>">
+                                    </div>
+                                    <div class="obsctz"><?php echo $frt_f["obs3"];?>
+                                      <input id="tobs3" type="hidden" value="<?php echo $frt_f["obs3"];?>">
+                                    </div>
+                                  </div>
+
                               </div><!--/.col-md-8-->
                           	
                           </div><!-- /.pie_factura -->
+
                         <!-- Bloque de respuesta del servidor -->
                         <?php include("subforms/nav/mensaje_rcpf.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
+                    
                     </div><!-- /.box-body -->
 					          
                     <div class="box-footer" align="center">

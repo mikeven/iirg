@@ -314,6 +314,7 @@
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_c["entrada"];?>">
                         <div class="row" id="ficha_cotizacion">
                         	<div class="col-md-10 col-md-offset-1">
                             	
@@ -384,9 +385,9 @@
                                         </tbody>
                                     </table>			
                                 </div>
-                                <dic id="observaciones">
+                                <div id="observaciones">
                                   <div class="titobs"><?php echo $obs[0]["t"];?></div>
-                                  
+                                  <input id="tobs0" type="hidden" value="<?php echo $obs[0]["t"];?>">
                                   <div class="obsctz"><?php echo $obs[1]["t"];?>
                                     <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>" 
                                     data-v="<?php echo $obs[1]["dv"];?>">
@@ -399,7 +400,8 @@
                                     <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>" 
                                     data-v="<?php echo $obs[3]["dv"];?>">
                                   </div>
-                                </dic>
+                                </div><!--/. observaciones -->
+                            
                             </div><!--/.col-md-8-->
                         	
                         </div><!-- /.pie_cotizacion -->

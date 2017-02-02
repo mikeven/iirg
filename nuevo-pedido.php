@@ -10,6 +10,7 @@
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
   include( "bd/data-cotizacion.php" );
+  include( "bd/data-formato.php" );
 	include( "bd/data-pedido.php" );
 	
   checkSession( '' );
@@ -156,6 +157,9 @@
 
     </nav>
   </header>
+  <?php 
+    $frt_p = obtenerFormatoPorUsuarioDocumento( $dbh, "ped", $usuario["idUsuario"] );
+  ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -314,12 +318,11 @@
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        
-                        
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_p["entrada"];?>">
                           <div class="row" id="contenido_pedido">
                           	<div class="col-md-10 col-md-offset-1">
-                              	
-                                  <div id="detalle_cotizacion">
+                              	  
+                                  <div id="detalle_pedido">
                                       
                                       <div class="box box-primary">	
                                           <div class="box-body">
@@ -345,7 +348,7 @@
                                               </table>
                                           </div>
                                       </div>
-                                  </div><!--/.detalle_cotizacion-->
+                                  </div><!--/.detalle_pedido-->
                                   
                                   <div class="row" id="pie_cotizacion">
                                   	<table class="table table-condensed" id="pietabla_table">
@@ -391,6 +394,19 @@
                                               </tr>
                                           </tbody>
                                       </table>			
+                                  </div>
+                                  <div id="observaciones">
+                                    <div class="titobs"><?php echo $frt_p["titulo_obs"];?></div>
+                                    <input id="tobs0" type="hidden" value="<?php echo $frt_p["titulo_obs"];?>">
+                                    <div class="obsctz"><?php echo $frt_p["obs1"];?>
+                                      <input id="tobs1" type="hidden" value="<?php echo $frt_p["obs1"];?>">
+                                    </div>
+                                    <div class="obsctz"><?php echo $frt_p["obs2"];?>
+                                      <input id="tobs2" type="hidden" value="<?php echo $frt_p["obs2"];?>">
+                                    </div>
+                                    <div class="obsctz"><?php echo $frt_p["obs3"];?>
+                                      <input id="tobs3" type="hidden" value="<?php echo $frt_p["obs3"];?>">
+                                    </div>
                                   </div>
                               </div><!--/.col-md-8-->
                           </div><!-- /.pie_cotizacion -->

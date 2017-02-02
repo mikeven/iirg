@@ -70,9 +70,10 @@
 		
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.IdCliente2 as idcliente, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
-		c.iva as iva, c.Observaciones1 as obs1, c.Observaciones2 as obs2, c.Observaciones3 as obs3, k.Nombre as nombre, 
-		k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email 
-		FROM cotizacion c, cliente k where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
+		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
+		c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, 
+		k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email FROM cotizacion c, cliente k 
+		where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
@@ -109,12 +110,13 @@
 		// Guarda el registro de la cotización y solicitud de cotización
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, observaciones1, 
+		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, introduccion, observaciones1, 
 		observaciones2, observaciones3, iva, Total, validez  ) 
 		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', 
-		'$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, '$encabezado->cvalidez' )";
+		'$encabezado->introduccion', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, 
+		$encabezado->total, '$encabezado->cvalidez' )";
 		
-		echo $q;
+		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		
 		return mysql_insert_id();

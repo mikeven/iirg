@@ -201,8 +201,8 @@
                     <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf"><?php echo $item["und"];?></td>
-                    <td align="center"><?php echo $item["punit"];?></td>
-                    <td align="center"><?php echo $item["ptotal"];?></td>
+                    <td align="center"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
+                    <td align="center"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
