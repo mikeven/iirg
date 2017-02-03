@@ -4,8 +4,8 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarProveedor( $p, $dbh ){
-		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion ) 
-		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion]' )";
+		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
+		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion1]', '$p[direccion2]' )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		
@@ -15,7 +15,8 @@
 		
 		$resp["cambio"] = "exito";
 		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', pcontacto = '$p[pcontacto]', 
-		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion = '$p[direccion]' where idProveedor = $p[id]";
+		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion1 = '$p[direccion1]', Direccion2 = '$p[direccion2]' 
+		where idProveedor = $p[id]";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 
@@ -50,7 +51,8 @@
 		$p["rif"] = $_POST["rif"];
 		$p["email"] = $_POST["email"];
 		$p["pcontacto"] = $_POST["pcontacto"];
-		$p["direccion"] = $_POST["direccion"];
+		$p["direccion1"] = $_POST["direccion1"];
+		$p["direccion2"] = $_POST["direccion2"];
 		$p["tel1"] = $_POST["telefono1"];
 		$p["tel2"] = $_POST["telefono2"];
 		

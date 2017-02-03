@@ -26,6 +26,14 @@
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Pedido"; $ftdd = $tdd;
 	    }
+
+		if( $tdd == "odc" ){
+			$documento = obtenerOrdenCompraPorId( $dbh, $id );
+			$encabezado = $documento["encabezado"];
+			$detalle_d = $documento["detalle"];
+			$tdocumento = "Orden de compra"; $ftdd = $tdd;
+	    }
+
 	    if( $tdd == "fac" ){
 			$documento = obtenerFacturaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];

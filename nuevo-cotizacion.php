@@ -431,6 +431,12 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
+  <script>
+      $( document ).ready(function() {
+          asignarEtiquetaConfirmacion();
+      });
+  </script>
 
   <!-- /footer -->
   <?php include("subforms/nav/footer.php"); ?>

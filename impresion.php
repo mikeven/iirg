@@ -10,6 +10,7 @@
   include( "bd/data-pedido.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
+  include( "bd/data-orden-compra.php" );
   include( "bd/data-cotizacion.php" );
 
   checkSession( '' );
@@ -22,9 +23,17 @@
       $documento = obtenerCotizacionPorId( $dbh, $id );
       $tdocumento = "Cotización";
     }
+    if( $tdd == "sctz" ){
+      $documento = obtenerCotizacionPorId( $dbh, $id );
+      $tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
+    }      
     if( $tdd == "ped" ){
       $documento = obtenerPedidoPorId( $dbh, $id );
       $tdocumento = "Pedido";
+    }
+    if( $tdd == "odc" ){
+      $documento = obtenerOrdenCompraPorId( $dbh, $id );
+      $tdocumento = "Orden de compra";
     }
     if( $tdd == "fac" ){
       $documento = obtenerFacturaPorId( $dbh, $id );

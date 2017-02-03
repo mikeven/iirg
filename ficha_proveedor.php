@@ -195,7 +195,8 @@
                   <div class="tab-pane active" id="tab_1">
                     <div><span class="txh"><b><?php echo $proveedor["Nombre"];?></b></span></div>
                     <div><span class="tx1"><?php echo $proveedor["Rif"];?></span></div>
-                    <div><span class="tx1"><?php echo $proveedor["Direccion"];?></span></div>
+                    <div><span class="tx1"><?php echo $proveedor["Direccion1"];?></span></div>
+                    <div><span class="tx1"><?php echo $proveedor["Direccion2"];?></span></div>
                     <div class="info_tab3">
                     <div><span class="tx1"><span class="fa fa-envelope"></span> <?php echo $proveedor["Email"];?></span></div>
                     <div><span class="tx1"><span class="fa fa-user"></span> <?php echo $proveedor["pcontacto"];?></span></div>
@@ -251,16 +252,28 @@
                               <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $proveedor["pcontacto"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
+                          
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">
                                 <i class="fa fa-map-marker"></i>
-                                <label for="dir" class="iconlab">Dirección:</label>
+                                <label for="dir" class="iconlab">Dirección -1-:</label>
                               </div>
-                              <input id="cdir" type="text" class="form-control" placeholder="Dirección" 
-                              data-mask name="direccion" value="<?php echo $proveedor["Direccion"];?>">
+                              <input id="cdir1" type="text" class="form-control" placeholder="Dirección 1" 
+                              data-mask name="direccion1" value="<?php echo $proveedor["Direccion1"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                                <label for="dir" class="iconlab">Dirección -2-:</label>
+                              </div>
+                              <input id="cdir2" type="text" class="form-control" placeholder="Dirección 2" 
+                              data-mask name="direccion2" value="<?php echo $proveedor["Direccion2"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">

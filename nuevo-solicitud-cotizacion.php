@@ -273,6 +273,7 @@
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
+                                      
                                       <div class="col-md-6">
                                       	<div class="form-group">
                                               <!--<label for="cantidad" class="">Cantidad:</label>-->
@@ -283,29 +284,32 @@
                                               </div>
                                           </div><!-- /.col -->
                                       </div><!-- /.form group -->
+                                      
                                       <div class="col-md-6">
-                                      	<div class="form-group">
-                                              <!--<label for="punit" class="">Precio unitario:</label>-->
-                                              <div class="input-group">
-                                                  <div class="input-group-addon"><i class="fa fa-tag"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fpunit" name="punit" value="0.00" readonly>
-                                              </div>
-                                          </div><!-- /.form group -->
+                                        <button class="btn btn-block btn-success" type="button" id="aitemfsol">Agregar</button>
                                       </div><!-- /.col -->
+
+                                      <div class="col-md-6">
+                                      	<div class="form-group" style="visibility:hidden;">
+                                          <!--<label for="punit" class="">Precio unitario:</label>-->
+                                          <div class="input-group">
+                                              <div class="input-group-addon"><i class="fa fa-tag"></i></div>
+                                              <input type="text" class="form-control itemtotal" id="fpunit" name="punit" value="0.00" readonly>
+                                          </div>
+                                        </div><!-- /.form group -->
+                                      </div><!-- /.col-md-6 -->
                                     
                                       <div class="col-md-6">
-                                      	<div class="form-group">
+                                      	<div class="form-group" style="visibility:hidden;">
                                               <!--<label for="punit" class="">Total item:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tags"></i></div>
                                                   <input type="text" class="form-control" id="fptotal" name="ptotal" 
                                                   placeholder="Total" value="0.00" readonly>
                                               </div>
-                                          </div><!-- /.form group -->
+                                        </div><!-- /.form group -->
                                       </div><!-- /.col -->
-                                      <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="aitemfsol">Agregar</button>
-                                      </div><!-- /.col -->
+                                      
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
                             </div>
@@ -432,7 +436,11 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  <script>
+      $( document ).ready(function() {
+          asignarEtiquetaConfirmacion();
+      });
+  </script>
   <!-- /footer -->
   <?php include("subforms/nav/footer.php"); ?>
   <!-- /.footer -->

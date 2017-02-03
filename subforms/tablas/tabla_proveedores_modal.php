@@ -24,7 +24,7 @@
                     	<div class="item_proveedor_lmodal" data-label="<?php echo $p["Nombre"];?>" 
                         	data-idp="<?php echo $p["idProveedor"];?>" data-npc="<?php echo $p["pcontacto"];?>">
                             <a href="#!"><?php echo $p["Nombre"];?></a>
-						</div>
+						          </div>
                     </td>
                 </tr>
                 <?php } ?>

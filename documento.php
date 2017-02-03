@@ -8,6 +8,7 @@
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-pedido.php" );
+  include( "bd/data-orden-compra.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-factura.php" );
 	include( "bd/data-nota.php" );
@@ -17,7 +18,6 @@
 	include( "fn/fn-documento.php" );
 
 	checkSession( '' );
-	
 
 ?>
 <!DOCTYPE html>
@@ -131,7 +131,7 @@
             </div>
           </div>-->
           <!-- info row -->
-            <?php if($tdd != "fac") { ?>
+            <?php if( $tdd != "fac" ) { ?>
             <div class="row invoice-info" id="membrete">
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
                 <div class="col-sm-8 invoice-col" align="center">
@@ -149,7 +149,7 @@
                 <div class="col-sm-4 invoice-col" id="dcliente">
                     <div id="dc_nombre">Señores</div>
                     <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                    <?php if( $tdd == "fac" ) { ?>
+                    <?php if( ( $tdd == "fac" ) || ( $tdd == "odc" ) ) { ?>
                       <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                       <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
                       <div id="dc_ciudad">Ciudad: Caracas</div>

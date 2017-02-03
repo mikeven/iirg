@@ -53,6 +53,7 @@
           </a>
           <ul class="treeview-menu">
           	<li><a href="pedidos.php"><i class="fa fa-list-alt"></i>Consultar pedidos</a></li>
+            <li><a href="ordenes-compras.php"><i class="fa fa-list-alt"></i>Consultar órdenes de compra</a></li>
             <li><a href="nuevo-pedido.php"><i class="fa fa-plus"></i>Crear nuevo pedido</a></li>
             <li><a href="nuevo-orden-compra.php"><i class="fa fa-plus"></i>Crear orden de compra</a></li>
           </ul>

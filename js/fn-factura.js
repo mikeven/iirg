@@ -20,7 +20,7 @@ function initValid(){
 		  },
 		  punit: {
 		      validators: { 
-		        regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/,    message: 'Formato inválido de monto'} 
+		        regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/, message: 'Formato inválido de monto'} 
 		      }
 		  }
 		},
@@ -28,7 +28,7 @@ function initValid(){
          	e.preventDefault();
         	bt_reg_facturaclick();
         }
-  });
+  	});
 }
 /* --------------------------------------------------------- */
 function stopRKey(evt) {

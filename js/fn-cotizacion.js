@@ -56,12 +56,14 @@ function checkCotizacion(){
 		$("#txerr").html("Debe ingresar ítems en la cotización");
 		error = 1;
 	}
+	
 	if( $("#idCliente").val() == "" ){
 		$("#mje_error").fadeIn("slow");
 		$("#txerr").html("Debe indicar un cliente");
 		$("#ncliente").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
+	
 	$("#closeModal").click();
 	return error;	
 }
@@ -253,13 +255,19 @@ function checkItemFormSolicitud( idart, punit, qant ){
 
 	return valido;
 }
+
+function asignarEtiquetaConfirmacion(){
+	if( $("#tipo").val() == "cotizacion" )
+		$("#titulo_emergente").html("Guardar cotización");
+	if( $("#tipo").val() == "solicitud" )
+		$("#titulo_emergente").html("Guardar solicitud de cotización");
+}
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
 	
 	var cant = "";
-
-	$("#titulo_emergente").html("Guardar Cotización");
-	$("#mje_confirmacion").html("¿Confirmar registro?");
+	
+	$("#mje_confirmacion").html( "¿Confirmar registro?" );
 	$("#btn_confirm").attr("id", "bt_reg_cotizacion");
 
 	$(".alert").click( function(){
@@ -342,8 +350,6 @@ $( document ).ready(function() {
 		if( checkCotizacion() == 0 )
 			guardarCotizacion();
     });
-
-    
 });
 /* --------------------------------------------------------- */
 
