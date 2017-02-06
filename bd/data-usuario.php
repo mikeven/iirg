@@ -35,6 +35,7 @@
 		$Rs = mysql_query ( $query, $dbh );
 		return mysql_insert_id();	
 	}
+	/* ----------------------------------------------------------------------------------------------------- */
 	function registrarUsuario( $usuario, $pass, $dbh ){
 		$query = "insert into usuario (usuario, password) values ( '$usuario', '$pass' )";
 		//echo $query;
@@ -83,7 +84,7 @@
 		$pass = $_POST["passw"];
 		$return = iniciarSesion( $usuario, $pass, $dbh );
 		
-		echo $return;
+		//echo $return;
 	}
 	if( isset( $_POST["registro"] ) ){
 		include( "bd.php" );

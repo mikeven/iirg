@@ -14,7 +14,7 @@
 	    }
 
 	    if( $tdd == "sctz" ){
-			$documento = obtenerCotizacionPorId( $dbh, $id );
+			$documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
@@ -42,12 +42,13 @@
 			$tdocumento = "Factura"; $ftdd = $tdd;			
 	    }
 	    if( $tdd == "nota" ){
-			$documento = obtenerNotaPorId( $dbh, $id );
+			$tipo_n = $_GET["tn"];
+			$documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
 			$encabezado = $documento["encabezado"];
 
 			$t_concepto = $encabezado["tipo_concepto"];
 			$detalle_d = $documento["detalle"];
-			$tipo_n = $encabezado["tipo"];
+
 			$tdocumento = etiquetaNota( $tipo_n );
 			$ftdd = $tipo_n;
 			if( $t_concepto != "Ajuste global" )

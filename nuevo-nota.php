@@ -14,7 +14,8 @@
   include( "bd/data-factura.php" );
 	include( "bd/data-nota.php" );
   include( "bd/data-forms.php" );
-	
+  include( "bd/data-formato.php" );
+
   checkSession( '' );
 	
   if( isset( $_GET["idf"] ) ){
@@ -161,6 +162,11 @@
 
     </nav>
   </header>
+  <?php 
+    if( isset( $_GET["idf"] ) ){
+      $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $tn ), $usuario["idUsuario"] );
+    }
+  ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -212,7 +218,7 @@
                                     <input type="hidden" id="tipofte" value="<?php if(isset($encabezado)) echo $tn; ?>">
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
-
+                                
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <div class="input-group">
@@ -347,10 +353,9 @@
                         
                         </div><!-- /.encabezado_nota -->
                         <!-- ************************************************************************************************ -->
-                        <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
+                        <div class="row" id="division_central"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        
-
+                        <input id="tentrada" name="introduccion" type="hidden" value="">
                           <div class="row" id="contenido_nota">
                           	<div class="col-md-10 col-md-offset-1">
                               	
@@ -402,7 +407,7 @@
                                               </tr>
                                               <tr>
                                                   <th width="65%">
-                                                    <?php if(isset( $factura )) {?>
+                                                    <?php if( isset( $factura ) ) {?>
                                                       <div id="bloque_concepto">
                                                         <div class="form-group">
                                                           <!--<label for="obs2">obs2</label>-->
@@ -419,7 +424,8 @@
                                                             <input type="text" class="form-control" name="concepto" id="cnc" value=""> 
                                                             <input type="hidden" name="tipo_concepto" id="tconcepto" value="">
                                                           </div>                                        
-                                                        </div><!-- /.form group --> 
+                                                        </div><!-- /.form group -->
+                                                        <div id="etq_concepto"></div> 
                                                       </div> <!-- /.bloque_concepto -->
                                                     <?php } ?>
                                                   </th>
@@ -451,6 +457,25 @@
                                           </tbody>
                                       </table>			
                                   </div>
+                                  
+                                  <div id="observaciones">
+                                    <div class="titobs">
+                                      <div id="t_tobs_notas"><?php if( isset( $frt_f ) ) echo $frt_f["titulo_obs"];?></div>
+                                      <input id="tobs0" type="hidden" value="<?php if( isset( $frt_f ) ) echo $frt_f["titulo_obs"];?>">
+                                    </div>
+                                    <div class="obsctz">
+                                      <div id="tx0b1"><?php if( isset( $frt_f ) ) echo $frt_f["obs1"];?></div>
+                                      <input id="tobs1" type="hidden" value="<?php if( isset( $frt_f ) ) echo $frt_f["obs1"];?>">
+                                    </div>
+                                    <div class="obsctz">
+                                      <div id="tx0b2"><?php if( isset( $frt_f ) ) echo $frt_f["obs2"];?></div>
+                                      <input id="tobs2" type="hidden" value="<?php if( isset( $frt_f ) ) echo $frt_f["obs2"];?>">
+                                    </div>
+                                    <div class="obsctz">
+                                      <div id="tx0b3"><?php if( isset( $frt_f ) ) echo $frt_f["obs3"];?></div>
+                                      <input id="tobs3" type="hidden" value="<?php if( isset( $frt_f ) ) echo $frt_f["obs3"];?>">
+                                    </div>
+                                  </div><!--/. observaciones -->
                               
                               </div><!--/.col-md-8-->
                           	

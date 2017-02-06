@@ -4,7 +4,7 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerFormatoPorUsuarioDocumento( $dbh, $doc, $idu ){
 		$q = "select * from formato where doc = '$doc' and idUsuario = $idu";
-		return mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		return mysql_fetch_array( mysql_query ( $q, $dbh ), MYSQL_ASSOC );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarFormato( $dbh, $documento, $form, $sec ){
@@ -21,8 +21,12 @@
 			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario and doc = '$documento'";
 
 		$data = mysql_query( $q, $dbh );
-		//echo $q;
 		return mysql_affected_rows();
+	}
+
+	function docBD( $texto ){
+		$docbd = array( 'nota_entrega' => 'nde', 'nota_credito' => 'ndc', 'nota_debito' => 'ndd' );
+		return $docbd[$texto];
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 
@@ -41,5 +45,13 @@
 		}
 
 		echo json_encode( $res );
+	}
+
+	if( isset( $_POST["fdoc"] ) ){
+		
+		include("bd.php");
+		
+		$frt = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $_POST["fdoc"] ), $_POST["idu"] );
+		echo json_encode( $frt );
 	}
 ?>

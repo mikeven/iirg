@@ -81,6 +81,21 @@
 		return $cotizacion;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
+			
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, p.idProveedor as idproveedor, 
+		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
+		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
+		c.Observaciones3 as obs3, p.Nombre as nombre, p.Rif as rif, p.direccion1 as dir1, p.direccion2 as dir2, 
+		p.telefono1 as tlf1, p.telefono2 as tlf2, p.Email as email FROM cotizacion c, proveedor p 
+		where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = p.idProveedor";
+		
+		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
+		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
+		
+		return $cotizacion;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalle( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de cotización
 		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');

@@ -24,7 +24,7 @@
       $tdocumento = "Cotización";
     }
     if( $tdd == "sctz" ){
-      $documento = obtenerCotizacionPorId( $dbh, $id );
+      $documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
       $tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
     }      
     if( $tdd == "ped" ){

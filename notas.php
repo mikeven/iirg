@@ -8,6 +8,7 @@
   include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-nota.php" );
+
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -126,7 +127,7 @@
                   <h3 class="box-title">LISTA DE NOTAS</h3>
                   <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
-             	<div class="box-body">
+             	  <div class="box-body">
                 	<?php include( "subforms/tablas/tabla_notas.php" ) ?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

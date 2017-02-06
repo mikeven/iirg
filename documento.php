@@ -149,7 +149,7 @@
                 <div class="col-sm-4 invoice-col" id="dcliente">
                     <div id="dc_nombre">Señores</div>
                     <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                    <?php if( ( $tdd == "fac" ) || ( $tdd == "odc" ) ) { ?>
+                    <?php if( ( $tdd == "fac" ) || ( $tdd == "odc" ) || ( $tdd == "sctz" ) ) { ?>
                       <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                       <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
                       <div id="dc_ciudad">Ciudad: Caracas</div>
@@ -201,8 +201,8 @@
                     <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf"><?php echo $item["und"];?></td>
-                    <td align="center"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
-                    <td align="center"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
+                    <td align="right"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
+                    <td align="right"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
                   </tr>
                   <?php } ?>
                 </tbody>

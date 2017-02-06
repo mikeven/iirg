@@ -67,6 +67,12 @@ function obtenerVectorEncabezado(){
 	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); else encabezado.concepto = "";
 	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); else encabezado.tipo_concepto = "";
 	
+	encabezado.introduccion = $( '#tentrada' ).val();
+	encabezado.obs0 = $( '#tobs0' ).val();
+	encabezado.obs1 = $( '#tobs1' ).val();
+	encabezado.obs2 = $( '#tobs2' ).val();
+	encabezado.obs3 = $( '#tobs3' ).val();
+
 	encabezado.subtotal = $( '#fstotal' ).val().replace(",", ".");
 	encabezado.total = $( '#ftotal' ).val().replace(",", ".");
 	encabezado.iva = $( '#iva' ).val();
@@ -165,18 +171,6 @@ function actItemF( itemf ){
 	
 	$("#idfpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
 	calcularTotales();
-}
-/* --------------------------------------------------------- */
-function obtenerNumeroNota( tipo_nota ){
-	$.ajax({
-		type:"POST",
-		url:"bd/data-nota.php",
-		data:{ prox_num:tipo_nota },
-		beforeSend: function () {},
-		success: function( response ){
-			$("#nnota").val(response);
-		}
-	});		
 }
 /* --------------------------------------------------------- */
 function guardarNota(){
@@ -284,7 +278,18 @@ function checkItemForm( idart, punit, qant ){
 
 	return valido;
 }
-
+/* --------------------------------------------------------- */
+function actualizarFormatoDocumento( data_frt ){
+	
+	$("#tentrada").html( data_frt.entrada );
+	$("#t_tobs_notas").html( data_frt.titulo_obs );
+	$("#t_tobs_notas").html( data_frt.titulo_obs );
+	$("#tobs0").val( data_frt.titulo_obs ); 
+	$("#tx0b1").html( data_frt.obs1 ); $("#tobs1").val( data_frt.obs1 );
+	$("#tx0b2").html( data_frt.obs2 ); $("#tobs2").val( data_frt.obs2 );
+	$("#tx0b3").html( data_frt.obs3 ); $("#tobs3").val( data_frt.obs3 );
+}
+/* --------------------------------------------------------- */
 function asignarOpcionesConcepto( tn ){
 	if( tn == "nota_credito" ){
 		$("#on1").html("Devolución de mercancía");
@@ -296,6 +301,32 @@ function asignarOpcionesConcepto( tn ){
 		$("#on2").html("Gastos adicionales");
 		$("#on3").html("Ajuste global");
 	}
+}
+/* --------------------------------------------------------- */
+function obtenerNumeroNota( tipo_nota ){
+	$.ajax({
+		type:"POST",
+		url:"bd/data-nota.php",
+		data:{ prox_num:tipo_nota },
+		beforeSend: function () {},
+		success: function( response ){
+			$("#nnota").val(response);
+		}
+	});		
+}
+/* --------------------------------------------------------- */
+function obtenerFormatoDocumento( doc ){
+	var id_usuario = $("#idu_sesion").val();
+	$.ajax({
+		type:"POST",
+		url:"bd/data-formato.php",
+		data:{ fdoc:doc, idu:id_usuario },
+		beforeSend: function () {},
+		success: function( response ){
+			data_frt = jQuery.parseJSON( response );
+			actualizarFormatoDocumento( data_frt );
+		}
+	});	
 }
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
@@ -371,6 +402,7 @@ $( document ).ready(function() {
 
     $(".ocn").click( function(){ //Selección de ajuste global
 		$("#tconcepto").val( $(this).html() );
+		$("#etq_concepto").html( $(this).html() );
 		if( $(this).html() == "Ajuste global" ){
 			$("#dn_table").fadeOut(200); $("#fstotal").removeAttr("readonly");
 
@@ -379,9 +411,11 @@ $( document ).ready(function() {
 		}
     });
 
+    /* Acciones ejecutadas al seleccionar tipo de nota */
     $("#tnota").change( function(){
 		var tipo_nota = $(this).val();
 		obtenerNumeroNota( tipo_nota );
+		obtenerFormatoDocumento( tipo_nota );
 		$("#tipofte").val( tipo_nota );
 		asignarOpcionesConcepto( tipo_nota );
 

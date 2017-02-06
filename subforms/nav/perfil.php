@@ -16,6 +16,7 @@
     </p>
   </li>
   <!-- Menu Body -->
+  <input type="hidden" name="idusuario_sesion" id="idu_sesion" value="<?php echo $usuario["idUsuario"]; ?>">
   <li class="user-body">
     <div class="row">
       <div align="center"><h4><?php echo $usuario["empresa"]; ?></h3></div> 
