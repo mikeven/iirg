@@ -9,6 +9,7 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
+  include( "bd/data-documento.php" );
   include( "bd/data-cotizacion.php" );
   include( "bd/data-formato.php" );
 	include( "bd/data-pedido.php" );
@@ -187,6 +188,9 @@
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">REGISTRAR NUEVO PEDIDO</h3>
+                  <div class="icon-color nuevo-reg-icono">
+                    <a href="nuevo-pedido.php"><i class="fa fa-plus fa-2x"></i></a>
+                  </div>
                   <div class="icon-color"><i class="fa fa-clipboard fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->

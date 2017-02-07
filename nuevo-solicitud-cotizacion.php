@@ -16,7 +16,6 @@
 	
 	$iva = 0.12;
 	$eiva = $iva * 100;
-	$num_nvacotiz = obtenerProximoNumeroSolicitudCotizacion( $dbh );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -144,6 +143,7 @@
     </nav>
   </header>
   <?php 
+    $num_nvacotiz = obtenerProximoNumeroSolicitudCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_sctz = obtenerFormatoPorUsuarioDocumento( $dbh, "sctz", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -173,11 +173,14 @@
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">CREAR NUEVA SOLICITUD DE COTIZACIÓN</h3>
+                  <div class="icon-color nuevo-reg-icono">
+                    <a href="nuevo-solicitud-cotizacion.php"><i class="fa fa-plus fa-2x"></i></a>
+                  </div>
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nscotizacion" name="form_agregar_solicitud_cotizacion">
-                	<input name="reg_cliente" type="hidden" value="1">
+                	<input name="reg_sctz" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		<div class="col-md-6">
@@ -316,8 +319,9 @@
                         
                         </div><!-- /.encabezado_cotizacion -->
                         <!-- ************************************************************************************************ -->
-                        <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
+                        <div class="row" id="division_central"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_sctz["entrada"];?>">
                         <div class="row" id="ficha_cotizacion">
                         	<div class="col-md-10 col-md-offset-1">
                             	

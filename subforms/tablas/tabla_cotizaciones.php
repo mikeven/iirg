@@ -5,9 +5,9 @@
 	if( isset( $_GET["t"] ) ) $tipo = $_GET["t"];
 	
 	if( $tipo == "solicitud" )
-		$cotizaciones = obtenerSolicitudesCotizaciones( $dbh );
+		$cotizaciones = obtenerSolicitudesCotizaciones( $dbh, $usuario["idUsuario"] );
 	else
-		$cotizaciones = obtenerListaCotizaciones( $dbh );
+		$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"] );
 ?>
 <table id="lista_ctz" class="table table-bordered table-striped">
     <thead>

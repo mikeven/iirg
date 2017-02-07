@@ -93,6 +93,7 @@ function obtenerVectorEncabezado(){
 	encabezado.femision = $( '#femision' ).val();
 	encabezado.cvalidez = $( '#cvalidez' ).val();
 	encabezado.pcontacto = $( '#cpcontacto' ).val();
+	encabezado.idu = $( '#idu_sesion' ).val();
 
 	encabezado.introduccion = $( '#tentrada' ).val();
 	encabezado.obs1 = $( '#tobs1' ).val();
@@ -149,6 +150,7 @@ function isIntegerKey(evt){
 /* --------------------------------------------------------- */
 function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
 	var clase = "";
+	
 	if( param == "readonly" ) clase = "montoacum";
 	var campo = "<div class='input-group input-space'><input id='" + id + "' name='" + nombre 
 					+ "' type='text' class='form-control itemtotal_detalle input-sm " + clase + 
@@ -163,10 +165,14 @@ function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
 }
 /* --------------------------------------------------------- */
 function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
-	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
+	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'" );
+	
 	c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
-	c_ptot = obtenerItemDCotizacion( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly", "text" );
-	c_und = obtenerItemDCotizacion( nitem, und, "idfund_" + nitem, "dfund", "", "text" );
+	if( $("#tipo").val() == "solicitud" )
+		c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "readonly" );	
+	
+	c_ptot = obtenerItemDCotizacion( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly" );
+	c_und = obtenerItemDCotizacion( nitem, und, "idfund_" + nitem, "dfund", "" );
 	
 	c_idart = obtenerCampoOcultoIF( "idarticulo_" + nitem, "idart", idart, nitem );
 	c_nart = obtenerCampoOcultoIF( "ndarticulo_" + nitem, "nart", art, nitem );
@@ -243,7 +249,7 @@ function checkItemForm( idart, punit, qant ){
 
 	return valido;
 }
-
+/* --------------------------------------------------------- */
 function checkItemFormSolicitud( idart, punit, qant ){
 	/* Validación para agregar ítems a los detalles de la solicitud de cotización */
 	var valido = 1;
@@ -255,7 +261,7 @@ function checkItemFormSolicitud( idart, punit, qant ){
 
 	return valido;
 }
-
+/* --------------------------------------------------------- */
 function asignarEtiquetaConfirmacion(){
 	if( $("#tipo").val() == "cotizacion" )
 		$("#titulo_emergente").html("Guardar cotización");

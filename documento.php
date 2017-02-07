@@ -12,6 +12,7 @@
 	include( "bd/data-articulo.php" );
 	include( "bd/data-factura.php" );
 	include( "bd/data-nota.php" );
+  include( "bd/data-documento.php" );
 	include( "bd/data-formato.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "fn/fn-formato.php" );
@@ -99,7 +100,7 @@
       </header>
       <?php 
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
-        $titulo_obs = $frt["titulo_obs"];
+        $titulo_obs = $encabezado["obs0"];
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -211,8 +212,16 @@
           </div><!-- /.row -->
 
           <div class="row">
+
             <!-- Observaciones -->
             <div class="col-xs-6">
+              
+              <?php if( $tdd == "nota" ) { ?>
+                <!-- Concepto -->
+                <div id="concepto_nota"><?php echo $encabezado["concepto"]; ?></div>
+                <!-- /.Concepto -->
+              <?php } ?>
+
               <p class="lead"><?php echo $titulo_obs;?></p>
                 <div><?php echo $obs1; ?></div>
                 <div><?php echo $obs2; ?></div>

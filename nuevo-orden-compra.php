@@ -16,7 +16,6 @@
 	
 	$iva = 0.12;
 	$eiva = $iva * 100; 
-	
 	$num_nva_oc = obtenerProximoNumeroOrdenCompra( $dbh );
 ?>
 <!DOCTYPE html>
@@ -162,6 +161,9 @@
                      <div class="box box-default color-palette-box">
                         <div class="box-header with-border">
                            <h3 class="box-title">REGISTRAR NUEVA ORDEN DE COMPRA</h3>
+                           <div class="icon-color nuevo-reg-icono">
+                             <a href="nuevo-orden-compra.php"><i class="fa fa-plus fa-2x"></i></a>
+                           </div>
                            <div class="icon-color"><i class="fa fa-clipboard fa-2x"></i></div>
                         </div>
                         <!-- /.box-header -->

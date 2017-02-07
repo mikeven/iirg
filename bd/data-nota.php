@@ -36,7 +36,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerNotaPorId( $dbh, $idn, $tipo_n ){
-		//Retorna el registro de nota y sus ítems de detalle
+		//Retorna el registro de nota y sus ítems de detalle si posee
 		$cond = ""; $campo = ""; $tabla = "";
 		if( $tipo_n != "nota_entrega" ) {
 			$cond = "and f.idFactura2 = n.IdFactura";
@@ -44,11 +44,11 @@
 		}
 		
 		$q = "select n.numero nro, n.idNota as idn, n.tipo as tipo, $campo n.IdCliente as idcliente, 
-		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, n.iva as iva, n.tipo_concepto as tipo_concepto, 
-		n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, n.Observaciones1 as obs1, 
-		n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, 
-		c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM nota n, cliente c $tabla 
-		where n.idNota = $idn and n.IdCliente = c.IdCliente2 $cond";
+		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, n.iva as iva, n.SubTotal as SubTotal, 
+		n.tipo_concepto as tipo_concepto, n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
+		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
+		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
+		FROM nota n, cliente c $tabla where n.idNota = $idn and n.IdCliente = c.IdCliente2 $cond";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleNota( $dbh, $idn );
@@ -56,8 +56,15 @@
 		return $factura;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function obtenerTipoNotaPorId( $dbh, $idn ){
+		//Retorna el tipo de nota a partir del id
+		$q = "select tipo from nota where idNota = $idn";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
+		return $data["tipo"];
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalleN( $dbh, $idn, $item ){
-		//Guarda el registro individual de un ítem del detalle de pedido
+		//Guarda el registro individual de un ítem del detalle de la nota
 		$ptotal = $item->dfcant * $item->dfpunit;
 		$q = "insert into detallenota ( IdNota, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idn, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
@@ -100,14 +107,27 @@
 		
 		return mysql_insert_id();
 	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function etiquetaNota( $tipo ){
+		$etiquetas = array(	
+			"nota_entrega" => "Nota de entrega", 
+			"nota_debito" => "Nota de débito", 
+			"nota_credito" => "Nota de crédito"
+		);
+		return $etiquetas[$tipo]; 
+	}
 	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de Notas */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Obtener próximo número de nota
 	if( isset( $_POST["prox_num"] ) ){
 		include( "bd.php" );
 		$tn = $_POST["prox_num"];
 		echo obtenerProximoNumeroNota( $dbh, $tn );
 	}
 
-	if( isset( $_POST["reg_nota"] ) ){
+	// Registro de Nota
+	if( isset( $_POST["reg_nota"] ) ){ 
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );

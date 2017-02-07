@@ -4,11 +4,12 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	ini_set( 'display_errors', 1 );
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function obtenerListaCotizaciones( $link ){
+	function obtenerListaCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, 
-		k.Nombre as Nombre, c.Total as Total 
-		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' order by c.fecha_emision DESC";
+		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') 
+		as Fecha, k.Nombre as Nombre, c.Total as Total from cotizacion c, cliente k 
+		where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' and idUsuario = $idu order by c.fecha_emision DESC";
+		
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -16,11 +17,11 @@
 		return $lista_c;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerSolicitudesCotizaciones( $link ){
+	function obtenerSolicitudesCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, 
-		p.Nombre as Nombre, c.Total as Total from cotizacion c, proveedor p 
-		where c.IdCliente2 = p.idProveedor and c.tipo = 'solicitud' order by c.fecha_emision DESC";
+		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') 
+		as Fecha, p.Nombre as Nombre, c.Total as Total from cotizacion c, proveedor p 
+		where c.IdCliente2 = p.idProveedor and c.tipo = 'solicitud' and idUsuario = $idu order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -28,30 +29,18 @@
 		return $lista_c;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerProximoNumeroCotizacion( $dbh ){
-		$q = "select MAX(numero) as num from cotizacion";
+	function obtenerProximoNumeroCotizacion( $dbh, $idu ){
+		$q = "select MAX(numero) as num from cotizacion where tipo = 'cotizacion' and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
 	
-	function obtenerProximoNumeroSolicitudCotizacion( $dbh ){
-		$q = "select MAX(numero) as num from cotizacion where tipo = 'solicitud'";
+	function obtenerProximoNumeroSolicitudCotizacion( $dbh, $idu ){
+		$q = "select MAX(numero) as num from cotizacion where tipo = 'solicitud' and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerTotales( $detalle, $pcge ){
-		$subtotal = 0;
-		foreach ( $detalle as $d ) {
-			$subtotal += ($d["punit"] * $d["cantidad"]);	
-		}
-
-		$totales["subtotal"] = number_format( $subtotal, 2, ",", "" ); 
-		$totales["iva"] = number_format( $subtotal * $pcge, 2, ",", "" );
-		$totales["total"] = number_format( $subtotal + ($subtotal * $pcge), 2, ",", "" );
-		
-		return $totales;
-	}
+	
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetalleCotizacion( $dbh, $idc ){
 		
@@ -121,19 +110,18 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarCotizacion( $dbh, $encabezado ){
+	function guardarCotizacion( $dbh, $encabezado, $idu ){
 		// Guarda el registro de la cotización y solicitud de cotización
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
 		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, introduccion, observaciones1, 
-		observaciones2, observaciones3, iva, Total, validez  ) 
+		observaciones2, observaciones3, iva, Total, validez, idUsuario  ) 
 		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', 
 		'$encabezado->introduccion', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, 
-		$encabezado->total, '$encabezado->cvalidez' )";
+		$encabezado->total, '$encabezado->cvalidez', $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
-		
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
@@ -142,7 +130,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idc = guardarCotizacion( $dbh, $encabezado );
+		$idc = guardarCotizacion( $dbh, $encabezado, $encabezado->idu );
 		
 		if( ( $idc != 0 ) && ( $idc != "" ) ){
 			$exito = guardarDetalleCotizacion( $dbh, $idc, $detalle, $encabezado->iva );

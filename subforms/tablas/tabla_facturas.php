@@ -6,22 +6,23 @@
 <table id="lfacturas" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Fecha</th><th>Cliente</th><th>Total</th>
+        <th>Fecha</th><th>Número</th><th>Cliente</th><th>Total</th>
       </tr>
     </thead>
     <tbody>
         <?php foreach( $facturas as $f ){?>  
         <tr>
             <td> <?php echo $f["Fecha"];?> </td>
+            <td> <?php echo $f["numero"];?> </td>
             <td> <a href="documento.php?tipo_documento=fac&id=<?php echo $f["id"]; ?>"><?php echo $f["cliente"]; ?></a> </td>
             <td> <?php echo $f["Total"]; ?> </td>
         </tr>
         <?php } ?>
     </tbody>
     <tfoot>
-        <tr>
-            <th>Nombre</th><th>Descripción</th><th>Total</th>
-        </tr>
+      <tr>
+          <th>Fecha</th><th>Número</th><th>Cliente</th><th>Total</th>
+      </tr>
     </tfoot>
 </table>
 <script>

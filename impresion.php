@@ -10,9 +10,11 @@
   include( "bd/data-pedido.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
+  include( "bd/data-documento.php" );
   include( "bd/data-orden-compra.php" );
   include( "bd/data-cotizacion.php" );
-
+  include( "bd/data-nota.php" );
+  
   checkSession( '' );
   
   if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
@@ -39,6 +41,22 @@
       $documento = obtenerFacturaPorId( $dbh, $id );
       $tdocumento = "Factura";
     }
+    if( $tdd == "nota" ){
+      $tipo_n = obtenerTipoNotaPorId( $dbh, $id );
+      $documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
+      $encabezado = $documento["encabezado"];
+      $tdocumento = etiquetaNota( $tipo_n );
+
+      $t_concepto = $encabezado["tipo_concepto"];
+      $detalle_d = $documento["detalle"];
+
+      $tdocumento = etiquetaNota( $tipo_n );
+      $ftdd = $tipo_n;
+      if( $t_concepto != "Ajuste global" )
+          $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+        else
+          $totales = obtenerTotalesFijos( $encabezado );
+    }
     
     $encabezado = $documento["encabezado"];
     $detalle_d = $documento["detalle"];
@@ -47,7 +65,9 @@
       $obs[$iobs] = $encabezado["obs$iobs"]; 
     }
     $eiva = $encabezado["iva"] * 100;
-    $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+    
+    if( $tdd != "nota" ) //Los totales se calculan para todos los documentos excepto las notas
+        $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
   }
   else{
 

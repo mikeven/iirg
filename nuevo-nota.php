@@ -10,7 +10,7 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
-  include( "bd/data-cotizacion.php" );
+  include( "bd/data-documento.php" );
   include( "bd/data-factura.php" );
 	include( "bd/data-nota.php" );
   include( "bd/data-forms.php" );
@@ -194,6 +194,9 @@
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">REGISTRAR NUEVA NOTA</h3>
+                  <div class="icon-color nuevo-reg-icono">
+                    <a href="nuevo-nota.php"><i class="fa fa-plus fa-2x"></i></a>
+                  </div>
                   <div class="icon-color"><i class="fa fa-sticky-note-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->

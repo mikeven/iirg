@@ -48,6 +48,7 @@
 		session_start();
 		$idresult = 0; 
 		$sql = "select idUsuario, usuario, password, nombre from usuario where usuario ='".$usuario."' and password='".$pass."'";
+		
 		$data = mysql_query ( $sql, $dbh );
 		$data_user = mysql_fetch_array( $data );
 		$nrows = mysql_num_rows( $data );
