@@ -2,11 +2,11 @@
 	/* R&G - Gestión de datos de pedidos */
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function obtenerListaPedidos( $link ){
+	function obtenerListaPedidos( $link, $idu ){
 		$lista_p = array();
 		$q = "Select p.IdPedido2 as idp, p.numero as numero, date_format(p.fecha_emision,'%d/%m/%Y') as Fecha, 
-				c.Nombre as Nombre, p.Total as Total
-				from pedido p, cliente c where p.IdCliente2 = c.IdCliente2 order by p.fecha_emision DESC";
+				c.Nombre as Nombre, p.Total as Total from pedido p, cliente c 
+				where p.IdCliente2 = c.IdCliente2 and idUsuario = $idu order by p.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $p = mysql_fetch_array( $data ) ){
 			$lista_p[] = $p;	
@@ -14,9 +14,9 @@
 		return $lista_p;	
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	function obtenerProximoNumeroPedido( $dbh ){
-		//Obtiene el número correspondiente a una nueva factura
-		$q = "select MAX(numero) as num from pedido";
+	function obtenerProximoNumeroPedido( $dbh, $idu ){
+		//Obtiene el número correspondiente a un nuevo pedido
+		$q = "select MAX(numero) as num from pedido where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -98,16 +98,16 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarPedido( $dbh, $encabezado, $detalle ){
+	function guardarPedido( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de un pedido
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotiz ) $encabezado->idcotiz = "NULL";
 		$q = "insert into pedido ( numero, IdCotizacion2, IdCliente2, fecha_emision, introduccion, observaciones, 
-		observaciones1, observaciones2, observaciones3, iva, Total  ) 
-			values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', 
-				'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', 
-			$encabezado->iva, $encabezado->total )";
+		observaciones1, observaciones2, observaciones3, iva, Total, idUsuario  ) 
+		values ( $encabezado->numero, $encabezado->idcotiz, $encabezado->idcliente, '$fecha_mysql', 
+		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', 
+		$encabezado->iva, $encabezado->total, $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
@@ -120,7 +120,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idp = guardarPedido( $dbh, $encabezado, $detalle );
+		$idp = guardarPedido( $dbh, $encabezado, $detalle, $encabezado->idu );
 		
 		if( ( $idp != 0 ) && ( $idp != "" ) ){
 			$exito = guardarDetallePedido( $dbh, $idp, $detalle );

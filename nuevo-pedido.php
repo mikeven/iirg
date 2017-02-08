@@ -16,7 +16,6 @@
 	
   checkSession( '' );
 
-	
   if( isset( $_GET["idc"] ) ){
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
     $encabezado = $cotizacion["encabezado"];
@@ -29,9 +28,7 @@
   else{
     $iva = 0.12;
     $eiva = $iva * 100; 
-  }
-  $num_nvopedido = obtenerProximoNumeroPedido( $dbh );
-	
+  }	
 ?>
 <!DOCTYPE html>
 <html>
@@ -158,7 +155,8 @@
 
     </nav>
   </header>
-  <?php 
+  <?php
+    $num_nvopedido = obtenerProximoNumeroPedido( $dbh, $usuario["idUsuario"] );
     $frt_p = obtenerFormatoPorUsuarioDocumento( $dbh, "ped", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->

@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$ordenes = obtenerListaOrdenesCompra( $dbh );
+	$ordenes = obtenerListaOrdenesCompra( $dbh, $usuario["idUsuario"] );
 ?>
 <table id="lordenescompra" class="table table-bordered table-striped">
     <thead>

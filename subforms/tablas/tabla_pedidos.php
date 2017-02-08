@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$pedidos = obtenerListaPedidos( $dbh );
+	$pedidos = obtenerListaPedidos( $dbh, $usuario["idUsuario"] );
 ?>
 <table id="lpedidos" class="table table-bordered table-striped">
     <thead>

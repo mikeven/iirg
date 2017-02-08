@@ -28,8 +28,6 @@
   }
   else 
     { $iva = 0.12; $eiva = $iva * 100; }
-  
-  $num_nvofactura = obtenerProximoNumeroFactura( $dbh );
 	
 ?>
 <!DOCTYPE html>
@@ -158,7 +156,8 @@
 
     </nav>
   </header>
-  <?php 
+  <?php
+    $num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->

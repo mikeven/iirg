@@ -3,10 +3,11 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
-	function obtenerListaFacturas( $link ){
+	function obtenerListaFacturas( $link, $idu ){
 		$lista_c = array();
-		$q = "Select F.IdFactura2 as id, F.numero as numero, C.IdCliente2 as idc, C.Nombre as cliente, date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, 
-				F.total as Total from factura F, cliente C where F.IdCliente2 = C.IdCliente2 order by F.fecha_emision desc";
+		$q = "Select F.IdFactura2 as id, F.numero as numero, C.IdCliente2 as idc, C.Nombre as cliente, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
+		where F.IdCliente2 = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -14,8 +15,8 @@
 		return $lista_c;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerProximoNumeroFactura( $dbh ){
-		$q = "select MAX(numero) as num from factura";
+	function obtenerProximoNumeroFactura( $dbh, $idu ){
+		$q = "select MAX(numero) as num from factura where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -73,16 +74,16 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarFactura( $dbh, $encabezado, $detalle ){
+	function guardarFactura( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idpedido ) $encabezado->idpedido = "NULL";
 		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, introduccion, observaciones, 
-		observaciones1, observaciones2, observaciones3, iva, Total, fecha_reg  ) 
+		observaciones1, observaciones2, observaciones3, iva, Total, fecha_reg, idUsuario  ) 
 			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, 
 			'$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW() )";
+			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
@@ -115,7 +116,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idf = guardarFactura( $dbh, $encabezado, $detalle );
+		$idf = guardarFactura( $dbh, $encabezado, $detalle, $encabezado->idu );
 		
 		if( ( $idf != 0 ) && ( $idf != "" ) ){
 			$exito = guardarDetalleFactura( $dbh, $idf, $detalle );

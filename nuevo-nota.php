@@ -33,7 +33,6 @@
 
   if( isset( $_GET["t"] ) ){
     $tn = $_GET["t"];
-    $num = obtenerProximoNumeroNota( $dbh, $tn );
   }	
 ?>
 <!DOCTYPE html>
@@ -164,6 +163,7 @@
   </header>
   <?php 
     if( isset( $_GET["idf"] ) ){
+      $num = obtenerProximoNumeroNota( $dbh, $tn, $usuario["idUsuario"] );
       $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $tn ), $usuario["idUsuario"] );
     }
   ?>
@@ -367,6 +367,7 @@
                                       <div class="box box-primary">	
                                           <div class="box-body">
                                           	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
+                                              
                                               <table class="table table-condensed" id="dn_table">
                                                   <tbody>
                                                       <tr>
@@ -419,9 +420,9 @@
                                                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                                                               aria-expanded="false">Concepto <span class="fa fa-caret-down"></span></button>
                                                                 <ul class="dropdown-menu">
-                                                                  <li><a href="#" class="ocn" id="on1" data-val=""></a></li>
-                                                                  <li><a href="#" class="ocn" id="on2" data-val=""></a></li>
-                                                                  <li><a href="#" class="ocn" id="on3" data-val=""></a></li>
+                                                                  <li><a href="#!" class="ocn" id="on1" data-val=""></a></li>
+                                                                  <li><a href="#!" class="ocn" id="on2" data-val=""></a></li>
+                                                                  <li><a href="#!" class="ocn" id="on3" data-val=""></a></li>
                                                                 </ul>
                                                             </div><!-- /btn-group -->
                                                             <input type="text" class="form-control" name="concepto" id="cnc" value=""> 

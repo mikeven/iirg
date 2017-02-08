@@ -45,12 +45,12 @@
       $tipo_n = obtenerTipoNotaPorId( $dbh, $id );
       $documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
       $encabezado = $documento["encabezado"];
-      $tdocumento = etiquetaNota( $tipo_n );
+      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
 
       $t_concepto = $encabezado["tipo_concepto"];
       $detalle_d = $documento["detalle"];
 
-      $tdocumento = etiquetaNota( $tipo_n );
+      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
       $ftdd = $tipo_n;
       if( $t_concepto != "Ajuste global" )
           $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
@@ -147,11 +147,12 @@
               
           </div><!-- /.row -->
           
+          <!-- Texto introductorio -->
           <div class="row">
             <div class="col-xs-12" id="texto_introductorio">
               <p class="tentrada"><?php echo $encabezado["intro"]; ?></p>
             </div> 
-          </div>
+          </div><!-- /.Texto introductorio -->
 
           <!-- Table row -->
           <div class="row">

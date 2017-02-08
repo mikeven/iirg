@@ -34,7 +34,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="js/setup.js"></script>
+    <script src="js/fn-usuario.js"></script>
     <style>
     .login-box{ margin: 7% auto 1% auto; }
     .register-box{ margin: 1% auto; }

@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$facturas = obtenerListaNotas( $dbh );
+	$notas = obtenerListaNotas( $dbh, $usuario["idUsuario"] );
   function ttNota($tipo){
     $t = array("nota_entrega" => "Nota de entrega", 
               "nota_credito" => "Nota de crédito", 
@@ -13,24 +13,25 @@
 <table id="lnotas" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Fecha</th><th>Tipo</th><th>Cliente</th><th>Total</th>
+        <th>Fecha</th><th>Tipo</th><th>Número</th><th>Cliente</th><th>Total</th>
       </tr>
     </thead>
     <tbody>
-        <?php foreach( $facturas as $f ){?>  
+        <?php foreach( $notas as $n ){?>  
         <tr>
-            <td> <?php echo $f["Fecha"];?> </td>
-            <td> <?php echo ttNota( $f["tipo"] ) ;?> </td>
-            <td> <a href="documento.php?tipo_documento=nota&tn=<?php echo $f["tipo"]; ?>&id=<?php echo $f["id"]; ?>">
-                  <?php echo $f["cliente"]; ?>
+            <td> <?php echo $n["Fecha"];?> </td>
+            <td> <?php echo ttNota( $n["tipo"] ) ;?> </td>
+            <td><?php echo $n["numero"];?> </td>
+            <td> <a href="documento.php?tipo_documento=nota&tn=<?php echo $n["tipo"]; ?>&id=<?php echo $n["id"]; ?>">
+                  <?php echo $n["cliente"]; ?>
                  </a> </td>
-            <td> <?php echo $f["Total"]; ?> </td>
+            <td> <?php echo $n["Total"]; ?> </td>
         </tr>
         <?php } ?>
     </tbody>
     <tfoot>
         <tr>
-            <th>Fecha</th><th>Tipo</th><th>Cliente</th><th>Total</th>
+            <th>Fecha</th><th>Tipo</th><th>Número</th><th>Cliente</th><th>Total</th>
         </tr>
     </tfoot>
 </table>
@@ -43,7 +44,7 @@
       "searching": true,
       "ordering": false,
       "info": true,
-      "autoWidth": false,
+      "autoWidth": true,
       "language": {
         "lengthMenu": "Mostrar _MENU_ resultados por página",
         "zeroRecords": "No se encontraron resultados",

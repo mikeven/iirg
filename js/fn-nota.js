@@ -64,6 +64,8 @@ function obtenerVectorEncabezado(){
 	encabezado.idcliente = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
 	encabezado.tipo = $( '#tipofte' ).val();
+	encabezado.idu = $( '#idu_sesion' ).val();
+	
 	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); else encabezado.concepto = "";
 	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); else encabezado.tipo_concepto = "";
 	
@@ -304,10 +306,11 @@ function asignarOpcionesConcepto( tn ){
 }
 /* --------------------------------------------------------- */
 function obtenerNumeroNota( tipo_nota ){
+	var id_usuario = $("#idu_sesion").val();
 	$.ajax({
 		type:"POST",
 		url:"bd/data-nota.php",
-		data:{ prox_num:tipo_nota },
+		data:{ prox_num:tipo_nota, idu:id_usuario },
 		beforeSend: function () {},
 		success: function( response ){
 			$("#nnota").val(response);

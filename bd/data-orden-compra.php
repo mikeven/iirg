@@ -4,11 +4,11 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	ini_set( 'display_errors', 1 );
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function obtenerListaOrdenesCompra( $link ){
+	function obtenerListaOrdenesCompra( $link, $idu ){
 		$lista_o = array();
 		$q = "Select o.idOrden as ido, o.numero as numero, date_format(o.fecha_emision,'%d/%m/%Y') as fecha, 
 		p.Nombre as Nombre, o.Total as Total from orden_compra o, proveedor p 
-		where o.idProveedor = p.idProveedor order by o.fecha_emision DESC";
+		where o.idProveedor = p.idProveedor and idUsuario = $idu order by o.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $o = mysql_fetch_array( $data ) ){
 			$lista_o[] = $o;	
@@ -16,8 +16,8 @@
 		return $lista_o;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerProximoNumeroOrdenCompra( $dbh ){
-		$q = "select MAX(numero) as num from orden_compra";
+	function obtenerProximoNumeroOrdenCompra( $dbh, $idu ){
+		$q = "select MAX(numero) as num from orden_compra where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -75,13 +75,13 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarOrdenCompra( $dbh, $encabezado ){
+	function guardarOrdenCompra( $dbh, $encabezado, $idu ){
 		// Guarda el registro de una orden de compra
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
 		$q = "insert into orden_compra ( numero, idProveedor, fecha_emision, introduccion, Observaciones, 
-			observaciones1, observaciones2, observaciones3, iva, Total ) 
-		values ( $encabezado->numero, $encabezado->idproveedor, '$fecha_mysql', '$encabezado->introduccion', 
-			'$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total )";
+		observaciones1, observaciones2, observaciones3, iva, Total, idUsuario ) values ( $encabezado->numero, 
+		$encabezado->idproveedor, '$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
+		'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -94,7 +94,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$ido = guardarOrdenCompra( $dbh, $encabezado );
+		$ido = guardarOrdenCompra( $dbh, $encabezado, $encabezado->idu );
 		
 		if( ( $ido != 0 ) && ( $ido != "" ) ){
 			$exito = guardarDetalleOrdenCompra( $dbh, $ido, $detalle, $encabezado->iva );

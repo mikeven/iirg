@@ -99,6 +99,7 @@
         </nav>
       </header>
       <?php 
+        $cta = obtenerUsuarioPorId( $usuario["idUsuario"], $dbh );
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
       ?>
@@ -132,16 +133,16 @@
             </div>
           </div>-->
           <!-- info row -->
-            <?php if( $tdd != "fac" ) { ?>
+            <?php if( $tdd != "fac_x" ) { ?>
             <div class="row invoice-info" id="membrete">
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
                 <div class="col-sm-8 invoice-col" align="center">
-                    <div id="lin1">INSUMOS INFORMÁTICOS R & G, C.A.</div>
-                    <div id="lin2">Suministros para Computación y Papelería</div>
-                    <div id="lin3" class="membrete3">Calle Este 16, Sordo a Peláez, Residencias Sorpe, P.B. Local 1</div>
-                    <div id="lin4" class="membrete3">Parroquia Santa Rosalía - Caracas</div>
-                    <div id="lin5" class="membrete3">Telefonos (0212) 545.6529 / 395-5955 / Telefax: 5424137 CEL. 0416-624-4269</div>
-                    <div id="lin6" class="membrete3">email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com</div>
+                    <div id="lin1"><?php echo $frt["enc1"]?></div>
+                    <div id="lin2"><?php echo $frt["enc2"]?></div>
+                    <div id="lin3" class="membrete3"><?php echo $frt["enc3"]?></div>
+                    <div id="lin4" class="membrete3"><?php echo $frt["enc4"]?></div>
+                    <div id="lin5" class="membrete3"><?php echo $frt["enc5"]?></div>
+                    <div id="lin6" class="membrete3"><?php echo $frt["enc6"]?></div>
                 </div><!-- /.col -->
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
           	</div><!-- /.row -->
@@ -171,7 +172,7 @@
                     <?php } ?>
                     
                     <?php if($tdd == "ctz") { ?>
-                      <div id="dctz_tlf">Vendedor: Nidia</div>
+                      <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
                     <?php } ?>
                     
                     <?php if($tdd == "fac") { ?>
@@ -182,85 +183,93 @@
                 </div><!-- /.col -->
                 
             </div><!-- /.row -->
-          
-          <!-- Table row -->
-          <div class="row">
-            <div class="col-xs-12 table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class="tit_tdf_i">Descripción</th>
-                    <th class="tit_tdf">Cant</th>
-                    <th class="tit_tdf">UND</th>
-                    <th class="tit_tdf">Precio Unitario</th>
-                    <th class="tit_tdf">Total ítem</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach( $detalle_d as $item ) { ?>
-                  <tr>
-                    <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
-                    <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
-                    <td class="tit_tdf"><?php echo $item["und"];?></td>
-                    <td align="right"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
-                    <td align="right"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
-                  </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-          <div class="row">
-
-            <!-- Observaciones -->
-            <div class="col-xs-6">
-              
-              <?php if( $tdd == "nota" ) { ?>
-                <!-- Concepto -->
-                <div id="concepto_nota"><?php echo $encabezado["concepto"]; ?></div>
-                <!-- /.Concepto -->
-              <?php } ?>
-
-              <p class="lead"><?php echo $titulo_obs;?></p>
-                <div><?php echo $obs1; ?></div>
-                <div><?php echo $obs2; ?></div>
-                <div><?php echo $obs3; ?></div>  
-              </p>
-            </div><!-- /.col -->
             
-            <div class="col-xs-6">
-              <?php if($tdd != "sctz") { ?>
-                <p class="lead">Totales</p>
-                <div class="table-responsive">
-                  <table class="table">
-                    <tr>
-                      <th style="width:50%">Subtotal:</th>
-                      <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
-                    </tr>
-                    <tr>
-                      <th>IVA (<?php echo $eiva; ?>%)</th>
-                      <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
-                    </tr>
-                    <tr>
-                      <th>Total:</th>
-                      <td class="tit_tdf_d"><?php echo $totales["total"]; ?></td>
-                    </tr>
-                  </table>
-                </div>
-              <?php } ?>
-            </div><!-- /.col -->
-          
-          </div><!-- /.row -->
+            <!-- Texto introductorio -->
+            <div class="row">
+              <div class="col-xs-12" id="texto_introductorio">
+                <p class="tentrada"><?php echo $encabezado["intro"]; ?></p>
+              </div> 
+            </div><!-- /.Texto introductorio -->
 
-          <!-- this row will not appear when printing -->
-          <div class="row no-print">
-            <div class="col-xs-12">
-              <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank"><i class="fa fa-print fa-2x"></i> Imprimir</a>
-              <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-              <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+            <!-- Table row -->
+            <div class="row">
+              <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="tit_tdf_i">Descripción</th>
+                      <th class="tit_tdf">Cant</th>
+                      <th class="tit_tdf">UND</th>
+                      <th class="tit_tdf">Precio Unitario</th>
+                      <th class="tit_tdf">Total ítem</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach( $detalle_d as $item ) { ?>
+                    <tr>
+                      <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
+                      <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
+                      <td class="tit_tdf"><?php echo $item["und"];?></td>
+                      <td align="right"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
+                      <td align="right"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
+                    </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+
+              <!-- Observaciones -->
+              <div class="col-xs-6">
+                
+                <?php if( $tdd == "nota" ) { ?>
+                  <!-- Concepto -->
+                  <div id="concepto_nota"><?php echo $encabezado["concepto"]; ?></div>
+                  <!-- /.Concepto -->
+                <?php } ?>
+
+                <p class="lead"><?php echo $titulo_obs;?></p>
+                  <div><?php echo $obs1; ?></div>
+                  <div><?php echo $obs2; ?></div>
+                  <div><?php echo $obs3; ?></div>  
+                </p>
+            
+              </div><!-- /.col -->
+            
+              <div class="col-xs-6">
+                <?php if($tdd != "sctz") { ?>
+                  <p class="lead">Totales</p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Subtotal:</th>
+                        <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
+                      </tr>
+                      <tr>
+                        <th>IVA (<?php echo $eiva; ?>%)</th>
+                        <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
+                      </tr>
+                      <tr>
+                        <th>Total:</th>
+                        <td class="tit_tdf_d"><?php echo $totales["total"]; ?></td>
+                      </tr>
+                    </table>
+                  </div>
+                <?php } ?>
+              </div><!-- /.col -->
+          
+            </div><!-- /.row -->
+
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+              <div class="col-xs-12">
+                <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank"><i class="fa fa-print fa-2x"></i> Imprimir</a>
+                <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+              </div>
             </div>
-          </div>
 
         </section><!-- /.content -->
         <div class="clearfix"></div>

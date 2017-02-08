@@ -3,10 +3,11 @@
 	/*-------------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------------*/	
-	function obtenerListaNotas( $link ){
+	function obtenerListaNotas( $link, $idu ){
 		$lista_c = array();
-		$q = "Select N.IdNota as id, N.tipo as tipo, C.Nombre as cliente, date_format(N.fecha_emision,'%d/%m/%Y') as Fecha, 
-				N.total as Total from nota N, cliente C where N.IdCliente = C.IdCliente2 order by N.fecha_emision desc";
+		$q = "Select N.IdNota as id, N.tipo as tipo, N.numero as numero, C.Nombre as cliente, 
+		date_format(N.fecha_emision,'%d/%m/%Y') as Fecha, N.total as Total from nota N, cliente C 
+		where N.IdCliente = C.IdCliente2 and idUsuario = $idu order by N.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -14,8 +15,8 @@
 		return $lista_c;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function obtenerProximoNumeroNota( $dbh, $tipo ){
-		$q = "select MAX(numero) as num from nota where tipo = '$tipo'";
+	function obtenerProximoNumeroNota( $dbh, $tipo, $idu ){
+		$q = "select MAX(numero) as num from nota where tipo = '$tipo' and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
@@ -90,17 +91,17 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarNota( $dbh, $encabezado, $detalle ){
+	function guardarNota( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una nota
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
 		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, fecha_emision, iva, SubTotal, Total, 
-			concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, Observaciones3, fecha_reg ) 
+			concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, Observaciones3, fecha_reg, idUsuario ) 
 			values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, $encabezado->idcliente, 
 				'$fecha_mysql', $encabezado->iva, $encabezado->subtotal, $encabezado->total, '$encabezado->concepto', 
 				'$encabezado->tipo_concepto', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-				'$encabezado->obs3', NOW() )";
+				'$encabezado->obs3', NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q."<br>";
@@ -108,13 +109,20 @@
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function etiquetaNota( $tipo ){
+	function etiquetaNota( $tipo, $notacion ){
+		//Retorna la etiqueta correspondiente al tipo de Nota para formatos y registros en BD
 		$etiquetas = array(	
 			"nota_entrega" => "Nota de entrega", 
 			"nota_debito" => "Nota de débito", 
 			"nota_credito" => "Nota de crédito"
 		);
-		return $etiquetas[$tipo]; 
+		$frt_docbd = array(	
+			"nota_entrega" => "nde", "nota_debito" => "ndd", "nota_credito" => "ndc"
+		);
+		if ( $notacion == "etiqueta" )
+			return $etiquetas[$tipo];
+		if ( $notacion == "bd" )
+			return $frt_docbd[$tipo]; 
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Notas */
@@ -123,7 +131,7 @@
 	if( isset( $_POST["prox_num"] ) ){
 		include( "bd.php" );
 		$tn = $_POST["prox_num"];
-		echo obtenerProximoNumeroNota( $dbh, $tn );
+		echo obtenerProximoNumeroNota( $dbh, $tn, $_POST["idu"] );
 	}
 
 	// Registro de Nota
@@ -132,7 +140,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
-		$idn = guardarNota( $dbh, $encabezado, $detalle );
+		$idn = guardarNota( $dbh, $encabezado, $detalle, $encabezado->idu );
 		
 		if( ( $idn != 0 ) && ( $idn != "" ) ){
 			$exito = guardarDetalleNota( $dbh, $idn, $encabezado, $detalle );

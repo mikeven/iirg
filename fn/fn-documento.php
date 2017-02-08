@@ -49,8 +49,8 @@
 			$t_concepto = $encabezado["tipo_concepto"];
 			$detalle_d = $documento["detalle"];
 
-			$tdocumento = etiquetaNota( $tipo_n );
-			$ftdd = $tipo_n;
+			$tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
+			$ftdd = etiquetaNota( $tipo_n, "bd" );
 			if( $t_concepto != "Ajuste global" )
 	    		$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
 	    	else

@@ -58,6 +58,7 @@ function obtenerVectorEncabezado( numero, idproveedor, femision, total, iva ){
 	encabezado.numero = numero;
 	encabezado.idproveedor = idproveedor;
 	encabezado.femision = femision;
+	encabezado.idu = $( '#idu_sesion' ).val();
 
 	encabezado.introduccion = $( '#tentrada' ).val();
 	encabezado.obs0 = $( '#tobs0' ).val();

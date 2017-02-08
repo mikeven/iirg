@@ -16,7 +16,6 @@
 	
 	$iva = 0.12;
 	$eiva = $iva * 100; 
-	$num_nva_oc = obtenerProximoNumeroOrdenCompra( $dbh );
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,7 +132,8 @@
                </div>
             </nav>
          </header>
-         <?php 
+         <?php
+            $num_nva_oc = obtenerProximoNumeroOrdenCompra( $dbh, $usuario["idUsuario"] );
             $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
          ?>
          <!-- Left side column. contains the logo and sidebar -->

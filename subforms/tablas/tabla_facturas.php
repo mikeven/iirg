@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$facturas = obtenerListaFacturas( $dbh );
+	$facturas = obtenerListaFacturas( $dbh, $usuario["idUsuario"] );
 ?>
 <table id="lfacturas" class="table table-bordered table-striped">
     <thead>

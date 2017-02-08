@@ -9,8 +9,8 @@
 	include( "bd/data-usuario.php" );
 	checkSession( '' );
 	
-  $nombre_usuario = $_SESSION["user"]["nombre"];
   $usuario = obtenerUsuarioPorId( $_SESSION["user"]["idUsuario"], $dbh );
+  $nombre_usuario = $usuario["nombre"];
   $title = $usuario["empresa"];
   if( $usuario["empresa"] == "" ) $title = $nombre_usuario;
 ?>

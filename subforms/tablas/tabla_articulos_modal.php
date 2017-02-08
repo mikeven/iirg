@@ -23,8 +23,8 @@
                     <td>
                     	<div class="item_articulo_lmodal" data-label="<?php echo $a["Descripcion"];?>" 
                         data-ida="<?php echo $a["idArticulo"];?>" data-und="<?php echo $a["Presentacion"];?>">
-							<?php echo $a["Descripcion"];?>
-                        </div>
+							           <a href="#!"><?php echo $a["Descripcion"];?></a>
+                      </div>
                     </td>
                 </tr>
                 <?php } ?>

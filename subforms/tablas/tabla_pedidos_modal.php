@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$pedidos = obtenerListaPedidos( $dbh );
+	$pedidos = obtenerListaPedidos( $dbh, $idu );
 ?>
 <div class="modal fade" id="lista_pedidos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width:60%;">

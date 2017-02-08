@@ -47,7 +47,7 @@
 	function iniciarSesion( $usuario, $pass, $dbh ){
 		session_start();
 		$idresult = 0; 
-		$sql = "select idUsuario, usuario, password, nombre from usuario where usuario ='".$usuario."' and password='".$pass."'";
+		$sql = "select idUsuario, usuario, password, nombre from usuario where usuario = '$usuario' and password='$pass'";
 		
 		$data = mysql_query ( $sql, $dbh );
 		$data_user = mysql_fetch_array( $data );
@@ -78,15 +78,21 @@
 		
 		return $resp;
 	}
+	
 	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Inicio de sesión
 	if( isset( $_POST["login"] ) ){
 		include( "bd.php" );
 		$usuario = $_POST["usuario"];
 		$pass = $_POST["passw"];
 		$return = iniciarSesion( $usuario, $pass, $dbh );
 		
-		//echo $return;
+		echo $return;
 	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Registro de nuevo usuario
 	if( isset( $_POST["registro"] ) ){
 		include( "bd.php" );
 		$usuario = $_POST["rusuario"];
