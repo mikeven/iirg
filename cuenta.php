@@ -43,14 +43,16 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
   <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -66,6 +68,7 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script src="js/fn-usuario.js"></script>
     
     <script>
       $(function () {
@@ -79,34 +82,13 @@
     </script>
     <script type="text/javascript">
         $( document ).ready(function() {
-            $('#frm_mcliente').bootstrapValidator({
-                message: 'Revise el contenido del campo',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    email: {
-                        validators: { notEmpty: { message: 'Debe indicar un email' },
-						emailAddress: { message: 'Debe especificar un email válido' } }
-                    },
-					nombre: {
-                        validators: { notEmpty: { message: 'Debe indicar nombre' } }
-                    },
-					rif: {
-                        validators: { notEmpty: { message: 'Debe indicar RIF' } }
-                    }
-                },
-				callback: function () {
-                	alert("OK");
-                }
-            });
+          initValid();
+            $(".alert").hide();
+            $(".alert").click( function(){  $(this).hide(350);  });
+            $(".act_du").click( function(){  $(".alert").hide(100);  });
         });
-		
     </script>
     
-    <script src="js/fn-clientes.js"></script>
     <style>
       .iconlab{ line-height: 0; }
     </style>
@@ -179,12 +161,13 @@
               <!-- Custom Tabs -->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Datos de cuenta</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Modificar datos de usuario</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Modificar datos de empresa</a></li>
+                  <li class="active"><a href="#dcuenta" data-toggle="tab">Datos de cuenta</a></li>
+                  <li><a href="#dempresa" data-toggle="tab">Modificar datos de empresa</a></li>
+                  <li><a href="#dusuario" data-toggle="tab">Modificar datos de usuario</a></li>
+                  <li><a href="#dpassw" data-toggle="tab">Modificar contraseña</a></li>
                 </ul>
                 <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1">
+                  <div class="tab-pane active" id="dcuenta">
                     <div><span class="txh"><b> <i class="fa fa-smile-o"></i>
                     <?php echo $nombre_usuario;?></b></span></div>
                     <div><span class="txh"><b> <i class="fa fa-user"></i> 
@@ -200,14 +183,11 @@
                     <div><b><i class="fa fa-briefcase"></i> Vendedor: </b><span class="tx1"> <?php echo $usuario["vendedor"];?></span></div>
                   </div><!-- /.tab-pane -->
                   
-                  <div class="tab-pane" id="tab_2">
-                     
-                  </div><!-- /.tab-pane -->
-                  
-                  <div class="tab-pane" id="tab_3">
-                    <form role="form" id="frm_mcuenta" name="form_modificar_cuenta" method="post" action="bd/data-usuario.php">
+                  <div class="tab-pane" id="dempresa">
+                    
+                    <form role="form" id="frm_mcuenta" name="form_modificar_cuenta" method="post">
                       <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                      <input name="mod_cuenta" type="hidden" value="1">
+                      <input name="mod_empresa" type="hidden" value="1">
                       <div class="box-body">
                         <div class="form-group">
                           <!--<label for="empresa">Empresa</label>-->
@@ -260,6 +240,7 @@
                               value="<?php echo $usuario["direccion2"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
+                          
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">
@@ -294,18 +275,98 @@
                       </div><!-- /.box-body -->
     
                       <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary" id="bt_mod_cuenta">Guardar</button>
+                        <button type="submit" class="btn btn-primary act_du" id="bt_mod_cuenta">Guardar</button>
                       </div>
                 	</form>
                   </div><!-- /.tab-pane -->
-                </div><!-- /.tab-content -->
-              </div><!-- nav-tabs-custom -->
+                  <!-- ................................................................................... -->
+                  <div class="tab-pane" id="dusuario">
+                    
+                    <form role="form" id="frm_musuario" name="form_m_usuario" method="post">
+                      <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                      <input name="mod_usuario" type="hidden" value="1">
+                      <div class="box-body">
+                        
+                        <div class="form-group">
+                          <!--<label for="nombre">Nombre</label>-->
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-smile-o"></i>
+                                <label for="nombre" class="iconlab">Nombre:</label>
+                              </div>
+                              <input type="text" class="form-control" id="unombre" name="nombre" 
+                              value="<?php echo $usuario["nombre"];?>">
+                            </div>
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <!--<label for="usuario">Usuario</label>-->
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                                <label for="usuario" class="iconlab">Usuario:</label>
+                              </div>
+                              <input type="text" class="form-control" id="cnombre" name="usuario" 
+                              required value="<?php echo $usuario["usuario"];?>">
+                            </div>
+                        </div><!-- /.form group -->
+                          
+                      </div><!-- /.box-body -->
+    
+                      <div class="box-footer" align="center">
+                        <button type="submit" class="btn btn-primary act_du" id="bt_mod_usuario">Guardar</button>
+                      </div>
 
+                  </form>   
+                  </div><!-- /.tab-pane -->
+                  <!-- ................................................................................... -->
+                  <div class="tab-pane" id="dpassw">
+                    <form role="form" id="frm_mpassw" name="form_m_passw" method="post" action="bd/data-usuario.php">
+                      <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                      <input name="mod_passw" type="hidden" value="1">
+                      <div class="box-body">
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-lock"></i>
+                              <label for="rif" class="iconlab">Password:</label>
+                            </div>
+                            <input id="upass1" type="password" class="form-control" name="password1" value="">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-lock"></i>
+                              <label for="email" class="iconlab">Confirmar nuevo password:</label>
+                            </div>
+                            <input id="upass2" type="password" class="form-control" name="password2" value="">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                          
+                      </div><!-- /.box-body -->
+    
+                      <div class="box-footer" align="center">
+                        <button type="submit" class="btn btn-primary act_du" id="bt_mod_passw">Guardar</button>
+                      </div>
+
+                  </form>   
+                  </div><!-- /.tab-pane -->
+                  
+                  <!-- Bloque de respuesta del servidor -->
+                  <?php include("subforms/nav/mensaje_rcpf.php");?>
+                  <!-- /.Bloque de respuesta del servidor -->
+
+              </div><!-- nav-tabs-custom -->
+                
+              </div><!-- /.tab-content -->
+              
             </div><!--/.col (left) -->
             <!-- right column -->
             <div class="col-md-6">
               <!-- Horizontal Form -->
-              
               
             </div><!--/.col (right) -->
           </div>  

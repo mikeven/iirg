@@ -88,7 +88,10 @@
 		
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de Órdenes de compra */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Registro de nueva orden de compra
 	if( isset( $_POST["reg_orden_compra"] ) ){
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );

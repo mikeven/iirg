@@ -63,22 +63,45 @@
 		return $idresult;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	function modificarUsuario( $usuario, $dbh ){
-		$resp["cambio"] = "exito";
+	function modificarDatosEmpresa( $usuario, $dbh ){
+		$actualizado = 1;
 		$q = "update usuario set empresa = '$usuario[empresa]', subtitulo = '$usuario[subtitulo]', rif = '$usuario[rif]', 
 		Email = '$usuario[email]', telefonos = '$usuario[telefonos]', direccion1 = '$usuario[direccion1]', direccion2 = '$usuario[direccion2]', 
 		vendedor = '$usuario[vendedor]' where idUsuario = $usuario[id]";
 		//echo $q;
 		
+		mysql_query( $q, $dbh );
+		
+		mysql_query( $q, $dbh );
+		if( mysql_affected_rows() == -1 ) $actualizado = 0;
+		
+		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function modificarDatosUsuario( $usuario, $dbh ){
+		$actualizado = 1;
+		$q = "update usuario set usuario = '$usuario[usuario]', nombre = '$usuario[nombre]' 
+		where idUsuario = $usuario[id]";
+		//echo $q;
+		
+		mysql_query( $q, $dbh );
+		if( mysql_affected_rows() == -1 ) $actualizado = 0;
+		
+		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function modificarPassword( $usuario, $dbh ){
+		$actualizado = 1;
+		$q = "update usuario set password = '$usuario[password]' where idUsuario = $usuario[id]";
+		//echo $q;
+		
 		$data = mysql_query( $q, $dbh );
 		
-		$resp["id"] = $usuario["id"];
 		if( mysql_affected_rows() != 1 )
-			$resp["cambio"] = "";
+			$actualizado = 0;
 		
-		return $resp;
+		return $actualizado;
 	}
-	
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
 	/* ----------------------------------------------------------------------------------------------------- */
@@ -115,34 +138,76 @@
 
 		echo json_encode( $res );
 	}
-
+	
+	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de Usuarios */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Inicio de sesión
+	if( isset( $_SESSION["login"] ) ){
+		$idu = $_SESSION["user"]["idUsuario"];
+	}else $idu = NULL;
+	
 	/*--------------------------------------------------------------------------------------------------------*/
-	/*--------------------------------------------------------------------------------------------------------*/
+	//Cierre de sesión
 	if( isset( $_GET["logout"] ) ){
 		//include( "bd.php" );
 		unset( $_SESSION["login"] );
 		echo "<script> window.location = 'index.php'</script>";		
-	}
+	}	
 	/*--------------------------------------------------------------------------------------------------------*/
-	if( isset( $_SESSION["login"] ) ){
-		$idu = $_SESSION["user"]["idUsuario"];
-	}else $idu = NULL;
-	/*--------------------------------------------------------------------------------------------------------*/
-
-	if( isset( $_POST["mod_cuenta"] ) ){
+	//Modificar datos de usuario. Bloque: empresa
+	if( isset( $_POST["mod_empresa"] ) ){
 		
 		include("bd.php");
-		$usuario["id"] = $_POST["idUsuario"];
-		$usuario["empresa"] = $_POST["empresa"];
-		$usuario["subtitulo"] = $_POST["subtitulo"];
-		$usuario["rif"] = $_POST["rif"];
-		$usuario["email"] = $_POST["email"];
-		$usuario["direccion1"] = $_POST["direccion1"];
-		$usuario["direccion2"] = $_POST["direccion2"];
-		$usuario["telefonos"] = $_POST["telefonos"];
-		$usuario["vendedor"] = $_POST["vendedor"];
+		$usuario["id"] 			= $_POST["idUsuario"];
+		$usuario["empresa"] 	= $_POST["empresa"];
+		$usuario["subtitulo"] 	= $_POST["subtitulo"];
+		$usuario["rif"] 		= $_POST["rif"];
+		$usuario["email"] 		= $_POST["email"];
+		$usuario["direccion1"] 	= $_POST["direccion1"];
+		$usuario["direccion2"] 	= $_POST["direccion2"];
+		$usuario["telefonos"] 	= $_POST["telefonos"];
+		$usuario["vendedor"] 	= $_POST["vendedor"];
 		
-		$idr = modificarUsuario( $usuario, $dbh );
-		echo "<script>window.location.href='../cuenta.php'</script>";	
+		$res["exito"] = modificarDatosEmpresa( $usuario, $dbh );
+		
+		if( $res["exito"] == 1 )
+			$res["mje"] = "Datos de usuario modificados con éxito";
+		else
+			$res["mje"] = "Error al modificar datos de usuario";
+		
+		echo json_encode( $res );	
+	}
+	//Modificar datos de usuario. Bloque: datos personales
+	if( isset( $_POST["mod_usuario"] ) ){
+		include( "bd.php" );
+		$usuario["id"] 			= $_POST["idUsuario"];
+		$usuario["usuario"] 	= $_POST["usuario"];
+		$usuario["nombre"] 		= $_POST["nombre"];
+		
+		$res["exito"] = modificarDatosUsuario( $usuario, $dbh );
+		
+		if( $res["exito"] == 1 )
+			$res["mje"] = "Datos de usuario modificados con éxito";
+		else
+			$res["mje"] = "Error al modificar datos de usuario";
+		
+		echo json_encode( $res );
+	}
+	//Modificar datos de usuario. Bloque: contraseña
+	if( isset( $_POST["mod_passw"] ) ){
+		
+		include("bd.php");
+		$usuario["id"] 		= $_POST["idUsuario"];
+		$usuario["password"] 	= $_POST["password1"];
+		
+		$res["exito"] = modificarPassword( $usuario, $dbh );
+		
+		if( $res["exito"] == 1 )
+			$res["mje"] = "Contraseña actualizada con éxito";
+		else
+			$res["mje"] = "Error al actualizar contraseña";
+		
+		echo json_encode( $res );	
 	}
 ?>

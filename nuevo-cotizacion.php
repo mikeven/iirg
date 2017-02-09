@@ -93,7 +93,8 @@
             });
             
             initValid();
-            $(".alert").hide();
+            $(".alert").hide(); 
+            //Oculta los mensajes de respuesta ( éxito o error ) en subform/nav/mensaje_rcpf.php
         });
     </script>
     

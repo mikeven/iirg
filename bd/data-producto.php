@@ -56,7 +56,11 @@
 		}
 		return $lista_c;	
 	}
+	
 	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes al servidor para procesar información de Productos */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Registro de nuevo producto
 	if( isset( $_POST["reg_producto"] ) || isset( $_POST["mod_producto"] ) ){
 		$producto["nombre"] = $_POST["nombre"];
 		$producto["rif"] = $_POST["rif"];

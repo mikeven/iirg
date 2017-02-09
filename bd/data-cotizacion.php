@@ -124,7 +124,10 @@
 		$data = mysql_query( $q, $dbh );
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de Cotizaciones */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Registro de nueva cotización
 	if( isset( $_POST["reg_cotizacion"] ) ){
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );

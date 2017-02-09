@@ -134,7 +134,7 @@
 		echo obtenerProximoNumeroNota( $dbh, $tn, $_POST["idu"] );
 	}
 
-	// Registro de Nota
+	// Registro de nueva nota
 	if( isset( $_POST["reg_nota"] ) ){ 
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );

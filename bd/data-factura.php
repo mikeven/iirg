@@ -111,6 +111,9 @@
 		return $renglon;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Registro de nueva factura
 	if( isset( $_POST["reg_factura"] ) ){
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
