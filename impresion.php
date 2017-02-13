@@ -101,6 +101,51 @@
       text-align:center !important;
       border: 1px solid #ddd;
     }
+
+    #encabezado{
+      margin: 20px 0;
+      <?php if($tdd == "fac") { ?>
+        margin: 14% 0 20px 0;  
+      <?php } ?>
+    }
+
+    #pie_documento{
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 4%;
+    }
+
+    #detalle_doc{
+      width: 100%;
+    }
+
+    .table>tbody>tr>td, table>tbody>tr>th{
+      line-height: 0.7 !important;
+    }
+
+    .table>thead>tr>th{
+      border: 0 !important;
+    }
+
+    #tabla_detalle_doc>tbody>tr>td{
+      border: 0; 
+    }
+
+    #tabla_detalle_doc>tbody{
+      padding: 12px 0 0 0; 
+    }
+
+    #tabla_detalle_doc>thead>tr{
+      border-bottom: 1px dashed #000; 
+    }
+
+    #dcliente{ width: 45% }
+    #dmed{ width: 12%; }
+    #dcotizacion{ width: 30%; }
+
+    .tobsdoc{font-size: 16px;}
+
   </style>
 </head>
 <body onload="window.print();">
@@ -122,27 +167,69 @@
               <div class="col-sm-2"></div><!-- /.col -->
           </div><!-- /.row -->
           <?php }?>
-          <div class="row invoice-info" id="encabezado" style="margin:20px 0;">
-              <div class="col-sm-4 invoice-col" id="dcliente">
-                  <div id="dc_nombre">Señores</div>
+          <div class="row" id="encabezado">
+              <div class="col-sm-6 invoice-col" id="dcliente">
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
                   <div id="dc_nombre"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_nombre"><?php echo $encabezado["dir2"]?></div>
-                  <div id="dc_nombre">Ciudad: Caracas</div>
+                  <div id="dc_nombre"><?php echo $encabezado["rif"]?></div>
               </div><!-- /.col -->
               
-              <div class="col-sm-2 invoice-col"> </div><!-- /.col -->
+              <div id="dmed" class="col-sm-3 invoice-col"> </div><!-- /.col -->
               
-              <div class="col-sm-3 col-xs-push-1 invoice-col" id="dcotizacion">
-                  <div id="dctz_numero"><?php echo $tdocumento.":   ".$encabezado["nro"];?></div>
-                  <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
-                  <?php if($tdd == "ctz") { ?>
-                    <div id="dctz_tlf">Vendedor: Nidia</div>
-                  <?php } ?>
-                  <?php if($tdd == "fac") { ?>
-                    <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
-                    <div id="dctz_tlf">Orden de compra: <?php echo $encabezado["oc"]; ?></div>
-                  <?php } ?>
+              <div class="col-sm-4 col-xs-push-1 invoice-col" id="dcotizacion">
+                  
+                  <table width="100%" border="0">
+                    <tr>
+                      <td width="65%">
+                        <div id="dctz_numero">
+                          <?php echo "N° de ".$tdocumento.":";?>
+                        </div>
+                      </td>
+                      <td width="35%">
+                        <div id="dctz_numero_val">
+                          <?php echo $encabezado["nro"]; ?>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div id="dctz_numero">
+                          Fecha Emisión:
+                        </div>
+                      </td>
+                      <td>
+                        <div id="dctz_numero">
+                          <?php echo $encabezado["femision"];?>
+                        </div>
+                      </td>
+                    </tr>
+                    <?php if($tdd == "ctz") { ?>
+                    <tr>
+                      <td>
+                          <div id="dctz_tlf">Vendedor:</div>
+                      </td>
+                      <td>
+                        <?php if($tdd == "ctz") { ?><div id="dctz_tlf">Nidia</div><?php } ?>
+                      </td>
+                    </tr>
+                    <?php } ?>
+                    <?php if($tdd == "fac") { ?>
+                    <tr>
+                      <td><div id="dctz_tlf">Fecha Vencimiento:</div></td>
+                      <td><?php echo ""; ?></td>
+                    </tr>
+                    <tr>
+                      <td><div id="dctz_tlf">Condición de Pago</div></td>
+                      <td>CONTADO</td>
+                    </tr>
+                    <tr>
+                      <td><div id="dctz_tlf">N° Orden Compra:</div></td>
+                      <td><?php echo $encabezado["oc"]; ?></td>
+                    </tr>
+                    <?php } ?>
+                  </table>
+
               </div><!-- /.col -->
               
           </div><!-- /.row -->
@@ -155,9 +242,9 @@
           </div><!-- /.Texto introductorio -->
 
           <!-- Table row -->
-          <div class="row">
+          <div class="row" id="detalle_doc">
             <div class="col-xs-12 table-responsive">
-              <table class="table table-striped table-imp-det">
+              <table id="tabla_detalle_doc" class="table">
                 <thead>
                   <tr>
                     <th align="center">Descripción</th>
@@ -182,10 +269,11 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          <div class="row">
+          <div id="pie_documento" class="row pie_documento" >
+            
             <!-- Bloque de observaciones -->
             <div class="col-xs-6">
-              <p class="lead"><?php echo $encabezado["obs0"]; ?></p>
+              <div class="tobsdoc"><?php echo $encabezado["obs0"]; ?></div>
                 <div><?php echo $obs[1]; ?></div>
                 <div><?php echo $obs[2]; ?></div>
                 <div><?php echo $obs[3]; ?></div>  
@@ -194,7 +282,6 @@
             <!-- /.<!-- Bloque de observaciones -->
 
             <div class="col-xs-6">
-              <p class="lead">Totales</p>
               <div class="table-responsive" style="float:right;">
                 <table class="table">
                   <tr>

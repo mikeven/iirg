@@ -17,9 +17,10 @@
 	function modificarCliente( $cliente, $dbh ){
 		
 		$resp["cambio"] = "exito";
-		$q = "update cliente set Nombre = '$cliente[nombre]', Rif = '$cliente[rif]', Email = '$cliente[email]', 
-		telefono1 = '$cliente[tel1]', telefono2 = '$cliente[tel2]', direccion1 = '$cliente[direccion1]', direccion2 = '$cliente[direccion2]'
-		where idCliente2 = $cliente[id]";
+		$q = "update cliente set Nombre = '$cliente[nombre]', Rif = '$cliente[rif]', 
+		Email = '$cliente[email]', telefono1 = '$cliente[tel1]', telefono2 = '$cliente[tel2]', 
+		direccion1 = '$cliente[direccion1]', direccion2 = '$cliente[direccion2]', 
+		pcontacto = '$cliente[pcontacto]' where idCliente2 = $cliente[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $cliente["id"];
