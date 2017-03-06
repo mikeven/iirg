@@ -7,6 +7,7 @@
   ini_set( 'display_errors', 1 );
   include( "bd/bd.php" );
   include( "bd/data-usuario.php" );
+  include( "bd/data-formato.php" );
   include( "bd/data-pedido.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
@@ -20,6 +21,7 @@
   if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
     $id = $_GET["id"];
     $tdd = $_GET["tipo_documento"]; 
+    $ftdd = $tdd;
 
     if( $tdd == "ctz" ){
       $documento = obtenerCotizacionPorId( $dbh, $id );
@@ -71,6 +73,10 @@
   }
   else{
 
+  }
+  
+  if( isset( $_GET["idu"] ) ){
+    $idusuario = $_GET["idu"];
   }
 ?>
 <!DOCTYPE html>
@@ -148,6 +154,9 @@
 
   </style>
 </head>
+  <?php 
+    $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $idusuario );
+  ?>
 <body onload="window.print();">
 <div class="wrapper">
   <!-- Main content -->
@@ -157,12 +166,12 @@
           <div class="row" id="membrete">
               <div class="col-sm-2"></div><!-- /.col -->
               <div class="col-sm-8" align="center">
-                  <div id="lin1">INSUMOS INFORMÁTICOS R & G, C.A.</div>
-                  <div id="lin2">Suministros para Computación y Papelería</div>
-                  <div id="lin3" class="membrete3">Calle Este 16, Sordo a Peláez, Residencias Sorpe, P.B. Local 1</div>
-                  <div id="lin4" class="membrete3">Parroquia Santa Rosalía - Caracas</div>
-                  <div id="lin5" class="membrete3">Telefonos (0212) 545.6529 / 395-5955 / Telefax: 5424137 CEL. 0416-624-4269</div>
-                  <div id="lin6" class="membrete3">email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com</div>
+                  <div id="lin1"><?php echo $frt["enc1"]?></div>
+                    <div id="lin2"><?php echo $frt["enc2"]?></div>
+                    <div id="lin3" class="membrete3"><?php echo $frt["enc3"]?></div>
+                    <div id="lin4" class="membrete3"><?php echo $frt["enc4"]?></div>
+                    <div id="lin5" class="membrete3"><?php echo $frt["enc5"]?></div>
+                    <div id="lin6" class="membrete3"><?php echo $frt["enc6"]?></div>
               </div><!-- /.col -->
               <div class="col-sm-2"></div><!-- /.col -->
           </div><!-- /.row -->

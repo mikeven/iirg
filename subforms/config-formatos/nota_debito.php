@@ -148,9 +148,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tond1">Texto</a></li>
+                        <li><a href="#!" class="libresc" data-c="tond1">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tond1">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tond1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs1" id="tond1" value="<?php echo $frt_nd["obs1"]; ?>" <?php echo $frt_nd["obs1"]; ?>>
@@ -165,9 +165,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tond2">Texto</a></li>
+                        <li><a href="#!" class="libresc" data-c="tond2">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tond2">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tond2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs2" id="tond2" 
@@ -183,10 +183,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tond3">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="tond3">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresc" data-c="tond3">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tond3">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tond3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs3" id="tond3" 

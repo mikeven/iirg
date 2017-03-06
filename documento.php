@@ -102,6 +102,7 @@
         $cta = obtenerUsuarioPorId( $usuario["idUsuario"], $dbh );
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
+        $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -165,7 +166,7 @@
                 <div class="col-sm-3 invoice-col" id="ddocumento">
                     
                     <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
-                    <div id="dctz_fecha">Fecha: &nbsp;<?php echo $encabezado["femision"];?></div>
+                    <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
                     
                     <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
                       <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
@@ -177,7 +178,7 @@
                     
                     <?php if($tdd == "fac") { ?>
                       <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
-                      <div id="dctz_tlf">Orden de compra: <?php echo $encabezado["oc"]; ?></div>
+                      <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
                     <?php } ?>
                 
                 </div><!-- /.col -->
@@ -201,7 +202,7 @@
                       <th class="tit_tdf">Cant</th>
                       <th class="tit_tdf">UND</th>
                       <th class="tit_tdf">Precio Unitario</th>
-                      <th class="tit_tdf">Total ítem</th>
+                      <th class="tit_tdf">Total Bsf</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -230,7 +231,7 @@
                   <!-- /.Concepto -->
                 <?php } ?>
 
-                <p class="lead"><?php echo $titulo_obs;?></p>
+                  <div><?php echo $titulo_obs;?></div>
                   <div><?php echo $obs1; ?></div>
                   <div><?php echo $obs2; ?></div>
                   <div><?php echo $obs3; ?></div>  
@@ -240,7 +241,6 @@
             
               <div class="col-xs-6">
                 <?php if($tdd != "sctz") { ?>
-                  <p class="lead">Totales</p>
                   <div class="table-responsive">
                     <table class="table">
                       <tr>
@@ -265,9 +265,9 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-xs-12">
-                <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank"><i class="fa fa-print fa-2x"></i> Imprimir</a>
-                <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+                <a href="<?php echo $enlace_imp; // ?>" class="btn btn-app" target="_blank">
+                  <i class="fa fa-print fa-2x"></i> Imprimir
+                </a>
               </div>
             </div>
 

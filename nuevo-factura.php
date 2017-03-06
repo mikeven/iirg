@@ -255,7 +255,7 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="npedido" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
+                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -433,10 +433,12 @@
                           	
                           </div><!-- /.pie_factura -->
 
-                        <!-- Bloque de respuesta del servidor -->
-                        <?php include("subforms/nav/mensaje_rcpf.php");?>
-                        <!-- /.Bloque de respuesta del servidor -->
-                    
+                          <!-- Bloque de respuesta del servidor -->
+                          <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje"></button>
+                          <?php include("subforms/nav/mensaje_respuesta.php");?>
+                          <!-- /.Bloque de respuesta del servidor -->
+
                     </div><!-- /.box-body -->
 					          
                     <div class="box-footer" align="center">
@@ -470,5 +472,8 @@
 
 </div>
 <!-- ./wrapper -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
 </body>
 </html>

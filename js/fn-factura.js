@@ -168,10 +168,21 @@ function actItemF( itemf ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
+function obtenerEnlaceRFACCreado(id){
+	var ndoc = $("#nfactura").val();
+	var enl = "documento.php?tipo_documento=fac&id=" + id;
+	var ico = "<i class='fa fa-file-text fa-2x'></i>";
+
+	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" 
+	+ ico + " Factura #" + ndoc + "</a>";
+
+	return e_enl;
+}
+/* --------------------------------------------------------- */
 function guardarFactura(){
 	
 	var idcliente = $( '#idCliente' ).val();
-	var numero = $( '#npedido' ).val();
+	var numero = $( '#nfactura' ).val();
 	var noc = $( '#fordc' ).val();
 	var idpedido = $( '#idPedido' ).val();
 	var femision = $( '#femision' ).val();
@@ -195,13 +206,16 @@ function guardarFactura(){
 				res = jQuery.parseJSON(response);
 				//$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
-					$("#txexi").html(res.mje);
-					$("#mje_exito").show("slow");
-					$("#mje_error").hide(100);
+					$("#ventana_mensaje").addClass("modal-success");
+					$("#tit_vmsj").html( res.mje );
+					$("#tx-vmsj").html( obtenerEnlaceRFACCreado(res.idr) );
+					$("#enl_vmsj").click();
+					
 				}
 				if( res.exito == '0' ){
-					$("#mje_error").show();
-					$("#txerr").html(res.mje);
+					$("#ventana_mensaje").addClass("modal-danger");
+					$("#tx-vmsj").html(res.mje);
+					$("#enl_vmsj").click();
 				}
 			}
 		});	

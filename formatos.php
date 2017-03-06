@@ -174,7 +174,7 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
               <div class="box box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">Formato de documentos</h3>

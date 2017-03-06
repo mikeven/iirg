@@ -148,9 +148,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tone1">Texto</a></li>
+                        <li><a href="#!" class="libresn" data-c="tone1">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tone1">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tone1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs1" id="tone1" value="<?php echo $frt_ne["obs1"]; ?>" <?php echo $frt_ne["obs1"]; ?>>
@@ -165,14 +165,14 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="$tone2">Texto</a></li>
+                        <li><a href="#" class="libresn" data-c="tone2">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="$tone2">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tone2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs2" id="$tone2" 
+                    <input type="text" class="form-control csctzobs" name="obs2" id="tone2" 
                     value="<?php echo $frt_ne["obs2"];?>" <?php echo $frt_ne["obs2"]; ?>>
-                    <input type="hidden" name="vobs2" id="$tone2" value="<?php echo $frt_ne["obs2"];?>">
+                    <input type="hidden" name="vobs2" id="vtone2" value="<?php echo $frt_ne["obs2"];?>">
                   </div>                                        
                 </div><!-- /.form group -->
                 
@@ -183,15 +183,14 @@
                       <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="$tone3">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="$tone3">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresn" data-c="tone3">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="$tone3">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tone3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs3" id="$tone3" 
+                    <input type="text" class="form-control csctzobs" name="obs3" id="tone3" 
                     value="<?php echo $frt_ne["obs3"];?>" <?php echo $frt_ne["obs3"]; ?>>
-                    <input type="hidden" name="vobs3" id="$tone3" value="<?php echo $frt_ne["obs3"];?>">
+                    <input type="hidden" name="vobs3" id="vtone3" value="<?php echo $frt_ne["obs3"];?>">
                   </div>                                        
                 </div><!-- /.form group -->
                 

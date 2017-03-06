@@ -198,7 +198,7 @@ $( document ).ready(function() {
 
     $('#frm_mnotcent').bootstrapValidator({      // Texto entrada
         fields: {
-            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+            
         },
         onSuccess: function(e, data) {
             e.preventDefault();
@@ -208,7 +208,7 @@ $( document ).ready(function() {
 
     $('#frm_mnotcobs').bootstrapValidator({       // Observaciones
         fields: {
-            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+            tobs: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
         },
         onSuccess: function(e, data) {
             e.preventDefault();
@@ -238,8 +238,8 @@ $( document ).ready(function() {
     });
 
     $('#frm_mnotdobs').bootstrapValidator({       // Observaciones
-        fields: {
-            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        sfields: {
+            tobs: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
         },
         onSuccess: function(e, data) {
             e.preventDefault();
@@ -260,7 +260,7 @@ $( document ).ready(function() {
 
     $('#frm_mnoteent').bootstrapValidator({      // Texto entrada
         fields: {
-            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+            
         },
         onSuccess: function(e, data) {
             e.preventDefault();
@@ -270,7 +270,7 @@ $( document ).ready(function() {
 
     $('#frm_mnoteobs').bootstrapValidator({       // Observaciones
         fields: {
-            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+            tobs: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
         },
         onSuccess: function(e, data) {
             e.preventDefault();
@@ -339,5 +339,12 @@ $( document ).ready(function() {
         $("#" + target).val( $(this).val() );
     });
 
+    
+    /* Configuración de observaciones formato notas */
+    $('.blocampon').click( function(){
+        var target = $(this).attr("data-c");
+        $("#" + target).val(""); $("#v" + target).val(""); 
+        $("#" + target).attr("readonly", "true");
+    });
 });
 /* --------------------------------------------------------- */

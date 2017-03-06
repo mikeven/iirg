@@ -82,6 +82,7 @@
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
     <script src="js/fn-cotizacion.js"></script>
+    
     <script>
         $( document ).ready(function() {
             //Initialize Select2 Elements
@@ -95,6 +96,7 @@
             initValid();
             $(".alert").hide(); 
             //Oculta los mensajes de respuesta ( éxito o error ) en subform/nav/mensaje_rcpf.php
+
         });
     </script>
     
@@ -170,11 +172,11 @@
             <!-- left column -->
             <div class="col-md-12">
               <!-- general form elements -->
-				<div class="box box-default color-palette-box">
+				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">REGISTRAR NUEVA COTIZACIÓN</h3>
+                  <h3 class="box-title">REGISTRAR NUEVA COTIZACIÓN</h3>                  
                   <div class="icon-color nuevo-reg-icono">
-                    <a href="nuevo-cotización.php"><i class="fa fa-plus fa-2x"></i></a>
+                    <a href="nuevo-cotizacion.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
@@ -411,13 +413,15 @@
                         </div><!-- /.pie_cotizacion -->
                         
                         <!-- Bloque de respuesta del servidor -->
-                          <?php include("subforms/nav/mensaje_rcpf.php");?>
+                          <?php //include("subforms/nav/mensaje_rcpf.php");?>
+                          <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje"></button>
+                          <?php include("subforms/nav/mensaje_respuesta.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
                     
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
-                      data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );
@@ -452,5 +456,8 @@
 
 </div>
 <!-- ./wrapper -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
 </body>
 </html>

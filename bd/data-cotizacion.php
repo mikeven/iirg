@@ -62,7 +62,7 @@
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
 		c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, 
 		k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email FROM cotizacion c, cliente k 
-		where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = k.IdCliente2";
+		where c.IdCotizacion2 = $idc and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
@@ -114,11 +114,11 @@
 		// Guarda el registro de la cotización y solicitud de cotización
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, introduccion, observaciones1, 
-		observaciones2, observaciones3, iva, Total, validez, idUsuario  ) 
-		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idc, '$fecha_mysql', '$encabezado->pcontacto', 
-		'$encabezado->introduccion', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, 
-		$encabezado->total, '$encabezado->cvalidez', $idu )";
+		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, introduccion, 
+		observaciones, observaciones1, observaciones2, observaciones3, iva, Total, validez, idUsuario  ) 
+		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idc, '$fecha_mysql', 
+		'$encabezado->pcontacto', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
+		'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, '$encabezado->cvalidez', $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -132,7 +132,6 @@
 		include( "bd.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
-		
 		$idc = guardarCotizacion( $dbh, $encabezado, $encabezado->idu );
 		
 		if( ( $idc != 0 ) && ( $idc != "" ) ){
@@ -140,14 +139,15 @@
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";
+				$res["idr"] = $idc;
 			}else{
 				$res["exito"] = 0;
-				$res["mje"] = "Error al registrar detalle de factura";
+				$res["mje"] = "Error al registrar detalle de cotización";
 			}	
 		}
 		else {
 			$res["exito"] = 0;
-			$res["mje"] = "Error al registrar factura";
+			$res["mje"] = "Error al registrar cotización";
 		}
 
 		echo json_encode( $res );

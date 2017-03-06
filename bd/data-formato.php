@@ -19,7 +19,7 @@
 		if( $sec == "obs" )
 			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->vobs1', 
 			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario and doc = '$documento'";
-
+		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();
 	}
@@ -29,7 +29,7 @@
 		return $docbd[$texto];
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-
+	//Guardar formato de documento
 	if( isset( $_POST["form"] ) ){
 		
 		include("bd.php");

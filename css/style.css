@@ -17,3 +17,22 @@
 	margin-right: 15px;
 }
 
+/*-------------------------------------------*/
+/*  ---------  Sección cotizaciones  --------*/
+/*-------------------------------------------*/ 
+#tx-vmsj > a{ color: #FFF; }
+
+#tx-vmsj > .btn-app{ 
+	background: #008d4c;
+	border-color: #003b20;
+	font-size: 16px;
+}
+
+#tx-vmsj > .btn-app:hover{ 
+	background: #20af6d;
+	border-color: #008d4c; 
+}
+
+
+
+

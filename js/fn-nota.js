@@ -175,6 +175,17 @@ function actItemF( itemf ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
+function obtenerEnlaceRNOTACreado( id, tipo ){
+	var ndoc = $("#nnota").val();
+	var enl = "documento.php?tipo_documento=nota&tn=" + tipo + "&id=" + id;
+	var ico = "<i class='fa fa-file-text fa-2x'></i>";
+
+	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
+	ico + " Nota #" + ndoc + "</a>";
+
+	return e_enl;
+}
+/* --------------------------------------------------------- */
 function guardarNota(){
 	
 	var idcliente = $( '#idCliente' ).val();
@@ -197,9 +208,10 @@ function guardarNota(){
 				res = jQuery.parseJSON(response);
 				//$("#waitconfirm").html(response);
 				if( res.exito == '1' ){
-					$("#txexi").html(res.mje);
-					$("#mje_exito").show("slow");
-					$("#mje_error").hide(100);
+					$("#ventana_mensaje").addClass("modal-success");
+					$("#tit_vmsj").html( res.mje );
+					$("#tx-vmsj").html( obtenerEnlaceRNOTACreado( res.idr, res.tipo ) );
+					$("#enl_vmsj").click();
 				}
 				if( res.exito == '0' ){
 					$("#mje_error").show();

@@ -96,6 +96,7 @@ function obtenerVectorEncabezado(){
 	encabezado.idu = $( '#idu_sesion' ).val();
 
 	encabezado.introduccion = $( '#tentrada' ).val();
+	encabezado.obs0 = $( '#tobs0' ).val();
 	encabezado.obs1 = $( '#tobs1' ).val();
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
@@ -104,6 +105,17 @@ function obtenerVectorEncabezado(){
 	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
+}
+/* --------------------------------------------------------- */
+function obtenerEnlaceRCTZCreado(id){
+	var ndoc = $("#ncotiz").val();
+	var enl = "documento.php?tipo_documento=ctz&id=" + id;
+	var ico = "<i class='fa fa-file-text fa-2x'></i>";
+
+	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
+	ico + " Cotización #" + ndoc + "</a>";
+
+	return e_enl;
 }
 /* --------------------------------------------------------- */
 function guardarCotizacion(){
@@ -121,14 +133,17 @@ function guardarCotizacion(){
 		},
 		success: function( response ){
 			res = jQuery.parseJSON(response);
-			//$("#waitconfirm").html(response);
+			//$("#response_server").html(response);
 			if( res.exito == '1' ){
-				$("#txexi").html(res.mje);
-				$("#mje_exito").show();
+				$("#ventana_mensaje").addClass("modal-success");
+				$("#tit_vmsj").html( res.mje );
+				$("#tx-vmsj").html( obtenerEnlaceRCTZCreado(res.idr) );
+				$("#enl_vmsj").click();
 			}
 			if( res.exito == '0' ){
-				$("#mje_error").show();
-				$("#txerr").html(res.mje);
+				$("#ventana_mensaje").addClass("modal-danger");
+				$("#tx-vmsj").html(res.mje);
+				$("#enl_vmsj").click();
 			}
 		}
 	});
@@ -275,8 +290,9 @@ $( document ).ready(function() {
 	
 	$("#mje_confirmacion").html( "¿Confirmar registro?" );
 	$("#btn_confirm").attr("id", "bt_reg_cotizacion");
+	$("#enl_oculto").hide();
 
-	$(".alert").click( function(){
+	$(".alert-danger").click( function(){
 		$(this).hide("slow");
     });
 	

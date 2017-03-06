@@ -146,15 +146,16 @@
 			$exito = guardarDetalleNota( $dbh, $idn, $encabezado, $detalle );
 			if( $exito == true ){
 				$res["exito"] = 1;
-				$res["mje"] = "Registro exitoso";
+				$res["mje"] = "Registro exitoso"."Tipo: ".$encabezado->tipo;
+				$res["idr"] = $idn;	$res["tipo"] = $encabezado->tipo;
 			}else{
 				$res["exito"] = 0;
-				$res["mje"] = "Error al registrar detalle de nota";
+				$res["mje"] = "Error al registrar detalle de Nota";
 			}	
 		}
 		else {
 			$res["exito"] = 0;
-			$res["mje"] = "Error al registrar nota";
+				$res["mje"] = "Error al registrar Nota";
 		}
 		
 		echo json_encode( $res );

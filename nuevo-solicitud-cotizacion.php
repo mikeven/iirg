@@ -397,7 +397,7 @@
                                 
                                 <dic id="observaciones">
                                   <div class="titobs"><?php echo $frt_sctz["titulo_obs"];?></div>
-                                  
+                                  <input id="tobs0" type="hidden" value="<?php echo $frt_sctz["titulo_obs"];?>">
                                   <div class="obsctz"><?php echo $frt_sctz["obs1"];?>
                                     <input id="tobs1" type="hidden" value="<?php echo $frt_sctz["obs1"];?>" 
                                     data-v="<?php echo $obs[1];?>">
@@ -416,13 +416,15 @@
                         </div><!-- /.pie_cotizacion -->
                         
                         <!-- Bloque de respuesta del servidor -->
-                          <?php include("subforms/nav/mensaje_rcpf.php");?>
+                          <?php //include("subforms/nav/mensaje_rcpf.php");?>
+                          <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje"></button>
+                          <?php include("subforms/nav/mensaje_respuesta.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
-                    
+                        <div id="response_server"></div>
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
-                      data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );

@@ -18,7 +18,7 @@
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab_nc1" data-toggle="tab">Resumen</a></li>
           <li><a href="#tab_nc2" data-toggle="tab">Modificar Datos de Encabezado</a></li>
-          <li><a href="#tab_nc3" data-toggle="tab">Modificar Texto de Entrada</a></li>
+          <li><a href="#tab_nc3" data-toggle="tab">Modificar Texto introductorio</a></li>
           <li><a href="#tab_nc4" data-toggle="tab">Modificar Observaciones</a></li>
         </ul>
         <div class="tab-content">
@@ -26,12 +26,12 @@
           <div class="tab-pane active" id="tab_nc1">
           
             <div class="tcontab"><b>Datos de encabezado</b></div>
-            <div><?php echo $frt_nc["enc1"]; ?></div>
-            <div><?php echo $frt_nc["enc2"]; ?></div>
-            <div><?php echo $frt_nc["enc3"]; ?></div>
-            <div><?php echo $frt_nc["enc4"]; ?></div>
-            <div><?php echo $frt_nc["enc5"]; ?></div>
-            <div><?php echo $frt_nc["enc6"]; ?></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
             <hr>
             <div class="tcontab"><b>Texto introductorio</b></div>
             <div><?php echo $frt_nc["entrada"]; ?></div>
@@ -49,54 +49,7 @@
             <form role="form" id="frm_mencabeznc" method="post">
               <input name="mod_enc_notc" type="hidden" value="1">
               <div class="box-body">
-                <input name="idUsuario" type="hidden" id="idUsuario" value="<?php echo $usuario["idUsuario"];?>">
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l1" value="<?php echo $datau[0]; ?>">
-                    <span class="input-group-addon">L1</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l2" value="<?php echo $datau[1]; ?>">
-                    <span class="input-group-addon">L2</span>
-                  </div>                                        
-                </div><!-- /.form group -->
 
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l3" value="<?php echo $datau[2]; ?>">
-                    <span class="input-group-addon">L3</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l4" value="<?php echo $datau[3]; ?>">
-                    <span class="input-group-addon">L4</span>
-                  </div>                                        
-                </div><!-- /.form group -->
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l5" value="<?php echo $datau[4]; ?>">
-                    <span class="input-group-addon">L5</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l6" value="<?php echo $datau[5]; ?>">
-                    <span class="input-group-addon">L6</span>
-                  </div>                                        
-                </div><!-- /.form group -->
-                <div id="cres_nc"></div> 
               </div><!-- /.box-body -->
 
               <div class="box-footer" align="center">
@@ -148,9 +101,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tonc1">Texto</a></li>
+                        <li><a href="#!" class="libresc" data-c="tonc1">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tonc1">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tonc1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs1" id="tonc1" value="<?php echo $frt_nc["obs1"]; ?>" <?php echo $frt_nc["obs1"]; ?>>
@@ -165,9 +118,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tonc2">Texto</a></li>
+                        <li><a href="#!" class="libresc" data-c="tonc2">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tonc2">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tonc2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs2" id="tonc2" 
@@ -183,10 +136,9 @@
                       <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="tonc3">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="tonc3">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresc" data-c="tonc3">Texto</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="tonc3">No mostrar</a></li>
+                        <li><a href="#!" class="blocampon" data-c="tonc3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control csctzobs" name="obs3" id="tonc3" 
