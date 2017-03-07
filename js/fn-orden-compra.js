@@ -213,24 +213,21 @@ function contarItems(){
 /* --------------------------------------------------------- */
 function checkOrdenCompra(){
 	var error = 0;
-	if( contarItems() == 0 ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe ingresar ítems en la orden de compra");
-		error = 1;
-	}
+	$("#ventana_mensaje").addClass("modal-danger");
+	$("#tit_vmsj").html( "Error" );
+	
+	
 	if( $("#idProveedor").val() == "" ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar un proveedor");
+		$("#tx-vmsj").html("Debe indicar un proveedor");
 		$("#nproveedor").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
-	if( $("#fordc").val() == "" ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar número de orden de compra");
-		$("#fordc").css({'border-color' : '#dd4b39'});
+
+	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		$("#tx-vmsj").html("Debe ingresar ítems en la orden de compra");
 		error = 1;
 	}
-	$("#closeModal").click();
+	
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -303,8 +300,11 @@ $( document ).ready(function() {
 	
 	/*===============================================================================*/
     $("#bt_reg_ordencompra").on( "click", function(){
+		$("#closeModal").click();
 		if( checkOrdenCompra() == 0 )
 			guardarOrdenCompra();
+		else
+			$("#enl_vmsj").click();
     });
 });
 /* --------------------------------------------------------- */

@@ -231,25 +231,27 @@ function contarItems(){
 }
 /* --------------------------------------------------------- */
 function checkFactura(){
-	var error = 0;
-	if( contarItems() == 0 ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe ingresar ítems en la factura");
-		error = 1;
-	}
+	
+	var error = 0; 
+	
+	$("#ventana_mensaje").addClass("modal-danger");
+	$("#tit_vmsj").html( "Error" );
+	
 	if( $("#idCliente").val() == "" ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar un cliente");
-		$("#ncliente").css({'border-color' : '#dd4b39'});
+		$("#tx-vmsj").html("Debe indicar un cliente");
+		$("#ncliente").css({'border-color' : '#dd4b39'});	
 		error = 1;
 	}
+
+	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		$("#tx-vmsj").html("Debe ingresar ítems en la factura");
+		error = 1; 
+	}
+
 	if( $("#fordc").val() == "" ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar número de orden de compra");
-		$("#fordc").css({'border-color' : '#dd4b39'});
-		error = 1;
+		$("#fordc").val("N/A");
 	}
-	$("#closeModal").click();
+	
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -323,8 +325,11 @@ $( document ).ready(function() {
 	
 	/*===============================================================================*/
     $("#bt_reg_factura").on( "click", function(){
+		$("#closeModal").click();
 		if( checkFactura() == 0 )
 			guardarFactura();
+		else
+			$("#enl_vmsj").click();
     });
 });
 /* --------------------------------------------------------- */

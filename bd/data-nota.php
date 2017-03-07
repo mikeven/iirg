@@ -146,7 +146,7 @@
 			$exito = guardarDetalleNota( $dbh, $idn, $encabezado, $detalle );
 			if( $exito == true ){
 				$res["exito"] = 1;
-				$res["mje"] = "Registro exitoso"."Tipo: ".$encabezado->tipo;
+				$res["mje"] = "Registro exitoso";
 				$res["idr"] = $idn;	$res["tipo"] = $encabezado->tipo;
 			}else{
 				$res["exito"] = 0;

@@ -142,7 +142,9 @@
       padding: 12px 0 0 0; 
     }
 
-    #tabla_detalle_doc>thead>tr{
+    #bordeado_doble{
+      height: 5px;
+      border-top: 1px dashed #000;
       border-bottom: 1px dashed #000; 
     }
 
@@ -264,6 +266,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td colspan="5" align="left" class=""><div id="bordeado_doble"></div></td>
+                  </tr>
                   <?php foreach( $detalle_d as $item ) { ?>
                   <tr>
                     <td class="tit_tdf_i" align="left"><?php echo $item["descripcion"];?></td>

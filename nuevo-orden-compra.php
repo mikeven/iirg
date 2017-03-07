@@ -391,7 +391,9 @@
                               <!-- /.pie_ordencompra -->
                               
                               <!-- Bloque de respuesta del servidor -->
-                              <?php include("subforms/nav/mensaje_rcpf.php");?>
+                                 <button type="button" id="enl_vmsj" data-toggle="modal" 
+                                 data-target="#ventana_mensaje"></button>
+                                 <?php include("subforms/nav/mensaje_respuesta.php");?>
                               <!-- /.Bloque de respuesta del servidor -->
                            </div>
                            <!-- /.box-body -->

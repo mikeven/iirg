@@ -35,7 +35,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Registro de factura</title>
+  <title>IIRG | Crear nueva factura</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -186,7 +186,7 @@
               <!-- general form elements -->
 				<div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">REGISTRAR NUEVA FACTURA</h3>
+                  <h3 class="box-title">CREAR NUEVA FACTURA</h3>
                   <div class="icon-color nuevo-reg-icono">
                     <a href="nuevo-factura.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>

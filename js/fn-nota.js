@@ -221,6 +221,7 @@ function guardarNota(){
 		});	
 	}
 }
+/* --------------------------------------------------------- */
 function contarItems(){
 	var contitems = 0;
 	$("#dn_table input").each(function (){ 
@@ -231,6 +232,8 @@ function contarItems(){
 /* --------------------------------------------------------- */
 function checkNota(){
 	var error = 0;
+	$("#ventana_mensaje").addClass("modal-danger");
+	$("#tit_vmsj").html( "Error" );
 	
 	var tipo_nota = $("#tipofte").val();
 	
@@ -238,22 +241,19 @@ function checkNota(){
 		$("#tnota").css({'border-color' : '#ccc'});
 
 		if( $("#idCliente").val() == "" ){
-			$("#mje_error").fadeIn("slow");
-			$("#txerr").html("Debe indicar un cliente");
+			$("#tx-vmsj").html("Debe indicar un cliente");
 			$("#ncliente").css({'border-color' : '#dd4b39'});
 			error = 1;
 		}else{
 			if( contarItems() == 0 ){
-				$("#mje_error").fadeIn("slow");
-				$("#txerr").html("Debe ingresar ítems en la nota");
+				$("#tx-vmsj").html("Debe ingresar ítems en la nota");
 				error = 1;
 			}
 		}
 
 		if( tipo_nota != "nota_entrega" ){
 			if( $("#nFactura").val() == "" ){
-				$("#mje_error").fadeIn("slow");
-				$("#txerr").html("Debe hacer referencia a una factura");
+				$("#tx-vmsj").html("Debe hacer referencia a una factura");
 				$("#nFactura").css({'border-color' : '#dd4b39'});
 				$("#ndatafac").css({'border-color' : '#dd4b39'});
 				error = 1;
@@ -261,18 +261,17 @@ function checkNota(){
 			var monto_inicial = parseFloat( $("#mototalnota").val() );
 			var monto_ajuste = parseFloat( $("#ftotal").val() );
 			if( monto_ajuste > monto_inicial ){
-				$("#mje_error").fadeIn("slow");
-				$("#txerr").html("El monto de ajuste supera al valor inicial de la factura");
+				$("#tx-vmsj").html("El monto de ajuste supera al valor inicial de la factura");
 				$("#fstotal").css({'border-color' : '#dd4b39'});
 				error = 1;
 			}
 		}
 	}else{
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe seleccionar tipo de nota");
-		$("#tnota").css({'border-color' : '#dd4b39'});	
+		$("#tx-vmsj").html("Debe seleccionar tipo de nota");
+		$("#tnota").css({'border-color' : '#dd4b39'});
+		error = 1;
 	}
-	$("#closeModal").click();
+
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -458,8 +457,11 @@ $( document ).ready(function() {
 	
 	/*===============================================================================*/
     $("#bt_reg_nota").on( "click", function(){
+		$("#closeModal").click();
 		if( checkNota() == 0 )
 			guardarNota();
+		else
+			$("#enl_vmsj").click();
     });
 });
 /* --------------------------------------------------------- */

@@ -51,20 +51,22 @@ function contarItems(){
 /* --------------------------------------------------------- */
 function checkCotizacion(){
 	var error = 0;
-	if( contarItems() == 0 ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe ingresar ítems en la cotización");
-		error = 1;
-	}
-	
+	var ente_asociado = "cliente";
+	$("#ventana_mensaje").addClass("modal-danger");
+	$("#tit_vmsj").html( "Error" );
+
 	if( $("#idCliente").val() == "" ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar un cliente");
+		if( $("#tipo").val() == "solicitud" ) ente_asociado = "proveedor";
+		$("#tx-vmsj").html("Debe indicar un " + ente_asociado );
 		$("#ncliente").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
+
+	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		$("#tx-vmsj").html("Debe ingresar ítems en la cotización");
+		error = 1;
+	}
 	
-	$("#closeModal").click();
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -369,8 +371,11 @@ $( document ).ready(function() {
     });
 	/*===============================================================================*/
 	$("#bt_reg_cotizacion").on( "click", function(){
+		$("#closeModal").click();
 		if( checkCotizacion() == 0 )
 			guardarCotizacion();
+		else
+			$("#enl_vmsj").click();
     });
 });
 /* --------------------------------------------------------- */
