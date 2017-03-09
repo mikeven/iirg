@@ -49,8 +49,8 @@
     <!--<link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">-->
     <style>
     	.input-space{	width:95%; }
-		.itemtotal_detalle, .itemtotalcotizacion{ width:95%; border:0; background:#FFF; text-align:right;}
-  		.totalitem_detalle, .ftotalizacion{ width:100%; text-align:right; }
+		  .itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
+  		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
   		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
   		.iconlab{ line-height: 0; }
   		.form-group { margin-bottom: 5px; }
@@ -81,7 +81,7 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    
+    <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
     
     <script>
@@ -268,7 +268,7 @@
                                             <!-- /btn-group -->
                                             <input type="text" class="form-control" id="narticulo" readonly>
                                             <input type="hidden" id="idArticulo" value="0">
-                                            <input type="hidden" id="undart" value="0">
+                                            <input type="hidden" id="und_art" value="0">
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
@@ -282,14 +282,14 @@
                                               <!--<label for="cantidad" class="">Cantidad:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-unsorted"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fcantidad" name="cantidad" 
+                                                  <input type="text" class="form-control itemtotal" id="cantidad" name="cantidad" 
                                                   placeholder="CANT" onkeypress="return isIntegerKey(event)">
                                               </div>
                                           </div><!-- /.col -->
                                       </div><!-- /.form group -->
                                       
                                       <div class="col-md-6">
-                                        <button class="btn btn-block btn-success" type="button" id="aitemfsol">Agregar</button>
+                                        <button class="btn btn-block btn-success" type="button" id="ag_item_sc">Agregar</button>
                                       </div><!-- /.col -->
 
                                       <div class="col-md-6">
@@ -297,17 +297,17 @@
                                           <!--<label for="punit" class="">Precio unitario:</label>-->
                                           <div class="input-group">
                                               <div class="input-group-addon"><i class="fa fa-tag"></i></div>
-                                              <input type="text" class="form-control itemtotal" id="fpunit" name="punit" value="0.00" readonly>
+                                              <input type="text" class="form-control itemtotal" id="punit" name="punit" value="0.00">
                                           </div>
                                         </div><!-- /.form group -->
                                       </div><!-- /.col-md-6 -->
                                     
                                       <div class="col-md-6">
                                       	<div class="form-group" style="visibility:hidden;">
-                                              <!--<label for="punit" class="">Total item:</label>-->
+                                              <!--<label for="ptotal" class="">Total item:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tags"></i></div>
-                                                  <input type="text" class="form-control" id="fptotal" name="ptotal" 
+                                                  <input type="text" class="form-control" id="ptotal" name="ptotal" 
                                                   placeholder="Total" value="0.00" readonly>
                                               </div>
                                         </div><!-- /.form group -->
@@ -329,8 +329,8 @@
                                     
                                     <div class="box box-primary">	
                                         <div class="box-body">
-                                        	<input id="itemcont" name="contadoritems" type="hidden" value="0">
-                                            <table class="table table-condensed" id="df_table">
+                                        	<input id="cont_item" name="contadoritems" type="hidden" value="0">
+                                            <table class="table table-condensed" id="tdetalle">
                                                 <tbody>
                                                     <tr>
                                                         <th width="45%" class="tit_tdf_i">Descripción</th>
@@ -348,7 +348,8 @@
                                 </div><!--/.detalle_cotizacion-->
                                 <input id="cvalidez" name="validez" type="hidden" value="">
                                 <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                <input id="ftotal" name="ivap" type="hidden" value="0.00" >
+                                <input id="v_iva" name="ivap" type="hidden" value="0.00" >
+                                <input id="total" name="total" type="hidden" value="0.00" >
                                 <!--<div class="row" id="pie_cotizacion">
                                 	<table class="table table-condensed" id="pietabla_table">
                                         <tbody>
@@ -385,7 +386,7 @@
                                                 	<div id="fac_total" class="ftotalizacion">
                                                     	<div class="input-group">
                                                     		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                            id="ftotal" value="0.00" readonly>
+                                                            id="total" value="0.00" readonly>
                                                 		</div>
                                                 	</div>
                                                 </th>

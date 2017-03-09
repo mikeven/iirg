@@ -40,20 +40,12 @@ function stopRKey(evt) {
 	if ((evt.keyCode == 13) && (node.type=="text")) {return false;}
 }
 document.onkeypress = stopRKey; 
-/* --------------------------------------------------------- */
-function contarItems(){
-	var contitems = 0;
-	$("#df_table input").each(function (){ 
-		contitems++;
-	});
-	return contitems;
-}
+/* --------------------------------------------------------- *
 /* --------------------------------------------------------- */
 function checkCotizacion(){
 	var error = 0;
 	var ente_asociado = "cliente";
-	$("#ventana_mensaje").addClass("modal-danger");
-	$("#tit_vmsj").html( "Error" );
+	
 
 	if( $("#idCliente").val() == "" ){
 		if( $("#tipo").val() == "solicitud" ) ente_asociado = "proveedor";
@@ -65,6 +57,11 @@ function checkCotizacion(){
 	if( ( contarItems() == 0 ) && ( error == 0 ) ){
 		$("#tx-vmsj").html("Debe ingresar ítems en la cotización");
 		error = 1;
+	}
+
+	if( error == 1 ){
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
 	}
 	
 	return error;	
@@ -103,13 +100,13 @@ function obtenerVectorEncabezado(){
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
-	encabezado.total = $( '#ftotal' ).val();
+	encabezado.total = parseFloat( $( '#total' ).val() );
 	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function obtenerEnlaceRCTZCreado(id){
+function obtenerEnlaceRCTZCreado( id ){
 	var ndoc = $("#ncotiz").val();
 	var enl = "documento.php?tipo_documento=ctz&id=" + id;
 	var ico = "<i class='fa fa-file-text fa-2x'></i>";
@@ -123,30 +120,20 @@ function obtenerEnlaceRCTZCreado(id){
 function guardarCotizacion(){
 		
 	cencabezado = obtenerVectorEncabezado();
+	console.log(cencabezado);
 	cdetalle = obtenerVectorDetalleC();
 	
 	$.ajax({
 		type:"POST",
 		url:"bd/data-cotizacion.php",
 		data:{ encabezado: cencabezado, detalle: cdetalle, reg_cotizacion : 1 },
-		beforeSend: function () {
-			//$("#waitconfirm").html("Espere...");
-			$("#bt_reg_cotizacion").fadeOut(200);
+		beforeSend: function () {			
+			$("#bt_reg_cotizacion").fadeOut( 200 );
 		},
 		success: function( response ){
+			//console.log(response);
 			res = jQuery.parseJSON(response);
-			//$("#response_server").html(response);
-			if( res.exito == '1' ){
-				$("#ventana_mensaje").addClass("modal-success");
-				$("#tit_vmsj").html( res.mje );
-				$("#tx-vmsj").html( obtenerEnlaceRCTZCreado(res.idr) );
-				$("#enl_vmsj").click();
-			}
-			if( res.exito == '0' ){
-				$("#ventana_mensaje").addClass("modal-danger");
-				$("#tx-vmsj").html(res.mje);
-				$("#enl_vmsj").click();
-			}
+			ventanaMensaje( res.exito, res.mje, obtenerEnlaceRCTZCreado( res.idr ) );
 		}
 	});
 }
@@ -165,6 +152,7 @@ function isIntegerKey(evt){
 	return true;
 }
 /* --------------------------------------------------------- */
+/*
 function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
 	var clase = "";
 	
@@ -175,12 +163,10 @@ function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
 	
 	return campo;
 }
-/* --------------------------------------------------------- */
 function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
 	var campo = "<input id='" + id + "' name='" + nombre + "' type='hidden' value='" + valor + "' data-nitem='" + nitem + "'>";
 	return campo;
 }
-/* --------------------------------------------------------- */
 function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
 	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'" );
 	
@@ -207,7 +193,6 @@ function agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot ){
 	resetItemsCotizacion();
 	calcularTotales();
 }
-/* --------------------------------------------------------- */
 function calcularTotales(){
 	var subtotal = parseFloat( 0 );
 	$(".montoacum").each(function (){ 
@@ -221,7 +206,6 @@ function calcularTotales(){
 	$("#fiva").val( piva.toFixed( 2 ) );
 	$("#ftotal").val( total.toFixed( 2 ) );	
 }
-/* --------------------------------------------------------- */
 function resetItemsCotizacion(){
 	$("#narticulo").val("");
 	$("#idArticulo").val( 0 );
@@ -229,14 +213,12 @@ function resetItemsCotizacion(){
 	$("#fpunit").val( (0.00).toFixed( 2 ) );
 	$("#fptotal").val( 0.00 );
 }
-/* --------------------------------------------------------- */
 function elimItemF( fila ){
 	$( fila ).hide('slow', function(){ 
 		$( fila ).remove(); 
 		calcularTotales(); 
 	});
 }
-/* --------------------------------------------------------- */
 function actItemF( itemf ){
 	
 	var nitem = $(itemf).attr("data-nitem");
@@ -248,9 +230,8 @@ function actItemF( itemf ){
 	$("#idfpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
 	calcularTotales();
 }
-/* --------------------------------------------------------- */
 function checkItemForm( idart, punit, qant ){
-	/* Validación para agregar ítems a los detalles de la cotización */
+	
 	var valido = 1;
 
 	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
@@ -265,9 +246,9 @@ function checkItemForm( idart, punit, qant ){
 		else $("#fptotal").css({'border-color' : '#ccc'});
 
 	return valido;
-}
+}*/
 /* --------------------------------------------------------- */
-function checkItemFormSolicitud( idart, punit, qant ){
+function checkItemFormSolicitud( idart, qant ){
 	/* Validación para agregar ítems a los detalles de la solicitud de cotización */
 	var valido = 1;
 
@@ -292,12 +273,8 @@ $( document ).ready(function() {
 	
 	$("#mje_confirmacion").html( "¿Confirmar registro?" );
 	$("#btn_confirm").attr("id", "bt_reg_cotizacion");
-	$("#enl_oculto").hide();
+	//$("#enl_oculto").hide();
 
-	$(".alert-danger").click( function(){
-		$(this).hide("slow");
-    });
-	
 	/* Asignación de etiqueta de Nombre de cliente en encabezado de cotización al seleccionarlo de la lista de clientes*/
 	$(".item_cliente_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
@@ -324,20 +301,20 @@ $( document ).ready(function() {
 		$("#narticulo").val( texto );
 		$("#idArticulo").val( $(this).attr("data-ida") );
 		$("#narticulo").css({'border-color' : '#ccc'});
-		$("#undart").val( $(this).attr("data-und") );
+		$("#und_art").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
 	
 	/* Asignación de la etiqueta total en monto de ítem al actualizar los campos de cantidad o precio unitario (encabezado)*/
-	$(".itemtotal").on( "blur keyup", function(){
+	/*$(".itemtotal").on( "blur keyup", function(){
 		var cant = $("#fcantidad").val(); 
 		var punit = $("#fpunit").val();
 		
 		$( "#fptotal" ).val( ( cant * punit ).toFixed( 2 ) );
-    });
+    });*/
 	
 	
-	/* Adición de ítems a los detalles de la cotización */
+	/*
 	$("#aitemf").click( function(){
 		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
 		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
@@ -346,19 +323,20 @@ $( document ).ready(function() {
 		
 		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
-		}
-		
-    });
+		}		
+    });*/
 	
 	/* Adición de ítems a los detalles de la solicitud de cotización */
-	$("#aitemfsol").click( function(){
+	$("#ag_item_sc").click( function(){
 		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
-		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
-		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
+		var punit = $("#punit").val();		var qant = $("#cantidad").val(); 
+		var ptot = $("#ptotal").val();		var nitem = $("#cont_item").val();	
+		var und = $("#und_art").val();	
+		//alert( $("#punit").val() );
 		nitem++;
 		
-		if( checkItemFormSolicitud( idart, punit, qant ) == 1 ){	
-			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
+		if( checkItemFormSolicitud( idart, qant ) == 1 ){	
+			agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );	
 		}
     });
 	

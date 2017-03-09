@@ -38,7 +38,7 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
-function obtenerVectorDetalleF(){
+/*function obtenerVectorDetalleF(){
 	var detallef = new Array();
 	var renglon = new Object();
 	
@@ -52,15 +52,15 @@ function obtenerVectorDetalleF(){
 		}
 	});
 	return JSON.stringify( detallef );
-}
+}*/
 /* --------------------------------------------------------- */
-function obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva ){
+function obtenerVectorEncabezado(){
 	encabezado = new Object();
-	encabezado.numero = numero;
-	encabezado.noc = noc;
-	encabezado.idpedido = idpedido;
-	encabezado.idcliente = idcliente;
-	encabezado.femision = femision;
+	encabezado.numero = $( '#nfactura' ).val();
+	encabezado.noc = $( '#fordc' ).val();
+	encabezado.idpedido = $( '#idPedido' ).val();
+	encabezado.idcliente = $( '#idCliente' ).val();
+	encabezado.femision = $( '#femision' ).val();
 	encabezado.idu = $( '#idu_sesion' ).val();
 
 	encabezado.introduccion = $( '#tentrada' ).val();
@@ -69,8 +69,8 @@ function obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, to
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
-	encabezado.total = total;
-	encabezado.iva = iva;
+	encabezado.total = $( '#total' ).val().replace(",", ".");
+	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
@@ -89,7 +89,7 @@ function isIntegerKey(evt){
 	return true;
 }
 /* --------------------------------------------------------- */
-function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
+/*function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
 	var clase = "";
 	if( param == "readonly" ) clase = "montoacum";
 	var campo = "<div class='input-group input-space'><input id='" + id + "' name='" + nombre 
@@ -97,12 +97,12 @@ function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
 					"' value='" + valor + "' data-nitem='" + nitem + "' " + param + "></div>";
 	
 	return campo;
-}
+}*/
 /* --------------------------------------------------------- */
-function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
+/*function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
 	var campo = "<input id='" + id + "' name='" + nombre + "' type='hidden' value='" + valor + "' data-nitem='" + nitem + "'>";
 	return campo;
-}
+}*/
 /* --------------------------------------------------------- */
 function agregarItemFactura( nitem, idart, art, qant, und, punit, ptot ){
 	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
@@ -127,7 +127,7 @@ function agregarItemFactura( nitem, idart, art, qant, und, punit, ptot ){
 	calcularTotales();
 }
 /* --------------------------------------------------------- */
-function calcularTotales(){
+/*function calcularTotales(){
 	var subtotal = parseFloat( 0 );
 	$(".montoacum").each(function (){ 
 		subtotal = parseFloat( $(this).val() ) + subtotal;
@@ -139,7 +139,7 @@ function calcularTotales(){
 	$("#fstotal").val( subtotal.toFixed( 2 ) );
 	$("#fiva").val( piva.toFixed( 2 ) );
 	$("#ftotal").val( total.toFixed( 2 ) );	
-}
+}*/
 /* --------------------------------------------------------- */
 function resetItemsCotizacion(){
 	$("#narticulo").val("");
@@ -156,7 +156,7 @@ function elimItemF( fila ){
 	});
 }
 /* --------------------------------------------------------- */
-function actItemF( itemf ){
+/*function actItemF( itemf ){
 	
 	var nitem = $(itemf).attr("data-nitem");
 	
@@ -166,7 +166,7 @@ function actItemF( itemf ){
 	
 	$("#idfpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
 	calcularTotales();
-}
+}*/
 /* --------------------------------------------------------- */
 function obtenerEnlaceRFACCreado(id){
 	var ndoc = $("#nfactura").val();
@@ -181,19 +181,14 @@ function obtenerEnlaceRFACCreado(id){
 /* --------------------------------------------------------- */
 function guardarFactura(){
 	
-	var idcliente = $( '#idCliente' ).val();
-	var numero = $( '#nfactura' ).val();
-	var noc = $( '#fordc' ).val();
-	var idpedido = $( '#idPedido' ).val();
-	var femision = $( '#femision' ).val();
-	var total = $( '#ftotal' ).val().replace(",", ".");
-	var iva = $( '#iva' ).val();
-	
+	idcliente = $( '#idCliente' ).val();
+	total = $( '#total' ).val().replace(",", ".");
+
 	if( idcliente != "" && total != "" && total != 0.00 ){
 		
-		fencabezado = obtenerVectorEncabezado( numero, noc, idpedido, idcliente, femision, total, iva );
-		fdetalle = obtenerVectorDetalleF();
-	
+		fencabezado = obtenerVectorEncabezado();
+		fdetalle = obtenerVectorDetalle(); 	// fn-documento.js
+		//console.log(fdetalle);
 		$.ajax({
 			type:"POST",
 			url:"bd/data-factura.php",
@@ -204,13 +199,12 @@ function guardarFactura(){
 			},
 			success: function( response ){
 				res = jQuery.parseJSON(response);
-				//$("#waitconfirm").html(response);
+				//console.log(response);
 				if( res.exito == '1' ){
 					$("#ventana_mensaje").addClass("modal-success");
 					$("#tit_vmsj").html( res.mje );
 					$("#tx-vmsj").html( obtenerEnlaceRFACCreado(res.idr) );
 					$("#enl_vmsj").click();
-					
 				}
 				if( res.exito == '0' ){
 					$("#ventana_mensaje").addClass("modal-danger");
@@ -219,23 +213,20 @@ function guardarFactura(){
 				}
 			}
 		});	
-	}
-	
+	}	
 }
-function contarItems(){
+/* --------------------------------------------------------- */
+/*function contarItems(){
 	var contitems = 0;
 	$("#df_table input").each(function (){ 
 		contitems++;
 	});
 	return contitems;
-}
+}*/
 /* --------------------------------------------------------- */
 function checkFactura(){
 	
 	var error = 0; 
-	
-	$("#ventana_mensaje").addClass("modal-danger");
-	$("#tit_vmsj").html( "Error" );
 	
 	if( $("#idCliente").val() == "" ){
 		$("#tx-vmsj").html("Debe indicar un cliente");
@@ -251,11 +242,14 @@ function checkFactura(){
 	if( $("#fordc").val() == "" ){
 		$("#fordc").val("N/A");
 	}
-	
+	if( error == 1 ){
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
 	return error;	
 }
 /* --------------------------------------------------------- */
-function checkItemForm( idart, punit, qant ){
+function checkItemForm_X( idart, punit, qant ){
 	var valido = 1;
 
 	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
@@ -272,7 +266,14 @@ function checkItemForm( idart, punit, qant ){
 	return valido;
 }
 /* --------------------------------------------------------- */
+function formatNumber( monto ){
+	return monto.replace(/\D/g, "")
+	.replace(/([0-9])([0-9]{2})$/, '$1,$2')
+	.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+}
+
 $( document ).ready(function() {
+
 	$("#titulo_emergente").html("Guardar Factura");
 	$("#mje_confirmacion").html("¿Confirmar registro?");
 	$("#btn_confirm").attr("id", "bt_reg_factura");
@@ -301,27 +302,28 @@ $( document ).ready(function() {
 		$("#narticulo").val( texto );
 		$("#narticulo").css({'border-color' : '#ccc'});
 		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#undart").val( $(this).attr("data-und") );
+		$("#und_art").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
 	
-	$(".itemtotal").on( "blur keyup", function(){
+	/*$(".itemtotal").on( "blur keyup", function(){
 		var cant = $("#fcantidad").val(); 
 		var punit = $("#fpunit").val();
 		
 		$( "#fptotal" ).val( ( cant * punit ).toFixed( 2 ) );
-    });
+    });*/
 	
-	$("#aitemf").click( function(){
+	/*$("#aitem").click( function(){
 		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
-		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
-		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
+		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); 
+		var ptot = $("#fptotal").val();
+		var nitem = $("#itemcont").val();	var und = $("#und_art").val();	
 		nitem++;
 		
 		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			agregarItemFactura( nitem, idart, art, qant, und, punit, ptot );	
 		}
-    });
+    });*/
 	
 	/*===============================================================================*/
     $("#bt_reg_factura").on( "click", function(){

@@ -27,7 +27,7 @@
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
   else 
-    { $iva = 0.12; $eiva = $iva * 100; }
+    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 	
 ?>
 <!DOCTYPE html>
@@ -63,8 +63,8 @@
     .input-space{
 		  width:95%;
 		}
-		.itemtotal_detalle, .itemtotalcotizacion{ width:95%; border:0; background:#FFF; text-align:right;}
-		.totalitem_detalle, .ftotalizacion{ width:100%; text-align:right; }
+		.itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
+		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
 		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
 		.iconlab{ line-height: 0; }
 		.form-group { margin-bottom: 5px; }
@@ -95,7 +95,7 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    
+    <script src="js/fn-documento.js"></script>
     <script src="js/fn-factura.js"></script>
     
     <script>
@@ -287,7 +287,7 @@
                                             <!-- /btn-group -->
                                             <input type="text" class="form-control" id="narticulo" readonly>
                                             <input type="hidden" id="idArticulo" value="0">
-                                            <input type="hidden" id="undart" value="0">
+                                            <input type="hidden" id="und_art" value="0">
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
@@ -300,7 +300,7 @@
                                               <!--<label for="cantidad" class="">Cantidad:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-unsorted"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fcantidad" name="cantidad" 
+                                                  <input type="text" class="form-control itemtotal" id="cantidad" name="cantidad" 
                                                   placeholder="CANT" onkeypress="return isIntegerKey(event)">
                                               </div>
                                           </div><!-- /.col -->
@@ -310,7 +310,7 @@
                                               <!--<label for="punit" class="">Precio unitario:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tag"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fpunit" name="punit" 
+                                                  <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
                                           </div><!-- /.form group -->
@@ -321,18 +321,19 @@
                                               <!--<label for="punit" class="">Total item:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tags"></i></div>
-                                                  <input type="text" class="form-control" id="fptotal" name="ptotal" 
+                                                  <input type="text" class="form-control" id="ptotal" name="ptotal" 
                                                   placeholder="Total" value="0.00" readonly>
                                               </div>
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                       <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="aitemf">Agregar</button>
+                                      	<button class="btn btn-block btn-success" type="button" id="ag_item">Agregar</button>
                                       </div><!-- /.col -->
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
                             </div>
                         
+                        <div id="testing"></div>
                         </div><!-- /.encabezado_factura -->
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
@@ -344,26 +345,26 @@
                                   <div id="detalle_factura">
                                       <div class="box box-primary">	
                                           <div class="box-body">
-                                          	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
-                                              <table class="table table-condensed" id="df_table">
-                                                  <tbody>
-                                                      <tr>
-                                                          <th width="45%" class="tit_tdf_i">Descripción</th>
-                                                          <th width="10%" class="tit_tdf">Cantidad</th>
-                                                          <th width="10%" class="tit_tdf">UND</th>
-                                                          <th width="15%" class="tit_tdf">Precio Unit</th>
-                                                          <th width="15%" class="tit_tdf">Total item</th>
-                                                          <th width="5%" class="tit_tdf"></th>
-                                                      </tr>
-                                                      <?php 
-                                                        if(isset( $pedido )) {
-                                                          $ni = 0; 
-                                                          foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumentoFactura( $item, $ni );
-                                                        }
-                                                      }?>
-                                                  </tbody>
-                                              </table>
+                                          	<input id="cont_item" name="contador_items" type="hidden" value="<?php echo $nitems?>">
+                                            <table class="table table-condensed" id="tdetalle">
+                                                <tbody>
+                                                    <tr>
+                                                        <th width="45%" class="tit_tdf_i">Descripción</th>
+                                                        <th width="10%" class="tit_tdf">Cantidad</th>
+                                                        <th width="10%" class="tit_tdf">UND</th>
+                                                        <th width="15%" class="tit_tdf">Precio Unit</th>
+                                                        <th width="15%" class="tit_tdf">Total item</th>
+                                                        <th width="5%" class="tit_tdf"></th>
+                                                    </tr>
+                                                    <?php 
+                                                      if(isset( $pedido )) {
+                                                        $ni = 0; 
+                                                        foreach( $detalle as $item ){ $ni++;
+                                                          echo mostrarItemDocumentoFactura( $item, $ni );
+                                                      }
+                                                    }?>
+                                                </tbody>
+                                            </table>
                                           </div>
                                       </div>
                                       					
@@ -376,10 +377,10 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">SubTotal</th>
                                                   <th width="15%">
-                                                  	<div id="fsub_total" class="ftotalizacion">
+                                                  	<div id="fsub_total" class="totalizacion">
                                                       	<div class="input-group">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fstotal" value="<?php if(isset( $pedido )) echo $totales["subtotal"]?>" readonly>
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="subtotal" value="<?php if(isset( $pedido )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -389,11 +390,11 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
                                                   <th width="15%">
-                                                  	<div id="fimpuesto" class="ftotalizacion">
+                                                  	<div id="impuesto" class="totalizacion">
                                                       	<div class="input-group">
                                                           	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fiva" value="<?php if(isset( $pedido )) echo $totales["iva"]?>" readonly>
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="v_iva" value="<?php if(isset( $pedido )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -402,10 +403,10 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">Total</th>
                                                   <th width="15%">
-                                                  	  <div id="fac_total" class="ftotalizacion">
+                                                  	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="ftotal" value="<?php if(isset( $pedido )) echo $totales["total"]?>" readonly>
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="total" value="<?php if(isset( $pedido )) echo $totales["total"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
