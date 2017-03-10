@@ -2,6 +2,31 @@
 	/* R&G - Complemento funcional de documento.php */
 	/*---------------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------------------------------------------------------------------*/
+	function arrRespuesta( $doc, $ndoc ){
+		
+		$params_documento = array(
+			"solicitud_ctz"	=> array (
+								"param" => "sctz", "etiqueta" => "Sol. cotización"
+							),
+			"cotizacion"	=> array (
+								"param" => "ctz", "etiqueta" => "Cotización"
+							),
+			"factura"		=> array (
+								"param" => "sctz", "etiqueta" => "Sol. cotización"
+							),
+			"orden_compra"	=> array (
+								"param" => "odc", "etiqueta" => "Orden de compra"
+							),
+			"nota"			=> array (
+								"param" => "nota", "etiqueta" => "Nota"
+							)
+		);
+
+		$doc->frm_r = $params_documento[$ndoc];
+
+		return $doc;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
 	    $id = $_GET["id"];
 	    $tdd = $_GET["tipo_documento"]; 

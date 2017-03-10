@@ -176,6 +176,17 @@ function formatearMonto( monto ){
 	.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
 }
 /* --------------------------------------------------------- */
+function obtenerEnlaceDocumentoCreado( documento, frt ){
+	//var frm = dataUrlDoc( documento, tipo );
+	var enl = "documento.php?tipo_documento=" + frt.param + "&id=" + documento.idr;
+	var ico = "<i class='fa fa-file-text fa-2x'></i>";
+
+	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
+	ico + frt.etiqueta + " #" + documento.numero + "</a>";
+
+	return e_enl;
+}
+/* --------------------------------------------------------- */
 function ventanaMensaje( exito, mensaje, enlace ){
 	var clase_m = ["modal-danger", "modal-success"];
 	if( exito == '1' )
@@ -205,7 +216,8 @@ $( document ).ready(function() {
 		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
 		var punit = parseFloat( $("#punit").val() ).toFixed( 2 );		
 		var qant = $("#cantidad").val(); 	var ptot = $("#ptotal").val();		
-		var nitem = $("#cont_item").val(); 	var und = $("#und_art").val();	
+		var nitem = $("#cont_item").val(); 	var und = $("#und_art").val();
+		nitem++;	
 		
 		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );	

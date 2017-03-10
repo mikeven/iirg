@@ -52,10 +52,9 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalleOC( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de orden de compra
-		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
-		$ptotal = $item->dfcant * $item->dfpunit;
+		$ptotal = $item->dcant * $item->dpunit;
 		$q = "insert into detalleordencompra ( idOrden, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
-		values ( $idc, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
+		values ( $idc, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 		return mysql_insert_id();
@@ -94,6 +93,7 @@
 	//Registro de nueva orden de compra
 	if( isset( $_POST["reg_orden_compra"] ) ){
 		include( "bd.php" );
+		include( "../fn/fn-documento.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
@@ -103,7 +103,9 @@
 			$exito = guardarDetalleOrdenCompra( $dbh, $ido, $detalle, $encabezado->iva );
 			if( $exito == true ){
 				$res["exito"] = 1;
-				$res["mje"] = "Registro exitoso";
+				$res["mje"] = "Registro exitoso"; 
+				$encabezado->idr = $ido;
+				$res["documento"] = arrRespuesta( $encabezado, "orden_compra" ); 
 			}else{
 				$res["exito"] = 0;
 				$res["mje"] = "Error al registrar detalle de orden de compra";

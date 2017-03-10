@@ -45,7 +45,6 @@ document.onkeypress = stopRKey;
 function checkCotizacion(){
 	var error = 0;
 	var ente_asociado = "cliente";
-	
 
 	if( $("#idCliente").val() == "" ){
 		if( $("#tipo").val() == "solicitud" ) ente_asociado = "proveedor";
@@ -68,7 +67,7 @@ function checkCotizacion(){
 }
 /* --------------------------------------------------------- */
 function obtenerVectorDetalleC(){
-	var detallef = new Array();
+	var detalle = new Array();
 	var renglon = new Object();
 	
 	$("#df_table input").each(function (){ 
@@ -81,7 +80,7 @@ function obtenerVectorDetalleC(){
 			renglon = new Object();
 		}
 	});
-	return JSON.stringify( detallef );
+	return JSON.stringify( detalle );
 }
 /* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
@@ -106,13 +105,27 @@ function obtenerVectorEncabezado(){
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function obtenerEnlaceRCTZCreado( id ){
+function dataUrlDoc( tipo ){
+	frm = new Array();
+	if(tipo == "solicitud"){
+		frm["param"] = "sctz";
+		frm["etiqueta"] = "Sol. de cotización";
+	}else{
+		frm["param"] = "ctz";
+		frm["etiqueta"] = "Cotización";
+	}
+
+	return frm;
+}
+/* --------------------------------------------------------- */
+function obtenerEnlaceRCTZCreado( id, tipo ){
 	var ndoc = $("#ncotiz").val();
-	var enl = "documento.php?tipo_documento=ctz&id=" + id;
+	var frm = dataUrlDoc( tipo );
+	var enl = "documento.php?tipo_documento=" + frm["param"] + "&id=" + id;
 	var ico = "<i class='fa fa-file-text fa-2x'></i>";
 
 	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
-	ico + " Cotización #" + ndoc + "</a>";
+	ico + frm["etiqueta"] + " #" + ndoc + "</a>";
 
 	return e_enl;
 }
@@ -120,7 +133,6 @@ function obtenerEnlaceRCTZCreado( id ){
 function guardarCotizacion(){
 		
 	cencabezado = obtenerVectorEncabezado();
-	console.log(cencabezado);
 	cdetalle = obtenerVectorDetalleC();
 	
 	$.ajax({
@@ -133,23 +145,9 @@ function guardarCotizacion(){
 		success: function( response ){
 			//console.log(response);
 			res = jQuery.parseJSON(response);
-			ventanaMensaje( res.exito, res.mje, obtenerEnlaceRCTZCreado( res.idr ) );
+			ventanaMensaje( res.exito, res.mje, obtenerEnlaceRCTZCreado( res.idr, res.tipo ) );
 		}
 	});
-}
-/* --------------------------------------------------------- */
-function isNumberKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode != 46 && charCode > 31 && ( charCode < 48 || charCode > 57 ))
-		return false;
-	return true;
-}
-
-function isIntegerKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode < 48 || charCode > 57 )
-		return false;
-	return true;
 }
 /* --------------------------------------------------------- */
 /*
@@ -294,7 +292,7 @@ $( document ).ready(function() {
 		$("#nproveedor").css({'border-color' : '#ccc'});
 		$("#xmodalproveedor").click();
     });
-	
+	/* --------------------------------------------------------- */
 	/* Asignación de etiqueta de Nombre de artículo en encabezado de cotización al seleccionarlo de la lista de artículos*/
 	$(".item_articulo_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
@@ -304,28 +302,7 @@ $( document ).ready(function() {
 		$("#und_art").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
-	
-	/* Asignación de la etiqueta total en monto de ítem al actualizar los campos de cantidad o precio unitario (encabezado)*/
-	/*$(".itemtotal").on( "blur keyup", function(){
-		var cant = $("#fcantidad").val(); 
-		var punit = $("#fpunit").val();
-		
-		$( "#fptotal" ).val( ( cant * punit ).toFixed( 2 ) );
-    });*/
-	
-	
-	/*
-	$("#aitemf").click( function(){
-		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
-		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
-		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
-		nitem++;
-		
-		if( checkItemForm( idart, punit, qant ) == 1 ){	
-			agregarItemCotizacion( nitem, idart, art, qant, und, punit, ptot );	
-		}		
-    });*/
-	
+	/* --------------------------------------------------------- */
 	/* Adición de ítems a los detalles de la solicitud de cotización */
 	$("#ag_item_sc").click( function(){
 		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
@@ -339,7 +316,6 @@ $( document ).ready(function() {
 			agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );	
 		}
     });
-	
 	/* --------------------------------------------------------- */
 	/* Asignación de la etiqueta de validez de la cotización ( pie de documento ) */
 	$("#cvalidez").on( "change", function(){

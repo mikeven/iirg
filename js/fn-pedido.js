@@ -177,7 +177,7 @@ function guardarPedido(){
 	var numero = $( '#npedido' ).val();
 	var idcotiz = $( '#idCotizacion' ).val();
 	var femision = $( '#femision' ).val();
-	var total = $( '#ftotal' ).val().replace(",", ".");
+	var total = $( '#total' ).val();
 	var iva = $( '#iva' ).val();
 	
 	if( idcliente != "" && total != "" && total != 0.00 ){

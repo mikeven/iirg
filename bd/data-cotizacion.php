@@ -140,6 +140,7 @@
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";
 				$res["idr"] = $idc;
+				$res["tipo"] = $encabezado->tipo;
 			}else{
 				$res["exito"] = 0;
 				$res["mje"] = "Error al registrar detalle de cotización";
