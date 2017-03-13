@@ -7,7 +7,7 @@
 /* --------------------------------------------------------- */
 function initValid(){
   
-	$('#frm_ncotizacion').bootstrapValidator({
+	$('#frm_npedido').bootstrapValidator({
 		message: 'Revise el contenido del campo',
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',
@@ -41,28 +41,12 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
-function obtenerVectorDetalleP(){
-	var detallef = new Array();
-	var renglon = new Object();
-	
-	$("#dp_table input").each(function (){ 
-		name = $(this).attr("name");
-		renglon["" + name + ""] = $(this).val();
-
-		if( name == "dfptotal" ){
-			detallef.push( renglon );
-			renglon = new Object();
-		}
-	});
-	return JSON.stringify( detallef );
-}
-/* --------------------------------------------------------- */
 function obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, iva ){
 	encabezado = new Object();
-	encabezado.numero = numero;
-	encabezado.idcotiz = idcotiz;
-	encabezado.idcliente = idcliente;
-	encabezado.femision = femision;
+	encabezado.numero = $( '#npedido' ).val();
+	encabezado.idcotiz = $( '#idCotizacion' ).val();
+	encabezado.idcliente = $( '#idCliente' ).val();
+	encabezado.femision = $( '#femision' ).val();
 	encabezado.idu = $( '#idu_sesion' ).val();
 
 	encabezado.introduccion = $( '#tentrada' ).val();
@@ -71,168 +55,62 @@ function obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, i
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
-	encabezado.total = total;
-	encabezado.iva = iva;
+	encabezado.total = $( '#total' ).val();
+	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function isNumberKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode != 46 && charCode > 31 && ( charCode < 48 || charCode > 57 ))
-		return false;
-	return true;
-}
-
-function isIntegerKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode < 48 || charCode > 57 )
-		return false;
-	return true;
-}
-/* --------------------------------------------------------- */
-function obtenerItemDCotizacion( nitem, valor, id, nombre, param ){
-	var clase = "";
-	if( param == "readonly" ) clase = "montoacum";
-	var campo = "<div class='input-group input-space'><input id='" + id + "' name='" + nombre 
-					+ "' type='text' class='form-control itemtotal_detalle input-sm " + clase + 
-					"' value='" + valor + "' data-nitem='" + nitem + "' " + param + "></div>";
-	
-	return campo;
-}
-/* --------------------------------------------------------- */
-function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
-	var campo = "<input id='" + id + "' name='" + nombre + "' type='hidden' value='" + valor + "' data-nitem='" + nitem + "'>";
-	return campo;
-}
-/* --------------------------------------------------------- */
-function agregarItemPedido( nitem, idart, art, qant, und, punit, ptot ){
-	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
-	c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
-	c_ptot = obtenerItemDCotizacion( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly", "text" );
-	c_und = obtenerItemDCotizacion( nitem, und, "idfund_" + nitem, "dfund", "", "text" );
-	
-	c_idart = obtenerCampoOcultoIF( "idarticulo_" + nitem, "idart", idart, nitem );
-	c_nart = obtenerCampoOcultoIF( "ndarticulo_" + nitem, "nart", art, nitem );
-	id_bot_elim = "it" + nitem; $("#itemcont").val( nitem );
-	 
-	var itemf = "<tr style='display: none;' id='"+ id_bot_elim + "'><th>" +
-				art + c_idart + c_nart + "</th><th>" +
-				c_qant + "</th><th>" +
-				c_und + "</th><th>" +
-				c_punit + "</th><th>" +
-				c_ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onClick='elimItemF("+ id_bot_elim +")'>"+
-				"<i class='fa fa-times'></i></button></th></tr>";
-	
-	//alert(itemf);
-	$( itemf ).appendTo("#dp_table tbody").show("slow");
-	resetItemsCotizacion();
-	calcularTotales();
-}
-/* --------------------------------------------------------- */
-function calcularTotales(){
-	var subtotal = parseFloat( 0 );
-	$(".montoacum").each(function (){ 
-		subtotal = parseFloat( $(this).val() ) + subtotal;
-	});
-	
-	var piva = subtotal * $("#iva").val();
-	var total = subtotal + parseFloat( piva );
-	
-	$("#fstotal").val( subtotal.toFixed( 2 ) );
-	$("#fiva").val( piva.toFixed( 2 ) );
-	$("#ftotal").val( total.toFixed( 2 ) );	
-}
-/* --------------------------------------------------------- */
-function resetItemsCotizacion(){
-	$("#narticulo").val("");
-	$("#idArticulo").val( 0 );
-	$("#fcantidad").val( "" );
-	$("#fpunit").val( "" );
-	$("#fptotal").val( 0.00 );
-}
-/* --------------------------------------------------------- */
-function elimItemF( fila ){
-	$( fila ).hide('slow', function(){ 
-		$( fila ).remove(); 
-		calcularTotales(); 
-	});
-}
-/* --------------------------------------------------------- */
-function actItemF( itemf ){
-	
-	var nitem = $(itemf).attr("data-nitem");
-	
-	var qant = $("#idfq_" + nitem ).val();
-	var punit = $("#idfpu_" + nitem ).val();
-	var ptot = $("#idfpt_" + nitem ).val();
-	
-	$("#idfpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
-	calcularTotales();
-}
-/* --------------------------------------------------------- */
 function guardarPedido(){
-	
-	var idcliente = $( '#idCliente' ).val();
-	var numero = $( '#npedido' ).val();
-	var idcotiz = $( '#idCotizacion' ).val();
-	var femision = $( '#femision' ).val();
-	var total = $( '#total' ).val();
-	var iva = $( '#iva' ).val();
-	
-	if( idcliente != "" && total != "" && total != 0.00 ){
 		
-		pencabezado = obtenerVectorEncabezado( numero, idcotiz, idcliente, femision, total, iva );
-		pdetalle = obtenerVectorDetalleP();
-	
-		$.ajax({
-			type:"POST",
-			url:"bd/data-pedido.php",
-			data:{ encabezado: pencabezado, detalle: pdetalle, reg_pedido : 1 },
-			beforeSend: function () {
-				//$("#waitconfirm").html("Espere...");
-				$("#bt_reg_pedido").fadeOut(200);
-			},
-			success: function( response ){
-				res = jQuery.parseJSON(response);
-				//$("#waitconfirm").html(response);
-				if( res.exito == '1' ){
-					$("#txexi").html(res.mje);
-					$("#mje_exito").show();
-				}
-				if( res.exito == '0' ){
-					$("#mje_error").show();
-					$("#txerr").html(res.mje);
-				}
-				//$("#waitconfirm").html(response);
-			}
-		});	
-	}
-	
-}
-/* --------------------------------------------------------- */
-function contarItems(){
-	var contitems = 0;
-	$("#dp_table input").each(function (){ 
-		contitems++;
-	});
-	return contitems;
+	pencabezado = obtenerVectorEncabezado();
+	pdetalle = obtenerVectorDetalle();
+	console.log(pdetalle);
+	$.ajax({
+		type:"POST",
+		url:"bd/data-pedido.php",
+		data:{ encabezado: pencabezado, detalle: pdetalle, reg_pedido : 1 },
+		beforeSend: function () {
+			$("#bt_reg_pedido").fadeOut(200);
+		},
+		success: function( response ){
+			console.log(response);
+			res = jQuery.parseJSON(response);
+			
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
+		}
+	});	
 }
 /* --------------------------------------------------------- */
 function checkPedido(){
 	var error = 0;
-	if( contarItems() == 0 ){
-		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe ingresar ítems en el pedido");
-		error = 1;
-	}
+	var det_ped = JSON.parse( obtenerVectorDetalle() );
+	
 	if( $("#idCliente").val() == "" ){
 		$("#mje_error").fadeIn("slow");
-		$("#txerr").html("Debe indicar un cliente");
+		$("#tx-vmsj").html("Debe indicar un cliente");
 		$("#ncliente").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
-	$("#closeModal").click();
+
+	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		$("#mje_error").fadeIn("slow");
+		$("#tx-vmsj").html("Debe ingresar ítems en el pedido");
+		error = 1;
+	}
+
+	if( ( det_ped.length == 0 ) && ( error == 0 ) ){
+		$("#mje_error").fadeIn("slow");
+		$("#tx-vmsj").html("Error al generar detalle de pedido");
+		error = 1;
+	}
+	
+	if( error == 1 ){
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
+
 	return error;	
 }
 /* --------------------------------------------------------- */
@@ -261,10 +139,6 @@ $( document ).ready(function() {
 	$("#mje_confirmacion").html("¿Confirmar registro?");
 	$("#btn_confirm").attr("id", "bt_reg_pedido");
 
-	$(".alert").click( function(){
-		$(this).hide("slow");
-    });
-
 	$(".item_cliente_lmodal").click( function(){
 		texto = $(this).attr("data-label"); 
 		$("#ncliente").val(texto);
@@ -279,32 +153,16 @@ $( document ).ready(function() {
 		$("#narticulo").val( texto );
 		$("#narticulo").css({'border-color' : '#ccc'});
 		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#undart").val( $(this).attr("data-und") );
+		$("#und_art").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
-	
-	$(".itemtotal").on( "blur keyup", function(){
-		var cant = $("#fcantidad").val(); 
-		var punit = $("#fpunit").val();
-		
-		$( "#fptotal" ).val( ( cant * punit ).toFixed( 2 ) );
-    });
-	
-	$("#aitemf").click( function(){
-		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
-		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
-		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
-		nitem++;
-		
-		if( checkItemForm( idart, punit, qant ) == 1 ){	
-			agregarItemPedido( nitem, idart, art, qant, und, punit, ptot );	
-		}
-    });
-	
 	/*===============================================================================*/
 	$("#bt_reg_pedido").on( "click", function(){
+		$("#closeModal").click();
 		if( checkPedido() == 0 )
-			guardarPedido();
+			guardarPedido(); 
+		else 
+			$("#enl_vmsj").click();
     });
 });
 /* --------------------------------------------------------- */

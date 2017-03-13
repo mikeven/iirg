@@ -130,6 +130,7 @@
 	//Registro de nueva cotización
 	if( isset( $_POST["reg_cotizacion"] ) ){
 		include( "bd.php" );
+		include( "../fn/fn-documento.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		$idc = guardarCotizacion( $dbh, $encabezado, $encabezado->idu );
@@ -139,8 +140,8 @@
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";
-				$res["idr"] = $idc;
-				$res["tipo"] = $encabezado->tipo;
+				$encabezado->idr = $idc;
+				$res["documento"] = arrRespuesta( $encabezado, $encabezado->tipo );
 			}else{
 				$res["exito"] = 0;
 				$res["mje"] = "Error al registrar detalle de cotización";

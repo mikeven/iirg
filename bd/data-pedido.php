@@ -28,15 +28,15 @@
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
 		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
 		 <th><div class='input-group input-space'>
-		 <input id='idfq_$i' name='dfcant' type='text' class='form-control itemtotal_detalle input-sm' 
-		 value='$ditem[cantidad]' data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemF( this )'></div>
+		 <input id='idq_$i' name='dcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' data-nitem='$i' 
+		 onkeypress='return isIntegerKey(event)' onkeyup='actItemD( this )'></div>
 		 </th><th><div class='input-group input-space'>
-		 <input id='idfund_$i' name='dfund' type='text' class='form-control itemtotal_detalle input-sm' 
-		 value='$ditem[und]' data-nitem='$i'></div>
-		 </th><th><div class='input-group input-space'>
-		 <input id='idfpu_$i' name='dfpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
-		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemF( this )' onblur='initValid()'></div>
-		</th><th><div class='input-group input-space'><input id='idfpt_$i' name='dfptotal' type='text' 
+		 <input id='idund_$i' name='dund' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[und]' data-nitem='$i'></div>
+		 </th><th>
+		 <div class='input-group input-space'>
+		 <input id='idpu_$i' name='dpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
+		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemD( this )' onblur='initValid()'></div>
+		</th><th><div class='input-group input-space'><input id='idpt_$i' name='dptotal' type='text' 
 		class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
 		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemF(it$i)'>
 		<i class='fa fa-times'></i></button></th>
@@ -74,9 +74,9 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalleP( $dbh, $idp, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
-		$ptotal = $item->dfcant * $item->dfpunit;
+		$ptotal = $item->dcant * $item->dpunit;
 		$q = "insert into detallepedido ( IdPedido2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal) 
-		values ( $idp, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
+		values ( $idp, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 
@@ -120,6 +120,7 @@
 	//Registro de nuevo pedido
 	if( isset( $_POST["reg_pedido"] ) ){
 		include( "bd.php" );
+		include( "../fn/fn-documento.php" );
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
@@ -130,6 +131,8 @@
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";
+				$encabezado->idr = $idp;
+				$res["documento"] = arrRespuesta( $encabezado, "pedido" );
 			}else{
 				$res["exito"] = 0;
 				$res["mje"] = "Error al registrar detalle de pedido";

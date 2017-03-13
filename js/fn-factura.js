@@ -92,6 +92,11 @@ function obtenerEnlaceRFACCreado(id){
 
 	return e_enl;
 }
+
+function bloquearDocumento(){
+	$(".blq_bdoc").prop('disabled', true);
+	$("#frm_nfactura input").prop('readonly', true);
+}
 /* --------------------------------------------------------- */
 function guardarFactura(){
 	
@@ -114,17 +119,9 @@ function guardarFactura(){
 			success: function( response ){
 				res = jQuery.parseJSON(response);
 				//console.log(response);
-				if( res.exito == '1' ){
-					$("#ventana_mensaje").addClass("modal-success");
-					$("#tit_vmsj").html( res.mje );
-					$("#tx-vmsj").html( obtenerEnlaceRFACCreado(res.idr) );
-					$("#enl_vmsj").click();
-				}
-				if( res.exito == '0' ){
-					$("#ventana_mensaje").addClass("modal-danger");
-					$("#tx-vmsj").html(res.mje);
-					$("#enl_vmsj").click();
-				}
+				var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+				ventanaMensaje( res.exito, res.mje, enlace );
+				bloquearDocumento();
 			}
 		});	
 	}	
@@ -152,6 +149,7 @@ function checkFactura(){
 		$("#ventana_mensaje").addClass("modal-danger");
 		$("#tit_vmsj").html( "Error" );
 	}
+	
 	return error;	
 }
 /* --------------------------------------------------------- */

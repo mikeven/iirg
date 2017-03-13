@@ -203,8 +203,8 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                       <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                        data-target="#lista_pedidos">PEDIDO</button>
+                                        <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
+                                        data-target="#lista_pedidos" id="blpedidos">PEDIDO</button>
                                       </div>
                                       <!-- /btn-group -->
                                       <input type="text" class="form-control" id="fpedido" readonly 
@@ -230,7 +230,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                    <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
                                     data-target="#lista_clientes" <?php if( isset($encabezado) ) echo "disabled";?>>CLIENTE</button>
                                   </div>
                                   <!-- /btn-group -->
@@ -281,7 +281,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                              <button type="button" class="btn btn-info" data-toggle="modal" 
+                                              <button type="button" class="btn btn-info blq_bdoc" data-toggle="modal" 
                                               data-target="#lista_articulos">ARTÍCULO</button>
                                             </div>
                                             <!-- /btn-group -->
@@ -327,7 +327,7 @@
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                       <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="ag_item">Agregar</button>
+                                      	<button class="btn btn-block btn-success blq_bdoc" type="button" id="ag_item">Agregar</button>
                                       </div><!-- /.col -->
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		

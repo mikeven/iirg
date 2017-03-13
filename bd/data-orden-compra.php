@@ -92,8 +92,10 @@
 	/* ----------------------------------------------------------------------------------------------------- */
 	//Registro de nueva orden de compra
 	if( isset( $_POST["reg_orden_compra"] ) ){
+		
 		include( "bd.php" );
 		include( "../fn/fn-documento.php" );
+		
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		

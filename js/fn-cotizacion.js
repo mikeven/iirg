@@ -118,18 +118,6 @@ function dataUrlDoc( tipo ){
 	return frm;
 }
 /* --------------------------------------------------------- */
-function obtenerEnlaceRCTZCreado( id, tipo ){
-	var ndoc = $("#ncotiz").val();
-	var frm = dataUrlDoc( tipo );
-	var enl = "documento.php?tipo_documento=" + frm["param"] + "&id=" + id;
-	var ico = "<i class='fa fa-file-text fa-2x'></i>";
-
-	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
-	ico + frm["etiqueta"] + " #" + ndoc + "</a>";
-
-	return e_enl;
-}
-/* --------------------------------------------------------- */
 function guardarCotizacion(){
 		
 	cencabezado = obtenerVectorEncabezado();
@@ -145,7 +133,8 @@ function guardarCotizacion(){
 		success: function( response ){
 			//console.log(response);
 			res = jQuery.parseJSON(response);
-			ventanaMensaje( res.exito, res.mje, obtenerEnlaceRCTZCreado( res.idr, res.tipo ) );
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
 		}
 	});
 }

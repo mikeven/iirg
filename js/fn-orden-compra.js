@@ -70,7 +70,7 @@ function guardarOrdenCompra(){
 		},
 		success: function( response ){
 			res = jQuery.parseJSON(response);
-			console.log(response);
+			//console.log(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
 		}

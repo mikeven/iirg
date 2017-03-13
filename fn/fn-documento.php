@@ -5,14 +5,17 @@
 	function arrRespuesta( $doc, $ndoc ){
 		
 		$params_documento = array(
-			"solicitud_ctz"	=> array (
+			"solicitud"	=> array (
 								"param" => "sctz", "etiqueta" => "Sol. cotización"
 							),
 			"cotizacion"	=> array (
 								"param" => "ctz", "etiqueta" => "Cotización"
 							),
+			"pedido"		=> array (
+								"param" => "ped", "etiqueta" => "Pedido"
+							),
 			"factura"		=> array (
-								"param" => "sctz", "etiqueta" => "Sol. cotización"
+								"param" => "fac", "etiqueta" => "Factura"
 							),
 			"orden_compra"	=> array (
 								"param" => "odc", "etiqueta" => "Orden de compra"
@@ -77,7 +80,7 @@
 			$tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
 			$ftdd = etiquetaNota( $tipo_n, "bd" );
 			if( $t_concepto != "Ajuste global" )
-	    		$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+	    		$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );	//data-documento.php
 	    	else
 	    		$totales = obtenerTotalesFijos( $encabezado );
 	    }
@@ -88,7 +91,7 @@
 
 	    $eiva = $encabezado["iva"] * 100;
 	    if( $tdd != "nota" ) //Los totales se calculan para todos los documentos excepto las notas
-	    	$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
+	    	$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );		//data-documento.php
   	}
   	else{
 
