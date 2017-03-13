@@ -66,11 +66,11 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarItemDetalleN( $dbh, $idn, $item ){
 		//Guarda el registro individual de un ítem del detalle de la nota
-		$ptotal = $item->dfcant * $item->dfpunit;
+		$ptotal = $item->dcant * $item->dpunit;
 		$q = "insert into detallenota ( IdNota, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
-		values ( $idn, $item->idart, '$item->nart', $item->dfcant, '$item->dfund', $item->dfpunit, $ptotal )";
+		values ( $idn, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
-		//echo $q."<br>";
+		//echo $q;
 
 		return mysql_insert_id();
 	}
@@ -78,6 +78,7 @@
 	function guardarDetalleNota( $dbh, $idn, $encabezado, $detalle ){
 		//Registra los ítems contenidos en el detalle de la nota
 		$exito = true;
+
 		if( $encabezado->tipo_concepto != "Ajuste global" ){
 			$nitems = count( $detalle );
 			$citem = 0;
@@ -133,10 +134,13 @@
 		$tn = $_POST["prox_num"];
 		echo obtenerProximoNumeroNota( $dbh, $tn, $_POST["idu"] );
 	}
-
+	/* ----------------------------------------------------------------------------------------------------- */
 	// Registro de nueva nota
 	if( isset( $_POST["reg_nota"] ) ){ 
+		
 		include( "bd.php" );
+		include( "../fn/fn-documento.php" );
+		
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		
@@ -147,7 +151,8 @@
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";
-				$res["idr"] = $idn;	$res["tipo"] = $encabezado->tipo;
+				$encabezado->idr = $idn;
+				$res["documento"] = arrRespuesta( $encabezado, "nota" );
 			}else{
 				$res["exito"] = 0;
 				$res["mje"] = "Error al registrar detalle de Nota";

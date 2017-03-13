@@ -104,7 +104,7 @@
 		 <input id='idpu_$i' name='dpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
 		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemD( this )' onblur='initValid()'></div>
 		</th><th><div class='input-group input-space'><input id='idpt_$i' name='dptotal' type='text' class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
-		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemF(it$i)'>
+		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemDetalle(it$i)'>
 		<i class='fa fa-times'></i></button></th>
 		</tr>";
 

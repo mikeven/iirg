@@ -53,7 +53,8 @@ function obtenerVectorEncabezado(){
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
-	encabezado.total = $( '#total' ).val().replace(",", ".");
+	encabezado.subtotal = $( '#subtotal' ).val();
+	encabezado.total = $( '#total' ).val();
 	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
@@ -145,6 +146,7 @@ function checkFactura(){
 	if( $("#fordc").val() == "" ){
 		$("#fordc").val("N/A");
 	}
+
 	if( error == 1 ){
 		$("#ventana_mensaje").addClass("modal-danger");
 		$("#tit_vmsj").html( "Error" );

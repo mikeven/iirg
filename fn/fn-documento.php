@@ -2,6 +2,7 @@
 	/* R&G - Complemento funcional de documento.php */
 	/*---------------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------------------------------------------------------------------*/
+
 	function arrRespuesta( $doc, $ndoc ){
 		
 		$params_documento = array(
@@ -21,7 +22,7 @@
 								"param" => "odc", "etiqueta" => "Orden de compra"
 							),
 			"nota"			=> array (
-								"param" => "nota", "etiqueta" => "Nota"
+								"param" => "nota&tn=".$doc->tipo, "etiqueta" => "Nota"
 							)
 		);
 
@@ -29,7 +30,9 @@
 
 		return $doc;
 	}
+
 	/*--------------------------------------------------------------------------------------------------------*/
+	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
 	    $id = $_GET["id"];
 	    $tdd = $_GET["tipo_documento"]; 

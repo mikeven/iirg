@@ -38,23 +38,6 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* --------------------------------------------------------- */
-function obtenerVectorDetalleN(){
-	var detallef = new Array();
-	var renglon = new Object();
-	
-	$("#dn_table input").each(function (){ 
-		name = $(this).attr("name");
-		renglon["" + name + ""] = $(this).val();
-
-		if( name == "dfptotal" ){
-			//Campo final de renglón
-			detallef.push( renglon );
-			renglon = new Object();
-		}
-	});
-	return JSON.stringify( detallef );
-}
-/* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	
 	encabezado = new Object();
@@ -75,159 +58,39 @@ function obtenerVectorEncabezado(){
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
-	encabezado.subtotal = $( '#fstotal' ).val().replace(",", ".");
-	encabezado.total = $( '#ftotal' ).val().replace(",", ".");
+	encabezado.subtotal = $( '#subtotal' ).val();
+	encabezado.total = $( '#total' ).val();
 	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function isNumberKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode != 46 && charCode > 31 && ( charCode < 48 || charCode > 57 ))
-		return false;
-	return true;
-}
-
-function isIntegerKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	if ( charCode < 48 || charCode > 57 )
-		return false;
-	return true;
-}
-/* --------------------------------------------------------- */
-function obtenerItemDNota( nitem, valor, id, nombre, param ){
-	var clase = "";
-	if( param == "readonly" ) clase = "montoacum";
-	var campo = "<div class='input-group input-space'><input id='" + id + "' name='" + nombre 
-					+ "' type='text' class='form-control itemtotal_detalle input-sm " + clase + 
-					"' value='" + valor + "' data-nitem='" + nitem + "' " + param + "></div>";
-	
-	return campo;
-}
-/* --------------------------------------------------------- */
-function obtenerCampoOcultoIF(  id, nombre, valor, nitem ){
-	var campo = "<input id='" + id + "' name='" + nombre + "' type='hidden' value='" + valor + "' data-nitem='" + nitem + "'>";
-	return campo;
-}
-/* --------------------------------------------------------- */
-function agregarItemNota( nitem, idart, art, qant, und, punit, ptot ){
-	c_qant = obtenerItemDNota( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
-	c_punit = obtenerItemDNota( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
-	c_ptot = obtenerItemDNota( nitem, ptot, "idfpt_" + nitem, "dfptotal", "readonly", "text" );
-	c_und = obtenerItemDNota( nitem, und, "idfund_" + nitem, "dfund", "", "text" );
-	
-	c_idart = obtenerCampoOcultoIF( "idarticulo_" + nitem, "idart", idart, nitem );
-	c_nart = obtenerCampoOcultoIF( "ndarticulo_" + nitem, "nart", art, nitem );
-	id_bot_elim = "it" + nitem; $("#itemcont").val( nitem );
-	 
-	var itemf = "<tr style='display: none;' id='"+ id_bot_elim + "'><th>" +
-				art + c_idart + c_nart + "</th><th>" +
-				c_qant + "</th><th>" +
-				c_und + "</th><th>" +
-				c_punit + "</th><th>" +
-				c_ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onClick='elimItemF("+ id_bot_elim +")'>"+
-				"<i class='fa fa-times'></i></button></th></tr>";
-	
-	$( itemf ).appendTo("#dn_table tbody").show("slow");
-	resetItemsNota();
-	calcularTotales();
-}
-/* --------------------------------------------------------- */
-function calcularTotales(){
-	var subtotal = parseFloat( 0 );
-	$(".montoacum").each(function (){ 
-		subtotal = parseFloat( $(this).val() ) + subtotal;
-	});
-	
-	var piva = subtotal * $("#iva").val();
-	var total = subtotal + parseFloat( piva );
-	
-	$("#fstotal").val( subtotal.toFixed( 2 ) );
-	$("#fiva").val( piva.toFixed( 2 ) );
-	$("#ftotal").val( total.toFixed( 2 ) );	
-}
-/* --------------------------------------------------------- */
-function resetItemsNota(){
-	$("#narticulo").val("");
-	$("#idArticulo").val( 0 );
-	$("#fcantidad").val( "" );
-	$("#fpunit").val( "" );
-	$("#fptotal").val( 0.00 );
-}
-/* --------------------------------------------------------- */
-function elimItemF( fila ){
-	$( fila ).hide('slow', function(){ 
-		$( fila ).remove(); 
-		calcularTotales(); 
-	});
-}
-/* --------------------------------------------------------- */
-function actItemF( itemf ){
-	
-	var nitem = $(itemf).attr("data-nitem");
-	
-	var qant = $("#idfq_" + nitem ).val();
-	var punit = $("#idfpu_" + nitem ).val();
-	var ptot = $("#idfpt_" + nitem ).val();
-	
-	$("#idfpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
-	calcularTotales();
-}
-/* --------------------------------------------------------- */
-function obtenerEnlaceRNOTACreado( id, tipo ){
-	var ndoc = $("#nnota").val();
-	var enl = "documento.php?tipo_documento=nota&tn=" + tipo + "&id=" + id;
-	var ico = "<i class='fa fa-file-text fa-2x'></i>";
-
-	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
-	ico + " Nota #" + ndoc + "</a>";
-
-	return e_enl;
+function bloquearDocumento(){
+	$(".blq_bdoc").prop('disabled', true);
+	$("#frm_nfactura input").prop('readonly', true);
 }
 /* --------------------------------------------------------- */
 function guardarNota(){
+	//Obtiene los datos de encabezado y detalle de nota para su registro
+	fencabezado = obtenerVectorEncabezado();
+	fdetalle = obtenerVectorDetalle();
 	
-	var idcliente = $( '#idCliente' ).val();
-	var total = $( '#ftotal' ).val().replace(",", ".");
-
-	if( idcliente != "" && total != "" && total != 0.00 ){
-		
-		fencabezado = obtenerVectorEncabezado();
-		fdetalle = obtenerVectorDetalleN();
-	
-		$.ajax({
-			type:"POST",
-			url:"bd/data-nota.php",
-			data:{ encabezado: fencabezado, detalle: fdetalle, reg_nota : 1 },
-			beforeSend: function () {
-				$("#bt_reg_nota").fadeOut(200);
-				$("#btn_confirmacion").fadeOut(200);
-			},
-			success: function( response ){
-				res = jQuery.parseJSON(response);
-				//$("#waitconfirm").html(response);
-				if( res.exito == '1' ){
-					$("#ventana_mensaje").addClass("modal-success");
-					$("#tit_vmsj").html( res.mje );
-					$("#tx-vmsj").html( obtenerEnlaceRNOTACreado( res.idr, res.tipo ) );
-					$("#enl_vmsj").click();
-				}
-				if( res.exito == '0' ){
-					$("#mje_error").show();
-					$("#txerr").html(res.mje);
-				}
-			}
-		});	
-	}
-}
-/* --------------------------------------------------------- */
-function contarItems(){
-	var contitems = 0;
-	$("#dn_table input").each(function (){ 
-		contitems++;
+	$.ajax({
+		type:"POST",
+		url:"bd/data-nota.php",
+		data:{ encabezado: fencabezado, detalle: fdetalle, reg_nota : 1 },
+		beforeSend: function () {
+			$("#bt_reg_nota").fadeOut(200);
+			$("#btn_confirmacion").fadeOut(200);
+		},
+		success: function( response ){
+			//console.log(response);
+			res = jQuery.parseJSON(response);
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
+		}
 	});
-	return contitems;
 }
 /* --------------------------------------------------------- */
 function checkNota(){
@@ -259,10 +122,10 @@ function checkNota(){
 				error = 1;
 			}
 			var monto_inicial = parseFloat( $("#mototalnota").val() );
-			var monto_ajuste = parseFloat( $("#ftotal").val() );
+			var monto_ajuste = parseFloat( $("#total").val() );
 			if( monto_ajuste > monto_inicial ){
 				$("#tx-vmsj").html("El monto de ajuste supera al valor inicial de la factura");
-				$("#fstotal").css({'border-color' : '#dd4b39'});
+				$("#subtotal").css({'border-color' : '#dd4b39'});
 				error = 1;
 			}
 		}
@@ -345,7 +208,6 @@ function obtenerFormatoDocumento( doc ){
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
 	
-	$(".alert").hide();
     $(".bloque_nota").hide();
     $("#titulo_emergente").html("Guardar Nota");
 	$("#mje_confirmacion").html("¿Confirmar registro?");
@@ -379,52 +241,35 @@ $( document ).ready(function() {
 		$("#narticulo").val( texto );
 		$("#narticulo").css({'border-color' : '#ccc'});
 		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#undart").val( $(this).attr("data-und") );
+		$("#und_art").val( $(this).attr("data-und") );
 		$("#xmodalarticulo").click();
     });
 	/*-------------------------------------------------------------------------------------*/
-	$("#fstotal").on( "blur keyup", function(){
+	$("#subtotal").on( "blur keyup", function(){
 		var subtotal = parseFloat( $(this).val() ); 
 		var piva = subtotal * $("#iva").val();
 		var total = subtotal + parseFloat( piva );
 		
-		$("#fiva").val( piva.toFixed( 2 ) );
-		$("#ftotal").val( total.toFixed( 2 ) );
+		$("#v_iva").val( piva.toFixed( 2 ) );
+		$("#total").val( total.toFixed( 2 ) );
     });
-    $("#fstotal").on( "blur", function(){ 
+    
+    $("#subtotal").on( "blur", function(){ 
     	var subtotal = parseFloat( $(this).val() );  
-    	$("#fstotal").val( subtotal.toFixed( 2 ) );   
+    	$("#subtotal").val( subtotal.toFixed( 2 ) );   
     });
     /*-------------------------------------------------------------------------------------*/
-    $(".itemtotal").on( "blur keyup", function(){
-		var cant = $("#fcantidad").val(); 
-		var punit = $("#fpunit").val();
-		
-		$( "#fptotal" ).val( ( cant * punit ).toFixed( 2 ) );
-    });
-	
-	$("#aitemf").click( function(){
-		var art = $("#narticulo").val(); 	var idart = $("#idArticulo").val();
-		var punit = $("#fpunit").val();		var qant = $("#fcantidad").val(); var ptot = $("#fptotal").val();
-		var nitem = $("#itemcont").val();	var und = $("#undart").val();	
-		nitem++;
-		
-		if( checkItemForm( idart, punit, qant ) == 1 ){	
-			agregarItemNota( nitem, idart, art, qant, und, punit, ptot );	
-		}
-    });
-
     $(".ocn").click( function(){ //Selección de ajuste global
 		$("#tconcepto").val( $(this).html() );
 		$("#etq_concepto").html( $(this).html() );
 		if( $(this).html() == "Ajuste global" ){
-			$("#dn_table").fadeOut(200); $("#fstotal").removeAttr("readonly");
+			$("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
 
 		}else{
-			$("#dn_table").fadeIn(200); $("#fstotal").attr("readonly", "true"); calcularTotales();
+			$("#tdetalle").fadeIn(200); $("#subtotal").attr("readonly", "true"); calcularTotales();
 		}
     });
-
+	/*-------------------------------------------------------------------------------------*/
     /* Acciones ejecutadas al seleccionar tipo de nota */
     $("#tnota").change( function(){
 		var tipo_nota = $(this).val();
@@ -463,6 +308,7 @@ $( document ).ready(function() {
 		else
 			$("#enl_vmsj").click();
     });
+    /*===============================================================================*/
 });
 /* --------------------------------------------------------- */
 

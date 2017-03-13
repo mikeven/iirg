@@ -355,7 +355,7 @@
                                                 <th width="15%">
                                                    <div id="impuesto" class="totalizacion">
                                                       <div class="input-group">
-                                                         <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                         <input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
                                                             id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
                                                       </div>

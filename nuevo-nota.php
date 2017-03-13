@@ -29,10 +29,10 @@
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
   else 
-    { $iva = 0.12; $eiva = $iva * 100; }
+    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 
   if( isset( $_GET["t"] ) ){
-    $tn = $_GET["t"];
+      $tn = $_GET["t"];
   }	
 ?>
 <!DOCTYPE html>
@@ -66,8 +66,8 @@
     <!--<link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">-->
     <style>
       .input-space{ width:95%; }
-  		.itemtotal_detalle, .itemtotalcotizacion{ width:95%; border:0; background:#FFF; text-align:right;}
-  		.totalitem_detalle, .ftotalizacion{ width:100%; text-align:right; }
+  		.itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
+  		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
   		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
   		.iconlab{ line-height: 0; }
   		.form-group { margin-bottom: 5px; }
@@ -100,7 +100,7 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    
+    <script src="js/fn-documento.js"></script>
     <script src="js/fn-nota.js"></script>
     
     <script>
@@ -239,7 +239,7 @@
                               <div class="form-group bloque_nota" id="bloquen_clientes">
                                   <div class="input-group">
                                     <div class="input-group-btn">
-                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lista_clientes">CLIENTE</button>
+                                      <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" data-target="#lista_clientes">CLIENTE</button>
                                     </div>
                                     <!-- /btn-group -->
                                     <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" value="">
@@ -249,7 +249,7 @@
                               <div class="form-group bloque_nota" id="bloquen_facturas">
                                 <div class="input-group">
                                   <div class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lista_facturas">FACTURA</button>
+                                    <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" data-target="#lista_facturas">FACTURA</button>
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ndatafac" readonly name="data_factura" 
@@ -302,13 +302,13 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                              <button type="button" class="btn btn-info" data-toggle="modal" 
+                                              <button type="button" class="btn btn-info blq_bdoc" data-toggle="modal" 
                                               data-target="#lista_articulos">ARTÍCULO</button>
                                             </div>
                                             <!-- /btn-group -->
                                             <input type="text" class="form-control" id="narticulo" readonly>
                                             <input type="hidden" id="idArticulo" value="0">
-                                            <input type="hidden" id="undart" value="0">
+                                            <input type="hidden" id="und_art" value="0">
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
@@ -321,7 +321,7 @@
                                               <!--<label for="cantidad" class="">Cantidad:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-unsorted"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fcantidad" name="cantidad" 
+                                                  <input type="text" class="form-control itemtotal" id="cantidad" name="cantidad" 
                                                   placeholder="CANT" onkeypress="return isIntegerKey(event)">
                                               </div>
                                           </div><!-- /.col -->
@@ -331,7 +331,7 @@
                                               <!--<label for="punit" class="">Precio unitario:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tag"></i></div>
-                                                  <input type="text" class="form-control itemtotal" id="fpunit" name="punit" 
+                                                  <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
                                           </div><!-- /.form group -->
@@ -342,13 +342,13 @@
                                               <!--<label for="punit" class="">Total item:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tags"></i></div>
-                                                  <input type="text" class="form-control" id="fptotal" name="ptotal" 
+                                                  <input type="text" class="form-control" id="ptotal" name="ptotal" 
                                                   placeholder="Total" value="0.00" readonly>
                                               </div>
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                       <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="aitemf">Agregar</button>
+                                      	<button class="btn btn-block btn-success blq_bdoc" type="button" id="ag_item">Agregar</button>
                                       </div><!-- /.col -->
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
@@ -366,9 +366,9 @@
                                       
                                       <div class="box box-primary">	
                                           <div class="box-body">
-                                          	<input id="itemcont" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
+                                          	<input id="cont_item" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
                                               
-                                              <table class="table table-condensed" id="dn_table">
+                                              <table class="table table-condensed" id="tdetalle">
                                                   <tbody>
                                                       <tr>
                                                           <th width="45%" class="tit_tdf_i">Descripción</th>
@@ -400,10 +400,10 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">SubTotal</th>
                                                   <th width="15%">
-                                                  	<div id="fsub_total" class="ftotalizacion">
+                                                  	<div id="sub_total" class="totalizacion">
                                                       	<div class="input-group">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fstotal" value="<?php if(isset( $factura )) echo $totales["subtotal"]?>" readonly>
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="subtotal" value="<?php if(isset( $factura )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -435,11 +435,11 @@
                                                   </th>
                                                   <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
                                                   <th width="15%">
-                                                  	<div id="fimpuesto" class="ftotalizacion">
+                                                  	<div id="impuesto" class="totalizacion">
                                                       	<div class="input-group">
-                                                          	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="fiva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
+                                                          	<input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="v_iva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -448,10 +448,10 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">Total</th>
                                                   <th width="15%">
-                                                  	  <div id="fac_total" class="ftotalizacion">
+                                                  	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
-                                                      		<input type="text" class="form-control itemtotalcotizacion ftotalizacion" 
-                                                              id="ftotal" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="total" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
                                                   		  </div>
                                                   	  </div>
                                                       <input id="mototalnota" name="totaln" type="hidden" value="<?php if(isset( $factura )) echo $totales["total"]?>">
