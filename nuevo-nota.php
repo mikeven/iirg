@@ -103,20 +103,6 @@
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-nota.js"></script>
     
-    <script>
-        $( document ).ready(function() {
-            //Initialize Select2 Elements
-            $('#femision').datepicker({
-              autoclose: true,
-              format:'dd/mm/yyyy',
-              language:'es',
-              title:true
-            });
-            
-            initValid();
-        });
-    </script>
-    
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -200,7 +186,7 @@
                   <div class="icon-color"><i class="fa fa-sticky-note-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_nnota" name="form_agregar_nota">
+                <form role="form" id="frm_nnota" name="form_agregar_nota" class="frm_documento">
                 	<input name="reg_nota" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_nota">

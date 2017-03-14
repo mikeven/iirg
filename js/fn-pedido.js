@@ -138,24 +138,6 @@ $( document ).ready(function() {
 	$("#titulo_emergente").html("Guardar Pedido");
 	$("#mje_confirmacion").html("¿Confirmar registro?");
 	$("#btn_confirm").attr("id", "bt_reg_pedido");
-
-	$(".item_cliente_lmodal").click( function(){
-		texto = $(this).attr("data-label"); 
-		$("#ncliente").val(texto);
-		$("#ncliente").css({'border-color' : '#ccc'});
-		$("#idCliente").val( $(this).attr("data-idc") );
-		$("#cpcontacto").val( $(this).attr("data-npc") );
-		$("#xmodalcliente").click();
-    });
-	
-	$(".item_articulo_lmodal").click( function(){
-		texto = $(this).attr("data-label"); 
-		$("#narticulo").val( texto );
-		$("#narticulo").css({'border-color' : '#ccc'});
-		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#und_art").val( $(this).attr("data-und") );
-		$("#xmodalarticulo").click();
-    });
 	/*===============================================================================*/
 	$("#bt_reg_pedido").on( "click", function(){
 		$("#closeModal").click();

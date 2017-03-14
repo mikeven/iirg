@@ -65,11 +65,6 @@ function obtenerVectorEncabezado(){
 	return JSON.stringify( encabezado );
 }
 /* --------------------------------------------------------- */
-function bloquearDocumento(){
-	$(".blq_bdoc").prop('disabled', true);
-	$("#frm_nfactura input").prop('readonly', true);
-}
-/* --------------------------------------------------------- */
 function guardarNota(){
 	//Obtiene los datos de encabezado y detalle de nota para su registro
 	fencabezado = obtenerVectorEncabezado();

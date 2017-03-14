@@ -89,19 +89,7 @@
       <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
       <script src="js/fn-documento.js"></script>
       <script src="js/fn-orden-compra.js"></script>
-      <script>
-         $( document ).ready(function() {
-             //Initialize Select2 Elements
-             $('#femision').datepicker({
-               autoclose: true,
-               format:'dd/mm/yyyy',
-               language:'es',
-               title:true
-             });
-             initValid();
-             $(".alert").hide();
-         });
-      </script>
+      
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper">
@@ -177,7 +165,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frm_nordencompra" name="form_agregar_ocompra">
+                        <form role="form" id="frm_nordencompra" name="form_agregar_ocompra" class="frm_documento">
                            <input name="reg_orden_compra" type="hidden" value="1">
                            <div class="box-body">
                               <div class="row" id="encabezado_orden_compra">

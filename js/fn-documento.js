@@ -94,7 +94,6 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 	
 	resetItemsDocumento();
 	calcularTotales();
-	
 }
 /* --------------------------------------------------------- */
 function calcularTotales(){
@@ -197,10 +196,52 @@ function ventanaMensaje( exito, mensaje, enlace ){
 	$("#enl_vmsj").click();
 }
 /* --------------------------------------------------------- */
+function bloquearDocumento(){
+	$(".blq_bdoc").prop('disabled', true);
+	$(".frm_documento input").prop('readonly', true);
+}
+
+/*===============================================================================================*/
+
 $( document ).ready(function() {
 	
-	$(".alert-danger").click( function(){
-		$(this).hide("slow");
+	initValid();
+
+	$('#femision').datepicker({
+		autoclose: true,
+		format:'dd/mm/yyyy',
+		language:'es',
+		title:true
+	});
+
+    /* Asignación de etiqueta de Nombre de cliente en encabezado de documento al seleccionarlo de la lista de clientes*/
+	$(".item_cliente_lmodal").click( function(){
+		texto = $(this).attr("data-label"); 
+		$("#ncliente").val(texto);
+		$("#idCliente").val( $(this).attr("data-idc") );
+		$("#cpcontacto").val( $(this).attr("data-npc") );
+		$("#ncliente").css({'border-color' : '#ccc'});
+		$("#xmodalcliente").click();
+    });
+
+    /* Asignación de datos de proveedor en encabezado de documento al seleccionarlo de la lista de proveedores*/
+	$(".item_proveedor_lmodal").click( function(){
+		
+		$("#nproveedor").val( $(this).attr("data-label") );
+		$("#idCliente").val( $(this).attr("data-idp") );	//idCliente = id de proveedor cuando se trata de sol. de cotización
+		$("#cpcontacto").val( $(this).attr("data-npc") );
+		$("#nproveedor").css({'border-color' : '#ccc'});
+		$("#xmodalproveedor").click();
+    });
+
+    /* Asignación de etiqueta de Nombre de artículo en encabezado de documento al seleccionarlo de la lista de artículos*/
+	$(".item_articulo_lmodal").click( function(){
+		texto = $(this).attr("data-label"); 
+		$("#narticulo").val( texto );
+		$("#idArticulo").val( $(this).attr("data-ida") );
+		$("#narticulo").css({'border-color' : '#ccc'});
+		$("#und_art").val( $(this).attr("data-und") );
+		$("#xmodalarticulo").click();
     });
 	
 	$(".itemtotal").on( "blur keyup", function(){

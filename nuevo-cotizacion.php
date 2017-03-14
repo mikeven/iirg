@@ -84,23 +84,6 @@
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
     
-    <script>
-        $( document ).ready(function() {
-            //Initialize Select2 Elements
-            $('#femision').datepicker({
-              autoclose: true,
-              format:'dd/mm/yyyy',
-              language:'es',
-              title:true
-            });
-            
-            initValid();
-            $(".alert").hide(); 
-            //Oculta los mensajes de respuesta ( éxito o error ) en subform/nav/mensaje_rcpf.php
-
-        });
-    </script>
-    
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -182,7 +165,7 @@
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion">
+                <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion" class="frm_documento">
                 	<input name="reg_ctz" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
