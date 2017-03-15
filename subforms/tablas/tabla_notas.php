@@ -25,7 +25,7 @@
             <td> <a href="documento.php?tipo_documento=nota&tn=<?php echo $n["tipo"]; ?>&id=<?php echo $n["id"]; ?>">
                   <?php echo $n["cliente"]; ?>
                  </a> </td>
-            <td> <?php echo $n["Total"]; ?> </td>
+            <td> <?php echo number_format( $n["Total"], 2, ",", "." ); ?> </td>
         </tr>
         <?php } ?>
     </tbody>

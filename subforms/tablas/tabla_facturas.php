@@ -15,7 +15,7 @@
             <td> <?php echo $f["Fecha"];?> </td>
             <td> <?php echo $f["numero"];?> </td>
             <td> <a href="documento.php?tipo_documento=fac&id=<?php echo $f["id"]; ?>"><?php echo $f["cliente"]; ?></a> </td>
-            <td> <?php echo $f["Total"]; ?> </td>
+            <td> <?php echo number_format( $f["Total"], 2, ",", "." ); ?> </td>
         </tr>
         <?php } ?>
     </tbody>

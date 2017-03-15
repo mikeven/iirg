@@ -126,6 +126,7 @@
 		
 		if( ( $idf != 0 ) && ( $idf != "" ) ){
 			$exito = guardarDetalleFactura( $dbh, $idf, $detalle );
+			if( !isset( $encabezado->tipo ) )  $encabezado->tipo = "";
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso";

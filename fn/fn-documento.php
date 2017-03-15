@@ -5,6 +5,7 @@
 
 	function arrRespuesta( $doc, $ndoc ){
 		
+		
 		$params_documento = array(
 			"solicitud"	=> array (
 								"param" => "sctz", "etiqueta" => "Sol. cotización"

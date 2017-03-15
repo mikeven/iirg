@@ -173,7 +173,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                          <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
                                           data-target="#lista_clientes">CLIENTE</button>
                                         </div>
                                         <!-- /btn-group -->
@@ -248,7 +248,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                              <button type="button" class="btn btn-info" data-toggle="modal" 
+                                              <button type="button" class="btn btn-info blq_bdoc" data-toggle="modal" 
                                               data-target="#lista_articulos">ARTÍCULO</button>
                                             </div>
                                             <!-- /btn-group -->
@@ -294,7 +294,7 @@
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                       <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success" type="button" id="ag_item">Agregar</button>
+                                      	<button class="btn btn-block btn-success blq_bdoc" type="button" id="ag_item">Agregar</button>
                                       </div><!-- /.col -->
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
@@ -404,7 +404,7 @@
                     
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );

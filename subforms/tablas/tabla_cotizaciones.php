@@ -29,7 +29,7 @@
             <td>
               <a href="documento.php?tipo_documento=<?php echo $td; ?>&id=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a>
             </td>
-            <?php if( $tipo != "solicitud" ) { ?> <td> <?php echo $c["Total"];  ?></td><?php } ?>
+            <?php if( $tipo != "solicitud" ) { ?> <td> <?php echo number_format( $c["Total"], 2, ",", "." );  ?></td><?php } ?>
         </tr>
         <?php } ?>
     </tbody>

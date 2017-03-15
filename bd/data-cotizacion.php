@@ -90,7 +90,7 @@
 		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
 		$ptotal = $item->dcant * $item->dpunit;
 		$q = "insert into detallecotizacion ( IdCotizacion2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
-		values ( $idc, $item->idart, '$item->nart', $item->dcant, '$item->fund', $item->dpunit, $ptotal )";
+		values ( $idc, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 		return mysql_insert_id();

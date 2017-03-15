@@ -103,6 +103,7 @@
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
+        $enlace_edt = "";
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -112,9 +113,8 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            <?php echo $tdocumento." #".$encabezado["nro"]; ?>
-          </h1>
+          <h1 style="float:left;"><?php echo $tdocumento." #".$encabezado["nro"]; ?></h1>
+          <button type="button" class="btn btn-block btn-default btn-sm" style="float:left;">Editar</button>
           <!-- <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Examples</a></li>
@@ -211,8 +211,8 @@
                       <td class="tit_tdf_i"><?php echo $item["descripcion"];?></td>
                       <td class="tit_tdf"><?php echo $item["cantidad"];?></td>
                       <td class="tit_tdf"><?php echo $item["und"];?></td>
-                      <td align="right"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
-                      <td align="right"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
+                      <td align="right"><?php echo number_format( $item["punit"], 2, ",", "." );?></td>
+                      <td align="right"><?php echo number_format( $item["ptotal"], 2, ",", "." );?></td>
                     </tr>
                     <?php } ?>
                   </tbody>
@@ -245,15 +245,15 @@
                     <table class="table">
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td class="tit_tdf_d"><?php echo $totales["subtotal"]; ?></td>
+                        <td class="tit_tdf_d"><?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
                       </tr>
                       <tr>
                         <th>IVA (<?php echo $eiva; ?>%)</th>
-                        <td class="tit_tdf_d"><?php echo $totales["iva"]; ?></td>
+                        <td class="tit_tdf_d"><?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td class="tit_tdf_d"><?php echo $totales["total"]; ?></td>
+                        <td class="tit_tdf_d"><?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
                       </tr>
                     </table>
                   </div>

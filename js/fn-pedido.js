@@ -74,20 +74,22 @@ function guardarPedido(){
 			$("#bt_reg_pedido").fadeOut(200);
 		},
 		success: function( response ){
-			console.log(response);
-			res = jQuery.parseJSON(response);
-			
+			//console.log(response);
+			res = jQuery.parseJSON(response);			
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
 		}
 	});	
 }
 /* --------------------------------------------------------- */
 function checkPedido(){
+	//Validación de formulario de pedido previo a su registro 
 	var error = 0;
 	var det_ped = JSON.parse( obtenerVectorDetalle() );
 	
 	if( $("#idCliente").val() == "" ){
+		//Cliente no seleccionado
 		$("#mje_error").fadeIn("slow");
 		$("#tx-vmsj").html("Debe indicar un cliente");
 		$("#ncliente").css({'border-color' : '#dd4b39'});
@@ -95,18 +97,21 @@ function checkPedido(){
 	}
 
 	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		//Pedido sin ítems
 		$("#mje_error").fadeIn("slow");
 		$("#tx-vmsj").html("Debe ingresar ítems en el pedido");
 		error = 1;
 	}
 
 	if( ( det_ped.length == 0 ) && ( error == 0 ) ){
+		//Pedido sin ítems (fallo en sistema)
 		$("#mje_error").fadeIn("slow");
 		$("#tx-vmsj").html("Error al generar detalle de pedido");
 		error = 1;
 	}
 	
 	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
 		$("#ventana_mensaje").addClass("modal-danger");
 		$("#tit_vmsj").html( "Error" );
 	}
@@ -138,7 +143,7 @@ $( document ).ready(function() {
 	$("#titulo_emergente").html("Guardar Pedido");
 	$("#mje_confirmacion").html("¿Confirmar registro?");
 	$("#btn_confirm").attr("id", "bt_reg_pedido");
-	/*===============================================================================*/
+	/* =============================================================================== */
 	$("#bt_reg_pedido").on( "click", function(){
 		$("#closeModal").click();
 		if( checkPedido() == 0 )
@@ -146,6 +151,7 @@ $( document ).ready(function() {
 		else 
 			$("#enl_vmsj").click();
     });
+    /* =============================================================================== */
 });
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 

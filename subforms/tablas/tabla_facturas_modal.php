@@ -27,7 +27,7 @@
                         <td>
                           <a href="#!" data-href="nuevo-nota.php?idf=<?php echo $f["id"]; ?>" class="enlnn"><?php echo $f["cliente"]; ?></a>
                         </td>
-                        <td><?php echo $f["Total"]; ?></td>
+                        <td><?php echo number_format( $f["Total"], 2, ",", "." ); ?></td>
                     </tr>
                     <?php } ?>
                 </tbody>

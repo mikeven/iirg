@@ -90,8 +90,6 @@ function guardarNota(){
 /* --------------------------------------------------------- */
 function checkNota(){
 	var error = 0;
-	$("#ventana_mensaje").addClass("modal-danger");
-	$("#tit_vmsj").html( "Error" );
 	
 	var tipo_nota = $("#tipofte").val();
 	
@@ -102,7 +100,8 @@ function checkNota(){
 			$("#tx-vmsj").html("Debe indicar un cliente");
 			$("#ncliente").css({'border-color' : '#dd4b39'});
 			error = 1;
-		}else{
+		}
+		else{
 			if( contarItems() == 0 ){
 				$("#tx-vmsj").html("Debe ingresar ítems en la nota");
 				error = 1;
@@ -124,30 +123,20 @@ function checkNota(){
 				error = 1;
 			}
 		}
-	}else{
+	}
+	else{
 		$("#tx-vmsj").html("Debe seleccionar tipo de nota");
 		$("#tnota").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
 
+	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
+
 	return error;	
-}
-/* --------------------------------------------------------- */
-function checkItemForm( idart, punit, qant ){
-	var valido = 1;
-
-	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
-	
-	if( punit == "" ) { $("#fpunit").css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fpunit").css({'border-color' : '#ccc'});
-	
-	if( qant == "" || qant == "0" ) { $("#fcantidad").css({'border-color' : '#dd4b39'}); valido = 0; } 
-		else $("#fcantidad").css({'border-color' : '#ccc'});
-	
-	if( $( "#fptotal" ).val() == "0.00" ){ $( "#fptotal" ).css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fptotal").css({'border-color' : '#ccc'});
-
-	return valido;
 }
 /* --------------------------------------------------------- */
 function actualizarFormatoDocumento( data_frt ){
@@ -209,36 +198,15 @@ $( document ).ready(function() {
 	$("#btn_confirm").attr("id", "bt_reg_nota");
 
 	var cant = "";
-	$(".alert").click( function(){
-		$(this).hide("slow");
-    });
 
 	$("#fordc").blur( function(){
 		if( $(this).val() != "" )
 			$(this).css({'border-color' : '#ccc'});
     });
 
-	$(".item_cliente_lmodal").click( function(){
-		texto = $(this).attr("data-label"); 
-		$("#ncliente").val(texto);
-		$("#ncliente").css({'border-color' : '#ccc'});
-		$("#idCliente").val( $(this).attr("data-idc") );
-		$("#cpcontacto").val( $(this).attr("data-npc") );
-		$("#xmodalcliente").click();
-    });
-
     /*$(".item_facturas_lmodal").click( function(){
 		$("#ndatafac").css({'border-color' : '#ccc'});
     });*/
-	
-	$(".item_articulo_lmodal").click( function(){
-		texto = $(this).attr("data-label"); 
-		$("#narticulo").val( texto );
-		$("#narticulo").css({'border-color' : '#ccc'});
-		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#und_art").val( $(this).attr("data-und") );
-		$("#xmodalarticulo").click();
-    });
 	/*-------------------------------------------------------------------------------------*/
 	$("#subtotal").on( "blur keyup", function(){
 		var subtotal = parseFloat( $(this).val() ); 

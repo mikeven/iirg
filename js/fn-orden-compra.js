@@ -65,52 +65,43 @@ function guardarOrdenCompra(){
 		type:"POST",
 		url:"bd/data-orden-compra.php",
 		data:{ encabezado: fencabezado, detalle: oc_detalle, reg_orden_compra : 1 },
-		beforeSend: function () {
+		beforeSend: function (){
 			$("#btn_confirmacion").fadeOut(200);
 		},
 		success: function( response ){
-			res = jQuery.parseJSON(response);
 			//console.log(response);
+			res = jQuery.parseJSON(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
 		}
 	});		
 }
 /* --------------------------------------------------------- */
 function checkOrdenCompra(){
+	//Validación de formulario de orden de compra previo a su registro
 	var error = 0;
-	$("#ventana_mensaje").addClass("modal-danger");
-	$("#tit_vmsj").html( "Error" );
 	
 	if( $("#idProveedor").val() == "" ){
+		//Proveedor no seleccionado
 		$("#tx-vmsj").html("Debe indicar un proveedor");
 		$("#nproveedor").css({'border-color' : '#dd4b39'});
 		error = 1;
 	}
 
 	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		//Orden de compra sin ítems
 		$("#tx-vmsj").html("Debe ingresar ítems en la orden de compra");
 		error = 1;
 	}
+
+	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
 	
 	return error;	
-}
-/* --------------------------------------------------------- */
-function checkItemForm( idart, punit, qant ){
-	var valido = 1;
-
-	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
-	
-	if( punit == "" ) { $("#fpunit").css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fpunit").css({'border-color' : '#ccc'});
-	
-	if( qant == "" || qant == "0" ) { $("#fcantidad").css({'border-color' : '#dd4b39'}); valido = 0; } 
-		else $("#fcantidad").css({'border-color' : '#ccc'});
-	
-	if( $( "#fptotal" ).val() == "0.00" ){ $( "#fptotal" ).css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fptotal").css({'border-color' : '#ccc'});
-
-	return valido;
 }
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
@@ -119,32 +110,13 @@ $( document ).ready(function() {
 	$("#btn_confirm").attr("id", "bt_reg_ordencompra");
 
 	var cant = "";
-	$(".alert").click( function(){
-		$(this).hide("slow");
-    });
 
 	$("#fordc").blur( function(){
 		if( $(this).val() != "" )
 			$(this).css({'border-color' : '#ccc'});
     });
-
-	$(".item_proveedor_lmodal").click( function(){
-		/* Asignación de valores al seleccionar proveedor de la lista */
-		$("#nproveedor").val( $(this).attr("data-label") );
-		$("#nproveedor").css({'border-color' : '#ccc'});
-		$("#idProveedor").val( $(this).attr("data-idp") );
-		$("#xmodalproveedor").click();
-    });
 	
-	$(".item_articulo_lmodal").click( function(){
-		/* Asignación de valores al seleccionar artículo de la lista */
-		$("#narticulo").val( $(this).attr("data-label") );
-		$("#narticulo").css({'border-color' : '#ccc'});
-		$("#idArticulo").val( $(this).attr("data-ida") );
-		$("#und_art").val( $(this).attr("data-und") );
-		$("#xmodalarticulo").click();
-    });
-	/*===============================================================================*/
+	/* =============================================================================== */
     $("#bt_reg_ordencompra").on( "click", function(){
 		$("#closeModal").click();
 		if( checkOrdenCompra() == 0 )
@@ -152,6 +124,7 @@ $( document ).ready(function() {
 		else
 			$("#enl_vmsj").click();
     });
+    /* =============================================================================== */
 });
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 

@@ -43,10 +43,12 @@ document.onkeypress = stopRKey;
 /* --------------------------------------------------------- *
 /* --------------------------------------------------------- */
 function checkCotizacion(){
+	//Validación de formulario de cotización previo a su registro
 	var error = 0;
 	var ente_asociado = "cliente";
 
 	if( $("#idCliente").val() == "" ){
+		//Cliente/Proveedor no seleccionado 
 		if( $("#tipo").val() == "solicitud" ) ente_asociado = "proveedor";
 		$("#tx-vmsj").html("Debe indicar un " + ente_asociado );
 		$("#ncliente").css({'border-color' : '#dd4b39'});
@@ -54,11 +56,13 @@ function checkCotizacion(){
 	}
 
 	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		//Cotización sin ítems
 		$("#tx-vmsj").html("Debe ingresar ítems en la cotización");
 		error = 1;
 	}
 
 	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
 		$("#ventana_mensaje").addClass("modal-danger");
 		$("#tit_vmsj").html( "Error" );
 	}
@@ -101,10 +105,11 @@ function guardarCotizacion(){
 			$("#bt_reg_cotizacion").fadeOut( 200 );
 		},
 		success: function( response ){
-			console.log(response);
+			//console.log(response);
 			res = jQuery.parseJSON(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
 		}
 	});
 }
@@ -127,7 +132,7 @@ function asignarEtiquetaConfirmacion(){
 	if( $("#tipo").val() == "solicitud" )
 		$("#titulo_emergente").html("Guardar solicitud de cotización");
 }
-/*===============================================================================================*/
+/* ================================================================================= */
 $( document ).ready(function() {
 	
 	var cant = "";
@@ -155,7 +160,7 @@ $( document ).ready(function() {
 		$('#vvalz').html(valor);
 		$('input[data-v=VCTZ]').val( "Validez: " + valor );
     });
-	
+	/* =============================================================================== */
 	$("#bt_reg_cotizacion").on( "click", function(){
 		$("#closeModal").click();
 		if( checkCotizacion() == 0 )
@@ -163,6 +168,7 @@ $( document ).ready(function() {
 		else
 			$("#enl_vmsj").click();
     });
+    /* =============================================================================== */
 });
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 

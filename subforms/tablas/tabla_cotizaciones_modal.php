@@ -24,7 +24,7 @@
                         <td><?php echo $c["numero"];?></td>
                         <td><?php echo $c["Fecha"];?></td>
                         <td><a href="nuevo-pedido.php?idc=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a></td>
-                        <td><?php echo $c["Total"]; ?></td>
+                        <td><?php echo number_format( $c["Total"], 2, ",", "." ); ?></td>
                     </tr>
                     <?php } ?>
                 </tbody>

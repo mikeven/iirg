@@ -118,8 +118,8 @@ function guardarFactura(){
 				$("#btn_confirmacion").fadeOut(200);
 			},
 			success: function( response ){
-				res = jQuery.parseJSON(response);
 				//console.log(response);
+				res = jQuery.parseJSON(response);
 				var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 				ventanaMensaje( res.exito, res.mje, enlace );
 				bloquearDocumento();
@@ -129,47 +129,34 @@ function guardarFactura(){
 }
 /* --------------------------------------------------------- */
 function checkFactura(){
-	
+	//Validación de formulario de factura previo a su registro
 	var error = 0; 
 	
 	if( $("#idCliente").val() == "" ){
+		//Cliente no seleccionado
 		$("#tx-vmsj").html("Debe indicar un cliente");
 		$("#ncliente").css({'border-color' : '#dd4b39'});	
 		error = 1;
 	}
 
 	if( ( contarItems() == 0 ) && ( error == 0 ) ){
+		//Factura sin ítems
 		$("#tx-vmsj").html("Debe ingresar ítems en la factura");
 		error = 1; 
 	}
 
 	if( $("#fordc").val() == "" ){
+		//Asignación de valor por defecto ('N/A') a orden de compra si no es indicado
 		$("#fordc").val("N/A");
 	}
 
 	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
 		$("#ventana_mensaje").addClass("modal-danger");
 		$("#tit_vmsj").html( "Error" );
 	}
 	
 	return error;	
-}
-/* --------------------------------------------------------- */
-function checkItemForm_X( idart, punit, qant ){
-	var valido = 1;
-
-	if( idart == "0" ) { $("#narticulo").css({'border-color' : '#dd4b39'}); valido = 0; }
-	
-	if( punit == "" ) { $("#fpunit").css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fpunit").css({'border-color' : '#ccc'});
-	
-	if( qant == "" || qant == "0" ) { $("#fcantidad").css({'border-color' : '#dd4b39'}); valido = 0; } 
-		else $("#fcantidad").css({'border-color' : '#ccc'});
-	
-	if( $( "#fptotal" ).val() == "0.00" ){ $( "#fptotal" ).css({'border-color' : '#dd4b39'}); valido = 0; }
-		else $("#fptotal").css({'border-color' : '#ccc'});
-
-	return valido;
 }
 /* --------------------------------------------------------- */
 $( document ).ready(function() {

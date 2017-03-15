@@ -262,7 +262,7 @@
                     <th align="center">Cant</th>
                     <th align="center">UND</th>
                     <th align="center">Precio Unitario</th>
-                    <th align="center">Total ítem</th>
+                    <th align="center">Total BsF.</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -274,8 +274,8 @@
                     <td class="tit_tdf_i" align="left"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["und"];?></td>
-                    <td class="tit_tdf" align="right"><?php echo number_format( $item["punit"], 2, ",", "" );?></td>
-                    <td class="tit_tdf" align="right"><?php echo number_format( $item["ptotal"], 2, ",", "" );?></td>
+                    <td class="tit_tdf" align="right"><?php echo number_format( $item["punit"], 2, ",", "." );?></td>
+                    <td class="tit_tdf" align="right"><?php echo number_format( $item["ptotal"], 2, ",", "." );?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -300,15 +300,15 @@
                 <table class="table">
                   <tr>
                     <th style="width:75%">Subtotal:</th>
-                    <td class="tit_tdf_d" align="right"><?php echo $totales["subtotal"]; ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
                   </tr>
                   <tr>
                     <th>IVA (<?php echo $eiva; ?>%)</th>
-                    <td class="tit_tdf_d" align="right"><?php echo $totales["iva"]; ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td class="tit_tdf_d" align="right"><?php echo $totales["total"]; ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
                   </tr>
                 </table>
               </div>

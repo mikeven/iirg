@@ -170,7 +170,7 @@
             <!-- left column -->
             <div class="col-md-12">
               <!-- general form elements -->
-				<div class="box box-default color-palette-box">
+				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">CREAR NUEVA SOLICITUD DE COTIZACIÓN</h3>
                   <div class="icon-color nuevo-reg-icono">
@@ -179,22 +179,22 @@
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_nscotizacion" name="form_agregar_solicitud_cotizacion">
+                <form role="form" id="frm_nscotizacion" name="form_agregar_solicitud_cotizacion" class="frm_documento">
                 	<input name="reg_sctz" type="hidden" value="1">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		<div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                          data-target="#lista_proveedores">PROVEEDOR</button>
-                                        </div>
-                                        <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
-                                        <input type="hidden" class="form-control" id="idCliente" value="">
-                                        <input type="hidden" class="form-control" id="tipo" value="solicitud">
-                                	</div>
+                          <div class="form-group">
+                              <div class="input-group">
+                                <div class="input-group-btn">
+                                  <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
+                                  data-target="#lista_proveedores">PROVEEDOR</button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
+                                <input type="hidden" class="form-control" id="idCliente" value="">
+                                <input type="hidden" class="form-control" id="tipo" value="solicitud">
+                        	     </div>
                                 </div><!-- /.form group -->
                                 <!-- Modal -->
                                 	<?php include( "subforms/tablas/tabla_proveedores_modal.php" ); ?>
@@ -262,7 +262,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                              <button type="button" class="btn btn-info" data-toggle="modal" 
+                                              <button type="button" class="btn btn-info blq_bdoc" data-toggle="modal" 
                                               data-target="#lista_articulos">ARTÍCULO</button>
                                             </div>
                                             <!-- /btn-group -->
@@ -425,7 +425,8 @@
                         <div id="response_server"></div>
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" 
+                      data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );

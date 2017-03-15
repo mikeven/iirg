@@ -103,6 +103,7 @@
 		
 		if( ( $ido != 0 ) && ( $ido != "" ) ){
 			$exito = guardarDetalleOrdenCompra( $dbh, $ido, $detalle, $encabezado->iva );
+			if( !isset( $encabezado->tipo ) )  $encabezado->tipo = "";
 			if( $exito == true ){
 				$res["exito"] = 1;
 				$res["mje"] = "Registro exitoso"; 
