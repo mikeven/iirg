@@ -32,6 +32,10 @@
 		return $doc;
 	}
 
+	function tituloVentanaAnular( $doc ){
+		
+	}
+
 	/*--------------------------------------------------------------------------------------------------------*/
 	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){

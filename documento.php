@@ -26,7 +26,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php echo $tdocumento." Nro. ".$encabezado["nro"];?></title>
+    <title><?php echo $tdocumento." Nro. ".$encabezado["nro"]; //fn-documento.php ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -51,9 +51,11 @@
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/fn-documento.js"></script>
     <style>
     	#lin1{ font-size:22px; } #lin2{ font-size:18px; } .membrete3{ font-size:16px; }
       .tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
+      #bloque_documento{ padding: 20px 20px 120px 20px !important; }
     </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -104,6 +106,7 @@
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
         $enlace_edt = "";
+
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -112,18 +115,18 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+        <div>
         <section class="content-header">
-          <h1 style="float:left;"><?php echo $tdocumento." #".$encabezado["nro"]; ?></h1>
-          <button type="button" class="btn btn-block btn-default btn-sm" style="float:left;">Editar</button>
+          <h1><?php echo $tdocumento." #".$encabezado["nro"]; ?></h1>         
           <!-- <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Examples</a></li>
             <li class="active">Invoice</li>
           </ol> -->
-        </section>
+        </section></div>
 
         <!-- Main content -->
-        <section class="invoice">
+        <section id="bloque_documento" class="invoice">
           <!-- title row -->
           <!--<div class="row">
             <div class="col-xs-12">
@@ -262,15 +265,34 @@
           
             </div><!-- /.row -->
 
-            <!-- this row will not appear when printing -->
+            <!-- Pie de documento (no para impresión) -->
             <div class="row no-print">
               <div class="col-xs-12">
-                <a href="<?php echo $enlace_imp; // ?>" class="btn btn-app" target="_blank">
+                <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank">
                   <i class="fa fa-print fa-2x"></i> Imprimir
                 </a>
+                <div class="btn-group pull-right">
+                  <button type="button" class="btn btn-info">Opciones</button>
+                  <button type="button" class="btn btn-info dropdown-toggle" 
+                  data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#"><i class="fa fa-edit"></i> Editar</a></li>
+                    <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
+                    <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!" data-toggle="modal" 
+                      data-target="#ventana_anular"><i class="fa fa-ban"></i> Anular </a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-
+            <!-- Pie de documento (no para impresión) -->
+            <?php 
+              include( "subforms/nav/mensaje_confirmacion_anulacion.php" );
+            ?>
         </section><!-- /.content -->
         <div class="clearfix"></div>
       </div><!-- /.content-wrapper -->
