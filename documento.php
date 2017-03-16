@@ -51,11 +51,12 @@
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/fn-documento.js"></script>
+    <script src="js/fn-hoja-documento.js"></script>
     <style>
     	#lin1{ font-size:22px; } #lin2{ font-size:18px; } .membrete3{ font-size:16px; }
       .tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
-      #bloque_documento{ padding: 20px 20px 120px 20px !important; }
+      #bloque_documento{ padding: 8px 15px; } .page-header{ padding-bottom: 20px; }
+      .rojo{ color: #d73925;} /*#bloque_data_documento{ width: 30% !important; }*/
     </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -63,7 +64,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
@@ -93,9 +94,7 @@
               <!-- User Account: style can be found in dropdown.less -->
               <?php include("subforms/nav/perfil.php");?>
               <!-- Control Sidebar Toggle Button -->
-              <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
+              <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
             </ul>
           </div>
         </nav>
@@ -105,8 +104,7 @@
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
-        $enlace_edt = "";
-
+        $enlace_edc = enlaceEdicion( $tdd, $id );
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -118,24 +116,43 @@
         <div>
         <section class="content-header">
           <h1><?php echo $tdocumento." #".$encabezado["nro"]; ?></h1>         
-          <!-- <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Invoice</li>
-          </ol> -->
+          <input name="iddocumento" id="id_documento" type="hidden" value="<?php echo $id; ?>">
         </section></div>
 
         <!-- Main content -->
         <section id="bloque_documento" class="invoice">
-          <!-- title row -->
-          <!--<div class="row">
+          <!-- Bloque opciones -->
+          <div class="row">
             <div class="col-xs-12">
               <h2 class="page-header">
-                <i class="fa fa-globe"></i> AdminLTE, Inc.
-                <small class="pull-right">Date: 2/10/2014</small>
+                <i class="fa fa-<?php echo iconoEstado( $encabezado["estado"] ); ?> rojo"></i> 
+                <?php echo $encabezado["estado"]; ?>
+                
+                <div id="btn_opciones" class="btn-group pull-right">
+                  <button type="button" class="btn btn-info">Opciones</button>
+                  <button type="button" class="btn btn-info dropdown-toggle" 
+                  data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
+                    <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
+                    <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
+                    <?php if( $encabezado["estado"] != "anulada" ) { ?>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="#!" data-toggle="modal" data-target="#ventana_anular">
+                      <i class="fa fa-ban"></i> Anular </a>
+                    </li>
+                    <?php } ?>
+                  </ul>
+                </div>
+
               </h2>
             </div>
-          </div>-->
+          </div><!-- /.Bloque opciones -->
+          
           <!-- info row -->
             <?php if( $tdd != "fac_x" ) { ?>
             <div class="row invoice-info" id="membrete">
@@ -150,42 +167,43 @@
                 </div><!-- /.col -->
                 <div class="col-sm-2 invoice-col"></div><!-- /.col -->
           	</div><!-- /.row -->
-			      <?php }?>
+			      <?php } ?>
+            
             <div class="row invoice-info" id="encabezado" style="margin:20px 0;">
-                <div class="col-sm-4 invoice-col" id="dcliente">
-                    <div id="dc_nombre">Señores</div>
-                    <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                    <?php if( ( $tdd == "fac" ) || ( $tdd == "odc" ) || ( $tdd == "sctz" ) ) { ?>
-                      <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
-                      <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
-                      <div id="dc_ciudad">Ciudad: Caracas</div>
-                    <?php } ?>
-                    <?php if($tdd == "ctz") { ?>
-                      <div id="dc_pcontacto"> Attn <?php echo $encabezado["pcontacto"]?></div>
-                    <?php } ?>
-                </div><!-- /.col -->
-                <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
-                
-                <div class="col-sm-3 invoice-col" id="ddocumento">
-                    
-                    <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
-                    <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
-                    
-                    <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
-                      <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
-                    <?php } ?>
-                    
-                    <?php if($tdd == "ctz") { ?>
-                      <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
-                    <?php } ?>
-                    
-                    <?php if($tdd == "fac") { ?>
-                      <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
-                      <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
-                    <?php } ?>
-                
-                </div><!-- /.col -->
-                
+              <div class="col-sm-4 invoice-col" id="dcliente">
+                  <div id="dc_nombre">Señores</div>
+                  <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
+                  <?php if( ( $tdd == "fac" ) || ( $tdd == "odc" ) || ( $tdd == "sctz" ) ) { ?>
+                    <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
+                    <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
+                    <div id="dc_ciudad">Ciudad: Caracas</div>
+                  <?php } ?>
+                  <?php if($tdd == "ctz") { ?>
+                    <div id="dc_pcontacto"> Attn <?php echo $encabezado["pcontacto"]?></div>
+                  <?php } ?>
+              </div><!-- /.col -->
+              <div class="col-sm-5 invoice-col"> </div><!-- /.col -->
+              
+              <div class="col-sm-3 invoice-col" id="ddocumento">
+                  
+                  <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
+                  <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
+                  
+                  <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
+                    <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
+                  <?php } ?>
+                  
+                  <?php if($tdd == "ctz") { ?>
+                    <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
+                  <?php } ?>
+                  
+                  <?php if($tdd == "fac") { ?>
+                    <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
+                    <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
+                  <?php } ?>
+              
+              </div><!-- /.col -->
+              
             </div><!-- /.row -->
             
             <!-- Texto introductorio -->
@@ -271,22 +289,6 @@
                 <a href="<?php echo $enlace_imp; ?>" class="btn btn-app" target="_blank">
                   <i class="fa fa-print fa-2x"></i> Imprimir
                 </a>
-                <div class="btn-group pull-right">
-                  <button type="button" class="btn btn-info">Opciones</button>
-                  <button type="button" class="btn btn-info dropdown-toggle" 
-                  data-toggle="dropdown" aria-expanded="true">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="fa fa-edit"></i> Editar</a></li>
-                    <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
-                    <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#!" data-toggle="modal" 
-                      data-target="#ventana_anular"><i class="fa fa-ban"></i> Anular </a></li>
-                  </ul>
-                </div>
               </div>
             </div>
             <!-- Pie de documento (no para impresión) -->
@@ -294,6 +296,7 @@
               include( "subforms/nav/mensaje_confirmacion_anulacion.php" );
             ?>
         </section><!-- /.content -->
+        <!-- <section id="bloque_data_documento" class="col-sm-2 invoice"></section> -->
         <div class="clearfix"></div>
       </div><!-- /.content-wrapper -->
       

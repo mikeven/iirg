@@ -5,7 +5,7 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link, $idu ){
 		$lista_c = array();
-		$q = "Select F.IdFactura2 as id, F.numero as numero, C.IdCliente2 as idc, C.Nombre as cliente, 
+		$q = "Select F.IdFactura2 as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
 		where F.IdCliente2 = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
@@ -36,11 +36,11 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
-		$q = "select f.numero as nro, f.IdFactura2 as idf, f.IdCliente2 as idcliente, 
+		$q = "select f.numero as nro, f.IdFactura2 as idf, f.estado as estado, f.IdCliente2 as idcliente, 
 		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, f.iva as iva, f.orden_compra as oc, f.introduccion as intro, 
 		f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, 
 		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, 
-		c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c where f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
+		c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c WHERE f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );

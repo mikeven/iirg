@@ -6,9 +6,10 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerListaCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') 
-		as Fecha, k.Nombre as Nombre, c.Total as Total from cotizacion c, cliente k 
-		where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' and idUsuario = $idu order by c.fecha_emision DESC";
+		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, 
+		date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total 
+		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' and idUsuario = $idu 
+		order by c.fecha_emision DESC";
 		
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
@@ -19,7 +20,7 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerSolicitudesCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, date_format(c.fecha_emision,'%d/%m/%Y') 
+		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') 
 		as Fecha, p.Nombre as Nombre, c.Total as Total from cotizacion c, proveedor p 
 		where c.IdCliente2 = p.idProveedor and c.tipo = 'solicitud' and idUsuario = $idu order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
@@ -41,6 +42,31 @@
 		return $data["num"] + 1;	
 	}
 	
+	function mostrarItemDocumentoCotizacion( $ditem, $i ){
+		//Muestra el renglón con el ítem de detalle al cargar el pedido para generar Factura (nuevo-factura-php)
+		
+		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
+		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
+		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
+		 <th><div class='input-group input-space'>
+		 <input id='idq_$i' name='dcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' data-nitem='$i' 
+		 onkeypress='return isIntegerKey(event)' onkeyup='actItemD( this )'></div>
+		 </th><th><div class='input-group input-space'>
+		 <input id='idund_$i' name='dund' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[und]' data-nitem='$i'></div>
+		 </th><th>
+		 <div class='input-group input-space'>
+		 <input id='idpu_$i' name='dpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
+		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemD( this )' onblur='initValid()'></div>
+		</th><th><div class='input-group input-space'><input id='idpt_$i' name='dptotal' type='text' 
+		class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
+		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemDetalle(it$i)'>
+		<i class='fa fa-times'></i></button></th>
+		</tr>";
+
+		return $renglon;
+	}
+
+
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetalleCotizacion( $dbh, $idc ){
 		
@@ -57,7 +83,7 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.IdCliente2 as idcliente, 
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, c.IdCliente2 as idcliente, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
 		c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, 
@@ -72,7 +98,7 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
 			
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, p.idProveedor as idproveedor, 
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
 		c.Observaciones3 as obs3, p.Nombre as nombre, p.Rif as rif, p.direccion1 as dir1, p.direccion2 as dir2, 
@@ -114,9 +140,9 @@
 		// Guarda el registro de la cotización y solicitud de cotización
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into cotizacion ( numero, tipo, IdCliente2, fecha_emision, pcontacto, introduccion, 
+		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, pcontacto, introduccion, 
 		observaciones, observaciones1, observaciones2, observaciones3, iva, Total, validez, idUsuario  ) 
-		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idc, '$fecha_mysql', 
+		values ( $encabezado->numero, '$encabezado->tipo', 'pendiente', $encabezado->idc, '$fecha_mysql', 
 		'$encabezado->pcontacto', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
 		'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, '$encabezado->cvalidez', $idu )";
 		

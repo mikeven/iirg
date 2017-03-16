@@ -7,12 +7,10 @@
           Anular <?php echo $tdocumento." #".$encabezado["nro"]; ?>
         </h4>
       </div>
-      <div id="mje_confirmacion" class="modal-body">
-        Confirmar anulación
-      </div>
+      <div id="mje_confirmacion" class="modal-body">Confirmar anulación</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="btn_confirm">Anular</button>
+        <button type="button" class="btn btn-primary btn_anulacion" data-file-doc="<?php echo $filedoc;?>">Anular</button>
       </div>
     </div>
   </div>

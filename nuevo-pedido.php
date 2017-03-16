@@ -325,7 +325,7 @@
                                                           <th width="5%" class="tit_tdf"></th>
                                                       </tr>
                                                       <?php 
-                                                        if(isset( $cotizacion )) {
+                                                        if( isset( $cotizacion ) ) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
                                                             echo mostrarItemDocumentoPedido( $item, $ni );
