@@ -17,7 +17,8 @@
 	
 	checkSession( '' );
   if( isset( $_GET["id"] ) ){
-    $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["id"] );
+    $idc = $_GET["id"];
+    $cotizacion = obtenerCotizacionPorId( $dbh, $idc );
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
@@ -31,7 +32,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Crear nueva cotización</title>
+  <title>IIRG | Editar cotización</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -89,6 +90,13 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    
+    <script>
+      $( document ).ready(function() {
+          iniciarVentanaConfirmacion( "bt_edit_cotizacion", "Guardar cotización" );
+      });
+    </script>
+
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
     
@@ -173,83 +181,83 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ecotizacion" name="form_editar_cotizacion" class="frm_documento">
-                	<input name="edt_ctz" type="hidden" value="1">
+                	<input id="id_cotizacion" type="hidden" value="<?php echo $idc; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
-                    		<div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                          <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                          data-target="#lista_clientes">CLIENTE</button>
-                                        </div>
-                                        <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
-                                        value="<?php echo $encabezado["nombre"]; ?>">
-                                        <input type="hidden" class="form-control" id="idCliente" 
-                                        value="<?php echo $encabezado["idcliente"]; ?>">
-                                        <input type="hidden" class="form-control" id="tipo" value="<?php echo $encabezado["tipo"]; ?>">
-                                	</div>
-                                </div><!-- /.form group -->
-                                <!-- Modal -->
-                                	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
-                                <!-- /.Modal -->
-                                <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i> 
-                                                <label for="datepicker" class="iconlab">Fecha emisión:</label>
-                                            </div>
-                                            <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo $encabezado["femision"];?>">
-                                        </div>
-                                    </div><!-- /.form group -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <!--<label for="fcondpago" class="">Validez:</label>-->
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                            <select name="validez" id="cvalidez" class="form-control">
-                                                <option value="0" disabled selected>Validez</option>
-                                                <option value="3 días">3 días</option>
-                                                <option value="5 días">5 días</option>
-                                                <option value="8 días">8 días</option>
-                                            </select>
-                                        </div><!-- /.input group -->
-                                    </div><!-- /.form group -->
-                    			       </div>
-                                </div>
-                                
-                                <div class="row"><!-- 3era fila -->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="input-group date">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
-                                                </div>
-                                                <input type="text" class="form-control" id="ncotiz" name="numero" required readonly 
-                                                value="<?php echo $encabezado["nro"]; ?>">
-                                            </div>
-                                        </div><!-- /.form group -->
-                                    </div>
-                                    <div class="col-md-8">
-                                    	<div class="form-group">
-                                            <!--<label for="fcondpago" class="">Validez:</label>-->
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-user"></i> 
-                                                    <label for="datepicker" class="iconlab">P. Contacto:</label>
-                                                </div>
-                                                <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required 
-                                                value="<?php echo $encabezado["pcontacto"]; ?>">
-                                            </div><!-- /.input group -->
-                                        </div><!-- /.form group -->	
-                                    </div>
-                                </div><!-- /.3era fila -->
+                    		  <div class="col-md-6">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
+                                        data-target="#lista_clientes">CLIENTE</button>
+                                      </div>
+                                      <!-- /btn-group -->
+                                      <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                                      value="<?php echo $encabezado["nombre"]; ?>">
+                                      <input type="hidden" class="form-control" id="idCliente" 
+                                      value="<?php echo $encabezado["idcliente"]; ?>">
+                                      <input type="hidden" class="form-control" id="tipo" value="<?php echo $encabezado["tipo"]; ?>">
+                              	</div>
+                              </div><!-- /.form group -->
+                              <!-- Modal -->
+                              	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
+                              <!-- /.Modal -->
+                              <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <div class="input-group date">
+                                          <div class="input-group-addon">
+                                              <i class="fa fa-calendar"></i> 
+                                              <label for="datepicker" class="iconlab">Fecha emisión:</label>
+                                          </div>
+                                          <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
+                                          value="<?php echo $encabezado["femision"];?>">
+                                      </div>
+                                  </div><!-- /.form group -->
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <!--<label for="fcondpago" class="">Validez:</label>-->
+                                      <div class="input-group">
+                                          <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                          <select name="validez" id="cvalidez" class="form-control">
+                                              <option value="0" disabled selected>Validez</option>
+                                              <option value="3 días">3 días</option>
+                                              <option value="5 días">5 días</option>
+                                              <option value="8 días">8 días</option>
+                                          </select>
+                                      </div><!-- /.input group -->
+                                  </div><!-- /.form group -->
+                  			       </div>
+                              </div>
+                              
+                              <div class="row"><!-- 3era fila -->
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <div class="input-group date">
+                                              <div class="input-group-addon">
+                                                  <i class="fa fa-slack"></i> 
+                                                  <label for="datepicker" class="iconlab">N°:</label>
+                                              </div>
+                                              <input type="text" class="form-control" id="ncotiz" name="numero" required readonly 
+                                              value="<?php echo $encabezado["nro"]; ?>">
+                                          </div>
+                                      </div><!-- /.form group -->
+                                  </div>
+                                  <div class="col-md-8">
+                                  	<div class="form-group">
+                                          <!--<label for="fcondpago" class="">Validez:</label>-->
+                                          <div class="input-group">
+                                              <div class="input-group-addon">
+                                                  <i class="fa fa-user"></i> 
+                                                  <label for="datepicker" class="iconlab">P. Contacto:</label>
+                                              </div>
+                                              <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required 
+                                              value="<?php echo $encabezado["pcontacto"]; ?>">
+                                          </div><!-- /.input group -->
+                                      </div><!-- /.form group -->	
+                                  </div>
+                              </div><!-- /.3era fila -->
                             
                             </div><!--/.columna izquierda-->
                             
@@ -268,9 +276,9 @@
                                             <input type="hidden" id="und_art" value="0">
                                         </div>
                                     </div><!-- /.form group -->
-                                    <!-- Modal -->
+                                    <!-- Lista de artículos en sistema -->
                                     <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
-                                    <!-- /.Modal -->
+                                    <!-- /.Lista de artículos en sistema -->
                                     
                                     <div class="row" id="sumador_items">
                                       <div class="col-md-6">
@@ -315,7 +323,7 @@
                         <!-- ************************************************************************************************ -->
                         <div class="row" id="division_central"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_c["entrada"];?>">
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $encabezado["intro"]; ?>">
                         <div class="row" id="ficha_cotizacion">
                         	<div class="col-md-10 col-md-offset-1">
                             	
@@ -332,7 +340,7 @@
                                                         <th width="10%" class="tit_tdf">UND</th>
                                                         <th width="15%" class="tit_tdf">Precio Unit</th>
                                                         <th width="15%" class="tit_tdf">Total item</th>
-                                                        <th width="5%" class="tit_tdf"></th>
+                                                        <th width="5%" class="tit_tdf"> </th>
                                                     </tr>
                                                     <?php 
                                                         if(isset( $cotizacion )) {
@@ -413,7 +421,8 @@
                     
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" 
+                      data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );
@@ -431,12 +440,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-  <script>
-      $( document ).ready(function() {
-          asignarEtiquetaConfirmacion();
-      });
-  </script>
 
   <!-- /footer -->
   <?php include("subforms/nav/footer.php"); ?>

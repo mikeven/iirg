@@ -34,6 +34,12 @@ function initValid(){
   });
 }
 /* --------------------------------------------------------- */
+function iniciarVentanaConfirmacion( boton, titulo ){
+	$("#titulo_emergente").html( titulo );
+	$("#mje_confirmacion").html( "¿ Confirmar acción ?" );
+	$("#btn_confirm").attr("id", boton );
+}
+/* --------------------------------------------------------- */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
 	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
@@ -46,6 +52,7 @@ function checkCotizacion(){
 	//Validación de formulario de cotización previo a su registro
 	var error = 0;
 	var ente_asociado = "cliente";
+
 
 	if( $("#idCliente").val() == "" ){
 		//Cliente/Proveedor no seleccionado 
@@ -72,7 +79,9 @@ function checkCotizacion(){
 /* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	encabezado = new Object();
+	encabezado.idr = $( '#id_cotizacion' ).val();
 	encabezado.numero = $( '#ncotiz' ).val();
+	encabezado.estado = $( '#estado' ).val();
 	encabezado.tipo = $( '#tipo' ).val();
 	encabezado.idc = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
@@ -114,6 +123,28 @@ function guardarCotizacion(){
 	});
 }
 /* --------------------------------------------------------- */
+function editarCotizacion(){
+	cencabezado = obtenerVectorEncabezado();
+	cdetalle = obtenerVectorDetalle();
+	
+	$.ajax({
+		type:"POST",
+		url:"bd/data-cotizacion.php",
+		data:{ encabezado: cencabezado, detalle: cdetalle, edit_cotizacion : 1 },
+		beforeSend: function () {			
+			$("#bt_edit_cotizacion").fadeOut( 200 );
+			$("#btn_confirmacion").fadeOut( 200 );
+		},
+		success: function( response ){
+			console.log(response);
+			res = jQuery.parseJSON(response);
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
+		}
+	});	
+}
+/* --------------------------------------------------------- */
 function checkItemFormSolicitud( idart, qant ){
 	/* Validación para agregar ítems a los detalles de la solicitud de cotización */
 	var valido = 1;
@@ -125,20 +156,11 @@ function checkItemFormSolicitud( idart, qant ){
 
 	return valido;
 }
-/* --------------------------------------------------------- */
-function asignarEtiquetaConfirmacion(){
-	if( $("#tipo").val() == "cotizacion" )
-		$("#titulo_emergente").html("Guardar cotización");
-	if( $("#tipo").val() == "solicitud" )
-		$("#titulo_emergente").html("Guardar solicitud de cotización");
-}
 /* ================================================================================= */
 $( document ).ready(function() {
 	
 	var cant = "";
-	
-	$("#mje_confirmacion").html( "¿Confirmar registro?" );
-	$("#btn_confirm").attr("id", "bt_reg_cotizacion");
+
 	/* --------------------------------------------------------- */
 	/* Adición de ítems a los detalles de la solicitud de cotización */
 	$("#ag_item_sc").click( function(){
@@ -168,6 +190,15 @@ $( document ).ready(function() {
 		else
 			$("#enl_vmsj").click();
     });
+
+	$("#bt_edit_cotizacion").on( "click", function(){
+	
+		$("#closeModal").click();
+		if( checkCotizacion() == 0 )
+			editarCotizacion();
+		else
+			$("#enl_vmsj").click();
+    });    
     /* =============================================================================== */
 });
 /* ----------------------------------------------------------------------------------- */

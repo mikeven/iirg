@@ -56,7 +56,7 @@
     	#lin1{ font-size:22px; } #lin2{ font-size:18px; } .membrete3{ font-size:16px; }
       .tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
       #bloque_documento{ padding: 8px 15px; } .page-header{ padding-bottom: 20px; }
-      .rojo{ color: #d73925;} /*#bloque_data_documento{ width: 30% !important; }*/
+      .rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} .azul{ color: #0073b7; } .gris{ color: #666;}
     </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -104,7 +104,8 @@
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
-        $enlace_edc = enlaceEdicion( $tdd, $id );
+        $enlace_edc = enlaceEdicion( $tdd, $id );                     //fn-documento.php
+        $iconoi = iconoEstado( $encabezado["estado"] );
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>
@@ -125,7 +126,7 @@
           <div class="row">
             <div class="col-xs-12">
               <h2 class="page-header">
-                <i class="fa fa-<?php echo iconoEstado( $encabezado["estado"] ); ?> rojo"></i> 
+                <i class="fa <?php echo $iconoi["icono"]." ".$iconoi["color"]; ?>"></i> 
                 <?php echo $encabezado["estado"]; ?>
                 
                 <div id="btn_opciones" class="btn-group pull-right">

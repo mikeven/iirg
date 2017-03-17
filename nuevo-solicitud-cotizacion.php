@@ -446,7 +446,7 @@
   <!-- /.content-wrapper -->
   <script>
       $( document ).ready(function() {
-          asignarEtiquetaConfirmacion();
+          iniciarVentanaConfirmacion( "bt_reg_cotizacion", "Guardar solicitud cotización" );
       });
   </script>
   <!-- /footer -->

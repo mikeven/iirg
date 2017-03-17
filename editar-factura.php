@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Registro de nueva cotización
+	* IIRG - Registro de nueva factura
 	* 
 	*/
 	session_start();
@@ -9,20 +9,35 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
-	include( "bd/data-formato.php" );
+	include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
-	include( "fn/fn-formato.php" );
-  //require_once( 'lib/FirePHPCore/fb.php' );
+	include( "bd/data-factura.php" );
+	include( "bd/data-pedido.php" );
+	include( "bd/data-formato.php" );
 	
-	checkSession( '' );
-  $iva = 0.12; $eiva = $iva * 100;
+  checkSession( '' );
+	
+  if( isset( $_GET["id"] ) ){
+    $idf        = $_GET["id"];
+    $factura    = obtenerFacturaPorId( $dbh, $_GET["id"] );
+    $encabezado = $factura["encabezado"];
+    $detalle    = $factura["detalle"];
+    $ctz_asoc   = obtenerCotizacionPorId( $dbh, $encabezado["idCotizacion"] );
+    $nitems     = count( $detalle );
+    $iva        = $encabezado["iva"];
+    $eiva       = $iva * 100;
+    $totales    = obtenerTotales( $detalle, $encabezado["iva"] );
+  }
+  else{  
+  }
+	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Crear nueva cotización</title>
+  <title>IIRG | Editar factura</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -44,15 +59,17 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--<link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">-->
     <style>
-    	.input-space{	width:95%; }
-		  .itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
-  		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
-  		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
-  		.iconlab{ line-height: 0; }
-  		.form-group { margin-bottom: 5px; }
+    .input-space{
+		  width:95%;
+		}
+		.itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
+		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
+		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
+		.iconlab{ line-height: 0; }
+		.form-group { margin-bottom: 5px; }
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,14 +97,8 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    <script>
-      $( document ).ready(function() {
-        iniciarVentanaConfirmacion( "bt_reg_cotizacion", "Guardar cotización" );   
-      });
-    </script>
     <script src="js/fn-documento.js"></script>
-    <script src="js/fn-cotizacion.js"></script>
-    
+    <script src="js/fn-factura.js"></script>
     
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -132,10 +143,9 @@
 
     </nav>
   </header>
-  <?php 
-    $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh, $usuario["idUsuario"] );
-    $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c );
+  <?php
+    /*$num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
+    $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );*/
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -163,88 +173,91 @@
               <!-- general form elements -->
 				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">CREAR NUEVA COTIZACIÓN</h3>                  
+                  <h3 class="box-title">EDITAR FACTURA</h3>
                   <div class="icon-color nuevo-reg-icono">
-                    <a href="nuevo-cotizacion.php"><i class="fa fa-plus fa-2x"></i></a>
+                    <a href="nuevo-factura.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>
-                  <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
+                  <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion" class="frm_documento">
-                	<input id="id_cotizacion" type="hidden" value="">
+                <form role="form" id="frm_efactura" name="form_editar_factura" class="frm_documento">
+                	<input id="id_factura" type="hidden" value="<?php echo $idf; ?>">
                     <div class="box-body">
-                    	<div class="row" id="encabezado_cotizacion">
+                    	<div class="row" id="encabezado_factura">
                     		<div class="col-md-6">
+                            <div class="row">
+                              <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-btn">
-                                          <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                          data-target="#lista_clientes">CLIENTE</button>
-                                        </div>
-                                        <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente">
-                                        <input type="hidden" class="form-control" id="idCliente" value="">
-                                        <input type="hidden" class="form-control" id="tipo" value="cotizacion">
-                                	</div>
+                                      <!--<div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
+                                        data-target="#lista_pedidos" id="blpedidos">PEDIDO</button>
+                                      </div> -->
+                                      <!-- /btn-group -->
+                                      <input type="text" class="form-control" id="fpedido" readonly 
+                                      name="pedido" value="<?php if( isset( $encabezado ) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
+                                      <input type="hidden" class="form-control" id="idPedido" value="<?php if( isset($encabezado) ) echo $encabezado["idp"]?>">
+                                    </div>
                                 </div><!-- /.form group -->
-                                <!-- Modal -->
-                                	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
-                                <!-- /.Modal -->
+                              </div><!-- /.col6 -->
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-slack"></i> 
+                                        <label for="oc" class="iconlab">O/C:</label>
+                                      </div>
+                                      <input type="text" class="form-control" id="fordc" name="orden_compra" value="">
+                                    </div>
+                                </div><!-- /.form group -->
+                              </div><!-- /.col6 -->
+                            </div><!-- /.row -->
+                            
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
+                                    data-target="#lista_clientes" <?php if( isset( $encabezado ) ) echo "disabled";?>>CLIENTE</button>
+                                  </div>
+                                  <!-- /btn-group -->
+                                  <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                                  value="<?php if( isset( $encabezado ) ) echo $encabezado["nombre"]?>">
+                                  <input type="hidden" class="form-control" id="idCliente" 
+                                  value="<?php if( isset( $encabezado ) ) echo $encabezado["idcliente"]?>">
+                            	</div>
+                            </div><!-- /.form group -->
+                            <!-- Modal -->
+                            	<?php 
+                                include( "subforms/tablas/tabla_pedidos_modal.php" );
+                                include( "subforms/tablas/tabla_clientes_modal.php" );
+                              ?>
+                            <!-- /.Modal -->
                                 <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i> 
-                                                <label for="datepicker" class="iconlab">Fecha emisión:</label>
-                                            </div>
-                                            <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo date("d/m/Y");?>">
-                                        </div>
-                                    </div><!-- /.form group -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <!--<label for="fcondpago" class="">Validez:</label>-->
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                            <select name="validez" id="cvalidez" class="form-control">
-                                                <option value="0" disabled selected>Validez</option>
-                                                <option value="3 días">3 días</option>
-                                                <option value="5 días">5 días</option>
-                                                <option value="8 días">8 días</option>
-                                            </select>
-                                            <input id="estado" type="hidden" value="pendiente">
-                                        </div><!-- /.input group -->
-                                    </div><!-- /.form group -->
-                    			       </div>
-                                </div>
-                                
-                                <div class="row"><!-- 3era fila -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="form-group">
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="ncotiz" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
+                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
-                                    <div class="col-md-8">
-                                    	<div class="form-group">
-                                            <!--<label for="fcondpago" class="">Validez:</label>-->
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-user"></i> 
-                                                    <label for="datepicker" class="iconlab">P. Contacto:</label>
-                                                </div>
-                                                <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required value="">
-                                            </div><!-- /.input group -->
-                                        </div><!-- /.form group -->	
-                                    </div>
-                                </div><!-- /.3era fila -->
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i> 
+                                                <label for="datepicker" class="iconlab">Fecha emisión:</label>
+                                            </div>
+                                            <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
+                                            value="<?php echo $encabezado["nro"]; ?>">
+                                        </div>
+                                    </div><!-- /.form group -->
+                                	</div>
+                                </div>
                             
                             </div><!--/.columna izquierda-->
                             
@@ -264,7 +277,7 @@
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
-                                    <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                        <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
@@ -306,19 +319,19 @@
                                 </div><!--/.articulos_cotizacion-->		
                             </div>
                         
-                        </div><!-- /.encabezado_cotizacion -->
+                        <div id="testing"></div>
+                        </div><!-- /.encabezado_factura -->
                         <!-- ************************************************************************************************ -->
-                        <div class="row" id="division_central"><div class="col-md-12"><hr></div></div>
+                        <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $frt_c["entrada"];?>">
-                        <div class="row" id="ficha_cotizacion">
-                        	<div class="col-md-10 col-md-offset-1">
-                            	
-                                <div id="detalle_cotizacion">
-                                    
-                                    <div class="box box-primary">	
-                                        <div class="box-body">
-                                        	<input id="cont_item" name="contadoritems" type="hidden" value="0">
+                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $encabezado["intro"];;?>">
+                          <div class="row" id="contenido_factura">
+                          	<div class="col-md-10 col-md-offset-1">
+                                  
+                                  <div id="detalle_factura">
+                                      <div class="box box-primary">	
+                                          <div class="box-body">
+                                          	<input id="cont_item" name="contador_items" type="hidden" value="<?php echo $nitems?>">
                                             <table class="table table-condensed" id="tdetalle">
                                                 <tbody>
                                                     <tr>
@@ -329,88 +342,88 @@
                                                         <th width="15%" class="tit_tdf">Total item</th>
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
+                                                    <?php 
+                                                      if(isset( $pedido )) {
+                                                        $ni = 0; 
+                                                        foreach( $detalle as $item ){ $ni++;
+                                                          echo mostrarItemDocumentoFactura( $item, $ni );
+                                                      }
+                                                    }?>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
-                                    					
-                                </div><!--/.detalle_cotizacion-->
-                                
-                                <div class="row" id="pie_cotizacion">
-                                	<table class="table table-condensed" id="pietabla_table">
-                                        <tbody>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">SubTotal</th>
-                                                <th width="15%">
-                                                	<div id="csub_total" class="totalizacion">
-                                                    	<div class="input-group">
-                                                    		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="subtotal" value="0.00" readonly>
-                                                		</div>
-                                                	</div>
-                                                </th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
-                                                <th width="15%">
-                                                	<div id="cimpuesto" class="totalizacion">
-                                                    	<div class="input-group">
-                                                        	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                                    		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="0.00" readonly>
-                                                		</div>
-                                                	</div></th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                            <tr>
-                                                <th width="65%"></th>
-                                                <th width="15%">Total</th>
-                                                <th width="15%">
-                                                	<div id="ctz_total" class="totalizacion">
-                                                    	<div class="input-group">
-                                                    		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="total" value="0.00" readonly>
-                                                		</div>
-                                                	</div>
-                                                </th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                        </tbody>
-                                    </table>			
-                                </div>
-                                <div id="observaciones">
-                                  <div class="titobs"><?php echo $obs[0]["t"];?></div>
-                                  <input id="tobs0" type="hidden" value="<?php echo $obs[0]["t"];?>">
-                                  <div class="obsctz"><?php echo $obs[1]["t"];?>
-                                    <input id="tobs1" type="hidden" value="<?php echo $obs[1]["v"];?>" 
-                                    data-v="<?php echo $obs[1]["dv"];?>">
+                                          </div>
+                                      </div>
+                                      					
+                                  </div><!--/.detalle_factura-->
+                                  
+                                  <div class="row" id="pie_factura">
+                                  	<table class="table table-condensed" id="pietabla_table">
+                                          <tbody>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">SubTotal</th>
+                                                  <th width="15%">
+                                                  	<div id="fsub_total" class="totalizacion">
+                                                      	<div class="input-group">
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="subtotal" value="<?php if(isset( $factura )) echo $totales["subtotal"]?>" readonly>
+                                                  		</div>
+                                                  	</div>
+                                                  </th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
+                                                  <th width="15%">
+                                                  	<div id="impuesto" class="totalizacion">
+                                                      	<div class="input-group">
+                                                          	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="v_iva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
+                                                  		</div>
+                                                  	</div></th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                              <tr>
+                                                  <th width="65%"></th>
+                                                  <th width="15%">Total</th>
+                                                  <th width="15%">
+                                                  	  <div id="fac_total" class="totalizacion">
+                                                      	<div class="input-group">
+                                                      		<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                              id="total" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
+                                                  		</div>
+                                                  	</div>
+                                                  </th>
+                                                  <th width="5%"></th>
+                                              </tr>
+                                          </tbody>
+                                      </table>			
                                   </div>
-                                  <div class="obsctz"><?php echo $obs[2]["t"];?>
-                                    <input id="tobs2" type="hidden" value="<?php echo $obs[2]["v"];?>" 
-                                    data-v="<?php echo $obs[2]["dv"];?>">
+                                  
+                                  <div id="observaciones">
+                                    <div class="titobs"><?php echo $encabezado["obs0"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
                                   </div>
-                                  <div class="obsctz"><?php echo $obs[3]["t"];?>
-                                    <input id="tobs3" type="hidden" value="<?php echo $obs[3]["v"];?>" 
-                                    data-v="<?php echo $obs[3]["dv"];?>">
-                                  </div>
-                                </div><!--/. observaciones -->
-                            
-                            </div><!--/.col-md-8-->
-                        	
-                        </div><!-- /.pie_cotizacion -->
-                        
-                        <!-- Bloque de respuesta del servidor -->
-                          <?php //include("subforms/nav/mensaje_rcpf.php");?>
-                          <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+
+                              </div><!--/.col-md-8-->
+                          	
+                          </div><!-- /.pie_factura -->
+
+                          <!-- Bloque de respuesta del servidor -->
+                          <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje"></button>
                           <?php include("subforms/nav/mensaje_respuesta.php");?>
-                        <!-- /.Bloque de respuesta del servidor -->
-                    
+                          <!-- /.Bloque de respuesta del servidor -->
+
                     </div><!-- /.box-body -->
+					          
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary" id="btn_confirmacion" data-toggle="modal" 
+                      data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );

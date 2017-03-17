@@ -37,13 +37,14 @@
 	function iconoEstado( $estado ){
 
 		$icono = array(
-			"pendiente"	=> "clock-o",
-			"aprobada"	=> "check",
-			"pagado"	=> "check",
-			"anulada" 	=> "ban"
+			"pendiente"	=> array("icono" => "fa-clock-o", "color" => "amarillo"),
+			"aprobada"	=> array("icono" => "fa-thumbs-up", "color" => "verde"),
+			"pagada"	=> array("icono" => "fa-check", "color" => "azul"),
+			"vencida"	=> array("icono" => "fa-calendar-times-o", "color" => "gris"),
+			"anulada" 	=> array("icono" => "fa-ban", "color" => "rojo")
 		);
 
-		return $icono["$estado"];	
+		return $icono[$estado];	
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------*/

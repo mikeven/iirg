@@ -142,7 +142,7 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
 		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, pcontacto, introduccion, 
 		observaciones, observaciones1, observaciones2, observaciones3, iva, Total, validez, idUsuario  ) 
-		values ( $encabezado->numero, '$encabezado->tipo', 'pendiente', $encabezado->idc, '$fecha_mysql', 
+		values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', $encabezado->idc, '$fecha_mysql', 
 		'$encabezado->pcontacto', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
 		'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, '$encabezado->cvalidez', $idu )";
 		
@@ -180,4 +180,52 @@
 
 		echo json_encode( $res );
 	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function editarCotizacion( $dbh, $encabezado, $idu ){
+		
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$q = "update cotizacion set IdCliente2 = $encabezado->idc, fecha_emision = '$fecha_mysql', 
+		pcontacto = '$encabezado->pcontacto', iva = $encabezado->iva, Total = $encabezado->total, 
+		validez = '$encabezado->cvalidez', idUsuario = $idu WHERE IdCotizacion2 = $encabezado->idr and idUsuario = $idu";
+		
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();	
+	}
+
+	/* ------------------------------------------------------------------------------- */
+	//Edición de cotización
+	if( isset( $_POST["edit_cotizacion"] ) ){
+		
+		include( "bd.php" );
+		include( "data-documento.php" );
+		include( "../fn/fn-documento.php" );
+		
+		$encabezado = json_decode( $_POST["encabezado"] );
+		$detalle = json_decode( $_POST["detalle"] );
+		$r_edit = editarCotizacion( $dbh, $encabezado, $encabezado->idu );
+		
+		if( $r_edit != -1 ){
+			
+			eliminarDetalleDocumento( $dbh, "detallecotizacion", "IdCotizacion2", $encabezado->idr );
+			$exito = guardarDetalleCotizacion( $dbh, $encabezado->idr, $detalle, $encabezado->iva );
+			
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+				$res["documento"] = arrRespuesta( $encabezado, $encabezado->tipo );
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al editar detalle de cotización";
+			}
+
+		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al editar cotización";
+		}
+
+		echo json_encode( $res );
+	}
+	/* ------------------------------------------------------------------------------- */
 ?>
