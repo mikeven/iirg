@@ -38,7 +38,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+         folder instead of download
+
+         ing all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -107,8 +109,9 @@
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
-        $enlace_edc = enlaceEdicion( $tdd, $id );                     //fn-documento.php
-        $iconoi = iconoEstado( $encabezado["estado"] );
+        $enlace_edc = enlaceEdicion( $tdd, $id );           //fn-documento.php
+        $iconoi = iconoEstado( $encabezado["estado"] );     //fn-documento.php 
+        //print_r($encabezado);
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "subforms/nav/menu_ppal.php" );?>

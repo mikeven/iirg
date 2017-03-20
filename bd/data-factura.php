@@ -38,7 +38,7 @@
 		//Retorna el registro de factura y sus ítems de detalle
 		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente2 as idcliente, 
 		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(f.fecha_registro,'%d/%m/%Y') as fregistro, 
-		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y') as fpago, DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y') as fanulacion, 
+		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y') as fpago, DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
 		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.iva as iva, f.orden_compra as oc, 
 		f.introduccion as intro, f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, 
 		f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 

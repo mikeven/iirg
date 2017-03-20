@@ -40,16 +40,17 @@
 		//Retorna el registro de nota y sus ítems de detalle si posee
 		$cond = ""; $campo = ""; $tabla = "";
 		if( $tipo_n != "nota_entrega" ) {
-			$cond = "and f.idFactura2 = n.IdFactura";
+			$cond = "and f.idFactura = n.IdFactura";
 			$campo = "f.numero as nfact, "; $tabla = ", factura f";
 		}
 		
-		$q = "select n.numero nro, n.idNota as idn, n.tipo as tipo, $campo n.IdCliente as idcliente, 
-		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, n.iva as iva, n.SubTotal as SubTotal, 
+		$q = "select n.numero nro, n.idNota as idn, n.tipo as tipo, $campo n.idCliente as idcliente, n.estado as estado, 
+		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(n.fecha_registro,'%d/%m/%Y %h:%i') as fregistro,
+		DATE_FORMAT(n.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, n.iva as iva, n.SubTotal as SubTotal, 
 		n.tipo_concepto as tipo_concepto, n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
 		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
 		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
-		FROM nota n, cliente c $tabla where n.idNota = $idn and n.IdCliente = c.IdCliente2 $cond";
+		FROM nota n, cliente c $tabla WHERE n.idNota = $idn and n.idCliente = c.idCliente2 $cond";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleNota( $dbh, $idn );
@@ -97,15 +98,15 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
-		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, fecha_emision, iva, SubTotal, Total, 
-			concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, Observaciones3, fecha_reg, idUsuario ) 
-			values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, $encabezado->idcliente, 
+		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, estado, fecha_emision, iva, SubTotal, Total, 
+			concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, Observaciones3, fecha_registro, idUsuario ) 
+			values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, $encabezado->idcliente, 'pendiente', 
 				'$fecha_mysql', $encabezado->iva, $encabezado->subtotal, $encabezado->total, '$encabezado->concepto', 
 				'$encabezado->tipo_concepto', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 				'$encabezado->obs3', NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
-		//echo $q."<br>";
+		//echo $q;
 		
 		return mysql_insert_id();
 	}
@@ -160,7 +161,8 @@
 		}
 		else {
 			$res["exito"] = 0;
-				$res["mje"] = "Error al registrar Nota";
+			$res["mje"] = "Error al registrar Nota"; $encabezado->idr = NULL;
+			$res["documento"] = arrRespuesta( $encabezado, "nota" );
 		}
 		
 		echo json_encode( $res );

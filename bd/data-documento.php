@@ -46,6 +46,7 @@
 		$idtabla = idTabla( $tabla );
 
 		$q = "Update $tabla set estado = 'anulada', fecha_anulacion = NOW() where $idtabla = $id";
+		echo $q;
 		$data = mysql_query( $q, $link );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -59,9 +60,9 @@
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
-	//Registro de nueva factura
+	//Anulación de documento
 	if( isset( $_POST["id_doc_anul"] ) ){
-		
+		//proviene de fn-hoja-documento.js
 		include( "bd.php" );
 		anularDocumento( $dbh, $_POST["id_doc_anul"], $_POST["documento"] );
 	}

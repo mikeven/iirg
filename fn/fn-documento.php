@@ -36,6 +36,7 @@
 	function iconoEstado( $estado ){
 
 		$icono = array(
+			""	=> array("icono" => " fa-sticky-note", "color" => "verde"),
 			"pendiente"	=> array("icono" => "fa-clock-o", "color" => "amarillo"),
 			"aprobada"	=> array("icono" => "fa-thumbs-up", "color" => "verde"),
 			"pagada"	=> array("icono" => "fa-check", "color" => "azul"),
@@ -68,8 +69,10 @@
 		$enlace = "editar-".$ndoc[$documento].".php?"."id=".$id_doc;
 		return $enlace;
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function fechasDocumento( $encabezado ){
+		//Retorna el bloque con las fechas registradas de un documento de acuerdo al 
+		// tipo de documento para mostrarse en la ficha del mismo
 		$bloque_fechas = "";
 		$arr_fechas = array( 	
 			"femision" => "Emitida", 
@@ -79,7 +82,6 @@
 			"fanulacion" => "Anulada", 
 			"fpago" => "Pagada"
 		);
-
 
 		while ( $rf = current( $arr_fechas ) ) {
 		    $i = key( $arr_fechas );
