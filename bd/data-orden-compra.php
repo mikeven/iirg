@@ -37,11 +37,14 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerOrdenCompraPorId( $dbh, $ido ){
 		
-		$q = "select o.numero as nro, o.idOrden as ido, o.idProveedor as idproveedor, 
-		date_format(o.fecha_emision,'%d/%m/%Y') as femision, o.iva as iva, o.iva as iva, o.introduccion as intro, 
-		o.Observaciones as obs0, o.Observaciones1 as obs1, o.Observaciones2 as obs2, o.Observaciones3 as obs3, 
-		p.Nombre as nombre, p.Rif as rif, p.Direccion1 as dir1, p.Direccion2 as dir2, p.telefono1 as tlf1, 
-		p.telefono2 as tlf2, p.Email as email FROM orden_compra o, proveedor p 
+		$q = "select o.numero as nro, o.idOrden as ido, o.idProveedor as idproveedor, o.estado as estado, 
+		DATE_FORMAT(o.fecha_emision,'%d/%m/%Y') as femision, 
+		DATE_FORMAT(o.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
+		DATE_FORMAT(o.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion,
+		o.iva as iva, o.iva as iva, o.introduccion as intro, o.Observaciones as obs0, 
+		o.Observaciones1 as obs1, o.Observaciones2 as obs2, o.Observaciones3 as obs3, p.Nombre as nombre,
+		p.Rif as rif, p.Direccion1 as dir1, p.Direccion2 as dir2, p.telefono1 as tlf1, p.telefono2 as tlf2,
+		p.Email as email FROM orden_compra o, proveedor p 
 		where o.idOrden = $ido and o.idProveedor = p.idProveedor";
 		
 		$orden_compra["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	

@@ -5,7 +5,7 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link, $idu ){
 		$lista_c = array();
-		$q = "Select F.IdFactura2 as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
 		where F.IdCliente2 = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
@@ -25,7 +25,7 @@
 		// Obtiene los ítems del detalle de una factura
 		$detalle = array();
 		$q = "select IdDetalle as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
-		PrecioUnit as punit, PrecioTotal as ptotal, und from detallefactura where IdFactura2 = $idf";
+		PrecioUnit as punit, PrecioTotal as ptotal, und from detallefactura where IdFactura = $idf";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
@@ -36,11 +36,14 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
-		$q = "select f.numero as nro, f.IdFactura2 as idf, f.estado as estado, f.IdCliente2 as idcliente, 
-		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, f.iva as iva, f.orden_compra as oc, f.introduccion as intro, 
-		f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, 
-		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, 
-		c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c WHERE f.IdFactura2 = ".$idf." and f.IdCliente2 = c.IdCliente2";
+		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente2 as idcliente, 
+		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(f.fecha_registro,'%d/%m/%Y') as fregistro, 
+		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y') as fpago, DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y') as fanulacion, 
+		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.iva as iva, f.orden_compra as oc, 
+		f.introduccion as intro, f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, 
+		f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
+		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c 
+		WHERE f.IdFactura = ".$idf." and f.IdCliente2 = c.IdCliente2";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
@@ -51,7 +54,7 @@
 	function guardarItemDetalleF( $dbh, $idf, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		$ptotal = $item->dcant * $item->dpunit;
-		$q = "insert into detallefactura ( IdFactura2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
+		$q = "insert into detallefactura ( IdFactura, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idf, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
@@ -59,13 +62,13 @@
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function guardarDetalleFactura( $dbh, $idp, $detalle ){
+	function guardarDetalleFactura( $dbh, $idf, $detalle ){
 		//Registra los ítems contenidos en el detalle de la factura
 		$exito = true;
 		$nitems = count( $detalle );
 		$citem = 0;
 		foreach ( $detalle as $item ){
-			$id_item = guardarItemDetalleF( $dbh, $idp, $item );
+			$id_item = guardarItemDetalleF( $dbh, $idf, $item );
 			if( $id_item != 0 ) $citem++;
 		}
 		
@@ -78,10 +81,10 @@
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
-		if( !$encabezado->idpedido ) $encabezado->idpedido = "NULL";
-		$q = "insert into factura ( numero, orden_compra, IdPedido, IdCliente2, fecha_emision, introduccion, observaciones, 
+		if( !$encabezado->idcotizacion ) $encabezado->idcotizacion = "NULL";
+		$q = "insert into factura ( numero, orden_compra, idCotizacion, IdCliente2, fecha_emision, introduccion, observaciones, 
 		observaciones1, observaciones2, observaciones3, iva, Total, fecha_reg, idUsuario  ) 
-			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idpedido, $encabezado->idcliente, 
+			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idcotizacion, $encabezado->idcliente, 
 			'$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );

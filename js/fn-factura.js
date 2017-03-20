@@ -42,7 +42,7 @@ function obtenerVectorEncabezado(){
 	encabezado = new Object();
 	encabezado.numero = $( '#nfactura' ).val();
 	encabezado.noc = $( '#fordc' ).val();
-	encabezado.idpedido = $( '#idPedido' ).val();
+	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
 	encabezado.idu = $( '#idu_sesion' ).val();

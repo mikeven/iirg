@@ -83,12 +83,16 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, c.IdCliente2 as idcliente, 
-		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
-		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
-		c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, 
-		k.telefono1 as tlf1, k.telefono2 as tlf2, k.Email as email FROM cotizacion c, cliente k 
-		where c.IdCotizacion2 = $idc and c.IdCliente2 = k.IdCliente2";
+		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, 
+		c.IdCliente2 as idcliente, DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
+		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i') as fregistro, 
+		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
+		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
+		DATE_FORMAT(c.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
+		c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, c.iva as iva, c.introduccion as intro, 
+		c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, c.Observaciones3 as obs3, 
+		k.Nombre as nombre, k.Rif as rif, k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2,
+		k.Email as email FROM cotizacion c, cliente k where c.IdCotizacion2 = $idc and c.IdCliente2 = k.IdCliente2";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
@@ -99,10 +103,14 @@
 	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
 			
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
-		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
-		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, c.Observaciones2 as obs2, 
-		c.Observaciones3 as obs3, p.Nombre as nombre, p.Rif as rif, p.direccion1 as dir1, p.direccion2 as dir2, 
-		p.telefono1 as tlf1, p.telefono2 as tlf2, p.Email as email FROM cotizacion c, proveedor p 
+		DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
+		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
+		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
+		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
+		DATE_FORMAT(c.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, c.validez as validez, c.iva as iva, 
+		c.pcontacto as pcontacto, c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
+		c.Observaciones2 as obs2, c.Observaciones3 as obs3, p.Nombre as nombre, p.Rif as rif, p.direccion1 as dir1, 
+		p.direccion2 as dir2, p.telefono1 as tlf1, p.telefono2 as tlf2, p.Email as email FROM cotizacion c, proveedor p 
 		where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = p.idProveedor";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	

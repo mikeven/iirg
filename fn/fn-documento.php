@@ -5,7 +5,6 @@
 
 	function arrRespuesta( $doc, $ndoc ){
 		
-		
 		$params_documento = array(
 			"solicitud"	=> array (
 								"param" => "sctz", "etiqueta" => "Sol. cotización"
@@ -48,7 +47,17 @@
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------*/
-	
+	function esAnulable( $doc, $encabezado ){
+		//Determina si un documento es anulable
+		$anulable = true;
+		
+		if( $doc == "odc" ) $anulable = false;
+		else
+			if( $encabezado["estado"] == "anulada" ) $anulable = false;
+
+		return $anulable;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function enlaceEdicion( $documento, $id_doc ){
 	/* Retorna el enlace para modificar un documento de acuerdo al tipo de documento indicado */
 		$ndoc = array(
@@ -60,6 +69,28 @@
 		return $enlace;
 	}
 
+	function fechasDocumento( $encabezado ){
+		$bloque_fechas = "";
+		$arr_fechas = array( 	
+			"femision" => "Emitida", 
+			"fregistro" => "Registrada", 
+			"fmodificacion" => "Última modificación", 
+			"faprobacion" => "Aprobada", 
+			"fanulacion" => "Anulada", 
+			"fpago" => "Pagada"
+		);
+
+
+		while ( $rf = current( $arr_fechas ) ) {
+		    $i = key( $arr_fechas );
+		    if( ( isset( $encabezado[$i] ) ) && ( $encabezado[$i] != "" ) )
+		       $bloque_fechas .= "<div class='fechas_doc'>$rf: $encabezado[$i]</div>";
+		    
+		    next( $arr_fechas );
+		}
+
+		return $bloque_fechas;
+	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){

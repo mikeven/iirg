@@ -12,19 +12,18 @@
 	include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "bd/data-factura.php" );
-	include( "bd/data-pedido.php" );
 	include( "bd/data-formato.php" );
 	
   checkSession( '' );
 	
-  if( isset( $_GET["idp"] ) ){
-    $pedido = obtenerPedidoPorId( $dbh, $_GET["idp"] );
-    $encabezado = $pedido["encabezado"];
-    $detalle = $pedido["detalle"];
+  if( isset( $_GET["idc"] ) ){
+    $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] ); //data-cotizacion.php
+    $encabezado = $cotizacion["encabezado"];
+    $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
     $iva = $encabezado["iva"];
     $eiva = $iva * 100;
-    $totales = obtenerTotales( $detalle, $encabezado["iva"] );
+    $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
   }
   else 
     { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
@@ -169,7 +168,7 @@
             <!-- left column -->
             <div class="col-md-12">
               <!-- general form elements -->
-				<div class="box box-default color-palette-box">
+				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
                   <h3 class="box-title">CREAR NUEVA FACTURA</h3>
                   <div class="icon-color nuevo-reg-icono">
@@ -179,9 +178,9 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nfactura" name="form_agregar_factura" class="frm_documento">
-                	<input name="reg_cliente" type="hidden" value="1">
+                	<input name="reg_factura" type="hidden" value="1">
                     <div class="box-body">
-                    	<div class="row" id="encabezado_cotizacion">
+                    	<div class="row" id="encabezado_factura">
                     		<div class="col-md-6">
                             <div class="row">
                               <div class="col-md-6">
@@ -189,12 +188,12 @@
                                     <div class="input-group">
                                       <div class="input-group-btn">
                                         <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                        data-target="#lista_pedidos" id="blpedidos">PEDIDO</button>
+                                        data-target="#lista_cotizaciones" id="blcotizaciones">COTIZACIÓN</button>
                                       </div>
                                       <!-- /btn-group -->
-                                      <input type="text" class="form-control" id="fpedido" readonly 
-                                      name="pedido" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                      <input type="hidden" class="form-control" id="idPedido" value="<?php if( isset($encabezado) ) echo $encabezado["idp"]?>">
+                                      <input type="text" class="form-control" id="fcotizacion" readonly 
+                                      name="cotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
+                                      <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->
@@ -225,13 +224,14 @@
                                   value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]?>">
                             	</div>
                             </div><!-- /.form group -->
+
                             <!-- Modal -->
                             	<?php 
-                                include( "subforms/tablas/tabla_pedidos_modal.php" );
+                                include( "subforms/tablas/tabla_cotizaciones_modal.php" );
                                 include( "subforms/tablas/tabla_clientes_modal.php" );
                               ?>
-
                             <!-- /.Modal -->
+
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
@@ -342,7 +342,7 @@
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
                                                     <?php 
-                                                      if(isset( $pedido )) {
+                                                      if(isset( $cotizacion )) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
                                                           echo mostrarItemDocumentoFactura( $item, $ni );
@@ -365,7 +365,7 @@
                                                   	<div id="fsub_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="subtotal" value="<?php if(isset( $pedido )) echo $totales["subtotal"]?>" readonly>
+                                                              id="subtotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -379,7 +379,7 @@
                                                       	<div class="input-group">
                                                           	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="v_iva" value="<?php if(isset( $pedido )) echo $totales["iva"]?>" readonly>
+                                                              id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -391,7 +391,7 @@
                                                   	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="total" value="<?php if(isset( $pedido )) echo $totales["total"]?>" readonly>
+                                                              id="total" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>

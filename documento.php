@@ -55,8 +55,11 @@
     <style>
     	#lin1{ font-size:22px; } #lin2{ font-size:18px; } .membrete3{ font-size:16px; }
       .tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
-      #bloque_documento{ padding: 8px 15px; } .page-header{ padding-bottom: 20px; }
-      .rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} .azul{ color: #0073b7; } .gris{ color: #666;}
+      #bloque_documento{ padding: 8px 15px; margin: 10px 3px 10px 15px !important; } 
+      .page-header{ padding-bottom: 20px; }
+      .rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} 
+      .azul{ color: #0073b7; } .gris{ color: #666;}
+      #bloque_data_documento{ margin: 10px 3px 10px 10px !important; width: 21.7% !important; }
     </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -121,36 +124,11 @@
         </section></div>
 
         <!-- Main content -->
-        <section id="bloque_documento" class="invoice">
+        <section id="bloque_documento" class="invoice col-sm-9">
           <!-- Bloque opciones -->
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="page-header">
-                <i class="fa <?php echo $iconoi["icono"]." ".$iconoi["color"]; ?>"></i> 
-                <?php echo $encabezado["estado"]; ?>
-                
-                <div id="btn_opciones" class="btn-group pull-right">
-                  <button type="button" class="btn btn-info">Opciones</button>
-                  <button type="button" class="btn btn-info dropdown-toggle" 
-                  data-toggle="dropdown" aria-expanded="true">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
-                    <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
-                    <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
-                    <?php if( $encabezado["estado"] != "anulada" ) { ?>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#!" data-toggle="modal" data-target="#ventana_anular">
-                      <i class="fa fa-ban"></i> Anular </a>
-                    </li>
-                    <?php } ?>
-                  </ul>
-                </div>
-
-              </h2>
+              <!-- <h2 class="page-header"></h2> -->
             </div>
           </div><!-- /.Bloque opciones -->
           
@@ -297,7 +275,39 @@
               include( "subforms/nav/mensaje_confirmacion_anulacion.php" );
             ?>
         </section><!-- /.content -->
-        <!-- <section id="bloque_data_documento" class="col-sm-2 invoice"></section> -->
+        
+        <section id="bloque_data_documento" class="col-sm-2 invoice">
+          <h2 class="page-header">
+            <div id="destado">
+              <i class="fa <?php echo $iconoi["icono"]." ".$iconoi["color"]; ?>"></i> 
+              <?php echo $encabezado["estado"]; ?>
+            </div>
+          </h2>
+          <?php echo fechasDocumento( $encabezado ); ?>
+          
+          <div id="btn_opciones" class="btn-group pull-right">
+            <button type="button" class="btn btn-info">Opciones</button>
+            <button type="button" class="btn btn-info dropdown-toggle" 
+            data-toggle="dropdown" aria-expanded="true">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
+              <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
+              <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
+              <?php if ( esAnulable( $tdd, $encabezado ) ) { ?>
+              <li class="divider"></li>
+              <li>
+                <a href="#!" data-toggle="modal" data-target="#ventana_anular">
+                <i class="fa fa-ban"></i> Anular </a>
+              </li>
+              <?php } ?>
+            </ul>
+          </div>  
+
+        </section>
+        
         <div class="clearfix"></div>
       </div><!-- /.content-wrapper -->
       

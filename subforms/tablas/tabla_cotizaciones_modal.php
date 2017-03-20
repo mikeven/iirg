@@ -2,6 +2,7 @@
 	/*
 	*/
 	$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"] );
+  $destino = "nuevo-factura.php";
 ?>
 <div class="modal fade" id="lista_cotizaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width:60%;">
@@ -23,7 +24,9 @@
                     <tr>
                         <td><?php echo $c["numero"];?></td>
                         <td><?php echo $c["Fecha"];?></td>
-                        <td><a href="nuevo-pedido.php?idc=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a></td>
+                        <td><a href="<?php echo $destino; ?>?idc=<?php echo $c["idc"]; ?>">
+                          <?php echo $c["Nombre"]; ?></a>
+                        </td>
                         <td><?php echo number_format( $c["Total"], 2, ",", "." ); ?></td>
                     </tr>
                     <?php } ?>

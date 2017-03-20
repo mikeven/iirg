@@ -44,7 +44,8 @@
 	function anularDocumento( $link, $id, $tabla ){
 
 		$idtabla = idTabla( $tabla );
-		$q = "Update $tabla set estado = 'anulada' where $idtabla = $id";
+
+		$q = "Update $tabla set estado = 'anulada', fecha_anulacion = NOW() where $idtabla = $id";
 		$data = mysql_query( $q, $link );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
