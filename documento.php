@@ -62,6 +62,7 @@
       .rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} 
       .azul{ color: #0073b7; } .gris{ color: #666;}
       #bloque_data_documento{ margin: 10px 3px 10px 10px !important; width: 21.7% !important; }
+      .bdatadoc{ padding: 8px; }
     </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -275,7 +276,7 @@
             </div>
             <!-- Pie de documento (no para impresión) -->
             <?php 
-              include( "subforms/nav/mensaje_confirmacion_anulacion.php" );
+              include( "subforms/nav/mensaje_confirmacion_estado.php" );
             ?>
         </section><!-- /.content -->
         
@@ -286,23 +287,37 @@
               <?php echo $encabezado["estado"]; ?>
             </div>
           </h2>
-          <?php echo fechasDocumento( $encabezado ); ?>
-          
-          <div id="btn_opciones" class="btn-group pull-right">
-            <button type="button" class="btn btn-info">Opciones</button>
+          <div id="bloque_fechas" class="bdatadoc">
+            <?php echo fechasDocumento( $encabezado ); ?>
+          </div>
+          <div id="bloque_opciones_rapidas" class="bdatadoc">
+              <?php if( $encabezado["estado"] != "aprobada" ) { ?>
+                <a class="btn btn-block btn-social btn-success"><i class="fa fa-check"></i> Aprobar y emitir factura</a>
+              <?php } ?> 
+          </div>
+          <div id="btn_opciones" class="btn-group pull-right bdatadoc" align="center">
+            <button type="button" class="btn btn-info">Más Opciones</button>
             <button type="button" class="btn btn-info dropdown-toggle" 
             data-toggle="dropdown" aria-expanded="true">
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
+              <?php if( $encabezado["estado"] != "aprobada" ) { ?>
+              <li>
+                <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="aprobada" 
+                data-taccion="Aprobar">
+                <i class="fa fa-check"></i> Aprobar</a>
+              </li>
+              <?php } ?>
               <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
               <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
               <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
               <?php if ( esAnulable( $tdd, $encabezado ) ) { ?>
               <li class="divider"></li>
               <li>
-                <a href="#!" data-toggle="modal" data-target="#ventana_anular">
+                <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 
+                data-taccion="Anular">
                 <i class="fa fa-ban"></i> Anular </a>
               </li>
               <?php } ?>

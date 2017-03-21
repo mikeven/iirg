@@ -51,10 +51,11 @@
 	function esAnulable( $doc, $encabezado ){
 		//Determina si un documento es anulable
 		$anulable = true;
+		$no_anulables = array("aprobada", "anulada");
 		
 		if( $doc == "odc" ) $anulable = false;
 		else
-			if( $encabezado["estado"] == "anulada" ) $anulable = false;
+			if( in_array( $encabezado["estado"], $no_anulables ) ) $anulable = false;
 
 		return $anulable;
 	}

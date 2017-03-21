@@ -6,12 +6,12 @@
 /* --------------------------------------------------------- */	
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
-function anularDocumento( id, filedoc ){
+function actualizarEstadoDocumento( id, filedoc, status ){
 	
 	$.ajax({
 		type:"POST",
 		url:"bd/data-documento.php",
-		data:{ id_doc_anul: id, documento: filedoc },
+		data:{ id_doc_estado: id, documento: filedoc, estado: status },
 		beforeSend: function () {			
 		},
 		success: function( response ){
@@ -25,10 +25,15 @@ function anularDocumento( id, filedoc ){
 
 $( document ).ready(function() {
 	
-	$(".btn_anulacion").click( function(){
+	$(".actestado").click( function(){
+		$("#accion_estado").attr('data-estado', $(this).attr('data-valor') );
+		$("#taccionestado").html( $(this).attr('data-taccion') );	
+    });	
+
+	$("#accion_estado").click( function(){
 		var filedoc = $(this).attr("data-file-doc");
 		var id = $("#id_documento").val();
-		anularDocumento( id, filedoc );	
+		actualizarEstadoDocumento( id, filedoc, $(this).attr('data-estado') );	
     });  
 });
 /* --------------------------------------------------------- */

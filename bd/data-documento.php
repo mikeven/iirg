@@ -41,12 +41,11 @@
 		return $totales;
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-	function anularDocumento( $link, $id, $tabla ){
+	function cambiarEstadoDocumento( $link, $id, $tabla, $estado ){
 
 		$idtabla = idTabla( $tabla );
 
-		$q = "Update $tabla set estado = 'anulada', fecha_anulacion = NOW() where $idtabla = $id";
-		echo $q;
+		$q = "Update $tabla set estado = '$estado', fecha_anulacion = NOW() where $idtabla = $id";
 		$data = mysql_query( $q, $link );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -61,10 +60,10 @@
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
 	//Anulación de documento
-	if( isset( $_POST["id_doc_anul"] ) ){
+	if( isset( $_POST["id_doc_estado"] ) ){
 		//proviene de fn-hoja-documento.js
 		include( "bd.php" );
-		anularDocumento( $dbh, $_POST["id_doc_anul"], $_POST["documento"] );
+		cambiarEstadoDocumento( $dbh, $_POST["id_doc_estado"], $_POST["documento"], $_POST["estado"] );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	
