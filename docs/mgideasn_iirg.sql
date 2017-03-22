@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2017 at 10:43 PM
+-- Generation Time: Mar 22, 2017 at 11:10 PM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -4062,8 +4062,8 @@ INSERT INTO `cotizacion` (`numero`, `IdCotizacion2`, `Fecha`, `fecha_emision`, `
 (2418, 1191, NULL, '2017-02-23', NULL, NULL, NULL, NULL, NULL, '', NULL, 11, NULL, NULL, NULL, NULL, NULL, 'SR. DANIEL YAURI', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 67200.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
 (2419, 1192, NULL, '2017-02-23', NULL, NULL, NULL, NULL, NULL, '', NULL, 106, NULL, NULL, NULL, NULL, NULL, 'SR. ALBERTO MILLAN', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 87628.80, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
 (2420, 1193, NULL, '2017-02-23', NULL, NULL, NULL, NULL, NULL, '', NULL, 103, NULL, NULL, NULL, NULL, NULL, 'SRA. CRISTINA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 34890.24, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
-(2421, 1194, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 143, NULL, NULL, NULL, NULL, NULL, 'SR. HENRY GOMEZ', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 21560.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
-(2422, 1195, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 255, NULL, NULL, NULL, NULL, NULL, 'SRTA. MARIEL JIMENEZ', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 58240.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
+(2421, 1194, NULL, '2017-02-24', NULL, NULL, NULL, '2017-03-21 18:26:44', NULL, '', NULL, 143, NULL, NULL, NULL, NULL, NULL, 'SR. HENRY GOMEZ', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', NULL, NULL, NULL, NULL, NULL, NULL, 21560.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
+(2422, 1195, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 255, NULL, NULL, NULL, NULL, NULL, 'SRTA. MARIEL JIMENEZ', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 87360.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
 (2423, 1196, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 18, NULL, NULL, NULL, NULL, NULL, 'JESUS RONDON', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 43680.00, NULL, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 25', 'COTZ 3', NULL, 1),
 (8, 1197, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 5, NULL, NULL, NULL, NULL, NULL, 'ROBERTO NOSTI', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', '', 'SC1', 'SC2', 'SC3', NULL, 1),
 (9, 1198, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', '', 'SC1', 'SC2', 'SC3', NULL, 1),
@@ -4093,7 +4093,7 @@ CREATE TABLE IF NOT EXISTS `detallecotizacion` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29365 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29366 ;
 
 --
 -- Dumping data for table `detallecotizacion`
@@ -12003,13 +12003,13 @@ INSERT INTO `detallecotizacion` (`IdMovimiento`, `IdCotizacion`, `IdCotizacion2`
 (29354, NULL, 1192, NULL, '39', NULL, 'ANILLOS PLAST. P/ENC. 1/4', 12, 6520.00, NULL, 78240.00, NULL, 'UND', NULL, NULL),
 (29355, NULL, 1193, NULL, '60', NULL, 'ANILLOS DOBLE CARTA PLASTICO 2', 8, 1254.00, NULL, 10032.00, NULL, 'UND', NULL, NULL),
 (29356, NULL, 1193, NULL, '32', NULL, 'ARCHICOMODO PLASTICO', 6, 3520.00, NULL, 21120.00, NULL, 'UND', NULL, NULL),
-(29358, NULL, 1195, NULL, '36', NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 8, 6500.00, NULL, 52000.00, NULL, 'UND', NULL, NULL),
 (29359, NULL, 1196, NULL, '44', NULL, 'ANILLOS DOBLE CARTA PLAST. 1/4', 50, 780.00, NULL, 39000.00, NULL, 'UND', NULL, NULL),
 (29360, NULL, 1197, NULL, '50', NULL, 'ANILLO DOBLE CARTA PLAST.1/2', 9, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29361, NULL, 1198, NULL, '35', NULL, 'AGENDAS', 5, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29362, NULL, 1199, NULL, '85', NULL, 'BANDAS DE GOMA', 6, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29363, NULL, 1200, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
-(29364, NULL, 1194, NULL, '75', NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 5, 3850.00, NULL, 19250.00, NULL, 'UND', NULL, NULL);
+(29364, NULL, 1194, NULL, '75', NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 5, 3850.00, NULL, 19250.00, NULL, 'UND', NULL, NULL),
+(29365, NULL, 1195, NULL, '36', NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 12, 6500.00, NULL, 78000.00, NULL, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12033,7 +12033,7 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `detallefactura`
@@ -12041,7 +12041,10 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
 
 INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `codigo_producto`, `und`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `IdItem`, `TotalIVA`) VALUES
 (1, 1, NULL, 75, NULL, 'UND', 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 3, '3850.00', 0.00, NULL, 11550.00, NULL, NULL),
-(2, 1, NULL, 112, NULL, 'UND', 'BLOCK DE RECIBO', 6, '38500.00', 0.00, NULL, 231000.00, NULL, NULL);
+(2, 1, NULL, 112, NULL, 'UND', 'BLOCK DE RECIBO', 6, '38500.00', 0.00, NULL, 231000.00, NULL, NULL),
+(23, 2, NULL, 260, NULL, 'UND', 'CINTA ADHESIVA TRANSP. 3436', 8, '998.00', 0.00, NULL, 7984.00, NULL, NULL),
+(21, 2, NULL, 737, NULL, 'UND', 'PAPEL P/FOTOC, T/CARTA ALPES', 10, '10815.00', 0.00, NULL, 108150.00, NULL, NULL),
+(22, 2, NULL, 177, NULL, 'UND', 'CARP. FIBRA CARTA X 25', 10, '15600.00', 0.00, NULL, 156000.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -14027,23 +14030,20 @@ INSERT INTO `detallepedido` (`IdMovimiento`, `IdPedido`, `IdPedido2`, `Item`, `I
 
 CREATE TABLE IF NOT EXISTS `factura` (
   `numero` int(5) DEFAULT NULL,
-  `IdFactura` int(5) NOT NULL AUTO_INCREMENT,
-  `IdCliente` int(7) DEFAULT NULL,
-  `IdCliente2` int(5) DEFAULT NULL,
-  `fecha_reg` datetime DEFAULT NULL,
+  `idFactura` int(5) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(7) DEFAULT NULL,
+  `idCliente2` int(5) DEFAULT NULL,
   `fecha_emision` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_vencimiento` datetime DEFAULT NULL,
   `fecha_pago` datetime DEFAULT NULL,
   `fecha_anulacion` datetime DEFAULT NULL,
-  `IdCotizacion` int(7) DEFAULT NULL,
+  `idCotizacion` int(7) DEFAULT NULL,
   `orden_compra` varchar(15) DEFAULT NULL,
   `estado` varchar(20) DEFAULT NULL,
   `IdCondicion` int(2) DEFAULT NULL,
-  `IdVendedor` int(1) DEFAULT NULL,
-  `IdZona` int(1) DEFAULT NULL,
-  `IdSucursal` int(1) DEFAULT NULL,
+  `idVendedor` int(1) DEFAULT NULL,
   `iva` decimal(10,2) DEFAULT NULL,
   `SubTotal` varchar(9) DEFAULT NULL,
   `TotalDescto` int(1) DEFAULT NULL,
@@ -14063,17 +14063,18 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `Observaciones3` varchar(50) DEFAULT NULL,
   `Cancelado` varchar(9) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IdFactura`),
+  PRIMARY KEY (`idFactura`),
   KEY `idUsuario` (`idUsuario`),
-  KEY `IdCotizacion` (`IdCotizacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  KEY `IdCotizacion` (`idCotizacion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `factura`
 --
 
-INSERT INTO `factura` (`numero`, `IdFactura`, `IdCliente`, `IdCliente2`, `fecha_reg`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_pago`, `fecha_anulacion`, `IdCotizacion`, `orden_compra`, `estado`, `IdCondicion`, `IdVendedor`, `IdZona`, `IdSucursal`, `iva`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `IdDescuento`, `IdRecargo`, `PoVDescto`, `PoVRecargo`, `Afecto`, `ISV`, `Total`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
-(1, 1, NULL, 143, '2017-03-19 14:46:14', '2017-03-19 00:00:00', NULL, NULL, NULL, NULL, NULL, 1194, 'N/A', 'pendiente', NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '271656.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', NULL, 1);
+INSERT INTO `factura` (`numero`, `idFactura`, `idCliente`, `idCliente2`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_pago`, `fecha_anulacion`, `idCotizacion`, `orden_compra`, `estado`, `IdCondicion`, `idVendedor`, `iva`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `IdDescuento`, `IdRecargo`, `PoVDescto`, `PoVRecargo`, `Afecto`, `ISV`, `Total`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
+(1, 1, NULL, 143, '2017-03-19 00:00:00', NULL, '2017-03-19 14:54:46', NULL, '2017-03-22 15:29:32', NULL, 1194, 'N/A', 'pagada', NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '271656.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', NULL, 1),
+(2, 2, NULL, 121, '2017-03-22 00:00:00', '2017-03-22 16:56:32', '2017-03-22 17:51:48', NULL, NULL, NULL, 1174, 'N/A', 'pendiente', NULL, NULL, 0.12, '272134.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '304790.08', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', NULL, 1);
 
 -- --------------------------------------------------------
 

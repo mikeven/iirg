@@ -291,8 +291,13 @@
             <?php echo fechasDocumento( $encabezado ); ?>
           </div>
           <div id="bloque_opciones_rapidas" class="bdatadoc">
-              <?php if( $encabezado["estado"] != "aprobada" ) { ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { ?>
                 <a class="btn btn-block btn-social btn-success"><i class="fa fa-check"></i> Aprobar y emitir factura</a>
+              <?php } ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "marcar_pagada" ) ) { ?>
+                <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
+                data-target="#ventana_estado" data-valor="pagada" data-taccion="Marcar como pagada">
+                <i class="fa fa-check"></i> Marcar como pagada</a>
               <?php } ?> 
           </div>
           <div id="btn_opciones" class="btn-group pull-right bdatadoc" align="center">
@@ -303,19 +308,18 @@
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <?php if( $encabezado["estado"] != "aprobada" ) { ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { ?>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="aprobada" 
-                data-taccion="Aprobar">
-                <i class="fa fa-check"></i> Aprobar</a>
+                data-taccion="Aprobar"><i class="fa fa-check"></i> Aprobar</a>
               </li>
               <?php } ?>
-              <?php if( admiteCambioEstado( $tdd, $encabezado ) ) { ?>
+              <?php if( $encabezado["estado"] == "pendiente" ) { ?>
                 <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
               <?php } ?>
               <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
               <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
-              <?php if ( admiteCambioEstado( $tdd, $encabezado ) ) { ?>
+              <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { ?>
               <li class="divider"></li>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 

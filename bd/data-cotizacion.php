@@ -42,7 +42,7 @@
 		return $data["num"] + 1;	
 	}
 	
-	function mostrarItemDocumentoCotizacion( $ditem, $i ){
+	/*function mostrarItemDocumentoCotizacion( $ditem, $i ){
 		//Muestra el renglón con el ítem de detalle al cargar el pedido para generar Factura (nuevo-factura-php)
 		
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
@@ -64,7 +64,7 @@
 		</tr>";
 
 		return $renglon;
-	}
+	}*/
 
 
 	/*--------------------------------------------------------------------------------------------------------*/

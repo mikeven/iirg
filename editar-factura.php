@@ -22,11 +22,14 @@
     $factura    = obtenerFacturaPorId( $dbh, $_GET["id"] );
     $encabezado = $factura["encabezado"];
     $detalle    = $factura["detalle"];
-    $ctz_asoc   = obtenerCotizacionPorId( $dbh, $encabezado["idCotizacion"] );
     $nitems     = count( $detalle );
     $iva        = $encabezado["iva"];
     $eiva       = $iva * 100;
     $totales    = obtenerTotales( $detalle, $encabezado["iva"] );
+    if( $encabezado["idc"] && $encabezado["idc"] != "" ){
+      $ctz_asoc   = obtenerCotizacionPorId( $dbh, $encabezado["idc"] );
+      $ctz_encab  = $ctz_asoc["encabezado"];
+    }
   }
   else{  
   }
@@ -97,6 +100,11 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+          iniciarVentanaConfirmacion( "bt_edit_factura", "Guardar factura" );
+      });
+    </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-factura.js"></script>
     
@@ -194,9 +202,13 @@
                                         data-target="#lista_pedidos" id="blpedidos">PEDIDO</button>
                                       </div> -->
                                       <!-- /btn-group -->
-                                      <input type="text" class="form-control" id="fpedido" readonly 
-                                      name="pedido" value="<?php if( isset( $encabezado ) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                      <input type="hidden" class="form-control" id="idPedido" value="<?php if( isset($encabezado) ) echo $encabezado["idp"]?>">
+                                      <div class="input-group-addon">
+                                          <i class="fa fa-slack"></i> 
+                                          <label for="datepicker" class="iconlab">N° Ctz:</label>
+                                      </div>
+                                      <input type="text" class="form-control" id="fcotizacion" readonly 
+                                      name="cotizacion" value="<?php if( isset( $encabezado ) ) echo $ctz_encab["nro"]." / Fecha: ".$ctz_encab["femision"];?>">
+                                      <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->
@@ -208,7 +220,7 @@
                                         <i class="fa fa-slack"></i> 
                                         <label for="oc" class="iconlab">O/C:</label>
                                       </div>
-                                      <input type="text" class="form-control" id="fordc" name="orden_compra" value="">
+                                      <input type="text" class="form-control" id="fordc" name="orden_compra" value="<?php echo $encabezado["oc"]; ?>">
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->
@@ -218,7 +230,7 @@
                                 <div class="input-group">
                                   <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                    data-target="#lista_clientes" <?php if( isset( $encabezado ) ) echo "disabled";?>>CLIENTE</button>
+                                    data-target="#lista_clientes" <?php if( isset( $ctz_encab ) ) echo "disabled";?>>CLIENTE</button>
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -241,7 +253,7 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
+                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $encabezado["nro"]; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -253,7 +265,7 @@
                                                 <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                             </div>
                                             <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo $encabezado["nro"]; ?>">
+                                            value="<?php echo $encabezado["femision"]; ?>">
                                         </div>
                                     </div><!-- /.form group -->
                                 	</div>
@@ -343,10 +355,10 @@
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
                                                     <?php 
-                                                      if(isset( $pedido )) {
+                                                      if( isset( $encabezado ) ) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumentoFactura( $item, $ni );
+                                                          echo mostrarItemDocumento( $item, $ni );
                                                       }
                                                     }?>
                                                 </tbody>

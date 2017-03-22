@@ -48,14 +48,15 @@
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------*/
-	function admiteCambioEstado( $doc, $encabezado ){
+	function admiteCambioEstado( $doc, $encabezado, $accion ){
 		//Determina si un documento es anulable
 		$admite = true;
-		$no_anulables = array("aprobada", "anulada", "pagada", "vencida");
+		$no_anulables = array( "odc", "ctz", "sctz" );
 		
-		if( $doc == "odc" ) $admite = false;
-		else
-			if( $encabezado["estado"] != "pendiente" ) $admite = false;
+		if( $encabezado["estado"] != "pendiente" ) $admite = false;
+		if( in_array( $doc, $no_anulables ) && ( $accion == "anular" ) ) $admite = false;
+		if( ( $doc == "ctz" ) && ( $accion != "aprobar" ) ) $admite = false;
+		if( ( $doc == "fac" ) && ( $accion != "marcar_pagada" ) && ( $accion != "anular" ) ) $admite = false;
 
 		return $admite;
 	}
@@ -78,7 +79,7 @@
 		$arr_fechas = array( 	
 			"femision" => "Emitida", 
 			"fregistro" => "Registrada", 
-			"fmodificacion" => "Última modificación", 
+			"fmodificacion" => "Últ. mod.", 
 			"faprobacion" => "Aprobada", 
 			"fanulacion" => "Anulada", 
 			"fpago" => "Pagada"

@@ -31,6 +31,12 @@ function initValid(){
   	});
 }
 /* --------------------------------------------------------- */
+function iniciarVentanaConfirmacion( boton, titulo ){
+	$("#titulo_emergente").html( titulo );
+	$("#mje_confirmacion").html( "¿ Confirmar acción ?" );
+	$("#btn_confirm").attr("id", boton );
+}
+/* --------------------------------------------------------- */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
 	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
@@ -40,8 +46,10 @@ document.onkeypress = stopRKey;
 /* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	encabezado = new Object();
+	encabezado.idr = $( '#id_factura' ).val();
 	encabezado.numero = $( '#nfactura' ).val();
 	encabezado.noc = $( '#fordc' ).val();
+	encabezado.estado = $( '#estado' ).val();
 	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
@@ -128,6 +136,28 @@ function guardarFactura(){
 	}	
 }
 /* --------------------------------------------------------- */
+function editarFactura(){
+	fencabezado = obtenerVectorEncabezado();
+	fdetalle = obtenerVectorDetalle();
+	
+	$.ajax({
+		type:"POST",
+		url:"bd/data-factura.php",
+		data:{ encabezado: fencabezado, detalle: fdetalle, edit_factura : 1 },
+		beforeSend: function () {			
+			$("#bt_edit_factura").fadeOut( 200 );
+			$("#btn_confirmacion").fadeOut( 200 );
+		},
+		success: function( response ){
+			//console.log(response);
+			res = jQuery.parseJSON(response);
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
+		}
+	});	
+}
+/* --------------------------------------------------------- */
 function checkFactura(){
 	//Validación de formulario de factura previo a su registro
 	var error = 0; 
@@ -160,13 +190,8 @@ function checkFactura(){
 }
 /* --------------------------------------------------------- */
 $( document ).ready(function() {
-
-	$("#titulo_emergente").html("Guardar Factura");
-	$("#mje_confirmacion").html("¿Confirmar registro?");
-	$("#btn_confirm").attr("id", "bt_reg_factura");
-
-	var cant = "";
-		
+	
+	var cant = "";		
 	/*===============================================================================*/
     $("#bt_reg_factura").on( "click", function(){
 		$("#closeModal").click();
@@ -175,6 +200,16 @@ $( document ).ready(function() {
 		else
 			$("#enl_vmsj").click();
     });
+
+    $("#bt_edit_factura").on( "click", function(){
+	
+		$("#closeModal").click();
+		if( checkFactura() == 0 )
+			editarFactura();
+		else
+			$("#enl_vmsj").click();
+    });
+    /*===============================================================================*/
 });
 /* --------------------------------------------------------- */
 

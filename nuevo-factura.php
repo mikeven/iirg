@@ -94,6 +94,11 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        iniciarVentanaConfirmacion( "bt_reg_factura", "Guardar factura" );   
+      });
+    </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-factura.js"></script>
     
@@ -224,7 +229,7 @@
                                   value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]?>">
                             	</div>
                             </div><!-- /.form group -->
-
+                            <input id="estado" type="hidden" value="pendiente">
                             <!-- Modal -->
                             	<?php 
                                 include( "subforms/tablas/tabla_cotizaciones_modal.php" );
@@ -345,7 +350,7 @@
                                                       if(isset( $cotizacion )) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumentoFactura( $item, $ni );
+                                                          echo mostrarItemDocumento( $item, $ni );
                                                       }
                                                     }?>
                                                 </tbody>

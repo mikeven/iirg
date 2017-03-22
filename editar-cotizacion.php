@@ -197,7 +197,7 @@
                                       <input type="hidden" class="form-control" id="idCliente" 
                                       value="<?php echo $encabezado["idcliente"]; ?>">
                                       <input type="hidden" class="form-control" id="tipo" value="<?php echo $encabezado["tipo"]; ?>">
-                              	</div>
+                                  </div>
                               </div><!-- /.form group -->
                               <!-- Modal -->
                               	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
@@ -215,6 +215,7 @@
                                       </div>
                                   </div><!-- /.form group -->
                               </div>
+                              
                               <div class="col-md-6">
                                   <div class="form-group">
                                       <!--<label for="fcondpago" class="">Validez:</label>-->
@@ -343,10 +344,10 @@
                                                         <th width="5%" class="tit_tdf"> </th>
                                                     </tr>
                                                     <?php 
-                                                        if(isset( $cotizacion )) {
+                                                        if( isset( $cotizacion ) ) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumentoCotizacion( $item, $ni );
+                                                            echo mostrarItemDocumento( $item, $ni );
                                                         }
                                                     }?>
                                                 </tbody>

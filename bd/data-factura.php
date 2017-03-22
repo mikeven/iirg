@@ -37,8 +37,10 @@
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle
 		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente2 as idcliente, 
-		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(f.fecha_registro,'%d/%m/%Y') as fregistro, 
-		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y') as fpago, DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
+		f.idCotizacion as idc, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
+		DATE_FORMAT(f.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
+		DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
+		DATE_FORMAT(f.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion, 
 		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.iva as iva, f.orden_compra as oc, 
 		f.introduccion as intro, f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, 
 		f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
@@ -82,9 +84,9 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotizacion ) $encabezado->idcotizacion = "NULL";
-		$q = "insert into factura ( numero, orden_compra, idCotizacion, IdCliente2, fecha_emision, introduccion, observaciones, 
-		observaciones1, observaciones2, observaciones3, iva, Total, fecha_reg, idUsuario  ) 
-			values ( $encabezado->numero, '$encabezado->noc', $encabezado->idcotizacion, $encabezado->idcliente, 
+		$q = "insert into factura ( numero, orden_compra, estado, idCotizacion, IdCliente2, fecha_emision, introduccion, 
+			observaciones, observaciones1, observaciones2, observaciones3, iva, Total, fecha_registro, idUsuario  ) 
+			values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcotizacion, $encabezado->idcliente, 
 			'$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
@@ -94,8 +96,20 @@
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
-	function mostrarItemDocumentoFactura( $ditem, $i ){
-		//Muestra el renglón con el ítem de detalle al cargar la factura para generar Nota de Crédito/Débito (nuevo-nota.php)
+	function editarFactura( $dbh, $encabezado, $idu ){
+		
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$q = "update factura set idCliente2 = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
+		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW()  
+		WHERE idCotizacion = $encabezado->idcotizacion and idUsuario = $idu";
+		
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();	
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	/*function mostrarItemDocumentoFactura( $ditem, $i ){
+		
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
 		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
@@ -112,7 +126,8 @@
 		</tr>";
 
 		return $renglon;
-	}
+	}*/
+
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
@@ -145,6 +160,41 @@
 			$res["mje"] = "Error al registrar factura";
 		}
 		
+		echo json_encode( $res );
+	}
+
+	//Edición de factura
+	if( isset( $_POST["edit_factura"] ) ){
+		
+		include( "bd.php" );
+		include( "data-documento.php" );
+		include( "../fn/fn-documento.php" );
+		
+		$encabezado = json_decode( $_POST["encabezado"] );
+		$encabezado->tipo = "factura";
+		$detalle = json_decode( $_POST["detalle"] );
+		$r_edit = editarFactura( $dbh, $encabezado, $encabezado->idu );
+		
+		if( $r_edit != -1 ){
+			
+			eliminarDetalleDocumento( $dbh, "detallefactura", "idFactura", $encabezado->idr );
+			$exito = guardarDetalleFactura( $dbh, $encabezado->idr, $detalle, $encabezado->iva );
+			
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+				$res["documento"] = arrRespuesta( $encabezado, $encabezado->tipo );
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al editar detalle de factura";
+			}
+
+		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al editar factura";
+		}
+
 		echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
