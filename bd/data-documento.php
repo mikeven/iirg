@@ -44,8 +44,12 @@
 	function cambiarEstadoDocumento( $link, $id, $tabla, $estado ){
 
 		$idtabla = idTabla( $tabla );
-
-		$q = "Update $tabla set estado = '$estado', fecha_anulacion = NOW() where $idtabla = $id";
+		$campo_fecha = array(
+			"aprobada" => "aprobacion", "anulada" => "anulacion", "pagada" => "pago", 
+			"vencida" => "vencimiento", "vencida" => "vencimiento"
+		);
+		$pfecha = "fecha_".$campo_fecha[$estado];
+		$q = "Update $tabla set estado = '$estado', $pfecha = NOW() where $idtabla = $id";
 		$data = mysql_query( $q, $link );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/

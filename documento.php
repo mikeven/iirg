@@ -310,10 +310,12 @@
                 <i class="fa fa-check"></i> Aprobar</a>
               </li>
               <?php } ?>
-              <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
+              <?php if( admiteCambioEstado( $tdd, $encabezado ) ) { ?>
+                <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
+              <?php } ?>
               <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
               <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
-              <?php if ( esAnulable( $tdd, $encabezado ) ) { ?>
+              <?php if ( admiteCambioEstado( $tdd, $encabezado ) ) { ?>
               <li class="divider"></li>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 

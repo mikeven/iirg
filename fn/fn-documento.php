@@ -48,16 +48,16 @@
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------*/
-	function esAnulable( $doc, $encabezado ){
+	function admiteCambioEstado( $doc, $encabezado ){
 		//Determina si un documento es anulable
-		$anulable = true;
-		$no_anulables = array("aprobada", "anulada");
+		$admite = true;
+		$no_anulables = array("aprobada", "anulada", "pagada", "vencida");
 		
-		if( $doc == "odc" ) $anulable = false;
+		if( $doc == "odc" ) $admite = false;
 		else
-			if( in_array( $encabezado["estado"], $no_anulables ) ) $anulable = false;
+			if( $encabezado["estado"] != "pendiente" ) $admite = false;
 
-		return $anulable;
+		return $admite;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function enlaceEdicion( $documento, $id_doc ){
