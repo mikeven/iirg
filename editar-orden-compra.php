@@ -9,15 +9,17 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
    include( "bd/data-formato.php" );
+   include( "bd/data-documento.php" );
 	include( "bd/data-proveedor.php" );
 	include( "bd/data-orden-compra.php" );
 	
 	checkSession( '' );	
 	
-   if( isset( $_GET["idc"] ) ){
-      $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
-      $encabezado = $cotizacion["encabezado"];
-      $detalle = $cotizacion["detalle"];
+   if( isset( $_GET["id"] ) ){
+      $ido        = $_GET["id"];
+      $orden = obtenerOrdenCompraPorId( $dbh, $ido );
+      $encabezado = $orden["encabezado"];
+      $detalle = $orden["detalle"];
       $nitems = count( $detalle );
       $iva = $encabezado["iva"];
       $eiva = $iva * 100;
@@ -30,7 +32,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>IIRG | Crear orden de compra</title>
+      <title>IIRG | Editar orden de compra</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
       <!-- Bootstrap 3.3.5 -->
@@ -89,12 +91,11 @@
       <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
       <script>
          $( document ).ready(function() {
-           iniciarVentanaConfirmacion( "bt_reg_orden_compra", "Guardar orden de compra" );   
+           iniciarVentanaConfirmacion( "bt_edit_orden_compra", "Editar orden de compra" );   
          });
       </script>
       <script src="js/fn-documento.js"></script>
       <script src="js/fn-orden-compra.js"></script>
-      
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper">
@@ -162,7 +163,7 @@
                      <!-- general form elements -->
                      <div class="box box-default color-palette-box">
                         <div class="box-header with-border">
-                           <h3 class="box-title">CREAR NUEVA ORDEN DE COMPRA</h3>
+                           <h3 class="box-title">EDITAR ORDEN DE COMPRA</h3>
                            <div class="icon-color nuevo-reg-icono">
                              <a href="nuevo-orden-compra.php"><i class="fa fa-plus fa-2x"></i></a>
                            </div>
@@ -170,8 +171,8 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frm_nordencompra" name="form_agregar_ocompra" class="frm_documento">
-                           <input id="id_orden_compra" type="hidden" value="">
+                        <form role="form" id="frm_eordencompra" name="form_editar_ocompra" class="frm_documento">
+                           <input id="id_orden_compra" type="hidden" value="<?php echo $ido; ?>">
                            <div class="box-body">
                               <div class="row" id="encabezado_orden_compra">
                                  
@@ -183,8 +184,10 @@
                                                 data-target="#lista_proveedores">PROVEEDOR</button>
                                           </div>
                                           <!-- /btn-group -->
-                                          <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
-                                          <input type="hidden" class="form-control" id="idProveedor" value="">
+                                          <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor" 
+                                          value="<?php echo $encabezado["nombre"]; ?>">
+                                          <input type="hidden" class="form-control" id="idProveedor" 
+                                          value="<?php echo $encabezado["idproveedor"]; ?>">
                                        </div>
                                     </div>
                                     <!-- /.form group -->
@@ -202,7 +205,7 @@
                                                    <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="nordencompra" 
-                                                name="numero" required readonly value="<?php echo $num_nva_oc; ?>">
+                                                name="numero" required readonly value="<?php echo $encabezado["nro"]; ?>">
                                              </div>
                                           </div>
                                           <!-- /.form group -->
@@ -215,8 +218,8 @@
                                                    <i class="fa fa-calendar"></i> 
                                                    <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                                   value="<?php echo date("d/m/Y");?>">
+                                                <input type="text" class="form-control" id="femision" name="fecha_emision" 
+                                                required readonly value="<?php echo $encabezado["femision"];?>">
                                              </div>
                                           </div>
                                           <!-- /.col-md-7 -->
@@ -314,10 +317,10 @@
                                                       <th width="5%" class="tit_tdf"></th>
                                                    </tr>
                                                    <?php 
-                                                      if( isset( $cotizacion ) ) {
+                                                      if( isset( $orden ) ) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumentoPedido( $item, $ni );
+                                                          echo mostrarItemDocumento( $item, $ni );
                                                         }
                                                       }?>
                                                 </tbody>
@@ -336,7 +339,7 @@
                                                    <div id="oc_sub_total" class="totalizacion">
                                                       <div class="input-group">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="subtotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
+                                                            id="subtotal" value="<?php if(isset( $orden )) echo $totales["subtotal"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>
@@ -350,7 +353,7 @@
                                                       <div class="input-group">
                                                          <input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+                                                            id="v_iva" value="<?php if(isset( $orden )) echo $totales["iva"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>
@@ -363,7 +366,7 @@
                                                    <div id="oc_total" class="totalizacion">
                                                       <div class="input-group">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="total" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
+                                                            id="total" value="<?php if(isset( $orden )) echo $totales["total"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>
@@ -374,18 +377,11 @@
                                     </div>
                                     
                                  <div id="observaciones">
-                                    <div class="titobs"><?php echo $frt_oc["titulo_obs"];?></div>
-                                    <input id="tobs0" type="hidden" value="<?php echo $frt_oc["titulo_obs"];?>">
-                                    <div class="obsctz"><?php echo $frt_oc["obs1"];?>
-                                      <input id="tobs1" type="hidden" value="<?php echo $frt_oc["obs1"];?>">
-                                    </div>
-                                    <div class="obsctz"><?php echo $frt_oc["obs2"];?>
-                                      <input id="tobs2" type="hidden" value="<?php echo $frt_oc["obs2"];?>">
-                                    </div>
-                                    <div class="obsctz"><?php echo $frt_oc["obs3"];?>
-                                      <input id="tobs3" type="hidden" value="<?php echo $frt_oc["obs3"];?>">
-                                    </div>
-                                  </div>
+                                    <div class="titobs"><?php echo $encabezado["obs0"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
+                                    <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
+                                 </div>
 
                                  </div>
                                  <!--/.col-md-8-->

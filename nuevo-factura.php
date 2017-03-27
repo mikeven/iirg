@@ -183,7 +183,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nfactura" name="form_agregar_factura" class="frm_documento">
-                	<input name="reg_factura" type="hidden" value="1">
+                	<input id="id_factura" type="hidden" value="">
                     <div class="box-body">
                     	<div class="row" id="encabezado_factura">
                     		<div class="col-md-6">

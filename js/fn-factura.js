@@ -3,8 +3,8 @@
 * fn-cotizacion.js
 *
 */
-/* --------------------------------------------------------- */	
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */	
+/* ----------------------------------------------------------------------------------- */
 function initValid(){
   
 	$('#frm_nfactura').bootstrapValidator({
@@ -30,20 +30,20 @@ function initValid(){
         }
   	});
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function iniciarVentanaConfirmacion( boton, titulo ){
 	$("#titulo_emergente").html( titulo );
 	$("#mje_confirmacion").html( "¿ Confirmar acción ?" );
 	$("#btn_confirm").attr("id", boton );
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
 	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 	if ((evt.keyCode == 13) && (node.type=="text")) {return false;}
 }
 document.onkeypress = stopRKey; 
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	encabezado = new Object();
 	encabezado.idr = $( '#id_factura' ).val();
@@ -67,7 +67,7 @@ function obtenerVectorEncabezado(){
 
 	return JSON.stringify( encabezado );
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function agregarItemFactura( nitem, idart, art, qant, und, punit, ptot ){
 	c_qant = obtenerItemDCotizacion( nitem, qant, "idfq_" + nitem, "dfcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemF( this )'", "text");
 	c_punit = obtenerItemDCotizacion( nitem, punit, "idfpu_" + nitem, "dfpunit", "onkeypress='return isNumberKey(event)' onKeyUp='actItemF( this )' onBlur='initValid()'" );
@@ -90,7 +90,7 @@ function agregarItemFactura( nitem, idart, art, qant, und, punit, ptot ){
 	resetItemsCotizacion();
 	calcularTotales();
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function obtenerEnlaceRFACCreado(id){
 	var ndoc = $("#nfactura").val();
 	var enl = "documento.php?tipo_documento=fac&id=" + id;
@@ -106,7 +106,7 @@ function bloquearDocumento(){
 	$(".blq_bdoc").prop('disabled', true);
 	$("#frm_nfactura input").prop('readonly', true);
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function guardarFactura(){
 	
 	idcliente = $( '#idCliente' ).val();
@@ -135,7 +135,7 @@ function guardarFactura(){
 		});	
 	}	
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function editarFactura(){
 	fencabezado = obtenerVectorEncabezado();
 	fdetalle = obtenerVectorDetalle();
@@ -157,7 +157,7 @@ function editarFactura(){
 		}
 	});	
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function checkFactura(){
 	//Validación de formulario de factura previo a su registro
 	var error = 0; 
@@ -188,7 +188,7 @@ function checkFactura(){
 	
 	return error;	
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 $( document ).ready(function() {
 	
 	var cant = "";		
@@ -211,5 +211,5 @@ $( document ).ready(function() {
     });
     /*===============================================================================*/
 });
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 

@@ -228,6 +228,7 @@ $( document ).ready(function() {
 	$(".item_proveedor_lmodal").click( function(){
 		
 		$("#nproveedor").val( $(this).attr("data-label") );
+		$("#idProveedor").val( $(this).attr("data-idp") );	// Para órdenes de compra
 		$("#idCliente").val( $(this).attr("data-idp") );	//idCliente = id de proveedor cuando se trata de sol. de cotización
 		$("#cpcontacto").val( $(this).attr("data-npc") );
 		$("#nproveedor").css({'border-color' : '#ccc'});

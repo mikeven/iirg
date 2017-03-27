@@ -77,6 +77,18 @@
 		return $exito;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function editarOrdenCompra( $dbh, $encabezado, $idu ){
+		// Edita el registro de una orden de compra
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$q = "update orden_compra set idProveedor = $encabezado->idproveedor, fecha_emision = '$fecha_mysql', 
+		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW()  
+		WHERE idOrden = $encabezado->idr and idUsuario = $idu";
+		
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();	
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
 	function guardarOrdenCompra( $dbh, $encabezado, $idu ){
 		// Guarda el registro de una orden de compra
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
@@ -120,6 +132,41 @@
 		else {
 			$res["exito"] = 0;
 			$res["mje"] = "Error al registrar orden de compra";
+		}
+
+		echo json_encode( $res );
+	}
+
+	//Edición de orden de compra
+	if( isset( $_POST["edit_orden_compra"] ) ){
+		
+		include( "bd.php" );
+		include( "data-documento.php" );
+		include( "../fn/fn-documento.php" );
+		
+		$encabezado = json_decode( $_POST["encabezado"] );
+		$encabezado->tipo = "orden_compra";
+		$detalle = json_decode( $_POST["detalle"] );
+		$r_edit = editarOrdenCompra( $dbh, $encabezado, $encabezado->idu );
+		
+		if( $r_edit != -1 ){
+			
+			eliminarDetalleDocumento( $dbh, "detalleordencompra", "idOrden", $encabezado->idr );
+			$exito = guardarDetalleOrdenCompra( $dbh, $encabezado->idr, $detalle, $encabezado->iva );
+			
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+				$res["documento"] = arrRespuesta( $encabezado, $encabezado->tipo );
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al editar detalle de orden de compra";
+			}
+
+		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al editar orden de compra";
 		}
 
 		echo json_encode( $res );

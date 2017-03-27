@@ -101,7 +101,7 @@
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update factura set idCliente2 = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
 		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW()  
-		WHERE idCotizacion = $encabezado->idcotizacion and idUsuario = $idu";
+		WHERE idFactura = $$encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );

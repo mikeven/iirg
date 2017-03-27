@@ -1,10 +1,10 @@
 // JavaScript Document
 /*
-* fn-cotizacion.js
+* fn-orden-compra.js
 *
 */
-/* --------------------------------------------------------- */	
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function initValid(){
 	$('#frm_nordencompra').bootstrapValidator({
 		message: 'Revise el contenido del campo',
@@ -29,16 +29,23 @@ function initValid(){
         }
   	}); 
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+function iniciarVentanaConfirmacion( boton, titulo ){
+	$("#titulo_emergente").html( titulo );
+	$("#mje_confirmacion").html( "¿ Confirmar acción ?" );
+	$("#btn_confirm").attr("id", boton );
+}
+/* ----------------------------------------------------------------------------------- */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
 	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 	if ((evt.keyCode == 13) && (node.type=="text")) {return false;}
 }
 document.onkeypress = stopRKey; 
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado( numero, idproveedor, femision, total, iva ){
 	encabezado = new Object();
+	encabezado.idr = $( '#id_orden_compra' ).val();
 	encabezado.numero = $( '#nordencompra' ).val();
 	encabezado.idproveedor = $( '#idProveedor' ).val();
 	encabezado.femision = $( '#femision' ).val();
@@ -50,12 +57,13 @@ function obtenerVectorEncabezado( numero, idproveedor, femision, total, iva ){
 	encabezado.obs2 = $( '#tobs2' ).val();
 	encabezado.obs3 = $( '#tobs3' ).val();
 
+	encabezado.subtotal = $( '#subtotal' ).val();
 	encabezado.total = $( '#total' ).val();
 	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function guardarOrdenCompra(){
 		
 	fencabezado = obtenerVectorEncabezado();
@@ -77,7 +85,29 @@ function guardarOrdenCompra(){
 		}
 	});		
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+function editarOrdenCompra(){
+	oencabezado = obtenerVectorEncabezado();
+	odetalle = obtenerVectorDetalle();
+	
+	$.ajax({
+		type:"POST",
+		url:"bd/data-orden-compra.php",
+		data:{ encabezado: oencabezado, detalle: odetalle, edit_orden_compra : 1 },
+		beforeSend: function () {			
+			$("#bt_reg_ordencompra").fadeOut( 200 );
+			$("#btn_confirmacion").fadeOut( 200 );
+		},
+		success: function( response ){
+			console.log(response);
+			res = jQuery.parseJSON(response);
+			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
+			ventanaMensaje( res.exito, res.mje, enlace );
+			bloquearDocumento();
+		}
+	});	
+}
+/* ----------------------------------------------------------------------------------- */
 function checkOrdenCompra(){
 	//Validación de formulario de orden de compra previo a su registro
 	var error = 0;
@@ -103,12 +133,9 @@ function checkOrdenCompra(){
 	
 	return error;	
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 $( document ).ready(function() {
-	$("#titulo_emergente").html("Guardar orden de compra");
-	$("#mje_confirmacion").html("¿Confirmar registro?");
-	$("#btn_confirm").attr("id", "bt_reg_ordencompra");
-
 	var cant = "";
 
 	$("#fordc").blur( function(){
@@ -117,10 +144,18 @@ $( document ).ready(function() {
     });
 	
 	/* =============================================================================== */
-    $("#bt_reg_ordencompra").on( "click", function(){
+    $("#bt_reg_orden_compra").on( "click", function(){
 		$("#closeModal").click();
 		if( checkOrdenCompra() == 0 )
 			guardarOrdenCompra();
+		else
+			$("#enl_vmsj").click();
+    });
+
+    $("#bt_edit_orden_compra").on( "click", function(){
+		$("#closeModal").click();
+		if( checkOrdenCompra() == 0 )
+			editarOrdenCompra();
 		else
 			$("#enl_vmsj").click();
     });

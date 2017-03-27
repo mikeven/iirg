@@ -220,7 +220,8 @@
                                         <i class="fa fa-slack"></i> 
                                         <label for="oc" class="iconlab">O/C:</label>
                                       </div>
-                                      <input type="text" class="form-control" id="fordc" name="orden_compra" value="<?php echo $encabezado["oc"]; ?>">
+                                      <input type="text" class="form-control" id="fordc" name="orden_compra" 
+                                      value="<?php echo $encabezado["oc"]; ?>">
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->
