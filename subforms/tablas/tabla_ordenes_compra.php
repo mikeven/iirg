@@ -14,7 +14,9 @@
         <tr>
             <td> <?php echo $o["numero"];?></td>
             <td> <?php echo $o["fecha"];?></td>
-            <td> <a href="documento.php?tipo_documento=odc&id=<?php echo $o["ido"]; ?>"><?php echo $o["Nombre"]; ?></a> </td>
+            <td> <a href="documento.php?tipo_documento=odc&id=<?php echo $o["ido"]; ?>">
+              <?php echo $o["Nombre"]; ?></a> 
+            </td>
             <td> <?php echo number_format( $o["Total"], 2, ",", "." ); ?></td>
         </tr>
         <?php } ?>

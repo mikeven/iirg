@@ -16,12 +16,14 @@
         <th>Fecha</th>
         <?php if( $tipo != "solicitud" ) { ?> <th>Cliente</th> <?php } else { ?><th>Proveedor</th> <?php } ?> 
 		<?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
+        <th>Estado</th>
       </tr>
     </thead>
     <tbody>
         <?php 
           foreach( $cotizaciones as $c ){ 
-            if ( $tipo == "solicitud" ) $td = "sctz"; else $td = "ctz"; 
+            if ( $tipo == "solicitud" ) $td = "sctz"; else $td = "ctz";
+            $ie = iconoEstado( $c["estado"] );
         ?>  
         <tr>
             <td> <?php echo $c["numero"];  ?></td>
@@ -29,7 +31,14 @@
             <td>
               <a href="documento.php?tipo_documento=<?php echo $td; ?>&id=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a>
             </td>
-            <?php if( $tipo != "solicitud" ) { ?> <td> <?php echo number_format( $c["Total"], 2, ",", "." );  ?></td><?php } ?>
+            <?php if( $tipo != "solicitud" ) { ?> 
+              <td> 
+                <?php echo number_format( $c["Total"], 2, ",", "." );  ?>
+              </td>
+            <?php } ?>
+            <td align="center">
+              <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+            </td>
         </tr>
         <?php } ?>
     </tbody>
@@ -39,6 +48,7 @@
         <th>Fecha</th>
         <?php if( $tipo != "solicitud" ) { ?> <th>Cliente</th> <?php } else { ?><th>Proveedor</th> <?php } ?> 
 		<?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
+        <th>Estado</th>
       </tr>
     </tfoot>
 </table>

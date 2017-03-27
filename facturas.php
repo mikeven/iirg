@@ -8,6 +8,7 @@
   include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-factura.php" );
+  include( "fn/fn-documento.php" );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>

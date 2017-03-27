@@ -53,10 +53,20 @@
 		$admite = true;
 		$no_anulables = array( "odc", "ctz", "sctz" );
 		
+		//Solo se actualizan los documentos con estado 'pendiente'
 		if( $encabezado["estado"] != "pendiente" ) $admite = false;
+		
+		//Orden de compra: no permite ninguna acción
+		if( $doc == "odc" ) $admite = false;
+		
 		if( in_array( $doc, $no_anulables ) && ( $accion == "anular" ) ) $admite = false;
+		
+		//Cotización: solo permite aprobación
 		if( ( $doc == "ctz" ) && ( $accion != "aprobar" ) ) $admite = false;
-		if( ( $doc == "fac" ) && ( $accion != "marcar_pagada" ) && ( $accion != "anular" ) ) $admite = false;
+		
+		//Factura: solo permite pagar o anular
+		if( ( $doc == "fac" ) && ( $accion != "marcar_pagada" ) && ( $accion != "anular" ) ) 
+			$admite = false;
 
 		return $admite;
 	}

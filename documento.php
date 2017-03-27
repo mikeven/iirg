@@ -42,7 +42,7 @@
 
          ing all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,16 +54,6 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/fn-hoja-documento.js"></script>
-    <style>
-    	#lin1{ font-size:22px; } #lin2{ font-size:18px; } .membrete3{ font-size:16px; }
-      .tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
-      #bloque_documento{ padding: 8px 15px; margin: 10px 3px 10px 15px !important; } 
-      .page-header{ padding-bottom: 20px; }
-      .rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} 
-      .azul{ color: #0073b7; } .gris{ color: #666;}
-      #bloque_data_documento{ margin: 10px 3px 10px 10px !important; width: 21.7% !important; }
-      .bdatadoc{ padding: 8px; }
-    </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
