@@ -60,9 +60,9 @@
 		$stotal = $encabezado["SubTotal"];
 		$iva = $encabezado["iva"]; 
 
-		$totales["subtotal"] = number_format( $stotal, 2, ",", "" ); 
-		$totales["iva"] = number_format( $stotal * $iva, 2, ",", "" );
-		$totales["total"] = number_format( $stotal + ($stotal * $iva), 2, ",", "" );
+		$totales["subtotal"] = number_format( $stotal, 2, ".", "" ); 
+		$totales["iva"] = number_format( $stotal * $iva, 2, ".", "" );
+		$totales["total"] = number_format( $stotal + ($stotal * $iva), 2, ".", "" );
 		
 		return $totales;
 	}

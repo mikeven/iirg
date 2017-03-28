@@ -368,7 +368,7 @@
                                                         if(isset( $factura )) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
-                                                            echo mostrarItemDocumentoFactura( $item, $ni );
+                                                            echo mostrarItemDocumento( $item, $ni );
                                                         }
                                                       }?>
                                                   </tbody>

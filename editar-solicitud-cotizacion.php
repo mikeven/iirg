@@ -8,7 +8,7 @@
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
-	include( "bd/data-cliente.php" );
+	include( "bd/data-proveedor.php" );
 	include( "bd/data-formato.php" );
   include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
@@ -17,8 +17,8 @@
 	
 	checkSession( '' );
   if( isset( $_GET["id"] ) ){
-    $idc = $_GET["id"];
-    $cotizacion = obtenerCotizacionPorId( $dbh, $idc );
+    $ids = $_GET["id"];
+    $cotizacion = obtenerSolicitudCotizacionPorId( $dbh, $ids );
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
@@ -173,7 +173,7 @@
               <!-- general form elements -->
 				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">EDITAR COTIZACIÓN</h3>                  
+                  <h3 class="box-title">EDITAR SOLICITUD DE COTIZACIÓN</h3>                  
                   <div class="icon-color nuevo-reg-icono">
                     <a href="#!"><i class="fa fa-copy fa-2x"></i></a>
                   </div>
@@ -181,7 +181,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ecotizacion" name="form_editar_cotizacion" class="frm_documento">
-                	<input id="id_cotizacion" type="hidden" value="<?php echo $idc; ?>">
+                	<input id="id_cotizacion" type="hidden" value="<?php echo $ids; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		  <div class="col-md-6">
@@ -189,18 +189,18 @@
                                   <div class="input-group">
                                       <div class="input-group-btn">
                                         <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                        data-target="#lista_clientes">CLIENTE</button>
+                                        data-target="#lista_proveedores">PROVEEDOR</button>
                                       </div>
                                       <!-- /btn-group -->
                                       <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
                                       value="<?php echo $encabezado["nombre"]; ?>">
                                       <input type="hidden" class="form-control" id="idCliente" 
-                                      value="<?php echo $encabezado["idcliente"]; ?>">
+                                      value="<?php echo $encabezado["idproveedor"]; ?>">
                                       <input type="hidden" class="form-control" id="tipo" value="<?php echo $encabezado["tipo"]; ?>">
                                   </div>
                               </div><!-- /.form group -->
                               <!-- Modal -->
-                              	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
+                                  <?php include( "subforms/tablas/tabla_proveedores_modal.php" ); ?>
                               <!-- /.Modal -->
                               <div class="row">
                               <div class="col-md-6">
@@ -218,17 +218,17 @@
                               
                               <div class="col-md-6">
                                   <div class="form-group">
-                                      <!--<label for="fcondpago" class="">Validez:</label>-->
-                                      <div class="input-group">
-                                          <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                          <select name="validez" id="cvalidez" class="form-control">
-                                              <option value="0" disabled selected>Validez</option>
-                                              <option value="3 días">3 días</option>
-                                              <option value="5 días">5 días</option>
-                                              <option value="8 días">8 días</option>
-                                          </select>
+                                      <!--<label for="validez" class="">Validez:</label>-->
+                                      <!-- <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                      <select name="validez" id="cvalidez" class="form-control">
+                                          <option value="0" disabled selected>Validez</option>
+                                          <option value="3 días">3 días</option>
+                                          <option value="5 días">5 días</option>
+                                          <option value="8 días">8 días</option>
+                                      </select>
                                       </div><!-- /.input group -->
-                                  </div><!-- /.form group -->
+                                  </div>
                   			       </div>
                               </div>
                               
@@ -292,8 +292,13 @@
                                               </div>
                                           </div><!-- /.col -->
                                       </div><!-- /.form group -->
+                                      
                                       <div class="col-md-6">
-                                      	<div class="form-group">
+                                        <button class="btn btn-block btn-success blq_bdoc" type="button" id="ag_item_sc">Agregar</button>
+                                      </div><!-- /.col -->
+
+                                      <div class="col-md-6">
+                                      	<div class="form-group" style="visibility:hidden;">
                                               <!--<label for="punit" class="">Precio unitario:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tag"></i></div>
@@ -304,7 +309,7 @@
                                       </div><!-- /.col -->
                                     
                                       <div class="col-md-6">
-                                      	<div class="form-group">
+                                      	<div class="form-group" style="visibility:hidden;">
                                               <!--<label for="punit" class="">Total item:</label>-->
                                               <div class="input-group">
                                                   <div class="input-group-addon"><i class="fa fa-tags"></i></div>
@@ -313,9 +318,7 @@
                                               </div>
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
-                                      <div class="col-md-6">
-                                      	<button class="btn btn-block btn-success blq_bdoc" type="button" id="ag_item">Agregar</button>
-                                      </div><!-- /.col -->
+                                      
                                     </div><!-- /.sumador_items -->                            	
                                 </div><!--/.articulos_cotizacion-->		
                             </div>
@@ -355,9 +358,14 @@
                                         </div>
                                     </div>
                                     					
-                                </div><!--/.detalle_cotizacion-->
+                                </div><!--/.detalle_solicitud_cotización-->
+
+                                <input id="cvalidez" name="validez" type="hidden" value="">
+                                <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                <input id="v_iva" name="ivap" type="hidden" value="0.00" >
+                                <input id="total" name="total" type="hidden" value="0.00" >
                                 
-                                <div class="row" id="pie_cotizacion">
+                                <!-- <div class="row" id="pie_scotizacion">
                                 	<table class="table table-condensed" id="pietabla_table">
                                         <tbody>
                                             <tr>
@@ -401,7 +409,7 @@
                                             </tr>
                                         </tbody>
                                     </table>			
-                                </div>
+                                </div> -->
 
                                 <div id="observaciones">
                                   <div class="titobs"><?php echo $encabezado["obs0"];?></div>

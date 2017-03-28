@@ -214,7 +214,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <!--<label for="fcondpago" class="">Validez:</label>-->
+                                        <!--<label for="validez" class="">Validez:</label>-->
                                         <!--<div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                             <select name="validez" id="cvalidez" class="form-control">
