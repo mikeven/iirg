@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2017 at 11:10 PM
+-- Generation Time: Mar 30, 2017 at 12:12 AM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -4093,7 +4093,7 @@ CREATE TABLE IF NOT EXISTS `detallecotizacion` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29366 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29369 ;
 
 --
 -- Dumping data for table `detallecotizacion`
@@ -12004,12 +12004,12 @@ INSERT INTO `detallecotizacion` (`IdMovimiento`, `IdCotizacion`, `IdCotizacion2`
 (29355, NULL, 1193, NULL, '60', NULL, 'ANILLOS DOBLE CARTA PLASTICO 2', 8, 1254.00, NULL, 10032.00, NULL, 'UND', NULL, NULL),
 (29356, NULL, 1193, NULL, '32', NULL, 'ARCHICOMODO PLASTICO', 6, 3520.00, NULL, 21120.00, NULL, 'UND', NULL, NULL),
 (29359, NULL, 1196, NULL, '44', NULL, 'ANILLOS DOBLE CARTA PLAST. 1/4', 50, 780.00, NULL, 39000.00, NULL, 'UND', NULL, NULL),
-(29360, NULL, 1197, NULL, '50', NULL, 'ANILLO DOBLE CARTA PLAST.1/2', 9, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29361, NULL, 1198, NULL, '35', NULL, 'AGENDAS', 5, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29362, NULL, 1199, NULL, '85', NULL, 'BANDAS DE GOMA', 6, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29363, NULL, 1200, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29364, NULL, 1194, NULL, '75', NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 5, 3850.00, NULL, 19250.00, NULL, 'UND', NULL, NULL),
-(29365, NULL, 1195, NULL, '36', NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 12, 6500.00, NULL, 78000.00, NULL, 'UND', NULL, NULL);
+(29365, NULL, 1195, NULL, '36', NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 12, 6500.00, NULL, 78000.00, NULL, 'UND', NULL, NULL),
+(29368, NULL, 1197, NULL, '50', NULL, 'ANILLO DOBLE CARTA PLAST.1/2', 12, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12060,10 +12060,10 @@ CREATE TABLE IF NOT EXISTS `detallenota` (
   `codigo_producto` varchar(9) DEFAULT NULL,
   `Descripcion` varchar(60) DEFAULT NULL,
   `Cantidad` int(5) DEFAULT NULL,
-  `PrecioUnit` varchar(10) DEFAULT NULL,
+  `PrecioUnit` varchar(11) DEFAULT '0.00',
   `punit` float(11,2) NOT NULL DEFAULT '0.00',
   `Porcentaje` int(1) DEFAULT NULL,
-  `PrecioTotal` float(11,2) NOT NULL,
+  `PrecioTotal` float(11,2) NOT NULL DEFAULT '0.00',
   `Alicuota` int(2) DEFAULT NULL,
   `und` varchar(5) DEFAULT NULL,
   `IdItem` int(1) DEFAULT NULL,
@@ -12138,7 +12138,7 @@ CREATE TABLE IF NOT EXISTS `detalleordencompra` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `detalleordencompra`
@@ -12151,7 +12151,10 @@ INSERT INTO `detalleordencompra` (`IdMovimiento`, `idOrden`, `Item`, `IdArticulo
 (4, 3, NULL, '74', 'ACETATOS TRANSP, T/CARTA PAQ. X 100', 6, 785.02, NULL, 4710.12, 'UND', NULL, NULL),
 (5, 3, NULL, '46', 'ANILLOS PLASTICOS DOBLE CARTA 2', 50, 985.02, NULL, 49251.00, 'UND', NULL, NULL),
 (6, 4, NULL, '276', 'CINTA KORES GR 187C KORES', 5, 915.35, NULL, 4576.75, 'UND', NULL, NULL),
-(7, 5, NULL, '2453', 'SOBRES KRAFT MARRON T/CARTA', 3000, 62.00, NULL, 186000.00, 'UND', NULL, NULL);
+(10, 5, NULL, '2453', 'SOBRES KRAFT MARRON T/CARTA', 2850, 62.00, NULL, 176700.00, 'UND', NULL, NULL),
+(11, 5, NULL, '104', 'BLOCK DE RAYA T/CARTA', 18, 1580.20, NULL, 28443.60, 'UND', NULL, NULL),
+(12, 6, NULL, '1034', 'CANON GPR-2 IMAGE RUNNER 330/400', 2, 232650.23, NULL, 465300.47, 'UND', NULL, NULL),
+(13, 6, NULL, '1364', 'HP 122 CH561HL NEGRO', 3, 113642.23, NULL, 340926.69, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -14122,11 +14125,12 @@ INSERT INTO `formato` (`idFormato`, `doc`, `entrada`, `enc1`, `enc2`, `enc3`, `e
 --
 
 CREATE TABLE IF NOT EXISTS `nota` (
-  `numero` int(5) DEFAULT NULL,
   `idNota` int(5) NOT NULL AUTO_INCREMENT,
+  `numero` int(5) DEFAULT NULL,
   `idCliente` int(7) DEFAULT NULL,
   `fecha_emision` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_anulacion` datetime DEFAULT NULL,
   `tipo` varchar(15) DEFAULT NULL,
   `idFactura` int(2) DEFAULT NULL,
@@ -14148,14 +14152,15 @@ CREATE TABLE IF NOT EXISTS `nota` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idNota`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `nota`
 --
 
-INSERT INTO `nota` (`numero`, `idNota`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_anulacion`, `tipo`, `idFactura`, `estado`, `idVendedor`, `iva`, `SubTotal`, `ISV`, `Total`, `idPedido`, `concepto`, `tipo_concepto`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
-(1, 1, 143, '2017-03-20 00:00:00', '2017-03-20 15:09:19', '2017-03-20 15:24:12', 'nota_credito', 1, 'anulada', NULL, 0.12, '11550.00', NULL, '12936.00', NULL, '', '', NULL, 'CONSIDERACIONES', '', '', '', NULL, 1);
+INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_anulacion`, `tipo`, `idFactura`, `estado`, `idVendedor`, `iva`, `SubTotal`, `ISV`, `Total`, `idPedido`, `concepto`, `tipo_concepto`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
+(1, 1, 143, '2017-03-20 00:00:00', '2017-03-20 15:09:19', NULL, '2017-03-20 15:24:12', 'nota_credito', 1, 'anulada', NULL, 0.12, '11550.00', NULL, '12936.00', NULL, '', '', NULL, 'CONSIDERACIONES', '', '', '', NULL, 1),
+(2, 1, 121, '2017-03-28 00:00:00', '2017-03-28 11:55:24', '2017-03-29 18:11:27', NULL, 'nota_debito', 2, 'pendiente', NULL, 0.12, '12984.32', NULL, '14542.44', NULL, 'Descuento', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -14186,7 +14191,7 @@ CREATE TABLE IF NOT EXISTS `orden_compra` (
   PRIMARY KEY (`idOrden`),
   KEY `idProveedor` (`idProveedor`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `orden_compra`
@@ -14196,7 +14201,8 @@ INSERT INTO `orden_compra` (`numero`, `idOrden`, `idProveedor`, `fecha_registro`
 (2, 2, 3, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '104882.40', 'pendiente', NULL, 'Datos de la orden de compra', 'CONDICIONES ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
 (3, 3, 1, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '60436.45', 'pendiente', NULL, 'Datos de la orden de compra', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
 (4, 4, 1, NULL, '2017-02-08 00:00:00', NULL, 0.12, NULL, '5125.96', 'pendiente', NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(5, 5, 4, NULL, '2017-02-19 00:00:00', NULL, 0.12, NULL, '208320.00', 'pendiente', NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
+(5, 5, 4, NULL, '2017-02-19 00:00:00', '2017-03-27 16:06:52', 0.12, '205143.60', '229760.83', 'pendiente', NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(6, 6, 5, NULL, '2017-03-27 00:00:00', NULL, 0.12, NULL, '902974.41', NULL, NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
