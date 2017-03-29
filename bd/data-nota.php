@@ -41,17 +41,18 @@
 		$cond = ""; $campo = ""; $tabla = "";
 		if( $tipo_n != "nota_entrega" ) {
 			$cond = "and f.idFactura = n.IdFactura";
-			$campo = "f.numero as nfact, "; $tabla = ", factura f";
+			$campo = "f.idFactura as idfactura, f.numero as nfact, "; $tabla = ", factura f";
 		}
 		
 		$q = "select n.numero nro, n.idNota as idn, n.tipo as tipo, $campo n.idCliente as idcliente, n.estado as estado, 
 		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(n.fecha_registro,'%d/%m/%Y %h:%i') as fregistro,
-		DATE_FORMAT(n.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, n.iva as iva, n.SubTotal as SubTotal, 
+		DATE_FORMAT(n.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, n.iva as iva, n.SubTotal as SubTotal, n.Total as Total,  
 		n.tipo_concepto as tipo_concepto, n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
 		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
 		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
 		FROM nota n, cliente c $tabla WHERE n.idNota = $idn and n.idCliente = c.idCliente2 $cond";
-		
+
+		//echo $q;
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleNota( $dbh, $idn );
 		
@@ -111,6 +112,19 @@
 		return mysql_insert_id();
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function editarNota( $dbh, $encabezado, $idu ){
+
+		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$q = "update nota set idCliente = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
+		SubTotal = $encabezado->subtotal, Total = $encabezado->total, concepto = '$encabezado->concepto', 
+		tipo_concepto = '$encabezado->tipo_concepto', tipo='$encabezado->tipo', fecha_modificacion = NOW()  
+		WHERE idFactura = $encabezado->idr and idUsuario = $idu";
+		
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function etiquetaNota( $tipo, $notacion ){
 		//Retorna la etiqueta correspondiente al tipo de Nota para formatos y registros en BD
 		$etiquetas = array(	
@@ -165,6 +179,41 @@
 			$res["documento"] = arrRespuesta( $encabezado, "nota" );
 		}
 		
+		echo json_encode( $res );
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	//Edición de nota
+	if( isset( $_POST["edit_nota"] ) ){
+		
+		include( "bd.php" );
+		include( "data-documento.php" );
+		include( "../fn/fn-documento.php" );
+		
+		$encabezado = json_decode( $_POST["encabezado"] );
+		$encabezado->tipo_doc = "nota";
+		$detalle = json_decode( $_POST["detalle"] );
+		$r_edit = editarNota( $dbh, $encabezado, $encabezado->idu );
+		
+		if( $r_edit != -1 ){
+			
+			eliminarDetalleDocumento( $dbh, "detallenota", "idNota", $encabezado->idr );
+			$exito = guardarDetalleNota( $dbh, $encabezado->idr, $encabezado, $detalle );
+			
+			if( $exito == true ){
+				$res["exito"] = 1;
+				$res["mje"] = "Registro exitoso";
+				$res["documento"] = arrRespuesta( $encabezado, $encabezado->tipo_doc );
+			}else{
+				$res["exito"] = 0;
+				$res["mje"] = "Error al editar detalle de factura";
+			}
+
+		}
+		else {
+			$res["exito"] = 0;
+			$res["mje"] = "Error al editar factura";
+		}
+
 		echo json_encode( $res );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/

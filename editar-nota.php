@@ -1,6 +1,7 @@
 <?php
 	/*
-	* IIRG - Registro de nueva factura
+	* IIRG - Registro de nueva nota
+  * Formatos para nota de entrega, nota de crédito, nota de débito
 	* 
 	*/
 	session_start();
@@ -9,38 +10,45 @@
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
-	include( "bd/data-documento.php" );
-	include( "bd/data-cotizacion.php" );
-	include( "bd/data-factura.php" );
-	include( "bd/data-pedido.php" );
-	include( "bd/data-formato.php" );
-	
-  checkSession( '' );
+  include( "bd/data-documento.php" );
+  include( "bd/data-factura.php" );
+	include( "bd/data-nota.php" );
+  include( "bd/data-forms.php" );
+  include( "bd/data-formato.php" );
+
+  checkSession( '' );           
 	
   if( isset( $_GET["id"] ) ){
-    $idf        = $_GET["id"];
-    $factura    = obtenerFacturaPorId( $dbh, $_GET["id"] );
-    $encabezado = $factura["encabezado"];
-    $detalle    = $factura["detalle"];
-    $nitems     = count( $detalle );
-    $iva        = $encabezado["iva"];
-    $eiva       = $iva * 100;
-    $totales    = obtenerTotales( $detalle, $encabezado["iva"] );
-    if( $encabezado["idc"] && $encabezado["idc"] != "" ){
-      $ctz_asoc   = obtenerCotizacionPorId( $dbh, $encabezado["idc"] );
-      $ctz_encab  = $ctz_asoc["encabezado"];
-    }
+    
+    $id = $_GET["id"];
+    $tn = obtenerTipoNotaPorId( $dbh, $id );
+    $nota = obtenerNotaPorId( $dbh, $id, $tn );
+    $encabezado = $nota["encabezado"];
+    $detalle = $nota["detalle"];
+    
+    $factura = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
+    $encabezado_factura = $factura["encabezado"];
+    $totales_f = obtenerTotales( $factura["detalle"], $encabezado_factura["iva"] );
+    $encabezado["data-fac"] = $encabezado_factura["nombre"]." ($encabezado_factura[femision])";
+   
+    $nitems = count( $detalle );
+    $iva = $encabezado["iva"];
+    $eiva = $iva * 100;
+    if( $encabezado["tipo_concepto"] == "Ajuste global" )
+      $totales = obtenerTotalesFijos( $encabezado );                    //data-documento.php
+    else
+      $totales = obtenerTotales( $detalle, $encabezado["iva"] );        //data-documento.php
   }
-  else{  
-  }
-	
+  else 
+    { /* $iva = 0.12; $eiva = $iva * 100; $nitems = 0; */ }
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Editar factura</title>
+  <title>IIRG | Editar nota</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -65,14 +73,14 @@
 	  <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--<link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">-->
     <style>
-    .input-space{
-		  width:95%;
-		}
-		.itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
-		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
-		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
-		.iconlab{ line-height: 0; }
-		.form-group { margin-bottom: 5px; }
+      .input-space{ width:95%; }
+  		.itemtotal_detalle, .itemtotaldocumento{ width:95%; border:0; background:#FFF; text-align:right;}
+  		.totalitem_detalle, .totalizacion{ width:100%; text-align:right; }
+  		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
+  		.iconlab{ line-height: 0; }
+  		.form-group { margin-bottom: 5px; }
+      .nti{ padding: 25px 0;}
+      #cnc{ width: 90%; }
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,13 +110,19 @@
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
     <script>
       $( document ).ready(function() {
-          iniciarVentanaConfirmacion( "bt_edit_factura", "Editar factura" );
+          <?php if($encabezado["tipo_concepto"] == "Ajuste global") { ?>
+            $("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
+          <?php } ?>
+          asignarOpcionesConcepto( '<?php echo $tn; ?>' );
+
+          iniciarVentanaConfirmacion( "bt_edit_nota", "Editar nota" );
       });
     </script>
+    <script src="js/fn-nota.js"></script>
     <script src="js/fn-documento.js"></script>
-    <script src="js/fn-factura.js"></script>
-    
+
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -151,9 +165,11 @@
 
     </nav>
   </header>
-  <?php
-    /*$num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
-    $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );*/
+  <?php 
+    if( isset( $_GET["idf"] ) ){
+      //$num = obtenerProximoNumeroNota( $dbh, $tn, $usuario["idUsuario"] );
+      $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $tn ), $usuario["idUsuario"] );
+    }
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -163,10 +179,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Version 2.0</small>
-      </h1>
+      <h1> Dashboard <small>Version 2.0</small> </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
@@ -181,71 +194,80 @@
               <!-- general form elements -->
 				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">EDITAR FACTURA</h3>
+                  <h3 class="box-title">EDITAR NOTA</h3>
                   <div class="icon-color nuevo-reg-icono">
-                    <a href="nuevo-factura.php"><i class="fa fa-plus fa-2x"></i></a>
+                    <a href="nuevo-nota.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>
-                  <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
+                  <div class="icon-color"><i class="fa fa-sticky-note-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_efactura" name="form_editar_factura" class="frm_documento">
-                	<input id="id_factura" type="hidden" value="<?php echo $idf; ?>">
+                <form role="form" id="frm_nnota" name="form_agregar_nota" class="frm_documento">
+                	<input id="idNota" name="idnota" type="hidden" value="<?php echo $encabezado["idn"]; ?>">
                     <div class="box-body">
-                    	<div class="row" id="encabezado_factura">
+                    	<div class="row" id="encabezado_nota">
                     		<div class="col-md-6">
                             <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                      <!--<div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                        data-target="#lista_pedidos" id="blpedidos">PEDIDO</button>
-                                      </div> -->
-                                      <!-- /btn-group -->
-                                      <div class="input-group-addon">
-                                          <i class="fa fa-slack"></i> 
-                                          <label for="datepicker" class="iconlab">N° Ctz:</label>
-                                      </div>
-                                      <input type="text" class="form-control" id="fcotizacion" readonly 
-                                      name="cotizacion" value="<?php if( isset( $encabezado ) ) echo $ctz_encab["nro"]." / Fecha: ".$ctz_encab["femision"];?>">
-                                      <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
-                                    </div>
-                                </div><!-- /.form group -->
-                              </div><!-- /.col6 -->
-
-                              <div class="col-md-6">
-                                <div class="form-group">
+                                
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <select class="form-control" id="tnota">
+                                      <option value="0" disabled selected class="nti">Tipo de Nota</option>
+                                      <option value="nota_entrega" class="nti" 
+                                      <?php if(isset($tn)) echo selop( "nota_entrega", $tn );?>>Nota de Entrega</option>
+                                      <option value="nota_credito" class="nti" 
+                                      <?php if(isset($tn)) echo selop( "nota_credito", $tn );?>>Nota de Crédito</option>
+                                      <option value="nota_debito" class="nti" 
+                                      <?php if(isset($tn)) echo selop( "nota_debito", $tn );?>>Nota de Débito</option>
+                                    </select>
+                                    <input type="hidden" id="tipofte" value="<?php if( isset($encabezado) ) echo $tn; ?>">
+                                  </div><!-- /.form group -->
+                                </div><!-- /.col6 -->
+                                
+                                <div class="col-md-6">
+                                  <div class="form-group">
                                     <div class="input-group">
                                       <div class="input-group-addon">
                                         <i class="fa fa-slack"></i> 
-                                        <label for="oc" class="iconlab">O/C:</label>
+                                        <label for="nfac" class="iconlab">N° Fact:</label>
                                       </div>
-                                      <input type="text" class="form-control" id="fordc" name="orden_compra" 
-                                      value="<?php echo $encabezado["oc"]; ?>">
+                                      <input type="text" class="form-control" id="nFactura" name="num_factura" 
+                                      value="<?php if(isset($encabezado_factura)) echo $encabezado_factura["nro"]; ?>" readonly>
                                     </div>
-                                </div><!-- /.form group -->
-                              </div><!-- /.col6 -->
-                            </div><!-- /.row -->
-                            
-                            <div class="form-group">
+                                  </div><!-- /.form group -->
+                                </div><!-- /.col6 -->
+                              
+                              </div><!-- /.row -->
+                              <div class="form-group bloque_nota" id="bloquen_clientes">
+                                  <div class="input-group">
+                                    <div class="input-group-btn">
+                                      <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" data-target="#lista_clientes">CLIENTE</button>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" value="">
+                              	</div>
+                              </div><!-- /.form group -->
+                              
+                              <div class="form-group bloque_nota" id="bloquen_facturas">
                                 <div class="input-group">
                                   <div class="input-group-btn">
-                                    <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                    data-target="#lista_clientes" <?php if( isset( $ctz_encab ) ) echo "disabled";?>>CLIENTE</button>
+                                    <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" data-target="#lista_facturas">FACTURA</button>
                                   </div>
                                   <!-- /btn-group -->
-                                  <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
-                                  value="<?php if( isset( $encabezado ) ) echo $encabezado["nombre"]?>">
-                                  <input type="hidden" class="form-control" id="idCliente" 
-                                  value="<?php if( isset( $encabezado ) ) echo $encabezado["idcliente"]?>">
-                            	</div>
-                            </div><!-- /.form group -->
-                            <!-- Modal -->
-                            	<?php 
-                                include( "subforms/tablas/tabla_pedidos_modal.php" );
-                                include( "subforms/tablas/tabla_clientes_modal.php" );
-                              ?>
-                            <!-- /.Modal -->
+                                  <input type="text" class="form-control" id="ndatafac" readonly name="data_factura" 
+                                  value="<?php if( isset($encabezado) ) echo $encabezado["data-fac"]; ?>">
+                                  <input type="hidden" class="form-control" id="idFactura" 
+                                  value="<?php if( isset($encabezado) ) echo $encabezado["idfactura"]; ?>">
+                                </div>
+                              </div><!-- /.form group -->
+
+                              <input type="hidden" class="form-control" id="idCliente" 
+                              value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]; ?>">
+                              <!-- Modal -->
+                              	<?php 
+                                  include( "subforms/tablas/tabla_clientes_modal.php" );
+                                  include( "subforms/tablas/tabla_facturas_modal.php" );
+                                ?>
+                              <!-- /.Modal -->
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
@@ -254,7 +276,8 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $encabezado["nro"]; ?>">
+                                                <input type="text" class="form-control" id="nnota" name="numero" 
+                                                required readonly value="<?php if( isset($encabezado) ) echo $encabezado["nro"]; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -266,7 +289,7 @@
                                                 <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                             </div>
                                             <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo $encabezado["femision"]; ?>">
+                                            value="<?php echo $encabezado["femision"];?>">
                                         </div>
                                     </div><!-- /.form group -->
                                 	</div>
@@ -332,68 +355,94 @@
                                 </div><!--/.articulos_cotizacion-->		
                             </div>
                         
-                        <div id="testing"></div>
-                        </div><!-- /.encabezado_factura -->
+                        </div><!-- /.encabezado_nota -->
                         <!-- ************************************************************************************************ -->
-                        <div class="row" id="division_cntral"><div class="col-md-12"><hr></div></div>
+                        <div class="row" id="division_central"><div class="col-md-12"><hr></div></div>
                         <!-- ************************************************************************************************ -->
-                        <input id="tentrada" name="introduccion" type="hidden" value="<?php echo $encabezado["intro"];;?>">
-                          <div class="row" id="contenido_factura">
+                        <input id="tentrada" name="introduccion" type="hidden" value="">
+                          <div class="row" id="contenido_nota">
                           	<div class="col-md-10 col-md-offset-1">
-                                  
-                                  <div id="detalle_factura">
+                              	
+                                  <div id="detalle_nota">
+                                      
                                       <div class="box box-primary">	
                                           <div class="box-body">
-                                          	<input id="cont_item" name="contador_items" type="hidden" value="<?php echo $nitems?>">
-                                            <table class="table table-condensed" id="tdetalle">
-                                                <tbody>
-                                                    <tr>
-                                                        <th width="45%" class="tit_tdf_i">Descripción</th>
-                                                        <th width="10%" class="tit_tdf">Cantidad</th>
-                                                        <th width="10%" class="tit_tdf">UND</th>
-                                                        <th width="15%" class="tit_tdf">Precio Unit</th>
-                                                        <th width="15%" class="tit_tdf">Total item</th>
-                                                        <th width="5%" class="tit_tdf"></th>
-                                                    </tr>
-                                                    <?php 
-                                                      if( isset( $encabezado ) ) {
-                                                        $ni = 0; 
-                                                        foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumento( $item, $ni );
-                                                      }
-                                                    }?>
-                                                </tbody>
-                                            </table>
+                                          	<input id="cont_item" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
+                                              
+                                              <table class="table table-condensed" id="tdetalle">
+                                                  <tbody>
+                                                      <tr>
+                                                          <th width="45%" class="tit_tdf_i">Descripción</th>
+                                                          <th width="10%" class="tit_tdf">Cantidad</th>
+                                                          <th width="10%" class="tit_tdf">UND</th>
+                                                          <th width="15%" class="tit_tdf">Precio Unit</th>
+                                                          <th width="15%" class="tit_tdf">Total item</th>
+                                                          <th width="5%" class="tit_tdf"></th>
+                                                      </tr>
+                                                      <?php 
+                                                        if( isset( $nota ) ) {
+                                                          $ni = 0; 
+                                                          foreach( $detalle as $item ){ $ni++;
+                                                            echo mostrarItemDocumento( $item, $ni );
+                                                        }
+                                                      }?>
+                                                  </tbody>
+                                              </table>
+                                              
                                           </div>
                                       </div>
                                       					
-                                  </div><!--/.detalle_factura-->
+                                  </div><!--/.detalle_nota-->
                                   
-                                  <div class="row" id="pie_factura">
+                                  <div class="row" id="pie_nota">
                                   	<table class="table table-condensed" id="pietabla_table">
                                           <tbody>
                                               <tr>
                                                   <th width="65%"></th>
                                                   <th width="15%">SubTotal</th>
                                                   <th width="15%">
-                                                  	<div id="fsub_total" class="totalizacion">
+                                                  	<div id="sub_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="subtotal" value="<?php if(isset( $factura )) echo $totales["subtotal"]?>" readonly>
+                                                              id="subtotal" value="<?php if(isset( $nota )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>
                                               <tr>
-                                                  <th width="65%"></th>
+                                                  <th width="65%">
+                                                    <?php if( isset( $nota ) ) {?>
+                                                      <div id="bloque_concepto">
+                                                        <div class="form-group">
+                                                          <!--<label for="obs2">obs2</label>-->
+                                                          <div class="input-group">
+                                                            <div class="input-group-btn">
+                                                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                                                              aria-expanded="false">Concepto <span class="fa fa-caret-down"></span></button>
+                                                                <ul class="dropdown-menu">
+                                                                  <li><a href="#!" class="ocn" id="on1" data-val=""></a></li>
+                                                                  <li><a href="#!" class="ocn" id="on2" data-val=""></a></li>
+                                                                  <li><a href="#!" class="ocn" id="on3" data-val=""></a></li>
+                                                                </ul>
+                                                            </div><!-- /btn-group -->
+                                                            <input type="text" class="form-control" name="concepto" id="cnc" 
+                                                            value="<?php echo $encabezado["concepto"];?>"> 
+                                                            <input type="hidden" name="tipo_concepto" id="tconcepto" 
+                                                            value="<?php echo $encabezado["tipo_concepto"];?>">
+                                                          </div>                                        
+                                                        </div><!-- /.form group -->
+                                                        <div id="etq_concepto"><?php echo $encabezado["tipo_concepto"];?></div> 
+                                                      </div> <!-- /.bloque_concepto -->
+                                                    <?php } ?>
+                                                  </th>
                                                   <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
                                                   <th width="15%">
                                                   	<div id="impuesto" class="totalizacion">
                                                       	<div class="input-group">
-                                                          	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                          	<input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="v_iva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
+                                                              id="v_iva" value="<?php if(isset( $nota )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -405,9 +454,10 @@
                                                   	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="total" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
-                                                  		</div>
-                                                  	</div>
+                                                              id="total" value="<?php if(isset( $nota )) echo $totales["total"]?>" readonly>
+                                                  		  </div>
+                                                  	  </div>
+                                                      <input id="mototalnota" name="totaln" type="hidden" value="<?php if(isset( $factura )) echo $totales_f["total"]?>">
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>
@@ -420,17 +470,18 @@
                                     <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
                                     <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
                                     <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
-                                  </div>
-
+                                  </div><!--/. observaciones -->
+                              
                               </div><!--/.col-md-8-->
                           	
                           </div><!-- /.pie_factura -->
-
+                        
                           <!-- Bloque de respuesta del servidor -->
-                          <button type="button" id="enl_vmsj" data-toggle="modal" 
-                          data-target="#ventana_mensaje"></button>
-                          <?php include("subforms/nav/mensaje_respuesta.php");?>
+                            <?php //include("subforms/nav/mensaje_rcpf.php");?>
+                            <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+                            <?php include("subforms/nav/mensaje_respuesta.php");?>
                           <!-- /.Bloque de respuesta del servidor -->
+
 
                     </div><!-- /.box-body -->
 					          
@@ -464,6 +515,14 @@
   <!-- /.Panel de configuración -->
 
 </div>
+<?php if( isset($_GET["idf"]) ) {?>
+  <script>
+    $( document ).ready(function() {
+      $("#bloquen_facturas").show(300);
+      asignarOpcionesConcepto( $("#tipofte").val() );
+    });
+  </script>
+<?php } ?>
 <!-- ./wrapper -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
