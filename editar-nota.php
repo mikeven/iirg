@@ -114,7 +114,6 @@
             $("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
           <?php } ?>
           asignarOpcionesConcepto( '<?php echo $tn; ?>' );
-
           iniciarVentanaConfirmacion( "bt_edit_nota", "Editar nota" );
       });
     </script>

@@ -10,11 +10,12 @@
 	include( "bd/data-articulo.php" );
    include( "bd/data-formato.php" );
 	include( "bd/data-proveedor.php" );
+   include( "bd/data-documento.php" );
 	include( "bd/data-orden-compra.php" );
 	
 	checkSession( '' );	
 	
-   if( isset( $_GET["idc"] ) ){
+   /*if( isset( $_GET["idc"] ) ){
       $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
       $encabezado = $cotizacion["encabezado"];
       $detalle = $cotizacion["detalle"];
@@ -22,8 +23,21 @@
       $iva = $encabezado["iva"];
       $eiva = $iva * 100;
       $totales = obtenerTotales( $detalle, $encabezado["iva"] );
-   }
-   else{ $iva = 0.12;   $eiva = $iva * 100;  $nitems = 0;  } 
+   }*/
+   
+   if ( isset( $_GET["idref"] ) ){
+      $id_do = $_GET["idref"];
+      $orden_compra = obtenerOrdenCompraPorId( $dbh, $id_do );
+      $encabezado = $orden_compra["encabezado"];
+      $detalle = $orden_compra["detalle"]; 
+   }  
+  
+  if( isset( $encabezado ) ){
+      $iva = $encabezado["iva"];
+      $eiva = $iva * 100;
+      $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
+  }else
+  { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; } 
 ?>
 <!DOCTYPE html>
 <html>
@@ -314,10 +328,10 @@
                                                       <th width="5%" class="tit_tdf"></th>
                                                    </tr>
                                                    <?php 
-                                                      if( isset( $cotizacion ) ) {
+                                                      if( isset( $detalle ) ) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
-                                                          echo mostrarItemDocumentoPedido( $item, $ni );
+                                                          echo mostrarItemDocumento( $item, $ni );
                                                         }
                                                       }?>
                                                 </tbody>
@@ -336,7 +350,7 @@
                                                    <div id="oc_sub_total" class="totalizacion">
                                                       <div class="input-group">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="subtotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
+                                                            id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>
@@ -350,7 +364,7 @@
                                                       <div class="input-group">
                                                          <input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+                                                            id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>
@@ -363,7 +377,7 @@
                                                    <div id="oc_total" class="totalizacion">
                                                       <div class="input-group">
                                                          <input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="total" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
+                                                            id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
                                                       </div>
                                                    </div>
                                                 </th>

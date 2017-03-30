@@ -21,12 +21,22 @@
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
+  }
+  
+  if ( isset( $_GET["idref"] ) ){
+    $id_do = $_GET["idref"];
+    $factura = obtenerFacturaPorId( $dbh, $id_do );
+    $encabezado = $factura["encabezado"];
+    $detalle = $factura["detalle"];
+    
+  }    
+  
+  if( isset( $encabezado ) ){
     $iva = $encabezado["iva"];
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
-  }
-  else 
-    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
+  }else
+  { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 	
 ?>
 <!DOCTYPE html>
@@ -191,14 +201,17 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
+                                      <?php if( isset( $cotizacion ) ) { ?>
                                       <div class="input-group-btn">
                                         <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
                                         data-target="#lista_cotizaciones" id="blcotizaciones">COTIZACIÓN</button>
                                       </div>
                                       <!-- /btn-group -->
+                                      
                                       <input type="text" class="form-control" id="fcotizacion" readonly 
                                       name="cotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
                                       <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
+                                      <?php } ?>
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->
@@ -220,7 +233,7 @@
                                 <div class="input-group">
                                   <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                    data-target="#lista_clientes" <?php if( isset($encabezado) ) echo "disabled";?>>CLIENTE</button>
+                                    data-target="#lista_clientes" <?php if( isset($cotizacion) ) echo "disabled";?>>CLIENTE</button>
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -245,7 +258,8 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
+                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
+                                                value="<?php echo $num_nvofactura; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>
@@ -347,7 +361,7 @@
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
                                                     <?php 
-                                                      if(isset( $cotizacion )) {
+                                                      if( isset( $detalle ) ) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
                                                           echo mostrarItemDocumento( $item, $ni );
@@ -370,7 +384,7 @@
                                                   	<div id="fsub_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="subtotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
+                                                              id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -384,7 +398,7 @@
                                                       	<div class="input-group">
                                                           	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+                                                              id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -396,7 +410,7 @@
                                                   	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="total" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
+                                                              id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>

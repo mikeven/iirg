@@ -101,7 +101,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
-			
+		//Obtiene solicitud de cotización dado su id. idcliente = idproveedor	
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
 		DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 

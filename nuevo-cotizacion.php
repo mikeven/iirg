@@ -10,12 +10,27 @@
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
 	include( "bd/data-formato.php" );
+  include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "fn/fn-formato.php" );
   //require_once( 'lib/FirePHPCore/fb.php' );
 	
 	checkSession( '' );
-  $iva = 0.12; $eiva = $iva * 100;
+  
+  if ( isset( $_GET["idref"] ) ){
+    $id_do = $_GET["idref"];
+    $cotizacion = obtenerCotizacionPorId( $dbh, $id_do );
+    $encabezado = $cotizacion["encabezado"];
+    $detalle = $cotizacion["detalle"];
+  }    
+  
+  if( isset( $encabezado ) ){
+    $iva = $encabezado["iva"];
+    $eiva = $iva * 100;
+    $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
+  }
+  else
+    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 ?>
 <!DOCTYPE html>
 <html>
@@ -182,8 +197,8 @@
                                           data-target="#lista_clientes">CLIENTE</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente">
-                                        <input type="hidden" class="form-control" id="idCliente" value="">
+                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" value="<?php echo $encabezado["nombre"]?>">
+                                        <input type="hidden" class="form-control" id="idCliente" value="<?php echo $encabezado["idcliente"]?>">
                                         <input type="hidden" class="form-control" id="tipo" value="cotizacion">
                                 	</div>
                                 </div><!-- /.form group -->
@@ -329,6 +344,13 @@
                                                         <th width="15%" class="tit_tdf">Total item</th>
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
+                                                    <?php 
+                                                      if( isset( $detalle ) ) {
+                                                        $ni = 0; 
+                                                        foreach( $detalle as $item ){ $ni++;
+                                                          echo mostrarItemDocumento( $item, $ni );
+                                                      }
+                                                    }?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -346,7 +368,7 @@
                                                 	<div id="csub_total" class="totalizacion">
                                                     	<div class="input-group">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="subtotal" value="0.00" readonly>
+                                                            id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
                                                 		</div>
                                                 	</div>
                                                 </th>
@@ -360,7 +382,7 @@
                                                     	<div class="input-group">
                                                         	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="0.00" readonly>
+                                                            id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
                                                 		</div>
                                                 	</div></th>
                                                 <th width="5%"></th>
@@ -372,7 +394,7 @@
                                                 	<div id="ctz_total" class="totalizacion">
                                                     	<div class="input-group">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="total" value="0.00" readonly>
+                                                            id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
                                                 		</div>
                                                 	</div>
                                                 </th>

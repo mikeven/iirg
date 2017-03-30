@@ -74,14 +74,25 @@
 		return $admite;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	function enlaceEdicion( $documento, $id_doc ){
-	/* Retorna el enlace para modificar un documento de acuerdo al tipo de documento indicado */
+	function enlaceAccion( $documento, $id_doc, $accion, $p ){
+	/* Retorna el enlace para modificar/copiar un documento de acuerdo al tipo de documento indicado */
 		$ndoc = array(
 			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
 			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"
 		);
 		
-		$enlace = "editar-".$ndoc[$documento].".php?"."id=".$id_doc;
+		$enlace = $accion."-".$ndoc[$documento].".php?".$p."=".$id_doc;
+		return $enlace;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function enlaceCopia( $documento, $id_doc ){
+	/* Retorna el enlace para copiar un documento de acuerdo al tipo de documento indicado */
+		$ndoc = array(
+			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
+			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"
+		);
+		
+		$enlace = "nuevo-".$ndoc[$documento].".php?"."id=".$id_doc;
 		return $enlace;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/

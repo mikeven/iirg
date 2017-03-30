@@ -100,8 +100,9 @@
         $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $usuario["idUsuario"] );
         $titulo_obs = $encabezado["obs0"];
         $enlace_imp = "impresion.php?tipo_documento=$tdd&id=$id&idu=$usuario[idUsuario]";
-        $enlace_edc = enlaceEdicion( $tdd, $id );           //fn-documento.php
-        $iconoi = iconoEstado( $encabezado["estado"] );     //fn-documento.php 
+        $enlace_edc = enlaceAccion( $tdd, $id, "editar", "id" );    //fn-documento.php
+        $enlace_cop = enlaceAccion( $tdd, $id, "nuevo", "idref" );  //fn-documento.php
+        $iconoi = iconoEstado( $encabezado["estado"] );             //fn-documento.php 
         //print_r($encabezado);
       ?>
       <!-- Left side column. contains the logo and sidebar -->
@@ -159,21 +160,21 @@
               
               <div class="col-sm-3 invoice-col" id="ddocumento">
                   
-                  <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
-                  <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
-                  
-                  <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
-                    <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
-                  <?php } ?>
-                  
-                  <?php if($tdd == "ctz") { ?>
-                    <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
-                  <?php } ?>
-                  
-                  <?php if($tdd == "fac") { ?>
-                    <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
-                    <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
-                  <?php } ?>
+                <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
+                <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
+                
+                <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
+                  <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
+                <?php } ?>
+                
+                <?php if($tdd == "ctz") { ?>
+                  <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
+                <?php } ?>
+                
+                <?php if($tdd == "fac") { ?>
+                  <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
+                  <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
+                <?php } ?>
               
               </div><!-- /.col -->
               
@@ -307,7 +308,9 @@
               <?php if( $encabezado["estado"] == "pendiente" ) { ?>
                 <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
               <?php } ?>
-              <li><a href="#"><i class="fa fa-copy"></i> Copiar</a></li>
+              
+              <li><a href="<?php echo $enlace_cop; ?>" target="_blank"><i class="fa fa-copy"></i> Copiar</a></li>
+              
               <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
               <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { ?>
               <li class="divider"></li>

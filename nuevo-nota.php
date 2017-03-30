@@ -24,11 +24,31 @@
     $encabezado["data-fac"] = $encabezado["nombre"]." ($encabezado[femision])";
     $detalle = $factura["detalle"];
     $nitems = count( $detalle );
-    $iva = $encabezado["iva"];
-    $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
-  else 
+
+  if ( isset( $_GET["idref"] ) ){
+    $id_do = $_GET["idref"];
+    $tn = obtenerTipoNotaPorId( $dbh, $id_do );
+    $nota = obtenerNotaPorId( $dbh, $id_do, $tn );
+    $encabezado = $nota["encabezado"];
+    $detalle = $nota["detalle"];
+
+    $factura = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
+    $encabezado_factura = $factura["encabezado"];
+    $encabezado["data-fac"] = $encabezado_factura["nombre"]." ($encabezado_factura[femision])";
+    
+    if( $encabezado["tipo_concepto"] == "Ajuste global" )
+      $totales = obtenerTotalesFijos( $encabezado );                    //data-documento.php
+    else
+      $totales = obtenerTotales( $detalle, $encabezado["iva"] );        //data-documento.php
+  }    
+  
+  if( isset( $encabezado ) ){
+    $iva = $encabezado["iva"];
+    $eiva = $iva * 100;
+  }
+  else
     { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 
   if( isset( $_GET["t"] ) ){
@@ -100,6 +120,18 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        <?php if( isset( $tn ) ) { ?>
+          obtenerNumeroNota( '<?php echo $tn?>');
+          <?php if($encabezado["tipo_concepto"] == "Ajuste global") { ?>
+            $("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
+          <?php } ?>
+          asignarOpcionesConcepto( '<?php echo $tn; ?>' );
+        <?php } ?>
+        iniciarVentanaConfirmacion( "bt_reg_nota", "Guardar nota" );   
+      });
+    </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-nota.js"></script>
     
@@ -204,7 +236,7 @@
                                       <option value="nota_debito" class="nti" 
                                       <?php if(isset($tn)) echo selop("nota_debito", $tn );?>>Nota de Débito</option>
                                     </select>
-                                    <input type="hidden" id="tipofte" value="<?php if(isset($encabezado)) echo $tn; ?>">
+                                    <input type="hidden" id="tipofte" value="<?php if(isset( $encabezado )) echo $tn; ?>">
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
                                 
@@ -216,7 +248,7 @@
                                         <label for="nfac" class="iconlab">N° Fact:</label>
                                       </div>
                                       <input type="text" class="form-control" id="nFactura" name="num_factura" 
-                                      value="<?php if(isset($encabezado)) echo $encabezado["nro"]; ?>" readonly>
+                                      value="<?php if(isset( $encabezado )) echo $encabezado["nro"]; ?>" readonly>
                                     </div>
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
@@ -365,7 +397,7 @@
                                                           <th width="5%" class="tit_tdf"></th>
                                                       </tr>
                                                       <?php 
-                                                        if(isset( $factura )) {
+                                                        if( isset( $detalle ) ) {
                                                           $ni = 0; 
                                                           foreach( $detalle as $item ){ $ni++;
                                                             echo mostrarItemDocumento( $item, $ni );
@@ -389,7 +421,7 @@
                                                   	<div id="sub_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="subtotal" value="<?php if(isset( $factura )) echo $totales["subtotal"]?>" readonly>
+                                                              id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -425,7 +457,7 @@
                                                       	<div class="input-group">
                                                           	<input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="v_iva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
+                                                              id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -437,10 +469,11 @@
                                                   	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="total" value="<?php if(isset( $factura )) echo $totales["total"]?>" readonly>
+                                                              id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
                                                   		  </div>
                                                   	  </div>
-                                                      <input id="mototalnota" name="totaln" type="hidden" value="<?php if(isset( $factura )) echo $totales["total"]?>">
+                                                      <input id="mototalnota" name="totaln" type="hidden" 
+                                                        value="<?php if(isset( $encabezado )) echo $totales["total"]?>">
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>

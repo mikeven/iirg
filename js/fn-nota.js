@@ -227,14 +227,6 @@ $( document ).ready(function() {
     $(".bloque_nota").hide();
 	var cant = "";
 
-	$("#fordc").blur( function(){
-		if( $(this).val() != "" )
-			$(this).css({'border-color' : '#ccc'});
-    });
-
-    /*$(".item_facturas_lmodal").click( function(){
-		$("#ndatafac").css({'border-color' : '#ccc'});
-    });*/
 	/* ----------------------------------------------------------------------------------- */
 	$("#subtotal").on( "blur keyup", function(){
 		var subtotal = parseFloat( $(this).val() ); 

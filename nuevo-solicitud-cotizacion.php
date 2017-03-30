@@ -10,13 +10,25 @@
 	include( "bd/data-articulo.php" );
 	include( "bd/data-proveedor.php" );
 	include( "bd/data-formato.php" );
+  include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "fn/fn-formato.php" );
 	//require_once( 'lib/FirePHPCore/fb.php' );
 	
-	$iva = 0.12;
-	$eiva = $iva * 100;
-	checkSession( '' );
+	if ( isset( $_GET["idref"] ) ){
+    $id_do = $_GET["idref"];
+    $cotizacion = obtenerSolicitudCotizacionPorId( $dbh, $id_do );
+    $encabezado = $cotizacion["encabezado"];
+    $detalle = $cotizacion["detalle"];
+  }    
+  
+  if( isset( $encabezado ) ){
+    $iva = $encabezado["iva"];
+    $eiva = $iva * 100;
+    $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
+  }
+  else
+    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,6 +93,11 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        iniciarVentanaConfirmacion( "bt_reg_cotizacion", "Guardar cotización" );   
+      });
+    </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
     
@@ -191,9 +208,11 @@
                                   data-target="#lista_proveedores">PROVEEDOR</button>
                                 </div>
                                 <!-- /btn-group -->
-                                <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
-                                <input type="hidden" class="form-control" id="idCliente" value="">
+                                <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor" 
+                                value="<?php if( isset( $encabezado ) ) echo $encabezado["nombre"]?>">
+                                <input type="hidden" class="form-control" id="idCliente" value="<?php if( isset( $encabezado ) ) echo $encabezado["idproveedor"]?>">
                                 <input type="hidden" class="form-control" id="tipo" value="solicitud">
+                                <input id="estado" type="hidden" value="pendiente">
                         	     </div>
                                 </div><!-- /.form group -->
                                 <!-- Modal -->
@@ -340,6 +359,13 @@
                                                         <th width="15%" class="tit_tdf">Total item</th>
                                                         <th width="5%" class="tit_tdf"></th>
                                                     </tr>
+                                                    <?php 
+                                                      if( isset( $detalle ) ) {
+                                                        $ni = 0; 
+                                                        foreach( $detalle as $item ){ $ni++;
+                                                          echo mostrarItemDocumento( $item, $ni );
+                                                      }
+                                                    }?>
                                                 </tbody>
                                             </table>
                                         </div>
