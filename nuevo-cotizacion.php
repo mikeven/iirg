@@ -147,9 +147,11 @@
 
     </nav>
   </header>
-  <?php 
+  <?php
+    $fecha_actual = obtenerFechaHoy();
     $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
+    $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
     $obs = obtenerFormatoObservacionesCtz( $frt_c );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -197,8 +199,10 @@
                                           data-target="#lista_clientes">CLIENTE</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" value="<?php echo $encabezado["nombre"]?>">
-                                        <input type="hidden" class="form-control" id="idCliente" value="<?php echo $encabezado["idcliente"]?>">
+                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                                        value="<?php if(isset($encabezado)) echo $encabezado["nombre"]?>">
+                                        <input type="hidden" class="form-control" id="idCliente" 
+                                        value="<?php if(isset($encabezado)) echo $encabezado["idcliente"]?>">
                                         <input type="hidden" class="form-control" id="tipo" value="cotizacion">
                                 	</div>
                                 </div><!-- /.form group -->
@@ -214,7 +218,7 @@
                                                 <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                             </div>
                                             <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo date("d/m/Y");?>">
+                                            value="<?php echo $fecha_actual; ?>">
                                         </div>
                                     </div><!-- /.form group -->
                                 </div>
@@ -225,9 +229,9 @@
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                             <select name="validez" id="cvalidez" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
-                                                <option value="3 días">3 días</option>
-                                                <option value="5 días">5 días</option>
-                                                <option value="8 días">8 días</option>
+                                                <?php foreach ( $condiciones as $c ) { ?>
+                                                  <option value="<?php echo $c["idCondicion"];?>"><?php echo $c["nombre"];?></option>
+                                                <?php } ?>
                                             </select>
                                             <input id="estado" type="hidden" value="pendiente">
                                         </div><!-- /.input group -->
@@ -253,7 +257,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-user"></i> 
-                                                    <label for="datepicker" class="iconlab">P. Contacto:</label>
+                                                    <label for="persona_contacto" class="iconlab">P. Contacto:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required value="">
                                             </div><!-- /.input group -->

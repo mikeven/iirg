@@ -5,6 +5,36 @@
 	ini_set( 'display_errors', 1 );
 	/*--------------------------------------------------------------------------------------------------------*/
 	/*--------------------------------------------------------------------------------------------------------*/
+	function obtenerFechaHoy(){
+		$fecha_actual = obtenerFechaActual();
+		return $fecha_actual["f1"]['fecha'];
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerCondiciones( $dbh, $doc ){
+		//Obtiene las condiciones o validez de un documento
+		$lista_c = array();
+		$q = "Select * from condicion where documento = '$doc'";
+		$data = mysql_query( $q, $dbh );
+		while( $c = mysql_fetch_array( $data ) ){
+			$lista_c[] = $c;	
+		}
+		return $lista_c;			
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerIdCondicion( $dbh, $documento, $nombre ){
+		//Obtiene el id de condición a partir de su etiqueta 'nombre'
+		$q = "Select idCondicion as id from condicion where nombre = '$nombre'";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		return $data["id"];
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerCondicionPorId( $dbh, $doc, $id ){
+		//Obtiene registro de condición a partir de su id de acuerdo al documento indicado
+		$q = "Select * from condicion where documento = '$doc' and idCondicion = $id";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		return $data;
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
 	function mostrarItemDocumento( $ditem, $i ){
 		//Muestra un renglón con el ítem de detalle del documento cargado por parámetro
 		//nuevo-factura.php, nuevo-nota.php, editar-cotizacion.php, editar-factura.php 
@@ -24,7 +54,7 @@
 		</th><th>
 		<div class='input-group input-space'><input id='idpt_$i' name='dptotal' type='text' 
 		class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
-		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemDetalle(it$i)'>
+		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf blq_bdoc' onclick='elimItemDetalle(it$i)'>
 		<i class='fa fa-times'></i></button></th>
 		</tr>";
 
@@ -39,6 +69,21 @@
 					  "orden_compra" => "idOrden" );
 
 		return $ids[$tabla];
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerFechaFutura( $fecha, $dias ){
+		//Obtiene una fecha después de los días especificados
+		$fecha_f = date( "Y-m-d", strtotime( "$fecha + $dias day" ) );
+		echo "INI: ".$fecha;
+		echo "DIAS: ".$dias;
+		echo "FUT: ".$fecha_f;
+		return $fecha_f;
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function agregarFechaVencimiento( $dbh, $encabezado, $doc ){
+		$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
+		//echo "DIAS: ".$condicion["valor"]." FEM:".$encabezado->femision;
+		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), $condicion["valor"] );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerTotales( $detalle, $pcge ){
@@ -86,11 +131,11 @@
 		return mysql_affected_rows();
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
-	//Actualización de estado de documento
+	
+
 	if( isset( $_POST["id_doc_estado"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
 		include( "bd.php" );
 		cambiarEstadoDocumento( $dbh, $_POST["id_doc_estado"], $_POST["documento"], $_POST["estado"] );

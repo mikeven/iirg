@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2017 at 12:12 AM
+-- Generation Time: Apr 01, 2017 at 12:43 AM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -2833,6 +2833,32 @@ INSERT INTO `cliente` (`IdCliente`, `idCliente2`, `Nombre`, `Rif`, `pcontacto`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `condicion`
+--
+
+CREATE TABLE IF NOT EXISTS `condicion` (
+  `idCondicion` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `valor` tinyint(2) NOT NULL,
+  `documento` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idCondicion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `condicion`
+--
+
+INSERT INTO `condicion` (`idCondicion`, `nombre`, `valor`, `documento`) VALUES
+(1, 'CONTADO', 1, 'factura'),
+(2, '3 días', 3, 'factura'),
+(3, '15 días', 15, 'factura'),
+(4, '30 días', 30, 'factura'),
+(5, '3 días', 3, 'cotizacion'),
+(6, '8 días', 8, 'cotizacion');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cotizacion`
 --
 
@@ -2879,7 +2905,7 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdCotizacion2`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1201 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1208 ;
 
 --
 -- Dumping data for table `cotizacion`
@@ -4068,7 +4094,14 @@ INSERT INTO `cotizacion` (`numero`, `IdCotizacion2`, `Fecha`, `fecha_emision`, `
 (8, 1197, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 5, NULL, NULL, NULL, NULL, NULL, 'ROBERTO NOSTI', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', '', 'SC1', 'SC2', 'SC3', NULL, 1),
 (9, 1198, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', '', 'SC1', 'SC2', 'SC3', NULL, 1),
 (10, 1199, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', '', 'SC1', 'SC2', 'SC3', NULL, 1),
-(11, 1200, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1);
+(11, 1200, NULL, '2017-02-24', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(12, 1201, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(13, 1202, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(14, 1203, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(15, 1204, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(16, 1205, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(17, 1206, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1),
+(18, 1207, NULL, '2017-03-30', NULL, NULL, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4093,7 +4126,7 @@ CREATE TABLE IF NOT EXISTS `detallecotizacion` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29369 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29376 ;
 
 --
 -- Dumping data for table `detallecotizacion`
@@ -12009,7 +12042,14 @@ INSERT INTO `detallecotizacion` (`IdMovimiento`, `IdCotizacion`, `IdCotizacion2`
 (29363, NULL, 1200, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (29364, NULL, 1194, NULL, '75', NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 5, 3850.00, NULL, 19250.00, NULL, 'UND', NULL, NULL),
 (29365, NULL, 1195, NULL, '36', NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 12, 6500.00, NULL, 78000.00, NULL, 'UND', NULL, NULL),
-(29368, NULL, 1197, NULL, '50', NULL, 'ANILLO DOBLE CARTA PLAST.1/2', 12, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL);
+(29368, NULL, 1197, NULL, '50', NULL, 'ANILLO DOBLE CARTA PLAST.1/2', 12, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29369, NULL, 1201, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29370, NULL, 1202, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29371, NULL, 1203, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29372, NULL, 1204, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29373, NULL, 1205, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29374, NULL, 1206, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(29375, NULL, 1207, NULL, '80', NULL, 'BANDEJAS ECONOMICAS 2 NIVELES', 50, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12033,18 +12073,12 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `detallefactura`
 --
 
-INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `codigo_producto`, `und`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `IdItem`, `TotalIVA`) VALUES
-(1, 1, NULL, 75, NULL, 'UND', 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 3, '3850.00', 0.00, NULL, 11550.00, NULL, NULL),
-(2, 1, NULL, 112, NULL, 'UND', 'BLOCK DE RECIBO', 6, '38500.00', 0.00, NULL, 231000.00, NULL, NULL),
-(23, 2, NULL, 260, NULL, 'UND', 'CINTA ADHESIVA TRANSP. 3436', 8, '998.00', 0.00, NULL, 7984.00, NULL, NULL),
-(21, 2, NULL, 737, NULL, 'UND', 'PAPEL P/FOTOC, T/CARTA ALPES', 10, '10815.00', 0.00, NULL, 108150.00, NULL, NULL),
-(22, 2, NULL, 177, NULL, 'UND', 'CARP. FIBRA CARTA X 25', 10, '15600.00', 0.00, NULL, 156000.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12072,15 +12106,14 @@ CREATE TABLE IF NOT EXISTS `detallenota` (
   `TotMts` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `detallenota`
 --
 
 INSERT INTO `detallenota` (`IdDetalle`, `IdNota`, `Item`, `IdArticulo`, `codigo_producto`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `Alicuota`, `und`, `IdItem`, `IdMovNE`, `TotKgs`, `TotMts`, `TotalIVA`) VALUES
-(1, 1, NULL, 2225, NULL, 'AROS METALICOS', 15, '65.00', 0.00, NULL, 975.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
-(2, 1, NULL, 96, NULL, 'BLOCK DE DIBUJO MEDIANO', 9, '560.75', 0.00, NULL, 5046.75, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(40, 1, NULL, 75, NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 3, '3850.00', 0.00, NULL, 11550.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (3, 3, NULL, 2230, NULL, 'AZUCAR', 25, '2570', 0.00, NULL, 64250.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (4, 3, NULL, 1872, NULL, 'CARTURADOR USB 2.0 VIDEO AUDIO ADAPTADOR', 3, '28770', 0.00, NULL, 86310.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (5, 4, NULL, 2223, NULL, 'ANTENAS', 3, '31520', 0.00, NULL, 94560.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
@@ -12116,7 +12149,7 @@ INSERT INTO `detallenota` (`IdDetalle`, `IdNota`, `Item`, `IdArticulo`, `codigo_
 (35, 33, NULL, 36, NULL, 'AGENDAS EJECUTIVAS 2006 AZ/NE/', 6, '6542.35', 0.00, NULL, 39254.10, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (36, 34, NULL, 294, NULL, 'CORRECTOR LIQ. PAPER BOLIGRAFO', 4, '780.25', 0.00, NULL, 3121.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (37, 34, NULL, 741, NULL, 'PAPEL BOND 66 X 96 B-16 COLORES', 5, '3210.00', 0.00, NULL, 16050.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
-(38, 1, NULL, 75, NULL, 'ACETATOS TRANSP. T/OFICIO PAQ. X 100', 3, '3850.00', 0.00, NULL, 11550.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
+(39, 1, NULL, 2225, NULL, 'AROS METALICOS', 15, '65.00', 0.00, NULL, 975.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -14045,7 +14078,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `idCotizacion` int(7) DEFAULT NULL,
   `orden_compra` varchar(15) DEFAULT NULL,
   `estado` varchar(20) DEFAULT NULL,
-  `IdCondicion` int(2) DEFAULT NULL,
+  `idCondicion` int(11) DEFAULT NULL,
   `idVendedor` int(1) DEFAULT NULL,
   `iva` decimal(10,2) DEFAULT NULL,
   `SubTotal` varchar(9) DEFAULT NULL,
@@ -14068,16 +14101,14 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idFactura`),
   KEY `idUsuario` (`idUsuario`),
-  KEY `IdCotizacion` (`idCotizacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  KEY `IdCotizacion` (`idCotizacion`),
+  KEY `IdCondicion` (`idCondicion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `factura`
 --
 
-INSERT INTO `factura` (`numero`, `idFactura`, `idCliente`, `idCliente2`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_pago`, `fecha_anulacion`, `idCotizacion`, `orden_compra`, `estado`, `IdCondicion`, `idVendedor`, `iva`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `IdDescuento`, `IdRecargo`, `PoVDescto`, `PoVRecargo`, `Afecto`, `ISV`, `Total`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
-(1, 1, NULL, 143, '2017-03-19 00:00:00', NULL, '2017-03-19 14:54:46', NULL, '2017-03-22 15:29:32', NULL, 1194, 'N/A', 'pagada', NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '271656.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', NULL, 1),
-(2, 2, NULL, 121, '2017-03-22 00:00:00', '2017-03-22 16:56:32', '2017-03-22 17:51:48', NULL, NULL, NULL, 1174, 'N/A', 'pendiente', NULL, NULL, 0.12, '272134.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '304790.08', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -14159,7 +14190,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
 --
 
 INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_anulacion`, `tipo`, `idFactura`, `estado`, `idVendedor`, `iva`, `SubTotal`, `ISV`, `Total`, `idPedido`, `concepto`, `tipo_concepto`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Cancelado`, `idUsuario`) VALUES
-(1, 1, 143, '2017-03-20 00:00:00', '2017-03-20 15:09:19', NULL, '2017-03-20 15:24:12', 'nota_credito', 1, 'anulada', NULL, 0.12, '11550.00', NULL, '12936.00', NULL, '', '', NULL, 'CONSIDERACIONES', '', '', '', NULL, 1),
+(1, 1, 143, '2017-03-20 00:00:00', '2017-03-20 15:09:19', '2017-03-30 15:57:01', NULL, 'nota_credito', 1, 'pendiente', NULL, 0.12, '12525.00', NULL, '14028.00', NULL, 'En descripción', 'Devolución de mercan', NULL, 'CONSIDERACIONES', '', '', '', NULL, 1),
 (2, 1, 121, '2017-03-28 00:00:00', '2017-03-28 11:55:24', '2017-03-29 18:11:27', NULL, 'nota_debito', 2, 'pendiente', NULL, 0.12, '12984.32', NULL, '14542.44', NULL, 'Descuento', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', NULL, 1);
 
 -- --------------------------------------------------------
@@ -14520,7 +14551,8 @@ ALTER TABLE `cotizacion`
 --
 ALTER TABLE `factura`
   ADD CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`IdCotizacion`) REFERENCES `cotizacion` (`IdCotizacion2`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`IdCotizacion`) REFERENCES `cotizacion` (`IdCotizacion2`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `factura_ibfk_3` FOREIGN KEY (`IdCondicion`) REFERENCES `condicion` (`idCondicion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `formato`

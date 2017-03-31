@@ -12,6 +12,14 @@ function stopRKey(evt) {
 	if ((evt.keyCode == 13) && (node.type=="text")) {return false;}
 }
 document.onkeypress = stopRKey; 
+/* ----------------------------------------------------------------------------------- */
+function obtenerIdCondicionForm(){
+	//Obtiene el id resultante del formulario del documento
+	var id = $( "#vcondicion" ).val();
+	if ( id == null )
+		id = $("#condicion_defecto").val();
+	return id;
+}
 /* --------------------------------------------------------- */
 function obtenerVectorDetalle(){
 	//Retorna un arreglo con los elementos de detalle del documento
@@ -86,8 +94,7 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 				qant + "</th><th>" +
 				und + "</th><th>" +
 				punit + "</th><th>" +
-				ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onClick='elimItemDetalle("+ id_bot_elim +")'>"+
-				"<i class='fa fa-times'></i></button></th></tr>";
+				ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf blq_bdoc' onClick='elimItemDetalle("+ id_bot_elim +")'>" + "<i class='fa fa-times'></i></button></th></tr>";
 	
 	
 	$( item_d ).appendTo( tabla + " tbody").show("slow");
@@ -200,7 +207,6 @@ function bloquearDocumento(){
 	$(".blq_bdoc").prop('disabled', true);
 	$(".frm_documento input").prop('readonly', true);
 }
-
 /*===============================================================================================*/
 
 $( document ).ready(function() {

@@ -4,15 +4,15 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link, $idu ){
-		$lista_c = array();
+		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
 		where F.IdCliente2 = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
-		while( $c = mysql_fetch_array( $data ) ){
-			$lista_c[] = $c;	
+		while( $f = mysql_fetch_array( $data ) ){
+			$lista_f[] = $f;	
 		}
-		return $lista_c;	
+		return $lista_f;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerProximoNumeroFactura( $dbh, $idu ){
@@ -42,10 +42,11 @@
 		DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
 		DATE_FORMAT(f.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion, 
 		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.iva as iva, f.orden_compra as oc, 
-		f.introduccion as intro, f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, 
-		f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
-		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c 
-		WHERE f.IdFactura = ".$idf." and f.IdCliente2 = c.IdCliente2";
+		cd.valor as vcondicion, cd.nombre as condicion, f.introduccion as intro, f.Observaciones as obs0, 
+		f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, c.Nombre as nombre, 
+		c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, 
+		c.Email as email FROM factura f, cliente c, condicion cd 
+		WHERE f.IdFactura = ".$idf." and f.IdCliente2 = c.IdCliente2 and f.idCondicion = cd.idCondicion";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
@@ -82,17 +83,17 @@
 	function guardarFactura( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una factura
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
+		$fecha_mysqlv = $encabezado->fvencimiento;
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotizacion ) $encabezado->idcotizacion = "NULL";
-		$q = "insert into factura ( numero, orden_compra, estado, idCotizacion, IdCliente2, fecha_emision, introduccion, 
-			observaciones, observaciones1, observaciones2, observaciones3, iva, Total, fecha_registro, idUsuario  ) 
-			values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcotizacion, $encabezado->idcliente, 
-			'$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-			'$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
+		$q = "insert into factura ( numero, orden_compra, estado, idCondicion, idCotizacion, IdCliente2, fecha_emision, fecha_vencimiento, 
+			introduccion, observaciones, observaciones1, observaciones2, observaciones3, iva, Total, fecha_registro, idUsuario ) 
+			values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcondicion, $encabezado->idcotizacion, 
+			$encabezado->idcliente, '$fecha_mysql', '$fecha_mysqlv', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
+			'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
-		
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
@@ -100,44 +101,27 @@
 		
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update factura set idCliente2 = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
-		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW()  
-		WHERE idFactura = $encabezado->idr and idUsuario = $idu";
+		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW(), 
+		idCondicion = $encabezado->idcondicion WHERE idFactura = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
-	/*function mostrarItemDocumentoFactura( $ditem, $i ){
-		
-		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
-		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
-		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
-		 <th><div class='input-group input-space'>
-		 <input id='idq_$i' name='dcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemD( this )'></div>
-		 </th><th><div class='input-group input-space'>
-		 <input id='idund_$i' name='dund' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[und]' data-nitem='$i'></div>
-		 </th><th><div class='input-group input-space'>
-		 <input id='idpu_$i' name='dpunit' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[punit]' 
-		 	data-nitem='$i' onkeypress='return isNumberKey(event)' onkeyup='actItemD( this )' onblur='initValid()'></div>
-		</th><th><div class='input-group input-space'><input id='idpt_$i' name='dptotal' type='text' class='form-control itemtotal_detalle input-sm montoacum' value='$ditem[ptotal]' data-nitem='$i' readonly></div>
-		</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf' onclick='elimItemDetalle(it$i)'>
-		<i class='fa fa-times'></i></button></th>
-		</tr>";
-
-		return $renglon;
-	}*/
-
+	
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
+	
 	//Registro de nueva factura
 	if( isset( $_POST["reg_factura"] ) ){
 		
 		include( "bd.php" );
 		include( "../fn/fn-documento.php" );
-		
+		include( "../bd/data-documento.php" );
+
 		$encabezado = json_decode( $_POST["encabezado"] );
+		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" );
 		$detalle = json_decode( $_POST["detalle"] );
 		
 		$idf = guardarFactura( $dbh, $encabezado, $detalle, $encabezado->idu );

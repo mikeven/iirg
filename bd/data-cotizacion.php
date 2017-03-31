@@ -4,12 +4,13 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	ini_set( 'display_errors', 1 );
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function obtenerListaCotizaciones( $link, $idu ){
-		$lista_c = array();
+	function obtenerListaCotizaciones( $link, $idu, $estado ){
+		$xq = ""; $lista_c = array();
+		if( $estado != "" ) $xq = "and estado = '$estado'";
 		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total 
-		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' and idUsuario = $idu 
-		order by c.fecha_emision DESC";
+		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' 
+		and idUsuario = $idu $xq order by c.fecha_emision DESC";
 		
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){

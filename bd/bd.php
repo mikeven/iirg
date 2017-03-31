@@ -40,8 +40,8 @@
 		$fecha_f1['hora'] = $hora_actual_f1;
 		$fecha_f2['fecha'] = $fecha_actual_f2;
 		$fecha_f2['hora'] = $hora_actual_f2;
-		$fecha["fecha_formato1"] = $fecha_f1;
-		$fecha["fecha_formato2"] = $fecha_f2;
+		$fecha["f1"] = $fecha_f1;
+		$fecha["f2"] = $fecha_f2;
 		
 		return $fecha;
 	}

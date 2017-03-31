@@ -13,6 +13,7 @@
 	include( "bd/data-cotizacion.php" );
 	include( "bd/data-factura.php" );
 	include( "bd/data-formato.php" );
+  include( "fn/fn-documento.php" );
 	
   checkSession( '' );
 	
@@ -156,8 +157,11 @@
     </nav>
   </header>
   <?php
+    $fecha_actual = obtenerFechaHoy();
     $num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
+    $condiciones = obtenerCondiciones( $dbh, "factura" );
+    $id_cond_defecto = obtenerIdCondicion( $dbh, "factura", "CONTADO" ); 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -201,7 +205,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
-                                      <?php if( isset( $cotizacion ) ) { ?>
+                                      <?php if( !isset( $factura ) ) { ?>
                                       <div class="input-group-btn">
                                         <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
                                         data-target="#lista_cotizaciones" id="blcotizaciones">COTIZACIÓN</button>
@@ -250,32 +254,50 @@
                               ?>
                             <!-- /.Modal -->
 
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <div class="input-group date">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
-                                                </div>
-                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
-                                                value="<?php echo $num_nvofactura; ?>">
-                                            </div>
-                                        </div><!-- /.form group -->
+                            <div class="row">
+                              <div class="col-md-3">
+                                  <div class="form-group">
+                                      <div class="input-group date">
+                                          <div class="input-group-addon">
+                                              <!-- <i class="fa fa-slack"></i> --> 
+                                              <label for="datepicker" class="iconlab">N°:</label>
+                                          </div>
+                                          <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
+                                          value="<?php echo $num_nvofactura; ?>">
+                                      </div>
+                                  </div><!-- /.form group -->
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i> 
+                                        <label for="datepicker" class="iconlab"></label>
+                                      </div>
+                                      <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
+                                        value="<?php echo $fecha_actual; ?>">
                                     </div>
-                                    <div class="col-md-7">
-                                        <div class="form-group">
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i> 
-                                                <label for="datepicker" class="iconlab">Fecha emisión:</label>
-                                            </div>
-                                            <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo date("d/m/Y");?>">
-                                        </div>
+                                  </div><!-- /.form group -->
+                              </div><!-- /.col -->
+
+                              <div class="col-md-5">
+                                  <div class="form-group">
+                                        <!--<label for="fcondpago" class="">Validez:</label>-->
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                            <select name="condicion" id="vcondicion" class="form-control blq_bdoc">
+                                              <option value="0" disabled selected>Condiciones</option>
+                                              <?php foreach ( $condiciones as $c ) { ?>
+                                              <option value="<?php echo $c["idCondicion"];?>"><?php echo $c["nombre"];?></option>
+                                              <?php } ?>
+                                            </select>
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
+                                            <input id="estado" type="hidden" value="1">
+                                        </div><!-- /.input group -->
                                     </div><!-- /.form group -->
-                                	</div>
-                                </div>
+                              </div><!-- /.col -->
+                            
+                            </div><!--/.row-->
                             
                             </div><!--/.columna izquierda-->
                             

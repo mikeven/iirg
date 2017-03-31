@@ -149,6 +149,7 @@
             </nav>
          </header>
          <?php
+            $fecha_actual = obtenerFechaHoy();
             $num_nva_oc = obtenerProximoNumeroOrdenCompra( $dbh, $usuario["idUsuario"] );
             $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
          ?>
@@ -213,7 +214,7 @@
                                              <div class="input-group date">
                                                 <div class="input-group-addon">
                                                    <i class="fa fa-slack"></i> 
-                                                   <label for="datepicker" class="iconlab">N°:</label>
+                                                   <label for="numero_orden_compra" class="iconlab">N°:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="nordencompra" 
                                                 name="numero" required readonly value="<?php echo $num_nva_oc; ?>">
@@ -230,7 +231,7 @@
                                                    <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                                   value="<?php echo date("d/m/Y");?>">
+                                                   value="<?php echo $fecha_actual; ?>">
                                              </div>
                                           </div>
                                           <!-- /.col-md-7 -->

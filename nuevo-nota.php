@@ -180,6 +180,7 @@
     </nav>
   </header>
   <?php 
+    $fecha_actual = obtenerFechaHoy();
     if( isset( $_GET["idf"] ) ){
       $num = obtenerProximoNumeroNota( $dbh, $tn, $usuario["idUsuario"] );
       $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $tn ), $usuario["idUsuario"] );
@@ -291,7 +292,7 @@
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
+                                                    <label for="numero_nota" class="iconlab">N°:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="nnota" name="numero" 
                                                 required readonly value="<?php if( isset($num) ) echo $num; ?>">
@@ -306,7 +307,7 @@
                                                 <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                             </div>
                                             <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo date("d/m/Y");?>">
+                                            value="<?php echo $fecha_actual; ?>">
                                         </div>
                                     </div><!-- /.form group -->
                                 	</div>

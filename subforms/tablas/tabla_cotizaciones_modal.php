@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"] );
+	$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"], "aprobada" );
   $destino = "nuevo-factura.php";
 ?>
 <div class="modal fade" id="lista_cotizaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -9,18 +9,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Registro de Cotizaciones</h4>
+        <h4 class="modal-title" id="myModalLabel">Registro de Cotizaciones aprobadas</h4>
       </div>
       <div class="modal-body">
 
             <table id="lcotizaciones" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th><th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <?php foreach( $cotizaciones as $c ){?>  
+                    <?php 
+                      foreach( $cotizaciones as $c ){
+                        $ie = iconoEstado( $c["estado"] );
+                    ?>  
                     <tr>
                         <td><?php echo $c["numero"];?></td>
                         <td><?php echo $c["Fecha"];?></td>
@@ -28,12 +31,15 @@
                           <?php echo $c["Nombre"]; ?></a>
                         </td>
                         <td><?php echo number_format( $c["Total"], 2, ",", "." ); ?></td>
+                        <td align="center">
+                          <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+                        </td>
                     </tr>
                     <?php } ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th><th>Estado</th>
                     </tr>
                 </tfoot>
             </table>

@@ -15,9 +15,6 @@ function initValid(){
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
-		  orden_compra: {
-		      validators: { notEmpty: { message: 'Debe indicar orden de compra' } }
-		  },
 		  punit: {
 		      validators: { 
 		        regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/, message: 'Formato inválido de monto'} 
@@ -49,6 +46,7 @@ function obtenerVectorEncabezado(){
 	encabezado.idr = $( '#id_factura' ).val();
 	encabezado.numero = $( '#nfactura' ).val();
 	encabezado.noc = $( '#fordc' ).val();
+	encabezado.idcondicion = obtenerIdCondicionForm();
 	encabezado.estado = $( '#estado' ).val();
 	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
@@ -101,7 +99,7 @@ function obtenerEnlaceRFACCreado(id){
 
 	return e_enl;
 }
-
+/* ----------------------------------------------------------------------------------- */
 function bloquearDocumento(){
 	$(".blq_bdoc").prop('disabled', true);
 	$("#frm_nfactura input").prop('readonly', true);
@@ -191,7 +189,7 @@ function checkFactura(){
 /* ----------------------------------------------------------------------------------- */
 $( document ).ready(function() {
 	
-	var cant = "";		
+	var cant = ""; 	
 	/*===============================================================================*/
     $("#bt_reg_factura").on( "click", function(){
 		$("#closeModal").click();

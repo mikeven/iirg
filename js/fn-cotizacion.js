@@ -178,9 +178,10 @@ $( document ).ready(function() {
 	/* --------------------------------------------------------- */
 	/* Asignación de la etiqueta de validez de la cotización ( pie de documento ) */
 	$("#cvalidez").on( "change", function(){
-		var valor = $(this).val();
-		$('#vvalz').html(valor);
-		$('input[data-v=VCTZ]').val( "Validez: " + valor );
+		var valor = $( "#cvalidez option:selected" ).text();
+		//$('#vvalz').html(valor);
+		$('input[data-v=VCTZ]').val( "Validez: " + valor );	
+		//En caso de que el formato de cotización muestre la validez del documento 
     });
 	/* =============================================================================== */
 	$("#bt_reg_cotizacion").on( "click", function(){

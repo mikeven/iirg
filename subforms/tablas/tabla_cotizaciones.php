@@ -7,7 +7,7 @@
 	if( $tipo == "solicitud" )
 		$cotizaciones = obtenerSolicitudesCotizaciones( $dbh, $usuario["idUsuario"] );
 	else
-		$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"] );
+		$cotizaciones = obtenerListaCotizaciones( $dbh, $usuario["idUsuario"], "" );
 ?>
 <table id="lista_ctz" class="table table-bordered table-striped">
     <thead>

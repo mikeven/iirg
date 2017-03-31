@@ -159,7 +159,8 @@
 
     </nav>
   </header>
-  <?php 
+  <?php
+    $fecha_actual = obtenerFechaHoy();
     $num_nvacotiz = obtenerProximoNumeroSolicitudCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_sctz = obtenerFormatoPorUsuarioDocumento( $dbh, "sctz", $usuario["idUsuario"] );
   ?>
@@ -227,7 +228,7 @@
                                                 <label for="datepicker" class="iconlab">Fecha emisión:</label>
                                             </div>
                                             <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo date("d/m/Y");?>">
+                                            value="<?php echo $fecha_actual; ?>">
                                         </div>
                                     </div><!-- /.form group -->
                                 </div>
@@ -253,7 +254,7 @@
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
+                                                    <label for="numero_solicitud_cotizacion" class="iconlab">N°:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="ncotiz" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
                                             </div>
@@ -265,7 +266,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-user"></i> 
-                                                    <label for="datepicker" class="iconlab">P. Contacto:</label>
+                                                    <label for="persona_contacto" class="iconlab">P. Contacto:</label>
                                                 </div>
                                                 <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required value="">
                                             </div><!-- /.input group -->
