@@ -71,9 +71,17 @@
 	}
 	
 	function selop( $vlist, $vreg ){
+		//
 		$sel = "";
 		if( $vlist == $vreg ) $sel = "selected";
 		return $sel;
+	}
+
+	function opCondicion( $data, $c ){
+		//Retorna el parámetro para listas desplegables 
+		if( isset( $data ) ) $param = selop( $c["idCondicion"], $data["idCondicion"] );
+		$opt = "<option value='$c[idCondicion]' $param>$c[nombre]</option>";
+		return $opt;                                                  
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 ?>

@@ -152,6 +152,7 @@
     $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
+    $id_cond_defecto = obtenerIdCondicion( $dbh, "cotizacion", "1 días" );
     $obs = obtenerFormatoObservacionesCtz( $frt_c );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -227,12 +228,13 @@
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                            <select name="validez" id="cvalidez" class="form-control">
+                                            <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { ?>
                                                   <option value="<?php echo $c["idCondicion"];?>"><?php echo $c["nombre"];?></option>
                                                 <?php } ?>
                                             </select>
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
                                             <input id="estado" type="hidden" value="pendiente">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->
@@ -253,7 +255,6 @@
                                     </div>
                                     <div class="col-md-8">
                                     	<div class="form-group">
-                                            <!--<label for="fcondpago" class="">Validez:</label>-->
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-user"></i> 

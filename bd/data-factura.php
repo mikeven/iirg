@@ -82,15 +82,16 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function guardarFactura( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una factura
-		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
-		$fecha_mysqlv = $encabezado->fvencimiento;
+		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotizacion ) $encabezado->idcotizacion = "NULL";
-		$q = "insert into factura ( numero, orden_compra, estado, idCondicion, idCotizacion, IdCliente2, fecha_emision, fecha_vencimiento, 
-			introduccion, observaciones, observaciones1, observaciones2, observaciones3, iva, Total, fecha_registro, idUsuario ) 
-			values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcondicion, $encabezado->idcotizacion, 
-			$encabezado->idcliente, '$fecha_mysql', '$fecha_mysqlv', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
-			'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, NOW(), $idu )";
+		$q = "insert into factura ( numero, orden_compra, estado, idCondicion, idCotizacion, IdCliente2, 
+		fecha_emision, fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
+		observaciones3, validez, iva, Total, fecha_registro, idUsuario ) 
+		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcondicion, 
+		$encabezado->idcotizacion, $encabezado->idcliente, '$fecha_emision', '$encabezado->fvencimiento', 
+		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
+		'$encabezado->obs3', '$encabezado->validez', $encabezado->iva, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
@@ -122,6 +123,7 @@
 
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" );
+		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "cotizacion" );
 		$detalle = json_decode( $_POST["detalle"] );
 		
 		$idf = guardarFactura( $dbh, $encabezado, $detalle, $encabezado->idu );

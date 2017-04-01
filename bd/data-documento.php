@@ -34,6 +34,10 @@
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
 		return $data;
 	}
+	function obtenerTextoValidez( $dbh, $encabezado, $doc ){
+		$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
+		return $condicion["nombre"];
+	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function mostrarItemDocumento( $ditem, $i ){
 		//Muestra un renglón con el ítem de detalle del documento cargado por parámetro
@@ -74,9 +78,6 @@
 	function obtenerFechaFutura( $fecha, $dias ){
 		//Obtiene una fecha después de los días especificados
 		$fecha_f = date( "Y-m-d", strtotime( "$fecha + $dias day" ) );
-		echo "INI: ".$fecha;
-		echo "DIAS: ".$dias;
-		echo "FUT: ".$fecha_f;
 		return $fecha_f;
 	}
 	/*-------------------------------------------------------------------------------------------------------*/

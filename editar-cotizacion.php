@@ -12,6 +12,7 @@
 	include( "bd/data-formato.php" );
   include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
+  include( "bd/data-forms.php" );
 	include( "fn/fn-formato.php" );
   //require_once( 'lib/FirePHPCore/fb.php' );
 	
@@ -26,6 +27,9 @@
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
+
+  $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
+  $id_cond_defecto = obtenerIdCondicion( $dbh, "cotizacion", "1 días" );
 ?>
 <!DOCTYPE html>
 <html>
@@ -218,17 +222,19 @@
                               
                               <div class="col-md-6">
                                   <div class="form-group">
-                                      <!--<label for="fcondpago" class="">Validez:</label>-->
-                                      <div class="input-group">
-                                          <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                          <select name="validez" id="cvalidez" class="form-control">
-                                              <option value="0" disabled selected>Validez</option>
-                                              <option value="3 días">3 días</option>
-                                              <option value="5 días">5 días</option>
-                                              <option value="8 días">8 días</option>
-                                          </select>
-                                      </div><!-- /.input group -->
-                                  </div><!-- /.form group -->
+                                        <!--<label for="fcondpago" class="">Validez:</label>-->
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                            <select name="validez" id="vcondicion" class="form-control">
+                                                <option value="0" disabled>Validez</option>
+                                                <?php foreach ( $condiciones as $c ) { 
+                                                  echo opCondicion( $encabezado, $c );
+                                                }?>                                                
+                                            </select>
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
+                                            <input id="estado" type="hidden" value="pendiente">
+                                        </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
                   			       </div>
                               </div>
                               
@@ -405,9 +411,15 @@
 
                                 <div id="observaciones">
                                   <div class="titobs"><?php echo $encabezado["obs0"];?></div>
-                                  <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
-                                  <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
-                                  <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
+                                  <div class="obsctz oectz" data-vo="1"><?php echo $encabezado["obs1"];?></div>
+                                  <input id="tobs1" type="hidden" class="o_oectz" 
+                                  value="<?php echo $encabezado["obs1"];?>">
+                                  <div class="obsctz oectz" data-vo="2"><?php echo $encabezado["obs2"];?></div>
+                                  <input id="tobs2" type="hidden" class="o_oectz" 
+                                  value="<?php echo $encabezado["obs2"];?>">
+                                  <div class="obsctz oectz" data-vo="3"><?php echo $encabezado["obs3"];?></div>
+                                  <input id="tobs3" type="hidden" class="o_oectz" 
+                                  value="<?php echo $encabezado["obs3"];?>">
                                 </div><!--/. observaciones -->
                             
                             </div><!--/.col-md-8-->

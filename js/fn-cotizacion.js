@@ -53,7 +53,6 @@ function checkCotizacion(){
 	var error = 0;
 	var ente_asociado = "cliente";
 
-
 	if( $("#idCliente").val() == "" ){
 		//Cliente/Proveedor no seleccionado 
 		if( $("#tipo").val() == "solicitud" ) ente_asociado = "proveedor";
@@ -82,10 +81,10 @@ function obtenerVectorEncabezado(){
 	encabezado.idr = $( '#id_cotizacion' ).val();
 	encabezado.numero = $( '#ncotiz' ).val();
 	encabezado.estado = $( '#estado' ).val();
+	encabezado.idcondicion = obtenerIdCondicionForm();
 	encabezado.tipo = $( '#tipo' ).val();
 	encabezado.idc = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();
-	encabezado.cvalidez = $( '#cvalidez' ).val();
 	encabezado.pcontacto = $( '#cpcontacto' ).val();
 	encabezado.idu = $( '#idu_sesion' ).val();
 
@@ -114,11 +113,11 @@ function guardarCotizacion(){
 			$("#bt_reg_cotizacion").fadeOut( 200 );
 		},
 		success: function( response ){
-			//console.log(response);
-			res = jQuery.parseJSON(response);
+			console.log(response);
+			/*res = jQuery.parseJSON(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
-			bloquearDocumento();
+			bloquearDocumento();*/
 		}
 	});
 }
@@ -177,11 +176,19 @@ $( document ).ready(function() {
     });
 	/* --------------------------------------------------------- */
 	/* Asignación de la etiqueta de validez de la cotización ( pie de documento ) */
-	$("#cvalidez").on( "change", function(){
-		var valor = $( "#cvalidez option:selected" ).text();
-		//$('#vvalz').html(valor);
+	$("#vcondicion").on( "change", function(){
+		var valor = $( "#vcondicion option:selected" ).text();
+		$('#vvalz').html(valor);
+		//En caso de que el formato de cotización muestre la validez del documento
 		$('input[data-v=VCTZ]').val( "Validez: " + valor );	
-		//En caso de que el formato de cotización muestre la validez del documento 
+		
+		//En caso de que el formato de cotización muestre la validez del documento
+		//oectz: observaciones en edición de cotización
+		$bvalidez = $( ".oectz:contains('Validez')" );
+		$bvalidez.html("Validez: <label id='vvalz'>" + valor + "</label>");
+		//data-vo: valor oculto
+		$ovalidez = $( "#tobs" + $bvalidez.attr("data-vo") );
+		$ovalidez.val("Validez: " + valor );
     });
 	/* =============================================================================== */
 	$("#bt_reg_cotizacion").on( "click", function(){
