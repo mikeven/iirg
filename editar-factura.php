@@ -13,11 +13,13 @@
 	include( "bd/data-cotizacion.php" );
 	include( "bd/data-factura.php" );
 	include( "bd/data-pedido.php" );
+  include( "bd/data-forms.php" );
 	include( "bd/data-formato.php" );
 	
   checkSession( '' );
 	
   if( isset( $_GET["id"] ) ){
+    //Datos de factura a editar:
     $idf        = $_GET["id"];
     $factura    = obtenerFacturaPorId( $dbh, $_GET["id"] );
     $encabezado = $factura["encabezado"];
@@ -33,6 +35,9 @@
   }
   else{  
   }
+
+  $condiciones = obtenerCondiciones( $dbh, "factura" );
+  $id_cond_defecto = obtenerIdCondicion( $dbh, "factura", "CONTADO" );
 	
 ?>
 <!DOCTYPE html>
@@ -207,7 +212,7 @@
                                           <label for="datepicker" class="iconlab">N° Ctz:</label>
                                       </div>
                                       <input type="text" class="form-control" id="fcotizacion" readonly 
-                                      name="cotizacion" value="<?php if( isset( $encabezado ) ) echo $ctz_encab["nro"]." / Fecha: ".$ctz_encab["femision"];?>">
+                                      name="cotizacion" value="<?php if( isset( $ctz_encab ) ) echo $ctz_encab["nro"]." / Fecha: ".$ctz_encab["femision"];?>">
                                       <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
                                     </div>
                                 </div><!-- /.form group -->
@@ -247,30 +252,51 @@
                               ?>
                             <!-- /.Modal -->
                                 <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <div class="input-group date">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
-                                                </div>
-                                                <input type="text" class="form-control" id="nfactura" name="numero" required readonly value="<?php echo $encabezado["nro"]; ?>">
-                                            </div>
-                                        </div><!-- /.form group -->
+                              <div class="col-md-3">
+                                  <div class="form-group">
+                                      <div class="input-group date">
+                                          <div class="input-group-addon">
+                                              <!-- <i class="fa fa-slack"></i> --> 
+                                              <label for="datepicker" class="iconlab">N°:</label>
+                                          </div>
+                                          <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
+                                          value="<?php echo $encabezado["nro"]; ?>">
+                                      </div>
+                                  </div><!-- /.form group -->
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i> 
+                                        <label for="datepicker" class="iconlab"></label>
+                                      </div>
+                                      <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
+                                        value="<?php echo $encabezado["femision"]; ?>">
                                     </div>
-                                    <div class="col-md-7">
-                                        <div class="form-group">
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i> 
-                                                <label for="datepicker" class="iconlab">Fecha emisión:</label>
-                                            </div>
-                                            <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly 
-                                            value="<?php echo $encabezado["femision"]; ?>">
-                                        </div>
+                                  </div><!-- /.form group -->
+                              </div><!-- /.col -->
+
+                              <div class="col-md-5">
+                                  <div class="form-group">
+                                        <!--<label for="fcondpago" class="">Validez:</label>-->
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                            <select name="validez" id="vcondicion" class="form-control">
+                                                <option value="0" disabled>Validez</option>
+                                                <?php foreach ( $condiciones as $c ) { 
+                                                  echo opCondicion( $encabezado, $c );
+                                                }?>                                                
+                                            </select>
+                                            <input id="condicion_defecto" type="hidden" 
+                                            value="<?php echo $id_cond_defecto; ?>">
+                                            <input id="estado" type="hidden" 
+                                            value="<?php echo $encabezado["estado"];?>">
+                                        </div><!-- /.input group -->
                                     </div><!-- /.form group -->
-                                	</div>
-                                </div>
+                              </div><!-- /.col -->
+                            
+                            </div><!--/.row-->
                             
                             </div><!--/.columna izquierda-->
                             

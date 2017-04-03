@@ -125,7 +125,9 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">LISTA DE FACTURAS</h3>
-                  <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
+                  <div class="icon-color">
+                    <a href="nuevo-factura.php"><i class="fa fa-file-text-o fa-2x"></i></a>
+                  </div>
                 </div><!-- /.box-header -->
              	<div class="box-body">
                 	<?php include( "subforms/tablas/tabla_facturas.php" )?>

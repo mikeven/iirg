@@ -160,20 +160,20 @@
               
               <div class="col-sm-3 invoice-col" id="ddocumento">
                   
-                <div id="dctz_numero"><?php echo $tdocumento." N°:   ".$encabezado["nro"];?></div>
-                <div id="dctz_fecha">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
+                <div id="doc_nro"><?php echo $tdocumento." N°: ".$encabezado["nro"];?></div>
+                <div id="doc_femis">Fecha Emisión: &nbsp;<?php echo $encabezado["femision"];?></div>
                 
                 <?php if( ( isset( $tipo_n ) ) && ( $tipo_n != "nota_entrega" ) ) { ?>
-                  <div id="dnfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
+                  <div id="doc_nfac">Fact N° <?php echo $encabezado["nfact"]; ?></div>
                 <?php } ?>
                 
                 <?php if($tdd == "ctz") { ?>
-                  <div id="dctz_tlf">Vendedor: <?php echo $cta["vendedor"]; ?></div>
+                  <div id="doc_vend">Vendedor: <?php echo $cta["vendedor"]; ?></div>
                 <?php } ?>
                 
-                <?php if($tdd == "fac") { ?>
-                  <div id="dctz_tlf">Fecha vencimiento: <?php echo ""; ?></div>
-                  <div id="dctz_tlf">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
+                <?php if( $tdd == "fac" ) { ?>
+                  <div id="doc_fvenc">Fecha vencimiento: <?php echo $encabezado["fvencimiento"]; ?></div>
+                  <div id="doc_noc">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
                 <?php } ?>
               
               </div><!-- /.col -->

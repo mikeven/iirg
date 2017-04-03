@@ -4,6 +4,7 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/	
 	function obtenerListaFacturas( $link, $idu ){
+		//Obtiene los registros de factura con los datos para mostrar en las tablas
 		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
@@ -16,6 +17,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerProximoNumeroFactura( $dbh, $idu ){
+		//Retorna el número correspondiente al próximo registro de factura a guardar
 		$q = "select MAX(numero) as num from factura where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
@@ -35,16 +37,18 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFacturaPorId( $dbh, $idf ){
-		//Retorna el registro de factura y sus ítems de detalle
+		//Retorna el registro de factura y sus ítems de detalle dado su id
 		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente2 as idcliente, 
 		f.idCotizacion as idc, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
-		DATE_FORMAT(f.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
+		DATE_FORMAT(f.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
+		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
 		DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
 		DATE_FORMAT(f.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion, 
-		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.iva as iva, f.orden_compra as oc, 
-		cd.valor as vcondicion, cd.nombre as condicion, f.introduccion as intro, f.Observaciones as obs0, 
-		f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, c.Nombre as nombre, 
-		c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, 
+		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.validez as validez, 
+		f.idCondicion as idCondicion, f.iva as iva, f.orden_compra as oc, cd.valor as vcondicion, 
+		cd.nombre as condicion, f.introduccion as intro, f.Observaciones as obs0, f.Observaciones1 as obs1, 
+		f.Observaciones2 as obs2, f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
+		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, 
 		c.Email as email FROM factura f, cliente c, condicion cd 
 		WHERE f.IdFactura = ".$idf." and f.IdCliente2 = c.IdCliente2 and f.idCondicion = cd.idCondicion";
 		
@@ -99,11 +103,19 @@
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	function editarFactura( $dbh, $encabezado, $idu ){
-		
-		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
-		$q = "update factura set idCliente2 = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
-		SubTotal = $encabezado->subtotal, Total = $encabezado->total, fecha_modificacion = NOW(), 
-		idCondicion = $encabezado->idcondicion WHERE idFactura = $encabezado->idr and idUsuario = $idu";
+		//Actualiza los datos de encabezado de una factura
+		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
+		$q = "update factura set 
+				idCliente2 = $encabezado->idcliente, 
+				fecha_emision = '$fecha_emision', 
+				idCondicion = $encabezado->idcondicion, 
+				validez = '$encabezado->validez', 
+				fecha_vencimiento = '$encabezado->fvencimiento', 
+				SubTotal = $encabezado->subtotal, 
+				Total = $encabezado->total, 
+				fecha_modificacion = NOW(), 
+				idCondicion = $encabezado->idcondicion 
+			WHERE idFactura = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -123,7 +135,8 @@
 
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" );
-		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "cotizacion" );
+		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "factura" );
+		print_r($encabezado);
 		$detalle = json_decode( $_POST["detalle"] );
 		
 		$idf = guardarFactura( $dbh, $encabezado, $detalle, $encabezado->idu );
@@ -157,6 +170,8 @@
 		include( "../fn/fn-documento.php" );
 		
 		$encabezado = json_decode( $_POST["encabezado"] );
+		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" ); //data-documento.php
+		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "factura" );
 		$encabezado->tipo = "factura";
 		$detalle = json_decode( $_POST["detalle"] );
 		$r_edit = editarFactura( $dbh, $encabezado, $encabezado->idu );

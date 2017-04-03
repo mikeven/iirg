@@ -44,10 +44,11 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetalleCotizacion( $dbh, $idc ){
-		
+		//Retorna una lista con el detalle de una cotización
 		$detalle = array();
-		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
-		PrecioUnit as punit, PrecioTotal as ptotal, und from detallecotizacion where IdCotizacion2 = $idc";
+		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, 
+		Cantidad as cantidad, PrecioUnit as punit, PrecioTotal as ptotal, und FROM detallecotizacion 
+		WHERE IdCotizacion2 = $idc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
@@ -57,7 +58,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerCotizacionPorId( $dbh, $idc ){
-		
+		//Retorna el registro de una cotización y sus ítems de detalle dado su id
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, 
 		c.IdCliente2 as idcliente, DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i') as fregistro, 
@@ -77,7 +78,7 @@
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
-		//Obtiene solicitud de cotización dado su id. idcliente = idproveedor	
+		//Obtiene solicitud de cotización dado su id. Usa idcliente como id de proveedor	
 		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
 		DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 

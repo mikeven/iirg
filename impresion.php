@@ -228,11 +228,11 @@
                     <?php if($tdd == "fac") { ?>
                     <tr>
                       <td><div id="dctz_tlf">Fecha Vencimiento:</div></td>
-                      <td><?php echo ""; ?></td>
+                      <td><?php echo $encabezado["fvencimiento"]; ?></td>
                     </tr>
                     <tr>
                       <td><div id="dctz_tlf">Condición de Pago</div></td>
-                      <td>CONTADO</td>
+                      <td><?php echo $encabezado["validez"]; ?></td>
                     </tr>
                     <tr>
                       <td><div id="dctz_tlf">N° Orden Compra:</div></td>

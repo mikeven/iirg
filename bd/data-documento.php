@@ -6,12 +6,13 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFechaHoy(){
+		//Retorna la fecha actual en el formato dd/mm/aaaa
 		$fecha_actual = obtenerFechaActual();
 		return $fecha_actual["f1"]['fecha'];
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerCondiciones( $dbh, $doc ){
-		//Obtiene las condiciones o validez de un documento
+		//Obtiene las condiciones o validez de un documento de acuerdo al usuario en sesión
 		$lista_c = array();
 		$q = "Select * from condicion where documento = '$doc'";
 		$data = mysql_query( $q, $dbh );
@@ -82,13 +83,13 @@
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function agregarFechaVencimiento( $dbh, $encabezado, $doc ){
+		//Retorna la fecha de vencimiento de un documento a partir de su fecha de emisión y las condiciones de vencimiento
 		$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
-		//echo "DIAS: ".$condicion["valor"]." FEM:".$encabezado->femision;
 		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), $condicion["valor"] );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerTotales( $detalle, $pcge ){
-	/* Retorna la estructura [subtotal, iva, total] a partir del cálculo en el detalle del documento */
+		//Retorna la estructura [subtotal, iva, total] a partir del cálculo en el detalle del documento
 		$subtotal = 0;
 		foreach ( $detalle as $d ) {
 			$subtotal += ( $d["punit"] * $d["cantidad"] );	
@@ -102,7 +103,8 @@
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerTotalesFijos( $encabezado ){
-		/* Retorna la estructura de subtotales: subtotal, iva y total a partir de sus valores fijos en la BD */
+		/* Retorna la estructura [subtotal, iva, total] a partir de sus valores fijos 
+		en el encabezado */
 		$stotal = $encabezado["SubTotal"];
 		$iva = $encabezado["iva"]; 
 
@@ -138,6 +140,7 @@
 	
 
 	if( isset( $_POST["id_doc_estado"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
+		//Actualización de estado de un documento
 		include( "bd.php" );
 		cambiarEstadoDocumento( $dbh, $_POST["id_doc_estado"], $_POST["documento"], $_POST["estado"] );
 	}

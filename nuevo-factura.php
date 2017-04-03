@@ -12,6 +12,7 @@
 	include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
 	include( "bd/data-factura.php" );
+  include( "bd/data-forms.php" );
 	include( "bd/data-formato.php" );
   include( "fn/fn-documento.php" );
 	
@@ -284,15 +285,15 @@
                                   <div class="form-group">
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
                                         <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                            <select name="condicion" id="vcondicion" class="form-control blq_bdoc">
-                                              <option value="0" disabled selected>Condiciones</option>
-                                              <?php foreach ( $condiciones as $c ) { ?>
-                                              <option value="<?php echo $c["idCondicion"];?>"><?php echo $c["nombre"];?></option>
-                                              <?php } ?>
+                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                            <select name="validez" id="vcondicion" class="form-control">
+                                                <option value="0" disabled>Validez</option>
+                                                <?php foreach ( $condiciones as $c ) { 
+                                                  echo opCondicion( $encabezado, $c );
+                                                }?>                                                
                                             </select>
                                             <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
-                                            <input id="estado" type="hidden" value="1">
+                                            <input id="estado" type="hidden" value="pendiente">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->
                               </div><!-- /.col -->

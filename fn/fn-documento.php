@@ -2,7 +2,6 @@
 	/* R&G - Complemento funcional de documento.php y archivos data-(docs).php */
 	/*---------------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------------------------------------------------------------------*/
-
 	function arrRespuesta( $doc, $ndoc ){
 		
 		$params_documento = array(
@@ -30,11 +29,9 @@
 
 		return $doc;
 	}
-	
 	/*--------------------------------------------------------------------------------------------------------*/
-	
 	function iconoEstado( $estado ){
-
+		//Retorna el ícono acorde al estado de un documento y la clase de estilo denominada por color
 		$icono = array(
 			""	=> array("icono" => " fa-sticky-note", "color" => "verde"),
 			"pendiente"	=> array("icono" => "fa-clock-o", "color" => "amarillo"),
@@ -46,7 +43,6 @@
 
 		return $icono[$estado];	
 	}
-	
 	/*--------------------------------------------------------------------------------------------------------*/
 	function admiteCambioEstado( $doc, $encabezado, $accion ){
 		//Determina si un documento es anulable
@@ -122,44 +118,46 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
+	    //Asignación de variables para obtener los datos del documento de acuerdo a los parámetros al cargar 
+	    //la hoja del documento
 	    $id = $_GET["id"];
 	    $tdd = $_GET["tipo_documento"]; 
 
-	    if( $tdd == "ctz" ){
+	    if( $tdd == "ctz" ){	//Cotización
 			$documento = obtenerCotizacionPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];;
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Cotización"; $ftdd = $tdd; $filedoc = "cotizacion";
 	    }
 
-	    if( $tdd == "sctz" ){
+	    if( $tdd == "sctz" ){	//Solicitud de Cotización
 			$documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Solicitud de Cotización"; $ftdd = $tdd; $filedoc = "cotizacion";
 	    }
 
-	    if( $tdd == "ped" ){
+	    if( $tdd == "ped" ){	//Pedido
 			$documento = obtenerPedidoPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Pedido"; $ftdd = $tdd; $filedoc = "pedido";
 	    }
 
-		if( $tdd == "odc" ){
+		if( $tdd == "odc" ){	//Orden de compra
 			$documento = obtenerOrdenCompraPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Orden de compra"; $ftdd = $tdd; $filedoc = "orden_compra";
 	    }
 
-	    if( $tdd == "fac" ){
+	    if( $tdd == "fac" ){	//Factura
 			$documento = obtenerFacturaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Factura"; $ftdd = $tdd; $filedoc = "factura";		
 	    }
-	    if( $tdd == "nota" ){
+	    if( $tdd == "nota" ){	//Nota
 			$tipo_n = $_GET["tn"];
 			$documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
 			$encabezado = $documento["encabezado"];
@@ -172,19 +170,19 @@
 			if( $t_concepto != "Ajuste global" )
 	    		$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );	//data-documento.php
 	    	else
-	    		$totales = obtenerTotalesFijos( $encabezado );
+	    		$totales = obtenerTotalesFijos( $encabezado );					//data-documento.php
 	    }
-
+	    //Bloque de observaciones:
 	    $obs1 = $encabezado["obs1"];
 		$obs2 = $encabezado["obs2"];
 		$obs3 = $encabezado["obs3"];
+	    $eiva = $encabezado["iva"] * 100; 
 
-	    $eiva = $encabezado["iva"] * 100;
 	    if( $tdd != "nota" ) //Los totales se calculan para todos los documentos excepto las notas
 	    	$totales = obtenerTotales( $detalle_d, $encabezado["iva"] );		//data-documento.php
   	}
   	else{
-
+  		//Falta el parámetro de documento
   	}
 	/*--------------------------------------------------------------------------------------------------------*/
 ?>

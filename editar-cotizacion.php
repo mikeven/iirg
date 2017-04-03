@@ -30,6 +30,7 @@
 
   $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
   $id_cond_defecto = obtenerIdCondicion( $dbh, "cotizacion", "1 días" );
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -225,7 +226,7 @@
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                            <select name="validez" id="vcondicion" class="form-control">
+                                            <select name="validez" id="vcondicion" class="form-control blq_bdoc">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
                                                   echo opCondicion( $encabezado, $c );

@@ -3,7 +3,7 @@
     <section class="sidebar">
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MENÚ PRINCIPAL</li>
+        <li class="header">REGISTROS</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-contao"></i><span>Clientes</span>
@@ -34,7 +34,7 @@
             <li><a href="categorias.php"><i class="fa fa-cubes"></i>Categorías</a></li>
           </ul>
         </li>
-        <li class="header">MOVIMIENTOS</li>
+        <li class="header">DOCUMENTOS</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-book"></i>
@@ -94,7 +94,7 @@
         <li class="treeview">
           <a href="mantenimiento.php">
             <i class="fa fa-wrench"></i>
-            <span>Mantenimiento</span>
+            <span>Ajustes</span>
           </a>
         </li>
         <li class="treeview">
