@@ -8,7 +8,7 @@
 		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
-		where F.IdCliente2 = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
+		where F.IdCliente = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $f = mysql_fetch_array( $data ) ){
 			$lista_f[] = $f;	
@@ -38,7 +38,7 @@
 	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle dado su id
-		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente2 as idcliente, 
+		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente as idcliente, 
 		f.idCotizacion as idc, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(f.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
@@ -50,7 +50,7 @@
 		f.Observaciones2 as obs2, f.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
 		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, 
 		c.Email as email FROM factura f, cliente c, condicion cd 
-		WHERE f.IdFactura = ".$idf." and f.IdCliente2 = c.IdCliente2 and f.idCondicion = cd.idCondicion";
+		WHERE f.IdFactura = ".$idf." and f.IdCliente = c.IdCliente2 and f.idCondicion = cd.idCondicion";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
@@ -89,7 +89,7 @@
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idcotizacion ) $encabezado->idcotizacion = "NULL";
-		$q = "insert into factura ( numero, orden_compra, estado, idCondicion, idCotizacion, IdCliente2, 
+		$q = "insert into factura ( numero, orden_compra, estado, idCondicion, idCotizacion, IdCliente, 
 		fecha_emision, fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, validez, iva, Total, fecha_registro, idUsuario ) 
 		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado', $encabezado->idcondicion, 
@@ -106,7 +106,7 @@
 		//Actualiza los datos de encabezado de una factura
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update factura set 
-				idCliente2 = $encabezado->idcliente, 
+				idCliente = $encabezado->idcliente, 
 				fecha_emision = '$fecha_emision', 
 				idCondicion = $encabezado->idcondicion, 
 				validez = '$encabezado->validez', 

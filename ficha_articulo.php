@@ -9,6 +9,7 @@
   include( "bd/data-forms.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
+  include( "fn/fn-documento.php" );
 	checkSession( '' );
 	if( isset( $_GET["a"] ) ){
 		$articulo = obtenerArticuloPorId( $_GET["a"], $dbh );
@@ -21,7 +22,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | <?php echo $articulo["codigo"]?></title>
+  <title>IIRG | <?php echo $articulo["descripcion"]?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -38,6 +39,8 @@
     <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
@@ -68,15 +71,17 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    
+    <!-- DataTables -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script>
       $(function () {
         //Initialize Select2 Elements
         $(".select2").select2();
         //Datemask dd/mm/yyyy
-		$("#crif").inputmask({mask: "a-99999999-9"});
-		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
-		$("#ctel2").inputmask({mask: "(9999)-999.99.99"});
+    		$("#crif").inputmask({mask: "a-99999999-9"});
+    		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
+    		$("#ctel2").inputmask({mask: "(9999)-999.99.99"});
       });
     </script>
     <script type="text/javascript">
@@ -92,11 +97,11 @@
                     descripcion: {
                         validators: { notEmpty: { message: 'Debe indicar descripción' } }
                     },
-					codigo: {
+					          codigo: {
                         validators: { notEmpty: { message: 'Debe indicar código' } }
                     }
                 },
-				callback: function () {
+				        callback: function () {
                 	alert("OK");
                 }
             });
@@ -139,9 +144,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <?php include("subforms/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
         </ul>
       </div>
 
@@ -156,8 +159,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Version 2.0</small>
+        Dashboard <small>Version 2.0</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -174,8 +176,8 @@
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab">Datos de artículo</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Detalles operaciones</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Modificar datos de artículo</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Modificar datos de artículo</a></li>
+                  <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                       Más acciones <span class="caret"></span>
@@ -184,7 +186,6 @@
                       <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar artículo</a></li>
                     </ul>
                   </li>
-                  
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
@@ -195,60 +196,65 @@
                     <div class="info_tab3">
                     </div>
                   </div><!-- /.tab-pane -->
+                  
                   <div class="tab-pane" id="tab_2">
-                    
-                  </div><!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_3">
                     <form role="form" id="frm_marticulo" name="form_modificar_articulo" action="bd/data-articulo.php" method="post">
                         <input name="reg_articulo" type="hidden" value="1">
                         <input name="idArticulo" type="hidden" value="<?php echo $articulo["idArticulo"];?>">
                         <div class="box-body">
-                            <div class="form-group">
-                              
-                                <div class="input-group">
-                                  <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
-                                  <input type="text" class="form-control" id="pdescripcion" placeholder="Descripción" name="descripcion" value="<?php echo $articulo["descripcion"];?>">
-                                </div>
-                            </div><!-- /.form group -->
+                          <div class="form-group">
                             
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-barcode"></i></div>
-                                    <input id="pcodigo" type="text" class="form-control" placeholder="Código" data-mask name="codigo" value="<?php echo $articulo["codigo"];?>">
-                                </div><!-- /.input group -->
-                            </div><!-- /.form group -->
-                            
-                            <div class="form-group">
                               <div class="input-group">
-                                  <div class="input-group-addon"><i class="fa fa-cube"></i></div>
-                                    <select name="presentacion" id="ppresentacion" class="form-control">
-                                        <option value="0" disabled selected>Presentación</option>
-                                        <?php foreach( $unidades as $u ){ $s = selop( $u["nombre"], $articulo["presentacion"] );?>
-                                        <option value="<?php echo $u["nombre"] ?>" <?php echo $s;?>><?php echo $u["nombre"] ?></option>
-                                        <?php } ?>
-                              		</select>
-                                </div><!-- /.input group -->
-                            </div><!-- /.form group -->
-                            
-                            <div class="form-group">
+                                <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
+                                <input type="text" class="form-control" id="pdescripcion" placeholder="Descripción" name="descripcion" value="<?php echo $articulo["descripcion"];?>">
+                              </div>
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
                               <div class="input-group">
-                                  <div class="input-group-addon"><i class="fa fa-sitemap"></i></div>
-                                    <select name="categoria" id="pcategoria" class="form-control">
-                                        <option value="0" disabled>Categoría</option>
-                                        <?php foreach( $categorias as $c ){ $s = selop( $c["nombre"], $articulo["categoria"] ); ?>
-                                        <option value="<?php echo $c["idCategoria"]; ?>" <?php echo $s;?>><?php echo $c["nombre"]; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div><!-- /.input group -->
-                            </div><!-- /.form group -->
-                            
-                      </div><!-- /.box-body -->
+                                  <div class="input-group-addon"><i class="fa fa-barcode"></i></div>
+                                  <input id="pcodigo" type="text" class="form-control" placeholder="Código" data-mask name="codigo" value="<?php echo $articulo["codigo"];?>">
+                              </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-cube"></i></div>
+                                  <select name="presentacion" id="ppresentacion" class="form-control">
+                                      <option value="0" disabled selected>Presentación</option>
+                                      <?php foreach( $unidades as $u ){ $s = selop( $u["nombre"], $articulo["presentacion"] );?>
+                                      <option value="<?php echo $u["nombre"] ?>" <?php echo $s;?>><?php echo $u["nombre"] ?></option>
+                                      <?php } ?>
+                            		</select>
+                              </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-sitemap"></i></div>
+                                  <select name="categoria" id="pcategoria" class="form-control">
+                                      <option value="0" disabled>Categoría</option>
+                                      <?php foreach( $categorias as $c ){ $s = selop( $c["nombre"], $articulo["categoria"] ); ?>
+                                      <option value="<?php echo $c["idCategoria"]; ?>" <?php echo $s;?>><?php echo $c["nombre"]; ?></option>
+                                      <?php } ?>
+                                  </select>
+                              </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                        </div><!-- /.box-body -->
 
-                      <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
-                      </div>
-                </form>
+                        <div class="box-footer" align="center">
+                          <button type="submit" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
+                        </div>
+                    </form>
                   </div><!-- /.tab-pane -->
+                  
+                  <div class="tab-pane" id="tab_3">
+                    <!-- Tabla operaciones cliente -->
+                      <?php include("subforms/tablas/tabla_mov_articulo.php"); ?>
+                    <!-- /.Tabla operaciones cliente --> 
+                  </div><!-- /.tab-pane -->
+
                 </div><!-- /.tab-content -->
               </div><!-- nav-tabs-custom -->
 

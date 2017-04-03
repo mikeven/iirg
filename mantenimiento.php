@@ -6,8 +6,11 @@
 	session_start();
 	ini_set( 'display_errors', 1 );
   include( "bd/bd.php" );
+  include( "bd/data-sistema.php" );
 	include( "bd/data-usuario.php" );
 	checkSession( '' );
+
+  $iva = $sisval_iva * 100;
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,9 +30,11 @@
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <style>
+    #bloque_iva{ line-height: 75%; }
+  </style>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,6 +42,21 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/select2/select2.full.min.js"></script>
+    <!-- <script src="plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
+    
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
+        
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="plugins/iCheck/icheck.min.js"></script>
+    <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -65,7 +85,7 @@
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
           <?php include("subforms/nav/notificaciones.php");?>
-          <!-- Notificaciones-->
+          <!-- Notificaciones -->
           <!-- Tareas: style can be found in dropdown.less -->
           <?php include("subforms/nav/tareas.php");?>
           <!-- Tareas: style can be found in dropdown.less -->
@@ -89,8 +109,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Version 2.0</small>
+        Dashboard <small>Version 2.0</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -101,15 +120,52 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-asterisk"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">IVA</span>
-                  <span class="info-box-number">12%</span>
-                </div><!-- /.info-box-content -->
-              </div><!-- /.info-box -->
-            </div><!-- /.col --> 
+            
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span id="bloque_iva" class="info-box-icon bg-aqua">
+              <!-- <i class="fa fa-asterisk"></i> -->
+              <span class="info-box-text">IVA</span>
+              <span class="info-box-number"><?php echo $iva; ?>%</span>
+            </span>
+            <div class="info-box-content">
+              
+
+              <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Modificar</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                  
+                </div>
+                
+                <div class="box-body" style="display: none;">
+                  
+                  <!--<div class="input-group margin">
+                    <input type="text" class="form-control" id="piva" value="<?php echo $iva; ?>">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat">Guardar</button>
+                    </span>
+                  </div>-->
+
+                </div>
+                
+              </div>
+
+              <!-- <p>%</p>
+              <div class="input-group margin">
+                <input type="text" class="form-control" id="piva" value="<?php echo $iva; ?>">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat">Guardar</button>
+                    </span>
+              </div> -->
+            
+            </div><!-- /.info-box-content -->
+          </div><!-- /.info-box -->
+        </div>
+
       </div>
     </section>
     <!-- /.content -->
@@ -127,26 +183,21 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<!-- Bootstrap 3.3.5 -->
+<!-- <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- FastClick -->
 <script src="plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
-<!-- Sparkline -->
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
 <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll 1.3.0 -->
 <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS 1.0.1 -->
 <script src="plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="dist/js/demo.js"></script> -->
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
+
 </body>
 </html>

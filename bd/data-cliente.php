@@ -1,9 +1,9 @@
 <?php
 	/* R&G - Funciones de clentes */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
 	ini_set( 'display_errors', 1 );
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
 	function agregarCliente( $cliente, $dbh ){
 		$q = "insert into cliente (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
 		values ( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[pcontacto]', 
@@ -13,7 +13,7 @@
 		//echo $q;
 		return mysql_insert_id();		
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
 	function modificarCliente( $cliente, $dbh ){
 		
 		$resp["cambio"] = "exito";
@@ -29,7 +29,7 @@
 		
 		return $resp;		
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerListaClientes( $link ){
 		$lista_c = array();
 		$q = "Select * from cliente order by Nombre asc";
@@ -39,13 +39,34 @@
 		}
 		return $lista_c;	
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerClientePorId( $id, $dbh ){
 		
 		$q = "Select * from cliente where idCliente2 = $id";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		
 		return $data;	
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function tagDocumentoOperacion(){
+
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
+	function obtenerOperacionesCliente( $dbh, $idc ){
+		//Retorna una lista de documentos (facturas, notas, cotizaciones) asociados a un cliente
+		$lista = array();
+		$q = "Select idCotizacion2 as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM cotizacion where idCliente2 = $idc UNION ALL 
+			Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM factura where idCliente = $idc UNION ALL
+			Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM nota where idCliente = $idc order by femision DESC"; 
+		
+		$data = mysql_query( $q, $dbh );
+		while( $reg = mysql_fetch_array( $data ) ){
+			$lista[] = $reg;	
+		}
+		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_cliente"] ) || isset( $_POST["mod_cliente"] ) ){

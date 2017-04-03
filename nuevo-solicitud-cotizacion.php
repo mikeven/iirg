@@ -6,6 +6,7 @@
 	session_start();
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
+  include( "bd/data-sistema.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-proveedor.php" );

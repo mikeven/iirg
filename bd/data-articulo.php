@@ -12,7 +12,7 @@
 		//echo $q;
 		return mysql_insert_id();		
 	}
-
+	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function obtenerArticuloPorId( $ida, $dbh ){
 		//Devuelve registro de artículo dado el ID
 		$q = "Select a.idArticulo as idArticulo, a.Descripcion as descripcion, a.Codigo as codigo, 
@@ -30,7 +30,7 @@
 		//return $q;
 		return mysql_insert_id();		
 	}
-
+	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function agregarUnidad( $nombre, $dbh ){
 		$q = "insert into unidad ( nombre ) values ( '$nombre' )";
 		$data = mysql_query( $q, $dbh );
@@ -40,7 +40,7 @@
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	function modificarArticulo( $articulo, $dbh ){
-		
+		//Modifica los datos de un artículo
 		$resp["cambio"] = "exito";
 		$q = "update articulo set Codigo = '$articulo[codigo]', Descripcion = '$articulo[descripcion]', 
 		Presentacion = '$articulo[pres]', idCategoria = $articulo[categoria] where idArticulo = $articulo[id]";
@@ -52,7 +52,7 @@
 		
 		return $resp;		
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------*/
 	function obtenerListaArticulos( $link ){
 		$lista_a = array();
 		$q = "Select idArticulo, Codigo, Descripcion, Presentacion from articulo order by Descripcion asc";
@@ -62,25 +62,25 @@
 		}
 		return $lista_a;	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------*/
 	function actualizarCategoria( $dbh, $id, $campo, $valor ){
 		$q = "update categoria set $campo = '$valor' where iDcategoria = $id";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------*/
 	function actualizarUnidad( $dbh, $id, $nombre ){
 		$q = "update unidad set nombre = '$nombre' where idUnidad = $id";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------*/
 	function eliminarUnidad( $dbh, $id ){
 		$q = "delete from unidad where idUnidad = $id";
 		//$data = mysql_query( $q, $dbh );
 		return $id;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------*/
 	function obtenerCategoriasArticulos( $dbh ){
 		$lista_c = array();
 		$q = "select * from categoria order by nombre asc";
@@ -90,7 +90,7 @@
 		}
 		return $lista_c;	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerUnidadesVenta( $dbh ){
 		$lista_u = array();
 		$q = "select * from unidad order by nombre asc";
@@ -99,8 +99,25 @@
 			$lista_u[] = $u;	
 		}
 		return $lista_u;	
-	}	
-	/* ----------------------------------------------------------------------------------------------------- */
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	function obtenerOperacionesArticulo( $dbh, $ida ){
+		//Retorna una lista de documentos (facturas cotizaciones) que incluyan un artículo dado por su id
+		$lista = array();
+		$q = "Select c.idCotizacion2 as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM cotizacion c, detallecotizacion dc 
+		where dc.IdCotizacion2 = c.idCotizacion2 and dc.IdArticulo = $ida UNION ALL 
+			Select f.idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM factura f, detallefactura df 
+		where df.IdFactura = f.idFactura and df.IdArticulo = $ida order by femision DESC"; 
+		
+		$data = mysql_query( $q, $dbh );
+		while( $reg = mysql_fetch_array( $data ) ){
+			$lista[] = $reg;	
+		}
+		return $lista;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	if( isset( $_POST["reg_articulo"] ) || isset( $_POST["mod_articulo"] ) ){
 		include( "bd.php" );
 		$articulo["descripcion"] = $_POST["descripcion"];
@@ -119,7 +136,9 @@
 		//echo $idr;
 		echo "<script>window.location.href='../ficha_articulo.php?a=$idr'</script>";	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------------------------- */
+	/* Solicitudes al servidor para procesar información de artículos */
+	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_categoria"] ) ){
 		include( "bd.php" );
 		$categoria["nombre"] = $_POST["nombre"];
@@ -132,7 +151,7 @@
 		include( "bd.php" );		 
 		echo agregarUnidad( $_POST["nombre"], $dbh );
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	if( isset( $_POST["act_categ"] ) ){
 		include( "bd.php" );
 		$categoria["id"] = $_POST["idreg"];
@@ -140,7 +159,6 @@
 		$categoria["valor"] = $_POST["valor_c"];
 		
 		actualizarCategoria( $dbh, $categoria["id"], $categoria["campo"], $categoria["valor"] );
-		//return $categoria["id"];
 	}
 
 	if( isset( $_POST["act_und"] ) ){
@@ -153,4 +171,5 @@
 		include( "bd.php" );		
 		return eliminarUnidad( $dbh, $_POST["idreg"] );
 	}
+	/*--------------------------------------------------------------------------------------------------------*/
 ?>
