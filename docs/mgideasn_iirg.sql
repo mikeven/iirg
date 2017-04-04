@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2017 at 01:42 AM
+-- Generation Time: Apr 05, 2017 at 01:12 AM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -2843,30 +2843,36 @@ CREATE TABLE IF NOT EXISTS `condicion` (
   `valor` tinyint(2) NOT NULL,
   `documento` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   `idUsuario` int(11) DEFAULT NULL,
+  `sistema` int(11) DEFAULT NULL,
   PRIMARY KEY (`idCondicion`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `condicion`
 --
 
-INSERT INTO `condicion` (`idCondicion`, `nombre`, `valor`, `documento`, `idUsuario`) VALUES
-(1, 'CONTADO', 1, 'factura', 1),
-(2, '3 días', 3, 'factura', 1),
-(3, '15 días', 15, 'factura', 1),
-(4, '30 días', 30, 'factura', 1),
-(5, '1 días', 1, 'cotizacion', 1),
-(6, '3 días', 3, 'cotizacion', 1),
-(7, '8 días', 8, 'cotizacion', 1),
-(8, 'CONTADO', 0, 'factura', 2),
-(9, '3 días', 3, 'factura', 2),
-(10, '15 días', 15, 'factura', 2),
-(11, '30 días', 30, 'factura', 2),
-(12, '1 días', 1, 'cotizacion', 2),
-(13, '3 días', 3, 'cotizacion', 2),
-(14, '8 días', 8, 'cotizacion', 2),
-(15, '', 0, '', 2);
+INSERT INTO `condicion` (`idCondicion`, `nombre`, `valor`, `documento`, `idUsuario`, `sistema`) VALUES
+(1, 'CONTADO', 1, 'factura', 1, 1),
+(2, '3 días', 3, 'factura', 1, NULL),
+(3, '15 días', 15, 'factura', 1, NULL),
+(4, '30 días', 30, 'factura', 1, NULL),
+(5, '1 día', 1, 'cotizacion', 1, 1),
+(6, '3 días', 3, 'cotizacion', 1, NULL),
+(8, 'CONTADO', 1, 'factura', 2, 1),
+(9, '3 días', 3, 'factura', 2, NULL),
+(10, '15 días', 15, 'factura', 2, NULL),
+(11, '30 días', 30, 'factura', 2, NULL),
+(12, '1 días', 1, 'cotizacion', 2, 1),
+(13, '3 días', 3, 'cotizacion', 2, NULL),
+(14, '8 días', 8, 'cotizacion', 2, NULL),
+(15, '', 0, '', 2, NULL),
+(16, '5 días', 5, '', 1, NULL),
+(17, '5 días', 5, 'cotizacion', 1, NULL),
+(20, '8 días', 8, 'cotizacion', 1, NULL),
+(32, '45 días', 45, 'factura', 1, NULL),
+(34, '15 días', 15, 'cotizacion', 1, NULL),
+(35, '12 días', 12, 'cotizacion', 1, NULL);
 
 -- --------------------------------------------------------
 

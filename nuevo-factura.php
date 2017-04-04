@@ -162,8 +162,8 @@
     $fecha_actual = obtenerFechaHoy();
     $num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
-    $condiciones = obtenerCondiciones( $dbh, "factura" );
-    $id_cond_defecto = obtenerIdCondicion( $dbh, "factura", "CONTADO" ); 
+    $condiciones = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );
+    $id_cond_defecto = obtenerIdDefecto( $dbh, "factura", $usuario["idUsuario"] ); 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>

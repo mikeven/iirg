@@ -152,8 +152,8 @@
     $fecha_actual = obtenerFechaHoy();
     $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
-    $id_cond_defecto = obtenerIdCondicion( $dbh, "cotizacion", "1 días" );
+    $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
+    $id_cond_defecto = obtenerIdDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
     $obs = obtenerFormatoObservacionesCtz( $frt_c );
   ?>
   <!-- Left side column. contains the logo and sidebar -->

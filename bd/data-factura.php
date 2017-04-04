@@ -136,7 +136,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" );
 		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "factura" );
-		print_r($encabezado);
+		
 		$detalle = json_decode( $_POST["detalle"] );
 		
 		$idf = guardarFactura( $dbh, $encabezado, $detalle, $encabezado->idu );

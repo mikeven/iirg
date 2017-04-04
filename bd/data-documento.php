@@ -11,10 +11,10 @@
 		return $fecha_actual["f1"]['fecha'];
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-	function obtenerCondiciones( $dbh, $doc ){
+	function obtenerCondiciones( $dbh, $doc, $idu ){
 		//Obtiene las condiciones o validez de un documento de acuerdo al usuario en sesión
 		$lista_c = array();
-		$q = "Select * from condicion where documento = '$doc'";
+		$q = "Select * from condicion where documento = '$doc' and idUsuario = $idu";
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -27,6 +27,13 @@
 		$q = "Select idCondicion as id from condicion where nombre = '$nombre'";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
 		return $data["id"];
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerIdDefecto( $dbh, $documento, $idu ){
+		//Obtiene el id de condición por defecto de sistema de acuerdo al documento
+		$q = "Select idCondicion as id from condicion where sistema = 1 and idUsuario = $idu";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		return $data["id"];	
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerCondicionPorId( $dbh, $doc, $id ){
@@ -134,6 +141,22 @@
 		return mysql_affected_rows();
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
+	function agregarCondicionDocumento( $dbh, $valor, $documento, $idu ){
+		$q = "insert into condicion ( nombre, valor, documento, idUsuario ) 
+		values ( '$valor días', $valor, '$documento', $idu )";
+		$data = mysql_query( $q, $dbh );
+
+		//echo $q;
+		return mysql_insert_id();
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function eliminarCondicion( $dbh, $idc ){
+		//Elimina un registro de condición de documento dado por su id
+		$q = "delete from condicion where idCondicion = $idc";
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();
+	}
+
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
@@ -143,6 +166,29 @@
 		//Actualización de estado de un documento
 		include( "bd.php" );
 		cambiarEstadoDocumento( $dbh, $_POST["id_doc_estado"], $_POST["documento"], $_POST["estado"] );
+	}
+
+	if( isset( $_POST["reg_condicion"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
+		//Registro de condición para documento
+		include( "bd.php" );
+		$idr = agregarCondicionDocumento( $dbh, $_POST["v"], $_POST["documento"], $_POST["idusuario"] );
+		if( ( $idr != 0 ) && ( $idr != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Registro exitoso";
+			$res["idr"] = $idr;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar condición de documento";
+		}	
+		
+		echo json_encode( $res );
+	}
+
+	if( isset( $_POST["elim_condicion"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
+		//Eliminación de condición de documento
+		include( "bd.php" );
+		$idc = $_POST["elim_condicion"];	
+		echo eliminarCondicion( $dbh, $idc );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 	

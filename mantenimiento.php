@@ -8,12 +8,11 @@
   include( "bd/bd.php" );
   include( "bd/data-sistema.php" );
   include( "bd/data-usuario.php" );
-	include( "bd/data-formato.php" );
+	include( "bd/data-documento.php" );
 	include( "fn/fn-formato.php" );
 	checkSession( '' );
 	
-  	$nombre_usuario = $_SESSION["user"]["nombre"];
-  	for ( $i = 0; $i <= 5; $i++ ) { $datau[$i] = ""; }
+  $iva = $sisval_iva * 100;  
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +68,7 @@
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
 
-    <script src="js/fn-formato.js"></script>
+    <script src="js/fn-condicion.js"></script>
     <style>
       .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
     </style>
@@ -119,13 +118,12 @@
   <!-- Left side column. contains the logo and sidebar -->
   <?php 
     include("subforms/nav/menu_ppal.php");
-    
-    /* Data cotizaciones */
-    
-
   ?>
   <!-- Left side column. contains the logo and sidebar -->
-
+  <?php 
+    $condiciones_ctz = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
+    $condiciones_fac = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );
+  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -143,7 +141,7 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <div class="col-md-10">
+            <div class="col-md-6">
               <div class="box box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">Ajustes</h3>
@@ -151,57 +149,155 @@
                 <div class="box-body">
                   <div class="box-group" id="accordion">
                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                    
+                    <input type="hidden" name="id_usuario" id="idUsuario" value="<?php echo $usuario["idUsuario"]?>">
                     <div class="box-body">
                       <!-- Custom Tabs -->
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                          <li class="active"><a href="#tab_f1" data-toggle="tab">IVA</a></li>
-                          <li><a href="#tab_f2" data-toggle="tab">Condiciones de documentos</a></li>
+                          <li class="active"><a href="#tab1" data-toggle="tab">IVA</a></li>
+                          <li><a href="#tab2" data-toggle="tab">Condiciones de cotización</a></li>
+                          <li><a href="#tab3" data-toggle="tab">Condiciones de facturación</a></li>
                         </ul>
                         
                         <div class="tab-content">
                           
-                          <div class="tab-pane active" id="tab_f1">
+                          <div class="tab-pane active" id="tab1">
                             
-                            <hr>
-                            
-                          </div><!-- /.tab-pane -->
-                          
-                          <div class="tab-pane" id="tab_f2">
-                          
-                            <form role="form" id="frm_mencabezf" name="form_mencabezadof" method="post" action="bd/data-usuario.php">
-                              <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                              <input name="mod_enc_fac" type="hidden" value="1">
-                              <div class="box-body">
-
-                              </div><!-- /.box-body -->
-
-                              <div class="box-footer" align="center">
-                                <button type="submit" class="btn btn-primary" id="bt_mef">Guardar</button>
+                            <div class="form-group">
+                              <div class="input-group" style="width:50%;">
+                                <input type="text" class="form-control" name="iva" value="<?php echo $iva; ?>">
+                                <span class="input-group-addon">%</span>
                               </div>
-                            </form>   
+                            </div><!-- /.form group -->
                           
                           </div><!-- /.tab-pane -->
                           
+                          <div class="tab-pane" id="tab2">
+                            <div id="agregar_condicion_ctz">
+                              <form role="form" id="frm_condiciones_ctz" name="frm_condiciones">
+                                
+                                <div class="form-group" style="width:50%;">
+                                  <label for="diasctz">Agregar condición de cotización</label>
+                                  <div class="input-group margin">
+                                    <input type="text" class="form-control iik" placeholder="días" id="diasctz" 
+                                    data-d="cotizacion" data-ve="vecc">
+                                    <span class="input-group-btn">
+                                      <button type="button" class="btn btn-info btn-flat ag_cond" data-v="diasctz">Guardar</button>
+                                    </span>
+                                  </div>
+                                </div><!-- /.form group -->
+                              
+                              </form>
+                              <hr>
+                              <div>
+                                <label for="lista_condiciones_ctz">Condiciones registradas</label>
+                                <table class="table table-condensed" id="lista_condiciones_vecc">
+                                  <tbody>
+                                      <?php 
+                                        $nf = 0;
+                                        foreach( $condiciones_ctz as $c ){ 
+                                          $nf++; $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          if( $c["valor"] == 1 ){
+                                            $val = $c["nombre"]; $p1 = "readonly"; $p2 = "disabled";
+                                          }
+                                      ?>
+                                      <tr id="vecc<?php echo $nf; ?>">
+                                        <th width="90%" class="tit_tdf_i">
+                                          <div class="input-group">
+                                            <input type="text" class="form-control iik vecc" id="<?php echo $c["idCondicion"]; ?>" 
+                                            name="condicion" value="<?php echo $val; ?>" maxlength="2" <?php echo $p1; ?>>
+                                            <span class="input-group-addon">días</span>
+                                          </div>
+                                        </th>
+                                        
+                                        <th width="7%" class="tit_tdf_d">
+                                          <button type="button" class="btn btn-block btn-danger ecd" 
+                                          data-fila="vecc<?php echo $nf; ?>" 
+                                          data-idc="<?php echo $c["idCondicion"]; ?>" <?php echo $p2; ?>>
+                                            <i class='fa fa-times'></i>
+                                          </button>
+                                        </th>
+                                      </tr>
+
+                                      <?php } ?>
+                                  </tbody>
+                                </table>
+                                <input type="hidden" value="<?php echo $nf; ?>" id="nregsvecc">
+                              </div>
+                              
+                            </div>
+                              
                           </div><!-- /.tab-pane -->
+                          
+                          <div class="tab-pane" id="tab3">
+                            <div id="agregar_condicion_fac">
+                              <form role="form" id="frm_condiciones_fac" name="frm_condiciones">
+                                <label for="diasfac">Agregar condición de facturación</label>
+                                <div class="form-group" style="width:50%;">
+                                  <div class="input-group margin">
+                                    <input type="text" class="form-control iik" placeholder="días" id="diasfac" 
+                                    data-d="factura" data-ve="vecf">
+                                    <span class="input-group-btn">
+                                      <button type="button" class="btn btn-info btn-flat ag_cond" data-v="diasfac">Guardar</button>
+                                    </span>
+                                  </div>
+                                </div><!-- /.form group -->
+                              
+                              </form>
+                              <hr>
+                              <div>
+                                <label for="lista_condiciones_fac">Condiciones registradas</label>
+                                <table class="table table-condensed" id="lista_condiciones_vecf">
+                                  <tbody>
+                                      <?php $nc = 0;
+                                        foreach( $condiciones_fac as $c ){ 
+                                          $nc++; $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          if( $c["sistema"] == 1 ){
+                                            $val = $c["nombre"]; $p1 = "readonly"; $p2 = "disabled";
+                                          }
+                                      ?>
+                                        <tr id="vecf<?php echo $nc; ?>">
+                                          <th width="90%" class="tit_tdf_i">
+                                            <div class="input-group">
+                                              <input type="text" class="form-control iik vecf" id="<?php echo $c["idCondicion"]; ?>" 
+                                              name="condicion" value="<?php echo $val; ?>" maxlength="2" <?php echo $p1; ?>>
+                                              <span class="input-group-addon">días</span>
+                                            </div>
+                                          </th>
+                                          
+                                          <th width="7%" class="tit_tdf_d">
+                                            <button type="button" class="btn btn-block btn-danger ecd" 
+                                             data-fila="vecf<?php echo $nc; ?>" data-idc="<?php echo $c["idCondicion"]; ?>" <?php echo $p2; ?>>
+                                              <i class='fa fa-times'></i>
+                                            </button>
+                                          </th>
+                                        </tr>
+                                      <?php } ?>
+                                  </tbody>
+                                </table>
+                                <input type="hidden" value="<?php echo $nc; ?>" id="nregsvecf">
+                              </div>
+                              
+                            </div>
                         
                         </div><!-- /.tab-content -->
-                      
+                        <!-- Bloque de respuesta del servidor -->
+                          <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+                          <?php include("subforms/nav/mensaje_respuesta.php");?>
+                        <!-- /.Bloque de respuesta del servidor -->
                       </div><!-- /.nav-tabs-custom -->
                     
                     </div> <!--/.box-body-->
 
                   </div>
-                  <!-- Bloque de respuesta del servidor -->
-                  <?php include("subforms/nav/mensaje_rcpf.php"); ?>
-                  <!-- /.Bloque de respuesta del servidor -->
+                  
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
             <!-- right column -->
+            
             <div class="col-md-6">
-              <!-- Horizontal Form -->
+              
               
               
             </div><!--/.col (right) -->
@@ -222,5 +318,8 @@
 
 </div>
 <!-- ./wrapper -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
 </body>
 </html>
