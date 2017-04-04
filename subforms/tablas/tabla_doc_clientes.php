@@ -21,7 +21,7 @@
         <tr>
             <td> <?php echo $o["documento"]. " Nro. ".$o["numero"];  ?></td>
             <td> <?php echo $o["femision"];   ?></td>
-            <td> <?php echo number_format( $o["total"], 2, ",", "." ); ?></td>
+            <td align="right"> <?php echo number_format( $o["total"], 2, ",", "." ); ?></td>
             <td align="center">
               <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
             </td>
