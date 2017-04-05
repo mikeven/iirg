@@ -168,7 +168,6 @@
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------------------------- */
 	
-
 	if( isset( $_POST["id_doc_estado"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
 		//Actualización de estado de un documento
 		include( "bd.php" );

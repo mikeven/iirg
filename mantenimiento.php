@@ -19,7 +19,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Configuración de sistema </title>
+  <title>IIRG | Opciones de sistema </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -68,10 +68,10 @@
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
 
-    <script src="js/fn-condicion.js"></script>
+    <script src="js/fn-sistema.js"></script>
     <style>
       .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
-      .chkupdt{ color: green; font-size:17px; } .chkupdt_e{ color: red; font-size:17px; }
+      .chkupdt, #ivares{ color: green; font-size:17px; } .chkupdt_e{ color: red; font-size:17px; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -155,22 +155,23 @@
                       <!-- Custom Tabs -->
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                          <li class="active"><a href="#tab1" data-toggle="tab">IVA</a></li>
+                          <li class="active"><a href="#tab1" data-toggle="tab">Porcentaje del IVA</a></li>
                           <li><a href="#tab2" data-toggle="tab">Condiciones de cotización</a></li>
                           <li><a href="#tab3" data-toggle="tab">Condiciones de facturación</a></li>
-                        </ul>
+                        </ul>                        
                         
                         <div class="tab-content">
                           
-                          <div class="tab-pane active" id="tab1">
-                            
+                          <div class="tab-pane active" id="tab1">                            
                             <div class="form-group">
                               <div class="input-group" style="width:50%;">
-                                <input type="text" class="form-control" name="iva" value="<?php echo $iva; ?>">
-                                <span class="input-group-addon">%</span>
+                                <input type="text" class="form-control" id="iva_valor" name="iva" value="<?php echo $iva; ?>">
+                                <span class="input-group-addon"><span id="ivares">%</span></span>
                               </div>
                             </div><!-- /.form group -->
-                          
+                            <div class="box-footer" align="center" style="width:50%;">
+                              <button type="submit" class="btn btn-primary" id="bt_act_iva">Guardar</button>
+                            </div>                          
                           </div><!-- /.tab-pane -->
                           
                           <div class="tab-pane" id="tab2">

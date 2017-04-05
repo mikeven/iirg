@@ -125,8 +125,10 @@
       $( document ).ready(function() {
         <?php if( isset( $tn ) ) { ?>
           obtenerNumeroNota( '<?php echo $tn?>');
-          <?php if($encabezado["tipo_concepto"] == "Ajuste global") { ?>
-            $("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
+          <?php 
+            if ( isset( $_GET["idref"] ) )
+              if( $encabezado["tipo_concepto"] == "Ajuste global" ) { ?>
+                $("#tdetalle").fadeOut(200); $("#subtotal").removeAttr("readonly");
           <?php } ?>
           asignarOpcionesConcepto( '<?php echo $tn; ?>' );
         <?php } ?>
@@ -508,7 +510,8 @@
                         
                           <!-- Bloque de respuesta del servidor -->
                             <?php //include("subforms/nav/mensaje_rcpf.php");?>
-                            <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+                            <button type="button" id="enl_vmsj" data-toggle="modal" 
+                            data-target="#ventana_mensaje" class="hidden"></button>
                             <?php include("subforms/nav/mensaje_respuesta.php");?>
                           <!-- /.Bloque de respuesta del servidor -->
 

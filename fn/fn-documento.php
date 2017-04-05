@@ -70,6 +70,17 @@
 		return $admite;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function esModificable( $dbh, $tdd, $id, $encabezado ){
+		//Determina si un documento es modificable
+		$modificable = true;
+		
+		if ( $encabezado["estado"] != "pendiente" ) $modificable = false;
+		if ( $tdd == "fac" ) {
+			if( tieneNotaAsociada( $dbh, $id ) ) $modificable = false;
+		}
+		return $modificable;
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function enlaceAccion( $documento, $id_doc, $accion, $p ){
 	/* Retorna el enlace para modificar/copiar un documento de acuerdo al tipo de documento indicado */
 		$ndoc = array(

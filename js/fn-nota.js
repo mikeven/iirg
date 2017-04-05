@@ -228,19 +228,23 @@ $( document ).ready(function() {
 	var cant = "";
 
 	/* ----------------------------------------------------------------------------------- */
-	$("#subtotal").on( "blur keyup", function(){
-		var subtotal = parseFloat( $(this).val() ); 
-		var piva = subtotal * $("#iva").val();
-		var total = subtotal + parseFloat( piva );
+	if ( $("#subtotal").is('[readonly]') == false ){
 		
-		$("#v_iva").val( piva.toFixed( 2 ) );
-		$("#total").val( total.toFixed( 2 ) );
-    });
+		$("#subtotal").on( "blur keyup", function(){
+			var subtotal = parseFloat( $(this).val() ); 
+			var piva = subtotal * $("#iva").val();
+			var total = subtotal + parseFloat( piva );
+			
+			$("#v_iva").val( piva.toFixed( 2 ) );
+			$("#total").val( total.toFixed( 2 ) );
+	    });
     
-    $("#subtotal").on( "blur", function(){ 
-    	var subtotal = parseFloat( $(this).val() );  
-    	$("#subtotal").val( subtotal.toFixed( 2 ) );   
-    });
+	    $("#subtotal").on( "blur", function(){ 
+	    	var subtotal = parseFloat( $(this).val() );  
+	    	$("#subtotal").val( subtotal.toFixed( 2 ) );   
+	    });
+
+    }
     /* ----------------------------------------------------------------------------------- */
     $(".ocn").click( function(){ //Selección de ajuste global
 		$("#tconcepto").val( $(this).html() );

@@ -118,6 +118,15 @@
 		return $lista;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function valorExistent( $dbh, $campo, $valor ){
+		$existente = 0;
+		$q = "select * from articulo where $campo = '$valor'"; 
+		$data = mysql_query( $q, $dbh );
+		if( mysql_num_rows( $data ) > 0 ) $existente = 1;
+		
+		return $existente;	
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	if( isset( $_POST["reg_articulo"] ) || isset( $_POST["mod_articulo"] ) ){
 		include( "bd.php" );
 		$articulo["descripcion"] = $_POST["descripcion"];
@@ -170,6 +179,11 @@
 	if( isset( $_POST["elim_und"] ) ){
 		include( "bd.php" );		
 		return eliminarUnidad( $dbh, $_POST["idreg"] );
+	}
+
+	if( isset( $_POST["existe"] ) ){
+		include( "bd.php" );		
+		echo valorExistent( $dbh, $_POST["campo"], $_POST["valor"] );
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
 ?>

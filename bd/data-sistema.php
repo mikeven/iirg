@@ -1,5 +1,5 @@
 <?php
-	/* R&G - Funciones de sistena */
+	/* IIRG - Funciones de sistema */
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------------------------- */
 	function obtenerValorIva( $dbh ){
@@ -10,26 +10,20 @@
 
 		return $reg["valor"] / 100;
 	}
-	
+	/* ----------------------------------------------------------------------------------------------------- */
+	function actualizarValorIVA( $dbh, $iva ){
+		//Edita el valor del IVA
+		$q = "update valores set valor = $iva WHERE nombre = 'iva'";
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();
+	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
 	/* ----------------------------------------------------------------------------------------------------- */
-	
-	//Modificar datos de usuario. Bloque: contraseña
-	if( isset( $_POST["mod_passw"] ) ){
-		
-		include("bd.php");
-		$usuario["id"] 			= $_POST["idUsuario"];
-		$usuario["password"] 	= $_POST["password1"];
-		
-		$res["exito"] = modificarPassword( $usuario, $dbh );
-		
-		if( $res["exito"] == 1 )
-			$res["mje"] = "Contraseña actualizada con éxito";
-		else
-			$res["mje"] = "Error al actualizar contraseña";
-		
-		echo json_encode( $res );	
+	//Modificar valor del IVA
+	if( isset( $_POST["act_iva"] ) ){		
+		include( "bd.php" );
+		echo actualizarValorIVA( $dbh, $_POST["act_iva"] );			
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	$sisval_iva = obtenerValorIva( $dbh );

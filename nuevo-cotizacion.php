@@ -286,6 +286,7 @@
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
                                     <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
@@ -432,13 +433,15 @@
                         
                         <!-- Bloque de respuesta del servidor -->
                           <?php //include("subforms/nav/mensaje_rcpf.php");?>
-                          <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+                          <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje" class="hidden"></button>
                           <?php include("subforms/nav/mensaje_respuesta.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
                     
                     </div><!-- /.box-body -->
                     <div class="box-footer" align="center">
-                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
+                    	<button type="button" class="btn btn-primary blq_bdoc" id="btn_confirmacion" 
+                      data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
                       include( "subforms/nav/mensaje_confirmacion.php" );

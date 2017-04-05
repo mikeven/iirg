@@ -456,7 +456,8 @@
                                                               id="total" value="<?php if(isset( $nota )) echo $totales["total"]?>" readonly>
                                                   		  </div>
                                                   	  </div>
-                                                      <input id="mototalnota" name="totaln" type="hidden" value="<?php if(isset( $factura )) echo $totales_f["total"]?>">
+                                                      <input id="mototalnota" name="totaln" type="hidden" 
+                                                      value="<?php if(isset( $factura )) echo $totales_f["total"]?>">
                                                   </th>
                                                   <th width="5%"></th>
                                               </tr>

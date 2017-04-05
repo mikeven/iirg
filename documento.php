@@ -293,8 +293,7 @@
           </div>
           <div id="btn_opciones" class="btn-group pull-right bdatadoc" align="center">
             <button type="button" class="btn btn-info">Más Opciones</button>
-            <button type="button" class="btn btn-info dropdown-toggle" 
-            data-toggle="dropdown" aria-expanded="true">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -305,7 +304,7 @@
                 data-taccion="Aprobar"><i class="fa fa-check"></i> Aprobar</a>
               </li>
               <?php } ?>
-              <?php if( $encabezado["estado"] == "pendiente" ) { ?>
+              <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { ?>
                 <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
               <?php } ?>
               

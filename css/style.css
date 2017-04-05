@@ -1,6 +1,8 @@
 @charset "utf-8";
 /* 
  */
+
+ .fleft{ float: left; }
  
 .icon-color{ 
 	color:#3C8DBC;
@@ -32,6 +34,14 @@
 	background: #20af6d;
 	border-color: #008d4c; 
 }
+
+.btn-tvent{
+	width: auto;
+	margin-left: 8px;
+}
+
+
+
 /*-------------------------------------------*/
 /*  ---------  documento.php  --------*/
 /*-------------------------------------------*/
@@ -43,7 +53,7 @@
 #bloque_documento{ padding: 8px 15px; margin: 10px 3px 10px 15px !important; } 
 .page-header{ padding-bottom: 20px; }
 
-.rojo{ color: #d73925;} .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} 
+.rojo{ color: #d73925; } .amarillo{ color: #f39c12;} .verde{ color: #00a65a;} 
 .azul{ color: #0073b7; } .gris{ color: #666;}
 
 #bloque_data_documento{ margin: 10px 3px 10px 10px !important; width: 21.7% !important; }

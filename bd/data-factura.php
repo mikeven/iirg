@@ -23,6 +23,17 @@
 		return $data["num"] + 1;
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
+	function tieneNotaAsociada( $dbh, $id ){
+		//Determina si un nota (crédito/débito) está asociada a una factura dado su id  
+		$asociada = false;
+		$q = "select * from nota where idFactura = $id and tipo <> 'nota_entrega'";
+		$data = mysql_query ( $q, $dbh ); 
+		if( mysql_num_rows( $data ) > 0 )
+			$asociada = true;
+		
+		return $asociada;		
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
 	function obtenerDetalleFactura( $dbh, $idf ){
 		// Obtiene los ítems del detalle de una factura
 		$detalle = array();

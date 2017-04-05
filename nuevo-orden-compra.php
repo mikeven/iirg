@@ -410,7 +410,7 @@
                               
                               <!-- Bloque de respuesta del servidor -->
                                  <button type="button" id="enl_vmsj" data-toggle="modal" 
-                                 data-target="#ventana_mensaje"></button>
+                                 data-target="#ventana_mensaje" class="hidden"></button>
                                  <?php include("subforms/nav/mensaje_respuesta.php");?>
                               <!-- /.Bloque de respuesta del servidor -->
                            </div>

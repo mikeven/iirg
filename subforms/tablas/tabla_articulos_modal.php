@@ -8,7 +8,18 @@
     <div class="modal-content">
       <div class="modal-header">
       	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Registro de Artículos</h4>
+        <div id="tventana_modal_articulos">
+          <div class="fleft">
+            <h4 class="modal-title" id="myModalLabel">Registro de Artículos</h4>
+          </div>
+          <div class="fleft" data-toggle="tooltip" title="Agregar nuevo">
+            <button type="button" class="btn btn-block btn-default btn-tvent" 
+              data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#nuevo_articulo">
+              <i class="fa fa-plus verde"></i>
+            </button>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
       </div>
       <div class="modal-body">
       	<table id="larticulos" class="table table-bordered table-striped">

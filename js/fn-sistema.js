@@ -23,6 +23,26 @@ function ventanaMensaje( exito, mensaje, enlace ){
 	$("#enl_vmsj").click();
 }
 /* ----------------------------------------------------------------------------------- */
+function actualizarValorIVA( iva ){
+	var icon_ok = "<i class='fa fa-check-square-o'></i>";
+	$.ajax({
+		type:"POST",
+		url:"bd/data-sistema.php",
+		data:{ act_iva : iva },
+		beforeSend: function () {
+		},
+		success: function( response ){
+			console.log(response);
+			if( response != -1 ){
+			    $("#ivares").fadeOut("slow", function(){
+			        $("#ivares").html( icon_ok );
+			       	$("#ivares").fadeIn( 300 );	
+			    });
+			}
+		}
+	});	
+}
+/* ----------------------------------------------------------------------------------- */
 function checkCondicion( vcond ){
 	//Validación de formulario de condiciones previo a su registro
 	var error = 0;
@@ -144,6 +164,13 @@ function initBotonEliminarCondicion(){
 /* ----------------------------------------------------------------------------------- */
 $( document ).ready(function() {
 	/* =============================================================================== */
+	
+	$("#bt_act_iva").on( "click", function(){
+		var iva = $("#iva_valor").val();
+		actualizarValorIVA( iva );
+    });
+
+	/* ------------------------------------------------------------------------------- */
 	$(".chkupdt").hide();
     $(".chkupdt_e").hide();
 	$( ".iik" ).keypress(function( evt ) {
