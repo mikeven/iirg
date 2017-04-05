@@ -95,7 +95,7 @@ $( document ).ready(function() {
 		actualizarCategoria( idr, "descripcion", valor );
     })
     /*--------------------*/
-    $(".lnund").blur(function(){
+    $(".lnund").on( "change", function(){
 		valor = $(this).val(); idr = $( this ).attr("id");
 		actualizarUnidad( idr, valor );
     })

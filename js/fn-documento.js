@@ -94,8 +94,8 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 				qant + "</th><th>" +
 				und + "</th><th>" +
 				punit + "</th><th>" +
-				ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf blq_bdoc' onClick='elimItemDetalle("+ id_bot_elim +")'>" + "<i class='fa fa-times'></i></button></th></tr>";
-	
+				ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf blq_bdoc' "+
+				"onClick='elimItemDetalle("+id_bot_elim +")'>" + "<i class='fa fa-times'></i></button></th></tr>";
 	
 	$( item_d ).appendTo( tabla + " tbody").show("slow");
 	
@@ -123,7 +123,10 @@ function resetItemsDocumento(){
 	$("#narticulo").val("");
 	$("#idArticulo").val( 0 );
 	$("#cantidad").val( "" );
-	if( $("#tipo").val() == "solicitud" ) $("#punit").val( parseFloat(0.00).toFixed( 2 ) ); else $("#punit").val( "" );
+	if( $("#tipo").val() == "solicitud" ) 
+		$("#punit").val( parseFloat(0.00).toFixed( 2 ) ); 
+	else 
+		$("#punit").val( "" );
 	$("#ptotal").val( 0.00 );
 }
 /* --------------------------------------------------------- */

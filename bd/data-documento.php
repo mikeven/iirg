@@ -14,7 +14,7 @@
 	function obtenerCondiciones( $dbh, $doc, $idu ){
 		//Obtiene las condiciones o validez de un documento de acuerdo al usuario en sesión
 		$lista_c = array();
-		$q = "Select * from condicion where documento = '$doc' and idUsuario = $idu";
+		$q = "Select * from condicion where documento = '$doc' and idUsuario = $idu order by valor ASC";
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -150,6 +150,13 @@
 		return mysql_insert_id();
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
+	function editarCondicion( $dbh, $idc, $valor ){
+		//Edita un registro de condición de documento
+		$q = "update condicion set valor = $valor, nombre = '$valor días' WHERE idCondicion = $idc";
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
 	function eliminarCondicion( $dbh, $idc ){
 		//Elimina un registro de condición de documento dado por su id
 		$q = "delete from condicion where idCondicion = $idc";
@@ -167,7 +174,7 @@
 		include( "bd.php" );
 		cambiarEstadoDocumento( $dbh, $_POST["id_doc_estado"], $_POST["documento"], $_POST["estado"] );
 	}
-
+	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_condicion"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
 		//Registro de condición para documento
 		include( "bd.php" );
@@ -183,13 +190,20 @@
 		
 		echo json_encode( $res );
 	}
-
+	/* ----------------------------------------------------------------------------------------------------- */
+	if( isset( $_POST["editar_condicion"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
+		//Eliminación de condición de documento
+		include( "bd.php" );
+		$idc = $_POST["editar_condicion"];	
+		echo editarCondicion( $dbh, $idc, $_POST["val"] );
+	}
+	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["elim_condicion"] ) ){ //id_doc_estado: proviene de fn-hoja-documento.js
 		//Eliminación de condición de documento
 		include( "bd.php" );
 		$idc = $_POST["elim_condicion"];	
 		echo eliminarCondicion( $dbh, $idc );
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------------------------- */
 	
 ?>

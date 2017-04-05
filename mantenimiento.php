@@ -71,6 +71,7 @@
     <script src="js/fn-condicion.js"></script>
     <style>
       .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
+      .chkupdt{ color: green; font-size:17px; } .chkupdt_e{ color: red; font-size:17px; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -194,26 +195,32 @@
                                 <table class="table table-condensed" id="lista_condiciones_vecc">
                                   <tbody>
                                       <?php 
-                                        $nf = 0;
                                         foreach( $condiciones_ctz as $c ){ 
-                                          $nf++; $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          $idcond = $c["idCondicion"];
                                           if( $c["valor"] == 1 ){
                                             $val = $c["nombre"]; $p1 = "readonly"; $p2 = "disabled";
                                           }
                                       ?>
-                                      <tr id="vecc<?php echo $nf; ?>">
+                                      <tr id="vecc<?php echo $idcond; ?>">
                                         <th width="90%" class="tit_tdf_i">
                                           <div class="input-group">
-                                            <input type="text" class="form-control iik vecc" id="<?php echo $c["idCondicion"]; ?>" 
+                                            <input type="text" class="form-control iik vecc" id="<?php echo $idcond; ?>" 
                                             name="condicion" value="<?php echo $val; ?>" maxlength="2" <?php echo $p1; ?>>
                                             <span class="input-group-addon">días</span>
                                           </div>
                                         </th>
+
+                                        <th width="3%" class="tit_tdf">
+                                          <i class="fa fa-check-square-o chkupdt" id="chku<?php echo $idcond; ?>"></i>
+                                          <i class="fa fa-times chkupdt_e" id="chkue<?php echo $idcond; ?>"></i>
+                                        </th>
                                         
                                         <th width="7%" class="tit_tdf_d">
                                           <button type="button" class="btn btn-block btn-danger ecd" 
-                                          data-fila="vecc<?php echo $nf; ?>" 
-                                          data-idc="<?php echo $c["idCondicion"]; ?>" <?php echo $p2; ?>>
+                                          data-fila="vecc<?php echo $c["idCondicion"]; ?>" 
+                                          data-idc="<?php echo $idcond; ?>" 
+                                          <?php echo $p2; ?>>
                                             <i class='fa fa-times'></i>
                                           </button>
                                         </th>
@@ -222,7 +229,7 @@
                                       <?php } ?>
                                   </tbody>
                                 </table>
-                                <input type="hidden" value="<?php echo $nf; ?>" id="nregsvecc">
+                                
                               </div>
                               
                             </div>
@@ -249,40 +256,47 @@
                                 <label for="lista_condiciones_fac">Condiciones registradas</label>
                                 <table class="table table-condensed" id="lista_condiciones_vecf">
                                   <tbody>
-                                      <?php $nc = 0;
+                                      <?php
                                         foreach( $condiciones_fac as $c ){ 
-                                          $nc++; $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          $val = $c["valor"]; $p1 = ""; $p2 = "";
+                                          $idcond = $c["idCondicion"];
                                           if( $c["sistema"] == 1 ){
                                             $val = $c["nombre"]; $p1 = "readonly"; $p2 = "disabled";
                                           }
                                       ?>
-                                        <tr id="vecf<?php echo $nc; ?>">
+                                        <tr id="vecf<?php echo $idcond; ?>">
                                           <th width="90%" class="tit_tdf_i">
                                             <div class="input-group">
-                                              <input type="text" class="form-control iik vecf" id="<?php echo $c["idCondicion"]; ?>" 
+                                              <input type="text" class="form-control iik vecf" id="<?php echo $idcond; ?>" 
                                               name="condicion" value="<?php echo $val; ?>" maxlength="2" <?php echo $p1; ?>>
                                               <span class="input-group-addon">días</span>
                                             </div>
                                           </th>
-                                          
+
+                                          <th width="3%" class="tit_tdf">
+                                            <i class="fa fa-check-square-o chkupdt" id="chku<?php echo $idcond; ?>"></i>
+                                            <i class="fa fa-times chkupdt_e" id="chkue<?php echo $idcond; ?>"></i>
+                                          </th>
+
                                           <th width="7%" class="tit_tdf_d">
                                             <button type="button" class="btn btn-block btn-danger ecd" 
-                                             data-fila="vecf<?php echo $nc; ?>" data-idc="<?php echo $c["idCondicion"]; ?>" <?php echo $p2; ?>>
+                                             data-fila="vecf<?php echo $idcond; ?>" data-idc="<?php echo $idcond; ?>" <?php echo $p2; ?>>
                                               <i class='fa fa-times'></i>
                                             </button>
                                           </th>
+
                                         </tr>
                                       <?php } ?>
                                   </tbody>
                                 </table>
-                                <input type="hidden" value="<?php echo $nc; ?>" id="nregsvecf">
+                                
                               </div>
                               
                             </div>
                         
                         </div><!-- /.tab-content -->
                         <!-- Bloque de respuesta del servidor -->
-                          <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+                          <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" class="hidden"></button>
                           <?php include("subforms/nav/mensaje_respuesta.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
                       </div><!-- /.nav-tabs-custom -->
