@@ -210,11 +210,18 @@ function bloquearDocumento(){
 	$(".blq_bdoc").prop('disabled', true);
 	$(".frm_documento input").prop('readonly', true);
 }
+/* --------------------------------------------------------- */
+function initDoc(){
+	$("#narticulo_asinc").on( "click", function(){
+		$( "#bt_reg_articulo" ).attr("id", "bt_reg_art_modal");
+    });	
+}
 /*===============================================================================================*/
 
 $( document ).ready(function() {
 	
 	initValid();
+	initDoc();
 
 	$('#femision').datepicker({
 		autoclose: true,

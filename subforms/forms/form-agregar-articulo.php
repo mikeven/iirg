@@ -10,14 +10,18 @@
           <!--<label for="exampleInputEmail1">Email address</label>-->
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
-              <input type="text" class="form-control" id="pdescripcion" placeholder="Descripción" name="descripcion">
+              <input type="text" class="form-control vexistente" id="pdescripcion" 
+              placeholder="Descripción" name="descripcion" data-err="#err_desc">
+              <input type="hidden" class="form-control" id="err_desc" value="0">
             </div>
         </div><!-- /.form group -->
         
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-barcode"></i></div>
-                <input id="pcodigo" type="text" class="form-control" placeholder="Código" data-mask name="codigo">
+                <input id="pcodigo" type="text" class="form-control vexistente" placeholder="Código" 
+                name="codigo" data-err="#err_cod">
+                <input type="hidden" class="form-control" id="err_cod" value="0">
             </div><!-- /.input group -->
         </div><!-- /.form group -->
         

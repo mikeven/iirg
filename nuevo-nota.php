@@ -509,7 +509,6 @@
                           </div><!-- /.pie_factura -->
                         
                           <!-- Bloque de respuesta del servidor -->
-                            <?php //include("subforms/nav/mensaje_rcpf.php");?>
                             <button type="button" id="enl_vmsj" data-toggle="modal" 
                             data-target="#ventana_mensaje" class="hidden"></button>
                             <?php include("subforms/nav/mensaje_respuesta.php");?>

@@ -3,10 +3,10 @@
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------------------------------------------------*/
-	function agregarArticulo( $articulo, $dbh ){
+	function agregarArticulo( $dbh, $articulo ){
 		//Agrega un registro de artículo
 
-		$q = "insert into articulo ( Codigo, Descripcion, Presentacion, idCategoria ) 
+		$q = "insert into articulo ( codigo, descripcion, presentacion, idCategoria ) 
 		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[presentacion]', $articulo[categoria] )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
@@ -142,8 +142,25 @@
 			$res = modificarArticulo( $articulo, $dbh );
 			$idr = $res["id"]."&res=$res[cambio]";
 		}
-		//echo $idr;
+		
 		echo "<script>window.location.href='../ficha_articulo.php?a=$idr'</script>";	
+	}
+	/*--------------------------------------------------------------------------------------------------------*/
+	if( isset( $_POST["regArticulo"] ) ){
+		include( "bd.php" );
+		
+		$articulo = array();
+		parse_str( $_POST["articulo"], $articulo );
+		$ida = agregarArticulo( $dbh, $articulo );
+		if( ( $ida != 0 ) && ( $ida != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Artículo agregado";
+			$res["id"] = $ida;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar artículo";
+		}
+		echo json_encode( $res );
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	/* Solicitudes al servidor para procesar información de artículos */

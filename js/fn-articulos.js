@@ -5,48 +5,84 @@
 */
 /* ----------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------- */
-function guardarArticulo(){
+function ventanaMensaje( exito, mensaje ){
+	var clase_m = ["modal-danger", "modal-success"];
+	$("#tx-vmsj").html( "" );	
+	$("#ventana_mensaje").addClass( clase_m[exito] );
+	$("#tit_vmsj").html( mensaje );
+	$("#enl_vmsj").click();
+}
+/* ----------------------------------------------------------------------------------- */
+function enviarRespuesta( res, modo, idhtml ){
+	//Manejo de respuesta de acuerdo al modo indicado
+	if( modo == "ventana" ){
+		ventanaMensaje( res.exito, res.mje );
+	}
+	if( modo == "redireccion" ){
+		var url = "ficha_articulo.php?a=" + res.id;
+		window.location.href = url;
+	}
+	if( modo == "print" ){
+		$( idhtml ).html( res.mje );	
+	}
+}
+/* ----------------------------------------------------------------------------------- */
+function guardarArticulo( form, modo_respuesta, idhtml ){
+	//Invocación a registrar de artículo
 	var url_data = "bd/data-articulo.php";
-	var unidad = $("#cuv").val();
+	var frm = form; 
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ nombre: unidad, reg_unidad:1 },
+        data:{ articulo: frm.serialize(), regArticulo:1 },
         success: function( response ){
-			$("#tresp").html(response);
-			window.location.href="categorias.php";
+			res = jQuery.parseJSON(response);
+			enviarRespuesta( res, modo_respuesta, idhtml );
         }
     });
 }
 /* ----------------------------------------------------------------------------------- */
-var valorExistente = function( clave, val, callback ){
+function marcarCampo( campo, error ){
+	if( error == 1 )
+		campo.css({'border-color' : '#dd4b39'});
+	if( error == 0 )
+		campo.css({'border-color' : '#ccc'});
+}
+/* ----------------------------------------------------------------------------------- */
+function valorExistente( html, clave, val, cres ){
 	var url_data = "bd/data-articulo.php";
 	var existe = 0;
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ campo: clave, valor: val, existe:1 },
+        data:{ campo: clave, valor: val, existe: 1 },
         success: function( response ){
-			if( response == 1 )	existe = 1;
-			callback( existe );
+			$(cres).val(response);
+			marcarCampo( html, response );
         }
     });
 }
 /* ----------------------------------------------------------------------------------- */
 function checkArticulo(){
+	//Validación de datos de artículo antes de registrarse
 	var error = 0;
-	var t = "nada";
-	valorExistente( 
-		"descripcion", $("#pdescripcion").val(), 
-		function(data){ error = data; if( error == 1 ) t = "desc"; alert(1); }
-	);
+	if( $("#err_desc").val() == 1 ) {
+		error = 1;
+		$("#tx-vmsj").html("Nombre de producto ya existe");
+	}
 
-	valorExistente( 
-		"codigo", $("#pcodigo").val(), 
-		function(data){ error = data; if( error == 1 ) t = "cod"; alert(2); }
-	);
-	
-	alert(3);
+	if( $("#err_cod").val() == 1 ) {
+		error = 1;
+		$("#tx-vmsj").html("Código de producto ya existe");
+	}
+
+	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
+
+	return error;
 }
 /* ----------------------------------------------------------------------------------- */
 function reg_categoria( frm_categoria ){
@@ -136,11 +172,25 @@ $( document ).ready(function() {
 	
 	$("#bt_reg_articulo").on( "click", function() {
 		if( checkArticulo() == 0 )
-			guardarArticulo();
+			guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
 		else
 			$("#enl_vmsj").click();	
 	});
 
+	$("#bt_reg_art_modal").on( "click", function() {
+		if( checkArticulo() == 0 )
+			guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
+		else
+			$("#enl_vmsj").click();	
+	});
+	
+	$(".vexistente").on( "change", function() {
+		var valor = $(this).val();
+		var clave = $(this).attr("name");
+		var cres = $(this).attr("data-err");
+		valorExistente( $(this), clave, valor, cres );
+	});
+	/*--------------------*/
 	$(".lncat").blur(function(){
 		valor = $(this).val(); idr = $(this).attr("id");
 		actualizarCategoria( idr, "nombre", valor );

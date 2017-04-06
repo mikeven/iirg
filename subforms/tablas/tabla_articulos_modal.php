@@ -13,8 +13,8 @@
             <h4 class="modal-title" id="myModalLabel">Registro de Artículos</h4>
           </div>
           <div class="fleft" data-toggle="tooltip" title="Agregar nuevo">
-            <button type="button" class="btn btn-block btn-default btn-tvent" 
-              data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#nuevo_articulo">
+            <button type="button" class="btn btn-default btn-tvent" id="narticulo_asinc" 
+            data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#nuevo_articulo">
               <i class="fa fa-plus verde"></i>
             </button>
           </div>

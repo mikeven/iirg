@@ -118,8 +118,8 @@ function editarNota(){
 }
 /* ----------------------------------------------------------------------------------- */
 function checkNota(){
+	//Validación de datos de nota antes de registrarse
 	var error = 0;
-	
 	var tipo_nota = $("#tipofte").val();
 	
 	if ( tipo_nota != "" ){

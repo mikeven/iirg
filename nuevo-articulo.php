@@ -70,7 +70,7 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
-    
+
     <script>
       $(function () {
         //Initialize Select2 Elements
@@ -169,8 +169,14 @@
       <div class="row">
         <!-- left column -->
         <div class="col-md-6">
+          
           <!-- general form elements -->
           <?php include( "subforms/forms/form-agregar-articulo.php" ); ?>
+          <!-- Bloque de respuesta del servidor -->
+            <button type="button" id="enl_vmsj" data-toggle="modal" 
+            data-target="#ventana_mensaje" class="_hidden"></button>
+            <?php include("subforms/nav/mensaje_respuesta.php");?>
+          <!-- /.Bloque de respuesta del servidor -->
         </div><!--/.col (left) -->        
       </div>      
     </section>
@@ -188,5 +194,8 @@
 
 </div>
 <!-- ./wrapper -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
 </body>
 </html>
