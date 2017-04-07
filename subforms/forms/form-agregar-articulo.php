@@ -52,7 +52,8 @@
       </div><!-- /.box-body -->
 
     <div class="box-footer" align="center">
-      <button type="button" class="btn btn-primary" id="bt_reg_articulo">Guardar</button>
+      <button type="button" class="btn btn-primary original" id="bt_reg_articulo">Guardar</button>
+      <button type="button" class="btn btn-primary" id="bt_reg_art_modal" style="display:none;">Guardar</button>
     </div>
   </form>
 </div><!-- /.box -->

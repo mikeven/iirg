@@ -20,7 +20,7 @@
 }
 
 /*-------------------------------------------*/
-/*  ---------  Sección cotizaciones  --------*/
+/* -----------  Sección documentos  ---------*/
 /*-------------------------------------------*/ 
 #tx-vmsj > a{ color: #FFF; }
 
@@ -35,12 +35,12 @@
 	border-color: #008d4c; 
 }
 
+#resalerta{ width: 85%; margin: 0 auto; }
+
 .btn-tvent{
 	width: auto;
 	margin-left: 8px;
 }
-
-
 
 /*-------------------------------------------*/
 /*  ---------  documento.php  --------*/

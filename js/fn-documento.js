@@ -213,7 +213,8 @@ function bloquearDocumento(){
 /* --------------------------------------------------------- */
 function initDoc(){
 	$("#narticulo_asinc").on( "click", function(){
-		$( "#bt_reg_articulo" ).attr("id", "bt_reg_art_modal");
+		$( "#bt_reg_articulo" ).hide('slow');
+		$( "#bt_reg_art_modal" ).show();
     });	
 }
 /*===============================================================================================*/

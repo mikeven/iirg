@@ -13,6 +13,25 @@ function ventanaMensaje( exito, mensaje ){
 	$("#enl_vmsj").click();
 }
 /* ----------------------------------------------------------------------------------- */
+function arrayMjes( modo ){
+	//
+	var amensajes = [], modalmje = [], alertmje = [];
+	
+	modalmje["idhtml"] = "#ventana_mensaje";
+	modalmje["titulo"] = "#tit_vmsj";
+	modalmje["mensaje"] = "#tx-vmsj";
+	modalmje["clase"] = "modal-danger";
+	alertmje["idhtml"] = "#resalerta";
+	alertmje["titulo"] = "#tresalerta";
+	alertmje["mensaje"] = "#txmjealerta";
+	alertmje["clase"] = "alert-danger";
+
+	amensajes["modal"] = modalmje;
+	amensajes["alerta"] = alertmje;
+
+	return amensajes[modo];
+}
+/* ----------------------------------------------------------------------------------- */
 function enviarRespuesta( res, modo, idhtml ){
 	//Manejo de respuesta de acuerdo al modo indicado
 	if( modo == "ventana" ){
@@ -63,23 +82,25 @@ function valorExistente( html, clave, val, cres ){
     });
 }
 /* ----------------------------------------------------------------------------------- */
-function checkArticulo(){
+function checkArticulo( mje_destino ){
 	//Validación de datos de artículo antes de registrarse
-	var error = 0;
+	var error = 0; var mje = "";
+	oRes = arrayMjes( mje_destino );
+	//$(oRes.idhtml).addClass("modal-danger");
+
 	if( $("#err_desc").val() == 1 ) {
-		error = 1;
-		$("#tx-vmsj").html("Nombre de producto ya existe");
+		error = 1; mje = "Nombre de producto ya existe";
 	}
 
 	if( $("#err_cod").val() == 1 ) {
-		error = 1;
-		$("#tx-vmsj").html("Código de producto ya existe");
+		error = 1; mje = "Código de producto ya existe";
 	}
 
 	if( error == 1 ){
 		//Asignar ventana de mensaje como mensaje de error
-		$("#ventana_mensaje").addClass("modal-danger");
-		$("#tit_vmsj").html( "Error" );
+		$(oRes.mensaje).html( mje );		
+		$(oRes.idhtml).addClass(oRes.clase);
+		$(oRes.titulo).html( "Error" );
 	}
 
 	return error;
@@ -171,19 +192,20 @@ function eliminarUnidad( idr ){
 $( document ).ready(function() {
 	
 	$("#bt_reg_articulo").on( "click", function() {
-		if( checkArticulo() == 0 )
+		if( checkArticulo('modal') == 0 )
 			guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
 		else
 			$("#enl_vmsj").click();	
 	});
-
+	/*--------------------*/
 	$("#bt_reg_art_modal").on( "click", function() {
-		if( checkArticulo() == 0 )
-			guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
+		if( checkArticulo('alerta') == 0 ){
+			//guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
+		}
 		else
-			$("#enl_vmsj").click();	
+			$("#resalerta").fadeIn("slow");	
 	});
-	
+	/*--------------------*/
 	$(".vexistente").on( "change", function() {
 		var valor = $(this).val();
 		var clave = $(this).attr("name");
@@ -195,7 +217,7 @@ $( document ).ready(function() {
 		valor = $(this).val(); idr = $(this).attr("id");
 		actualizarCategoria( idr, "nombre", valor );
     })
-	
+	/*--------------------*/
 	$(".ldcat").blur(function(){
 		valor = $(this).val(); idr = $(this).attr("id");
 		actualizarCategoria( idr, "descripcion", valor );
@@ -205,7 +227,7 @@ $( document ).ready(function() {
 		valor = $(this).val(); idr = $( this ).attr("id");
 		actualizarUnidad( idr, valor );
     })
-    
+    /*--------------------*/
 	$(".euv").on( "click", function() {
 		eliminarUnidad( $(this).attr( "data-idu" ) );
 	});
