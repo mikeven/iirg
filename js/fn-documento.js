@@ -3,9 +3,9 @@
 * fn-documento.js
 *
 */
-/* --------------------------------------------------------- */	
-/* --------------------------------------------------------- */
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */	
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
 	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
@@ -13,14 +13,23 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* ----------------------------------------------------------------------------------- */
-function obtenerIdCondicionForm(){
-	//Obtiene el id resultante del formulario del documento
-	var id = $( "#vcondicion" ).val();
-	if ( id == null )
-		id = $("#condicion_defecto").val();
-	return id;
+function obtenerNombreCondicionForm(){
+	//Obtiene el nombre de condición resultante del formulario del documento
+	if ( valor != null ) 
+		var valor = $("#vcondicion option:selected").text();
+	else
+		valor = $("#condicion_defecto").attr("data-condicion");
+	return valor;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+function obtenerCondicionForm(){
+	//Obtiene el valor de condición resultante del formulario del documento
+	var valor = $( "#vcondicion" ).val();
+	if ( valor == null )
+		valor = $("#condicion_defecto").val();
+	return valor;
+}
+/* ----------------------------------------------------------------------------------- */
 function obtenerVectorDetalle(){
 	//Retorna un arreglo con los elementos de detalle del documento
 	var detalle = new Array();
@@ -37,7 +46,7 @@ function obtenerVectorDetalle(){
 	});
 	return JSON.stringify( detalle );
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function isNumberKey(evt){
 	var charCode = (evt.which) ? evt.which : evt.keyCode;
 	if ( charCode != 46 && charCode > 31 && ( charCode < 48 || charCode > 57 ))
@@ -51,7 +60,7 @@ function isIntegerKey(evt){
 		return false;
 	return true;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function hacerCampoItem( nitem, valor, id, nombre, param ){
 	//Genera la etiqueta para los campos del ítem detalle de documento nuevo
 	var clase = "";
@@ -62,13 +71,13 @@ function hacerCampoItem( nitem, valor, id, nombre, param ){
 	
 	return campo;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function hacerCampoItemOculto(  id, nombre, valor, nitem ){
 	//Genera la etiqueta de campo oculto para un ítem detalle de documento nuevo
 	var campo = "<input id='" + id + "' name='" + nombre + "' type='hidden' value='" + valor + "' data-nitem='" + nitem + "'>";
 	return campo;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 	//Agrega un renglón de ítem al bloque de detalle de documento nuevo
 	var tabla = "#tdetalle";
@@ -102,7 +111,7 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 	resetItemsDocumento();
 	calcularTotales();
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function calcularTotales(){
 	//Suma los valores totales de ítems y calcula los totales del documento nuevo: subtotal, iva, total
 	var subtotal = parseFloat( 0 );
@@ -117,7 +126,7 @@ function calcularTotales(){
 	$("#v_iva").val( piva.toFixed( 2 ) );
 	$("#total").val( total.toFixed( 2 ) );	
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function resetItemsDocumento(){
 	//Reinicia los campos para agregar nuevo ítem al detalle de documento nuevo
 	$("#narticulo").val("");
@@ -129,7 +138,7 @@ function resetItemsDocumento(){
 		$("#punit").val( "" );
 	$("#ptotal").val( 0.00 );
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function elimItemDetalle( fila ){
 	//Elimina ítem de la tabla detalle de documento nuevo
 	//Actualiza totales generales de documento nuevo
@@ -138,7 +147,7 @@ function elimItemDetalle( fila ){
 		calcularTotales(); 
 	});
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function actItemD( item ){
 	//Actualiza el valor de precio total de ítem, en la tabla detalle de documento nuevo
 	//Actualiza totales generales de documento
@@ -151,7 +160,7 @@ function actItemD( item ){
 	$("#idpt_" + nitem ).val( ( qant * punit ).toFixed( 2 ) );
 	calcularTotales();
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function contarItems(){
 	//Cuenta la cantidad de ítems en el detalle de un documento nuevo
 	var contitems = 0;
@@ -160,7 +169,7 @@ function contarItems(){
 	});
 	return contitems;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function checkItemForm( idart, punit, qant ){
 	//Validaciones para agregar ítem al detalle de documento
 	var valido = 1;
@@ -178,46 +187,25 @@ function checkItemForm( idart, punit, qant ){
 	
 	return valido;
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function formatearMonto( monto ){
 	return monto.replace(/\D/g, "")
 	.replace(/([0-9])([0-9]{2})$/, '$1,$2')
 	.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
 }
-/* --------------------------------------------------------- */
-function obtenerEnlaceDocumentoCreado( documento, frt ){
-	//var frm = dataUrlDoc( documento, tipo );
-	var enl = "documento.php?tipo_documento=" + frt.param + "&id=" + documento.idr;
-	var ico = "<i class='fa fa-file-text fa-2x'></i>";
-
-	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
-	ico + frt.etiqueta + " #" + documento.numero + "</a>";
-
-	return e_enl;
-}
-/* --------------------------------------------------------- */
-function ventanaMensaje( exito, mensaje, enlace ){
-	var clase_m = ["modal-danger", "modal-success"];
-	if( exito == '1' )
-		$("#tx-vmsj").html( enlace );
-		
-	$("#ventana_mensaje").addClass( clase_m[exito] );
-	$("#tit_vmsj").html( mensaje );
-	$("#enl_vmsj").click();
-}
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function bloquearDocumento(){
 	$(".blq_bdoc").prop('disabled', true);
 	$(".frm_documento input").prop('readonly', true);
 }
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 function initDoc(){
 	$("#narticulo_asinc").on( "click", function(){
 		$( "#bt_reg_articulo" ).hide('slow');
 		$( "#bt_reg_art_modal" ).show();
     });	
 }
-/*===============================================================================================*/
+/* =================================================================================== */
 
 $( document ).ready(function() {
 	

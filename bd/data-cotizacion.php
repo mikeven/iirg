@@ -65,7 +65,7 @@
 		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
 		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
 		DATE_FORMAT(c.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
-		c.idCondicion as idCondicion, c.validez as validez, c.iva as iva, c.pcontacto as pcontacto, 
+		c.valor_condicion as vcondicion, c.condicion as validez, c.iva as iva, c.pcontacto as pcontacto, 
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
 		c.Observaciones2 as obs2, c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, 
 		k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2,
@@ -126,11 +126,12 @@
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, fecha_vencimiento, 
-		pcontacto, introduccion, observaciones, observaciones1, observaciones2, observaciones3, validez, iva,
-		Total, idUsuario  ) values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
+		pcontacto, introduccion, observaciones, observaciones1, observaciones2, observaciones3, valor_condicion, 
+		condicion, iva, Total, idUsuario ) values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
 		$encabezado->idc, '$fecha_emision', '$encabezado->fvencimiento', '$encabezado->pcontacto', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-		'$encabezado->obs3', '$encabezado->validez', $encabezado->iva, $encabezado->total, $idu )";
+		'$encabezado->obs3', $encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, 
+		$encabezado->total, $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -147,7 +148,6 @@
 
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "cotizacion" );
-		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "cotizacion" );
 		$detalle = json_decode( $_POST["detalle"] );
 		$idc = guardarCotizacion( $dbh, $encabezado, $encabezado->idu );
 		
@@ -172,13 +172,13 @@
 	}
 	/* ----------------------------------------------------------------------------------------------------- */
 	function editarCotizacion( $dbh, $encabezado, $idu ){
-		
+		//Actualiza los valores del encabezado de una cotización
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update cotizacion set IdCliente2 = $encabezado->idc, fecha_emision = '$fecha_mysql', 
 		pcontacto = '$encabezado->pcontacto', idCondicion = '$encabezado->idcondicion', iva = $encabezado->iva,
-		Total = $encabezado->total, validez = '$encabezado->validez', observaciones1 = '$encabezado->obs1', 
-		observaciones2 = '$encabezado->obs2', observaciones3 = '$encabezado->obs3', idUsuario = $idu 
-		WHERE IdCotizacion2 = $encabezado->idr and idUsuario = $idu";
+		Total = $encabezado->total, valor_condicion = '$encabezado->vcondicion', condicion = '$encabezado->ncondicion', 
+		observaciones1 = '$encabezado->obs1', observaciones2 = '$encabezado->obs2', observaciones3 = '$encabezado->obs3', 
+		idUsuario = $idu WHERE IdCotizacion2 = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -194,7 +194,6 @@
 		include( "../fn/fn-documento.php" );
 		
 		$encabezado = json_decode( $_POST["encabezado"] );
-		$encabezado->validez = obtenerTextoValidez( $dbh, $encabezado, "cotizacion" );
 		$detalle = json_decode( $_POST["detalle"] );
 		$r_edit = editarCotizacion( $dbh, $encabezado, $encabezado->idu );
 		

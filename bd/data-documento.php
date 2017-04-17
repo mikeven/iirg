@@ -24,16 +24,16 @@
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerIdCondicion( $dbh, $documento, $nombre ){
 		//Obtiene el id de condición a partir de su etiqueta 'nombre'
-		$q = "Select idCondicion as id from condicion where nombre = '$nombre'";
+		$q = "Select valor from condicion where nombre = '$nombre'";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
-		return $data["id"];
+		return $data["valor"];
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-	function obtenerIdDefecto( $dbh, $documento, $idu ){
-		//Obtiene el id de condición por defecto de sistema de acuerdo al documento
-		$q = "Select idCondicion as id from condicion where sistema = 1 and idUsuario = $idu";
+	function obtenerCondicionDefecto( $dbh, $documento, $idu ){
+		//Obtiene el valor y nombre de condición por defecto de sistema de acuerdo al documento
+		$q = "Select valor, nombre from condicion where documento = '$documento' and sistema = 1 and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
-		return $data["id"];	
+		return $data;	
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerCondicionPorId( $dbh, $doc, $id ){
@@ -41,10 +41,6 @@
 		$q = "Select * from condicion where documento = '$doc' and idCondicion = $id";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
 		return $data;
-	}
-	function obtenerTextoValidez( $dbh, $encabezado, $doc ){
-		$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
-		return $condicion["nombre"];
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function mostrarItemDocumento( $ditem, $i ){
@@ -91,8 +87,8 @@
 	/*-------------------------------------------------------------------------------------------------------*/
 	function agregarFechaVencimiento( $dbh, $encabezado, $doc ){
 		//Retorna la fecha de vencimiento de un documento a partir de su fecha de emisión y las condiciones de vencimiento
-		$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
-		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), $condicion["valor"] );
+		//$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
+		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), $encabezado->vcondicion );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerTotales( $detalle, $pcge ){

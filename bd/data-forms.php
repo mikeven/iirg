@@ -69,16 +69,16 @@
 		$sql .= ")";
 		return $sql;
 	}
-	
+	/*--------------------------------------------------------------------------------------------------------*/
 	function selop( $vlist, $vreg ){
-		//
+		//Retorna el parámetro 'selected' para opciones de listas desplegables: marcar como seleccionada
 		$sel = "";
 		if( $vlist == $vreg ) $sel = "selected";
 		return $sel;
 	}
-
+	/*--------------------------------------------------------------------------------------------------------*/
 	function opCondicion( $data, $c ){
-		//Retorna el parámetro para listas desplegables 
+		//Retorna la etiqueta html option de lista desplegable 
 		if( isset( $data ) ) $param = selop( $c["idCondicion"], $data["idCondicion"] );
 		$opt = "<option value='$c[idCondicion]' $param>$c[nombre]</option>";
 		return $opt;                                                  

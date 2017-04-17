@@ -153,8 +153,8 @@
     $num_nvacotiz = obtenerProximoNumeroCotizacion( $dbh, $usuario["idUsuario"] );
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
-    $id_cond_defecto = obtenerIdDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c );
+    $cond_defecto = obtenerCondicionDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
+    $obs = obtenerFormatoObservacionesCtz( $frt_c );          //fn-formato.php
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -232,10 +232,11 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { ?>
-                                                  <option value="<?php echo $c["idCondicion"];?>"><?php echo $c["nombre"];?></option>
+                                                  <option value="<?php echo $c["valor"];?>"><?php echo $c["nombre"];?></option>
                                                 <?php } ?>
                                             </select>
-                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"]; ?>" 
+                                            data-condicion="<?php echo $cond_defecto["nombre"]; ?>">
                                             <input id="estado" type="hidden" value="pendiente">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->

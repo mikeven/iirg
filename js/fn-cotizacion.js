@@ -81,7 +81,8 @@ function obtenerVectorEncabezado(){
 	encabezado.idr = $( '#id_cotizacion' ).val();
 	encabezado.numero = $( '#ncotiz' ).val();
 	encabezado.estado = $( '#estado' ).val();
-	encabezado.idcondicion = obtenerIdCondicionForm();
+	encabezado.vcondicion = obtenerCondicionForm();
+	encabezado.ncondicion = obtenerNombreCondicionForm();
 	encabezado.tipo = $( '#tipo' ).val();
 	encabezado.idc = $( '#idCliente' ).val();
 	encabezado.femision = $( '#femision' ).val();

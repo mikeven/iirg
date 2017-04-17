@@ -7,13 +7,34 @@
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------- */
-function ventanaMensaje( exito, mensaje ){
+function obtenerEnlaceDocumentoCreado( documento, frt ){
+	//var frm = dataUrlDoc( documento, tipo );
+	var enl = "documento.php?tipo_documento=" + frt.param + "&id=" + documento.idr;
+	var ico = "<i class='fa fa-file-text fa-2x'></i>";
+
+	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
+	ico + frt.etiqueta + " #" + documento.numero + "</a>";
+
+	return e_enl;
+}
+/* ----------------------------------------------------------------------------------- */
+function ventanaMensaje( exito, mensaje, enlace ){
+	var clase_m = ["modal-danger", "modal-success"];
+	if( exito == '1' )
+		$("#tx-vmsj").html( enlace );
+		
+	$("#ventana_mensaje").addClass( clase_m[exito] );
+	$("#tit_vmsj").html( mensaje );
+	$("#enl_vmsj").click();
+}
+/* ----------------------------------------------------------------------------------- */
+/*function ventanaMensaje( exito, mensaje, enlace ){
 	var clase_m = ["modal-danger", "modal-success"];
 	$("#tx-vmsj").html( "" );	
 	$("#ventana_mensaje").addClass( clase_m[exito] );
 	$("#tit_vmsj").html( mensaje );
 	$("#enl_vmsj").click();
-}
+}*/
 /* ----------------------------------------------------------------------------------- */
 function alertaMensaje( exito, mensaje ){
 	//$("#resalerta").removeClass("alert-danger", "alert-success");

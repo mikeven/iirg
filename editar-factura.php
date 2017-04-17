@@ -285,7 +285,7 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  echo opCondicion( $encabezado, $c );
+                                                  echo opCondicion( $encabezado, $c ); //data-forms.php
                                                 }?>                                                
                                             </select>
                                             <input id="condicion_defecto" type="hidden" 

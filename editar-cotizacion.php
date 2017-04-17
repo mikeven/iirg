@@ -28,9 +28,6 @@
     $totales = obtenerTotales( $detalle, $encabezado["iva"] );
   }
 
-  $condiciones = obtenerCondiciones( $dbh, "cotizacion" );
-  $id_cond_defecto = obtenerIdCondicion( $dbh, "cotizacion", "1 días" );
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -104,7 +101,8 @@
 
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
-    
+    <script src="js/fn-articulos.js"></script>
+    <script src="js/fn-ui.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -149,8 +147,7 @@
     </nav>
   </header>
   <?php 
-    /*$frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c );*/
+    $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -229,11 +226,11 @@
                                             <select name="validez" id="vcondicion" class="form-control blq_bdoc">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  echo opCondicion( $encabezado, $c );
+                                                  echo opCondicion( $encabezado, $c ); //data-forms.php
                                                 }?>                                                
                                             </select>
-                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
-                                            <input id="estado" type="hidden" value="pendiente">
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $encabezado["idCondicion"]; ?>">
+                                            <input id="estado" type="hidden" value="<?php echo $encabezado["estado"]; ?>">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->
                   			       </div>
@@ -286,6 +283,7 @@
                                     </div><!-- /.form group -->
                                     <!-- Lista de artículos en sistema -->
                                     <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Lista de artículos en sistema -->
                                     
                                     <div class="row" id="sumador_items">
