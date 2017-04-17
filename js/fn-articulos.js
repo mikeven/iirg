@@ -5,67 +5,56 @@
 */
 /* ----------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------- */
-function ventanaMensaje( exito, mensaje ){
-	var clase_m = ["modal-danger", "modal-success"];
-	$("#tx-vmsj").html( "" );	
-	$("#ventana_mensaje").addClass( clase_m[exito] );
-	$("#tit_vmsj").html( mensaje );
-	$("#enl_vmsj").click();
-}
-/* ----------------------------------------------------------------------------------- */
-function arrayMjes( modo ){
-	//
-	var amensajes = [], modalmje = [], alertmje = [];
+function strSerialForm( form, cont ){
+	var str = "";
+	var art = null;
+	if( form != null ) art = frm.serialize();
+	else {
+		$( cont + " .form-control").each(function() {
+			if( $(this).attr('type') != "hidden" )
+				str += $(this).attr('name') + "=" + $(this).val() + "&"; 
+		});
+		art = str.slice(0,-1);
+	}
 	
-	modalmje["idhtml"] = "#ventana_mensaje";
-	modalmje["titulo"] = "#tit_vmsj";
-	modalmje["mensaje"] = "#tx-vmsj";
-	modalmje["clase"] = "modal-danger";
-	alertmje["idhtml"] = "#resalerta";
-	alertmje["titulo"] = "#tresalerta";
-	alertmje["mensaje"] = "#txmjealerta";
-	alertmje["clase"] = "alert-danger";
-
-	amensajes["modal"] = modalmje;
-	amensajes["alerta"] = alertmje;
-
-	return amensajes[modo];
+	return art;
 }
 /* ----------------------------------------------------------------------------------- */
-function enviarRespuesta( res, modo, idhtml ){
-	//Manejo de respuesta de acuerdo al modo indicado
-	if( modo == "ventana" ){
-		ventanaMensaje( res.exito, res.mje );
-	}
-	if( modo == "redireccion" ){
-		var url = "ficha_articulo.php?a=" + res.id;
-		window.location.href = url;
-	}
-	if( modo == "print" ){
-		$( idhtml ).html( res.mje );	
+function actVentanaModalArt( res ){
+	//actVentanaModalArt: actualizar ventana modal de artículos
+	//Reinicia valores y elementos gráficos de la ventana modal al registrar un artículo
+	
+	if( res.exito ){	
+		$("#xmodalnuevo_articulo").html("Aceptar");
+		$("#xmodalnuevo_articulo").on( "click", function() {
+			$("#narticulo").val( res.articulo.descripcion );
+			$("#idArticulo").val( res.articulo.id );
+			$("#narticulo").css({'border-color' : '#ccc'});
+			$("#und_art").val( res.articulo.presentacion );
+			$("#xmodalnuevo_articulo").html("Cancelar");
+			$("#resalerta").hide();
+			resetFrm( "#formulario_narticulo" );
+			$("#xmodalnuevo_articulo").click();
+		});
 	}
 }
 /* ----------------------------------------------------------------------------------- */
 function guardarArticulo( form, modo_respuesta, idhtml ){
-	//Invocación a registrar de artículo
+	//Invocación a registrar artículo
 	var url_data = "bd/data-articulo.php";
-	var frm = form; 
+	var art = strSerialForm( form, "#formulario_narticulo" ); 
+	
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ articulo: frm.serialize(), regArticulo:1 },
+        data:{ articulo: art, regArticulo: 1 },
         success: function( response ){
+			console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarRespuesta( res, modo_respuesta, idhtml );
+			actVentanaModalArt( res );
         }
     });
-}
-/* ----------------------------------------------------------------------------------- */
-function marcarCampo( campo, error ){
-	if( error == 1 )
-		campo.css({'border-color' : '#dd4b39'});
-	if( error == 0 )
-		campo.css({'border-color' : '#ccc'});
 }
 /* ----------------------------------------------------------------------------------- */
 function valorExistente( html, clave, val, cres ){
@@ -87,6 +76,16 @@ function checkArticulo( mje_destino ){
 	var error = 0; var mje = "";
 	oRes = arrayMjes( mje_destino );
 	//$(oRes.idhtml).addClass("modal-danger");
+
+	if( $("#pdescripcion").val() == '' ) {
+		error = 1; mje = "Debe escribir un nombre";
+		marcarCampo( $("#pdescripcion"), error );
+	}
+
+	if( $("#pcodigo").val() == '' ) {
+		error = 1; mje = "Debe escribir un código";
+		marcarCampo( $("#pcodigo"), error );
+	}
 
 	if( $("#err_desc").val() == 1 ) {
 		error = 1; mje = "Nombre de producto ya existe";
@@ -200,7 +199,8 @@ $( document ).ready(function() {
 	/*--------------------*/
 	$("#bt_reg_art_modal").on( "click", function() {
 		if( checkArticulo('alerta') == 0 ){
-			//guardarArticulo( $("#frm_narticulo"), "redireccion", '' );
+			guardarArticulo( null, "print", 'tresalerta' );
+
 		}
 		else
 			$("#resalerta").fadeIn("slow");	

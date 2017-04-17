@@ -101,7 +101,8 @@
     </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
-    
+    <script src="js/fn-articulos.js"></script>
+    <script src="js/fn-ui.js"></script>
     <script>
         $( document ).ready(function() {
             //Initialize Select2 Elements
@@ -294,6 +295,7 @@
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
                                     <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">

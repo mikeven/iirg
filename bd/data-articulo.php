@@ -155,7 +155,8 @@
 		if( ( $ida != 0 ) && ( $ida != "" ) ){
 			$res["exito"] = 1;
 			$res["mje"] = "Artículo agregado";
-			$res["id"] = $ida;
+			$articulo["id"] = $ida;
+			$res["articulo"] = $articulo;
 		}else{
 			$res["exito"] = 0;
 			$res["mje"] = "Error al registrar artículo";

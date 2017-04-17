@@ -1,10 +1,10 @@
-<div class="box box-primary">
+<div id="formulario_narticulo" class="box box-primary">
   <div class="box-header with-border">
     <h3 class="box-title">AGREGAR NUEVO ARTÍCULO</h3>
     <div class="icon-color"><i class="fa fa-barcode fa-2x"></i></div>
   </div><!-- /.box-header -->
   <form role="form" id="frm_narticulo" name="form_agregar_articulo">
-     <input name="reg_articulo" type="hidden" value="1">
+     
       <div class="box-body">
         <div class="form-group">
           <!--<label for="exampleInputEmail1">Email address</label>-->

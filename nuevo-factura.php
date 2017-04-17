@@ -114,6 +114,8 @@
     </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-factura.js"></script>
+    <script src="js/fn-articulos.js"></script>
+    <script src="js/fn-ui.js"></script>
     
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -319,7 +321,8 @@
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
-                                        <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
