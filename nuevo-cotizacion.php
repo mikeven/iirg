@@ -154,7 +154,7 @@
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
     $cond_defecto = obtenerCondicionDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c );          //fn-formato.php
+    $obs = obtenerFormatoObservacionesCtz( $frt_c, $cond_defecto["nombre"] );          //fn-formato.php
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>

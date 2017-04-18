@@ -148,7 +148,7 @@
       border-bottom: 1px dashed #000; 
     }
 
-    #dcliente{ width: 45% }
+    #dcliente{ width: 50% }
     #dmed{ width: 12%; }
     #dcotizacion{ width: 30%; }
 

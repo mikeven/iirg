@@ -46,7 +46,8 @@ function obtenerVectorEncabezado(){
 	encabezado.idr = $( '#id_factura' ).val();
 	encabezado.numero = $( '#nfactura' ).val();
 	encabezado.noc = $( '#fordc' ).val();
-	encabezado.idcondicion = obtenerIdCondicionForm();
+	encabezado.vcondicion = obtenerCondicionForm();
+	encabezado.ncondicion = obtenerNombreCondicionForm();
 	encabezado.estado = $( '#estado' ).val();
 	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
@@ -124,7 +125,7 @@ function guardarFactura(){
 				$("#btn_confirmacion").fadeOut(200);
 			},
 			success: function( response ){
-				//console.log(response);
+				console.log(response);
 				res = jQuery.parseJSON(response);
 				var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 				ventanaMensaje( res.exito, res.mje, enlace );

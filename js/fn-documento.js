@@ -15,6 +15,7 @@ document.onkeypress = stopRKey;
 /* ----------------------------------------------------------------------------------- */
 function obtenerNombreCondicionForm(){
 	//Obtiene el nombre de condición resultante del formulario del documento
+	var valor = $( "#vcondicion" ).val();
 	if ( valor != null ) 
 		var valor = $("#vcondicion option:selected").text();
 	else

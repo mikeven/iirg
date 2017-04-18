@@ -2,12 +2,12 @@
 	/* R&G - Funciones de formatos de documentos */
 	/*-------------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------------*/
-	function obtenerFormatoObservacionesCtz( $fctz ){
+	function obtenerFormatoObservacionesCtz( $fctz, $cond_defecto ){
 		$obs = array();
 		for ( $i = 1; $i <= 3; $i++ ) { 
 			if( $fctz["obs$i"] == "#vctz" ) { 
 				$obs[$i]["t"] = "Validez: "."<label id='vvalz'></label>"; 
-				$obs[$i]["v"] = "Validez: ";
+				$obs[$i]["v"] = "Validez: ".$cond_defecto;
 				$obs[$i]["dv"] = "VCTZ"; 
 			}
 			else { 

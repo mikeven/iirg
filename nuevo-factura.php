@@ -165,7 +165,7 @@
     $num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );
-    $id_cond_defecto = obtenerIdDefecto( $dbh, "factura", $usuario["idUsuario"] ); 
+    $cond_defecto = obtenerCondicionDefecto( $dbh, "factura", $usuario["idUsuario"] ); 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -292,10 +292,12 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
+                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
                                                   echo opCondicion( $encabezado, $c );
                                                 }?>                                                
                                             </select>
-                                            <input id="condicion_defecto" type="hidden" value="<?php echo $id_cond_defecto; ?>">
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"]; ?>" 
+                                            data-condicion="<?php echo $cond_defecto["nombre"]; ?>">
                                             <input id="estado" type="hidden" value="pendiente">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->
