@@ -127,10 +127,9 @@
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		if( $encabezado->tipo == "cotizacion" ){
 			$param = "valor_condicion, condicion,";
-			$valores = $encabezado->vcondicion.", ".'$encabezado->ncondicion'.",";	
-		} else {
-			$param = ""; $valores = "";
-		}
+			$valores = $encabezado->vcondicion.", '".$encabezado->ncondicion."',";	
+		} else { $param = ""; $valores = ""; }
+		
 		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, fecha_vencimiento, 
 		pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, $param iva, Total, idUsuario ) 
@@ -182,8 +181,8 @@
 		//Actualiza los valores del encabezado de una cotización
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update cotizacion set IdCliente2 = $encabezado->idc, fecha_emision = '$fecha_mysql', 
-		pcontacto = '$encabezado->pcontacto', idCondicion = '$encabezado->idcondicion', iva = $encabezado->iva,
-		Total = $encabezado->total, valor_condicion = '$encabezado->vcondicion', condicion = '$encabezado->ncondicion', 
+		pcontacto = '$encabezado->pcontacto', iva = $encabezado->iva, Total = $encabezado->total, 
+		valor_condicion = $encabezado->vcondicion, condicion = '$encabezado->ncondicion', 
 		observaciones1 = '$encabezado->obs1', observaciones2 = '$encabezado->obs2', observaciones3 = '$encabezado->obs3', 
 		idUsuario = $idu WHERE IdCotizacion2 = $encabezado->idr and idUsuario = $idu";
 		

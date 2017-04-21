@@ -13,6 +13,7 @@
 	include( "bd/data-formato.php" );
   include( "bd/data-documento.php" );
 	include( "bd/data-cotizacion.php" );
+  include( "bd/data-forms.php" );
 	include( "fn/fn-formato.php" );
   //require_once( 'lib/FirePHPCore/fb.php' );
 	
@@ -231,9 +232,10 @@
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
-                                                <?php foreach ( $condiciones as $c ) { ?>
-                                                  <option value="<?php echo $c["valor"];?>"><?php echo $c["nombre"];?></option>
-                                                <?php } ?>
+                                                <?php foreach ( $condiciones as $c ) { 
+                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
+                                                  echo opCondicion( $encabezado, $c );    // bd/data-forms.php
+                                                }?>
                                             </select>
                                             <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"]; ?>" 
                                             data-condicion="<?php echo $cond_defecto["nombre"]; ?>">

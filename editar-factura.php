@@ -194,7 +194,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_efactura" name="form_editar_factura" class="frm_documento">
-                	<input id="id_factura" type="hidden" value="<?php echo $idf; ?>">
+                	<input id="id_documento" type="hidden" value="<?php echo $idf; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_factura">
                     		<div class="col-md-6">
@@ -259,7 +259,7 @@
                                               <!-- <i class="fa fa-slack"></i> --> 
                                               <label for="datepicker" class="iconlab">N°:</label>
                                           </div>
-                                          <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
+                                          <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
                                           value="<?php echo $encabezado["nro"]; ?>">
                                       </div>
                                   </div><!-- /.form group -->
@@ -285,7 +285,7 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  echo opCondicion( $encabezado, $c ); //data-forms.php
+                                                  echo opCondicion( $encabezado, $c );    //data-forms.php
                                                 }?>                                                
                                             </select>
                                             <input id="condicion_defecto" type="hidden" 

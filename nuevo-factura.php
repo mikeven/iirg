@@ -293,7 +293,7 @@
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
                                                   if( !isset( $encabezado ) ) $encabezado = NULL;
-                                                  echo opCondicion( $encabezado, $c );
+                                                  echo opCondicion( $encabezado, $c );    // bd/data-forms.php
                                                 }?>                                                
                                             </select>
                                             <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"]; ?>" 

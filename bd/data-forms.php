@@ -80,7 +80,7 @@
 	function opCondicion( $data, $c ){
 		//Retorna la etiqueta html option de lista desplegable de condiciones de un documento
 		if( isset( $data ) ) 
-			$param = selop( $c["idCondicion"], $data["idCondicion"] ); 
+			$param = selop( $data["vcondicion"], $c["valor"] ); 
 		else $param = "";
 		$opt = "<option value='$c[valor]' $param>$c[nombre]</option>";
 		return $opt;                                                  

@@ -26,8 +26,12 @@ function obtenerNombreCondicionForm(){
 function obtenerCondicionForm(){
 	//Obtiene el valor de condición resultante del formulario del documento
 	var valor = $( "#vcondicion" ).val();
-	if (( valor == null ) || ( valor != "" ) )
+
+	if (( valor == null ) || ( valor == "" ) ){
 		valor = $("#condicion_defecto").val();
+	}
+	
+	alert(valor);
 	return valor;
 }
 /* ----------------------------------------------------------------------------------- */

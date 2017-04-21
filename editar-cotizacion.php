@@ -148,6 +148,7 @@
   </header>
   <?php 
     $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
+    $cond_defecto = obtenerCondicionDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("subforms/nav/menu_ppal.php");?>
@@ -183,7 +184,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ecotizacion" name="form_editar_cotizacion" class="frm_documento">
-                	<input id="id_cotizacion" type="hidden" value="<?php echo $idc; ?>">
+                	<input id="id_documento" type="hidden" value="<?php echo $idc; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		  <div class="col-md-6">
@@ -226,10 +227,11 @@
                                             <select name="validez" id="vcondicion" class="form-control blq_bdoc">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  echo opCondicion( $encabezado, $c ); //data-forms.php
+                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
+                                                  echo opCondicion( $encabezado, $c );  // bd/data-forms.php
                                                 }?>                                                
                                             </select>
-                                            <input id="condicion_defecto" type="hidden" value="<?php echo $encabezado["idCondicion"]; ?>">
+                                            <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"];?>" data-condicion="<?php echo $cond_defecto["nombre"]; ?>">
                                             <input id="estado" type="hidden" value="<?php echo $encabezado["estado"]; ?>">
                                         </div><!-- /.input group -->
                                     </div><!-- /.form group -->
@@ -244,7 +246,7 @@
                                                   <i class="fa fa-slack"></i> 
                                                   <label for="datepicker" class="iconlab">N°:</label>
                                               </div>
-                                              <input type="text" class="form-control" id="ncotiz" name="numero" required readonly 
+                                              <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
                                               value="<?php echo $encabezado["nro"]; ?>">
                                           </div>
                                       </div><!-- /.form group -->
