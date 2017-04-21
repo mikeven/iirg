@@ -200,8 +200,8 @@
                   <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_nfactura" name="form_agregar_factura" class="frm_documento">
-                	<input id="id_factura" type="hidden" value="">
+              <form role="form" id="frm_nfactura" name="form_agregar_factura" class="frm_documento">
+                	<input id="id_documento" type="hidden" value="">
                     <div class="box-body">
                     	<div class="row" id="encabezado_factura">
                     		<div class="col-md-6">
@@ -266,7 +266,7 @@
                                               <!-- <i class="fa fa-slack"></i> --> 
                                               <label for="datepicker" class="iconlab">N°:</label>
                                           </div>
-                                          <input type="text" class="form-control" id="nfactura" name="numero" required readonly 
+                                          <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
                                           value="<?php echo $num_nvofactura; ?>">
                                       </div>
                                   </div><!-- /.form group -->

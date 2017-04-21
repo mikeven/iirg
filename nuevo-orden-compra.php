@@ -189,7 +189,7 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <form role="form" id="frm_nordencompra" name="form_agregar_ocompra" class="frm_documento">
-                           <input id="id_orden_compra" type="hidden" value="">
+                           <input id="id_documento" type="hidden" value="">
                            <div class="box-body">
                               <div class="row" id="encabezado_orden_compra">
                                  
@@ -219,8 +219,9 @@
                                                    <i class="fa fa-slack"></i> 
                                                    <label for="numero_orden_compra" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nordencompra" 
-                                                name="numero" required readonly value="<?php echo $num_nva_oc; ?>">
+                                                <input type="text" class="form-control" 
+                                                id="ndocumento" name="numero" required readonly 
+                                                value="<?php echo $num_nva_oc; ?>">
                                              </div>
                                           </div>
                                           <!-- /.form group -->

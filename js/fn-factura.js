@@ -42,27 +42,12 @@ function stopRKey(evt) {
 document.onkeypress = stopRKey; 
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado(){
-	encabezado = new Object();
-	encabezado.idr = $( '#id_factura' ).val();
-	encabezado.numero = $( '#nfactura' ).val();
+	//Retorna un objeto con los datos de encabezado de una factura
+	encabezado = obtenerEncabezadoBase();
+	
 	encabezado.noc = $( '#fordc' ).val();
-	encabezado.vcondicion = obtenerCondicionForm();
-	encabezado.ncondicion = obtenerNombreCondicionForm();
-	encabezado.estado = $( '#estado' ).val();
 	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
-	encabezado.femision = $( '#femision' ).val();
-	encabezado.idu = $( '#idu_sesion' ).val();
-
-	encabezado.introduccion = $( '#tentrada' ).val();
-	encabezado.obs0 = $( '#tobs0' ).val();
-	encabezado.obs1 = $( '#tobs1' ).val();
-	encabezado.obs2 = $( '#tobs2' ).val();
-	encabezado.obs3 = $( '#tobs3' ).val();
-
-	encabezado.subtotal = $( '#subtotal' ).val();
-	encabezado.total = $( '#total' ).val();
-	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }

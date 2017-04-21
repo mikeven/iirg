@@ -45,29 +45,17 @@ function stopRKey(evt) {
 document.onkeypress = stopRKey; 
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado(){
-	
-	encabezado = new Object();
-	encabezado.idr = $( '#idNota' ).val();
-	encabezado.numero = $( '#nnota' ).val();
+	//Retorna un objeto con los datos de encabezado de una nota
+	encabezado = obtenerEncabezadoBase();
 	encabezado.nfactura = $( '#nFactura' ).val();
 	encabezado.idfactura = $( '#idFactura' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();
-	encabezado.femision = $( '#femision' ).val();
 	encabezado.tipo = $( '#tipofte' ).val();
-	encabezado.idu = $( '#idu_sesion' ).val();
 	
-	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); else encabezado.concepto = "";
-	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); else encabezado.tipo_concepto = "";
-	
-	encabezado.introduccion = $( '#tentrada' ).val();
-	encabezado.obs0 = $( '#tobs0' ).val();
-	encabezado.obs1 = $( '#tobs1' ).val();
-	encabezado.obs2 = $( '#tobs2' ).val();
-	encabezado.obs3 = $( '#tobs3' ).val();
-
-	encabezado.subtotal = $( '#subtotal' ).val();
-	encabezado.total = $( '#total' ).val();
-	encabezado.iva = $( '#iva' ).val();
+	if ( $("#cnc").length )  encabezado.concepto = $("#cnc").val(); 
+		else encabezado.concepto = "";
+	if ( $("#tconcepto").length ) encabezado.tipo_concepto = $("#tconcepto").val(); 
+		else encabezado.tipo_concepto = "";
 
 	return JSON.stringify( encabezado );
 }
@@ -203,7 +191,7 @@ function obtenerNumeroNota( tipo_nota ){
 		data:{ prox_num:tipo_nota, idu:id_usuario },
 		beforeSend: function () {},
 		success: function( response ){
-			$("#nnota").val(response);
+			$("#ndocumento").val(response);
 		}
 	});		
 }

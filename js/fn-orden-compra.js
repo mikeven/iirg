@@ -44,22 +44,9 @@ function stopRKey(evt) {
 document.onkeypress = stopRKey; 
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado( numero, idproveedor, femision, total, iva ){
-	encabezado = new Object();
-	encabezado.idr = $( '#id_orden_compra' ).val();
-	encabezado.numero = $( '#nordencompra' ).val();
+	//Retorna un objeto con los datos de encabezado de una orden de compra
+	encabezado = obtenerEncabezadoBase();
 	encabezado.idproveedor = $( '#idProveedor' ).val();
-	encabezado.femision = $( '#femision' ).val();
-	encabezado.idu = $( '#idu_sesion' ).val();
-
-	encabezado.introduccion = $( '#tentrada' ).val();
-	encabezado.obs0 = $( '#tobs0' ).val();
-	encabezado.obs1 = $( '#tobs1' ).val();
-	encabezado.obs2 = $( '#tobs2' ).val();
-	encabezado.obs3 = $( '#tobs3' ).val();
-
-	encabezado.subtotal = $( '#subtotal' ).val();
-	encabezado.total = $( '#total' ).val();
-	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }

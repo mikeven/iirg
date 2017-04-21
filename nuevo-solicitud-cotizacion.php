@@ -236,14 +236,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <input type="hidden" id="vcondicion" value="">
+                                        <input type="hidden" id="condicion_defecto" data-condicion="" value="">
                                         <!--<label for="validez" class="">Validez:</label>-->
                                         <!--<div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                             <select name="validez" id="cvalidez" class="form-control">
-                                                <option value="0" disabled selected>Validez</option>
-                                                <option value="3 días">3 días</option>
-                                                <option value="5 días">5 días</option>
-                                                <option value="8 días">8 días</option>
                                             </select>
                                         </div>-->
                                     </div><!-- /.form group -->
@@ -258,7 +256,8 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="numero_solicitud_cotizacion" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="ncotiz" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
+                                                <input type="text" class="form-control" 
+                                                id="ndocumento" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>

@@ -190,7 +190,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion" class="frm_documento">
-                	<input id="id_cotizacion" type="hidden" value="">
+                	<input id="id_documento" type="hidden" value="">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		<div class="col-md-6">
@@ -251,7 +251,8 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="ncotiz" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
+                                                <input type="text" class="form-control" 
+                                                id="ndocumento" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>

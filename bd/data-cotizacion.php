@@ -125,12 +125,19 @@
 		// Guarda el registro de la cotización y solicitud de cotización
 		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
+		if( $encabezado->tipo == "cotizacion" ){
+			$param = "valor_condicion, condicion,";
+			$valores = $encabezado->vcondicion.", ".'$encabezado->ncondicion'.",";	
+		} else {
+			$param = ""; $valores = "";
+		}
 		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, fecha_vencimiento, 
-		pcontacto, introduccion, observaciones, observaciones1, observaciones2, observaciones3, valor_condicion, 
-		condicion, iva, Total, idUsuario ) values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
+		pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
+		observaciones3, $param iva, Total, idUsuario ) 
+		values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
 		$encabezado->idc, '$fecha_emision', '$encabezado->fvencimiento', '$encabezado->pcontacto', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-		'$encabezado->obs3', $encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, 
+		'$encabezado->obs3', $valores $encabezado->iva, 
 		$encabezado->total, $idu )";
 		
 		//echo $q;

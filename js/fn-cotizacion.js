@@ -77,26 +77,12 @@ function checkCotizacion(){
 }
 /* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
-	encabezado = new Object();
-	encabezado.idr = $( '#id_cotizacion' ).val();
-	encabezado.numero = $( '#ncotiz' ).val();
-	encabezado.estado = $( '#estado' ).val();
-	encabezado.vcondicion = obtenerCondicionForm();
-	encabezado.ncondicion = obtenerNombreCondicionForm();
+	//Retorna un objeto con los datos de encabezado de una cotización
+	encabezado = obtenerEncabezadoBase();
+	
 	encabezado.tipo = $( '#tipo' ).val();
 	encabezado.idc = $( '#idCliente' ).val();
-	encabezado.femision = $( '#femision' ).val();
 	encabezado.pcontacto = $( '#cpcontacto' ).val();
-	encabezado.idu = $( '#idu_sesion' ).val();
-
-	encabezado.introduccion = $( '#tentrada' ).val();
-	encabezado.obs0 = $( '#tobs0' ).val();
-	encabezado.obs1 = $( '#tobs1' ).val();
-	encabezado.obs2 = $( '#tobs2' ).val();
-	encabezado.obs3 = $( '#tobs3' ).val();
-
-	encabezado.total = parseFloat( $( '#total' ).val() );
-	encabezado.iva = $( '#iva' ).val();
 
 	return JSON.stringify( encabezado );
 }
@@ -114,7 +100,7 @@ function guardarCotizacion(){
 			$("#bt_reg_cotizacion").fadeOut( 200 );
 		},
 		success: function( response ){
-			//console.log(response);
+			console.log(response);
 			res = jQuery.parseJSON(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );

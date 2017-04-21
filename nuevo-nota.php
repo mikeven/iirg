@@ -187,7 +187,7 @@
   <?php 
     $fecha_actual = obtenerFechaHoy();
     if( isset( $_GET["idf"] ) ){
-      $num = obtenerProximoNumeroNota( $dbh, $tn, $usuario["idUsuario"] );
+      $num_nvanota = obtenerProximoNumeroNota( $dbh, $tn, $usuario["idUsuario"] );
       $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, docBD( $tn ), $usuario["idUsuario"] );
     }
   ?>
@@ -297,10 +297,11 @@
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-slack"></i> 
-                                                    <label for="numero_nota" class="iconlab">N°:</label>
+                                                <label for="numero_nota" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nnota" name="numero" 
-                                                required readonly value="<?php if( isset($num) ) echo $num; ?>">
+                                                <input type="text" class="form-control" 
+                                                id="ndocumento" name="numero" 
+                                                required readonly value="<?php if( isset($num_nvanota) ) echo $num_nvanota; ?>">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>

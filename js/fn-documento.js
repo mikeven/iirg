@@ -16,7 +16,7 @@ document.onkeypress = stopRKey;
 function obtenerNombreCondicionForm(){
 	//Obtiene el nombre de condición resultante del formulario del documento
 	var valor = $( "#vcondicion" ).val();
-	if ( valor != null ) 
+	if ( ( valor != null ) && ( valor != "" ) ) 
 		var valor = $("#vcondicion option:selected").text();
 	else
 		valor = $("#condicion_defecto").attr("data-condicion");
@@ -26,9 +26,33 @@ function obtenerNombreCondicionForm(){
 function obtenerCondicionForm(){
 	//Obtiene el valor de condición resultante del formulario del documento
 	var valor = $( "#vcondicion" ).val();
-	if ( valor == null )
+	if (( valor == null ) || ( valor != "" ) )
 		valor = $("#condicion_defecto").val();
 	return valor;
+}
+/* ----------------------------------------------------------------------------------- */
+function obtenerEncabezadoBase(){
+	//Retorna un objeto con los elementos comunes del encabezado de un documento
+	encabezado = new Object();
+	encabezado.idu = $( '#idu_sesion' ).val();		// subforms/nav/perfil.php
+	encabezado.idr = $( '#id_documento' ).val();
+	encabezado.numero = $( '#ndocumento' ).val();
+	encabezado.estado = $( '#estado' ).val();
+	encabezado.vcondicion = obtenerCondicionForm();
+	encabezado.ncondicion = obtenerNombreCondicionForm();
+	encabezado.femision = $( '#femision' ).val();
+
+	encabezado.introduccion = $( '#tentrada' ).val();
+	encabezado.obs0 = $( '#tobs0' ).val();
+	encabezado.obs1 = $( '#tobs1' ).val();
+	encabezado.obs2 = $( '#tobs2' ).val();
+	encabezado.obs3 = $( '#tobs3' ).val();
+
+	encabezado.subtotal = $( '#subtotal' ).val();
+	encabezado.total = parseFloat( $( '#total' ).val() );
+	encabezado.iva = $( '#iva' ).val();
+
+	return encabezado;
 }
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorDetalle(){
