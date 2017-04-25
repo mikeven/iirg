@@ -269,7 +269,7 @@
                                                     <i class="fa fa-user"></i> 
                                                     <label for="persona_contacto" class="iconlab">P. Contacto:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required value="">
+                                              <input type="text" class="form-control" id="cpcontacto" name="pcontacto" value="<?php if( isset( $encabezado ) ) echo $encabezado["pcontacto"]?>">
                                             </div><!-- /.input group -->
                                         </div><!-- /.form group -->	
                                     </div>

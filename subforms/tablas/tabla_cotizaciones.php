@@ -47,7 +47,7 @@
         <th>Número</th>
         <th>Fecha</th>
         <?php if( $tipo != "solicitud" ) { ?> <th>Cliente</th> <?php } else { ?><th>Proveedor</th> <?php } ?> 
-		<?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
+		    <?php if( $tipo != "solicitud" ) { ?> <th>Total</th> <?php } ?>
         <th>Estado</th>
       </tr>
     </tfoot>

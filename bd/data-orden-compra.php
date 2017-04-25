@@ -1,13 +1,13 @@
 <?php
 	/* R&G - Gestión de datos de órdenes de compra */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	ini_set( 'display_errors', 1 );
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerListaOrdenesCompra( $link, $idu ){
 		$lista_o = array();
-		$q = "Select o.idOrden as ido, o.numero as numero, date_format(o.fecha_emision,'%d/%m/%Y') as fecha, 
-		p.Nombre as Nombre, o.Total as Total from orden_compra o, proveedor p 
+		$q = "Select o.idOrden as ido, o.numero as numero, p.Nombre as Nombre, o.Total as Total, 
+		date_format(o.fecha_emision,'%d/%m/%Y') as fecha from orden_compra o, proveedor p 
 		where o.idProveedor = p.idProveedor and idUsuario = $idu order by o.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $o = mysql_fetch_array( $data ) ){
@@ -15,13 +15,13 @@
 		}
 		return $lista_o;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerProximoNumeroOrdenCompra( $dbh, $idu ){
 		$q = "select MAX(numero) as num from orden_compra where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerDetalleOrdenCompra( $dbh, $ido ){
 		
 		$detalle = array();
@@ -34,7 +34,7 @@
 		}
 		return $detalle;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerOrdenCompraPorId( $dbh, $ido ){
 		
 		$q = "select o.numero as nro, o.idOrden as ido, o.idProveedor as idproveedor, o.estado as estado, 
@@ -52,7 +52,7 @@
 		
 		return $orden_compra;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarItemDetalleOC( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de orden de compra
 		$ptotal = $item->dcant * $item->dpunit;
@@ -62,7 +62,7 @@
 		//echo $q."<br>";
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarDetalleOrdenCompra( $dbh, $ido, $detalle, $iva ){
 		//Registra los ítems contenidos en el detalle de la orden de compra
 		$exito = true;
@@ -76,7 +76,7 @@
 		
 		return $exito;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function editarOrdenCompra( $dbh, $encabezado, $idu ){
 		// Edita el registro de una orden de compra
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );

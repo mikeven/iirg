@@ -139,7 +139,6 @@
     <script src="js/fn-nota.js"></script>
     <script src="js/fn-articulos.js"></script>
     <script src="js/fn-ui.js"></script>
-    
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -243,6 +242,8 @@
                                       <?php if(isset($tn)) echo selop("nota_debito", $tn );?>>Nota de Débito</option>
                                     </select>
                                     <input type="hidden" id="tipofte" value="<?php if(isset( $encabezado )) echo $tn; ?>">
+
+                                    <input id="estado" type="hidden" value="pendiente">
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
                                 
@@ -302,6 +303,9 @@
                                                 <input type="text" class="form-control" 
                                                 id="ndocumento" name="numero" 
                                                 required readonly value="<?php if( isset($num_nvanota) ) echo $num_nvanota; ?>">
+                                        <input type="hidden" id="vcondicion" value="">
+                                        <input type="hidden" id="condicion_defecto" 
+                                        data-condicion="" value="">
                                             </div>
                                         </div><!-- /.form group -->
                                     </div>

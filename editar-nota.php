@@ -119,7 +119,7 @@
     </script>
     <script src="js/fn-nota.js"></script>
     <script src="js/fn-documento.js"></script>
-
+    <script src="js/fn-ui.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -201,7 +201,8 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_nnota" name="form_agregar_nota" class="frm_documento">
-                	<input id="idNota" name="idnota" type="hidden" value="<?php echo $encabezado["idn"]; ?>">
+                	<input id="id_documento" name="idnota" type="hidden" 
+                  value="<?php echo $encabezado["idn"]; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_nota">
                     		<div class="col-md-6">
@@ -275,7 +276,7 @@
                                                     <i class="fa fa-slack"></i> 
                                                     <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nnota" name="numero" 
+                                                <input type="text" class="form-control" id="ndocumento" name="numero" 
                                                 required readonly value="<?php if( isset($encabezado) ) echo $encabezado["nro"]; ?>">
                                             </div>
                                         </div><!-- /.form group -->

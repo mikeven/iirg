@@ -99,7 +99,7 @@
 
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
-    
+    <script src="js/fn-ui.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -181,7 +181,7 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ecotizacion" name="form_editar_cotizacion" class="frm_documento">
-                	<input id="id_cotizacion" type="hidden" value="<?php echo $ids; ?>">
+                	<input id="id_documento" type="hidden" value="<?php echo $ids; ?>">
                     <div class="box-body">
                     	<div class="row" id="encabezado_cotizacion">
                     		  <div class="col-md-6">
@@ -218,16 +218,10 @@
                               
                               <div class="col-md-6">
                                   <div class="form-group">
-                                      <!--<label for="validez" class="">Validez:</label>-->
-                                      <!-- <div class="input-group">
-                                      <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                      <select name="validez" id="cvalidez" class="form-control">
-                                          <option value="0" disabled selected>Validez</option>
-                                          <option value="3 días">3 días</option>
-                                          <option value="5 días">5 días</option>
-                                          <option value="8 días">8 días</option>
-                                      </select>
-                                      </div><!-- /.input group -->
+                                    <input type="hidden" id="vcondicion" value="">
+                                    <input type="hidden" id="condicion_defecto" data-condicion="" value="">
+                                    <input id="estado" type="hidden" 
+                                    value="<?php echo $encabezado["estado"]; ?>">
                                   </div>
                   			       </div>
                               </div>
@@ -240,11 +234,12 @@
                                                   <i class="fa fa-slack"></i> 
                                                   <label for="datepicker" class="iconlab">N°:</label>
                                               </div>
-                                              <input type="text" class="form-control" id="ncotiz" name="numero" required readonly 
+                                              <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
                                               value="<?php echo $encabezado["nro"]; ?>">
                                           </div>
                                       </div><!-- /.form group -->
                                   </div>
+                                  
                                   <div class="col-md-8">
                                   	<div class="form-group">
                                           <!--<label for="fcondpago" class="">Validez:</label>-->
@@ -413,9 +408,13 @@
 
                                 <div id="observaciones">
                                   <div class="titobs"><?php echo $encabezado["obs0"];?></div>
+                            <input id="tobs0" type="hidden" value="<?php echo $encabezado["obs0"]?>">
                                   <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
+                            <input id="tobs1" type="hidden" value="<?php echo $encabezado["obs1"]?>">
                                   <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
+                            <input id="tobs2" type="hidden" value="<?php echo $encabezado["obs2"]?>">
                                   <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
+                            <input id="tobs3" type="hidden" value="<?php echo $encabezado["obs3"]?>">
                                 </div><!--/. observaciones -->
                             
                             </div><!--/.col-md-8-->

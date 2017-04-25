@@ -1,26 +1,26 @@
 <?php
 	/* R&G - Funciones de notas */
-	/*-------------------------------------------------------------------------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------------*/	
+	/* ------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */	
 	function obtenerListaNotas( $link, $idu ){
 		$lista_c = array();
 		$q = "Select N.IdNota as id, N.tipo as tipo, N.numero as numero, C.Nombre as cliente, 
 		date_format(N.fecha_emision,'%d/%m/%Y') as Fecha, N.total as Total from nota N, cliente C 
-		where N.IdCliente = C.IdCliente2 and idUsuario = $idu order by N.fecha_emision desc";
+		where N.IdCliente = C.idCliente and idUsuario = $idu order by N.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
 		}
 		return $lista_c;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerProximoNumeroNota( $dbh, $tipo, $idu ){
 		$q = "select MAX(numero) as num from nota where tipo = '$tipo' and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerDetalleNota( $dbh, $idn ){
 		// Obtiene los ítems del detalle de una nota
 		$detalle = array();
@@ -35,7 +35,7 @@
 		}
 		return $detalle;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerNotaPorId( $dbh, $idn, $tipo_n ){
 		//Retorna el registro de nota y sus ítems de detalle si posee
 		$cond = ""; $campo = ""; $tabla = "";
@@ -50,7 +50,7 @@
 		n.tipo_concepto as tipo_concepto, n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
 		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
 		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
-		FROM nota n, cliente c $tabla WHERE n.idNota = $idn and n.idCliente = c.idCliente2 $cond";
+		FROM nota n, cliente c $tabla WHERE n.idNota = $idn and n.idCliente = c.idCliente $cond";
 
 		//echo $q;
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
@@ -58,14 +58,14 @@
 		
 		return $factura;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerTipoNotaPorId( $dbh, $idn ){
 		//Retorna el tipo de nota a partir del id
 		$q = "select tipo from nota where idNota = $idn";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["tipo"];
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarItemDetalleN( $dbh, $idn, $item ){
 		//Guarda el registro individual de un ítem del detalle de la nota
 		$ptotal = $item->dcant * $item->dpunit;
@@ -76,7 +76,7 @@
 
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarDetalleNota( $dbh, $idn, $encabezado, $detalle ){
 		//Registra los ítems contenidos en el detalle de la nota
 		$exito = true;
@@ -93,38 +93,40 @@
 		
 		return $exito;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarNota( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una nota
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$total = number_format( $encabezado->total, 2, ".", "" );
 		if( !$encabezado->idfactura ) $encabezado->idfactura = "NULL";
-		$q = "insert into nota ( numero, tipo, IdFactura, IdCliente, estado, fecha_emision, iva, SubTotal, Total, 
-			concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, Observaciones3, fecha_registro, idUsuario ) 
-			values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, $encabezado->idcliente, 'pendiente', 
-				'$fecha_mysql', $encabezado->iva, $encabezado->subtotal, $encabezado->total, '$encabezado->concepto', 
-				'$encabezado->tipo_concepto', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-				'$encabezado->obs3', NOW(), $idu )";
+		$q = "insert into nota ( numero, tipo, idFactura, idCliente, estado, fecha_emision, iva, 
+		SubTotal, Total, concepto, tipo_concepto, Observaciones, Observaciones1, Observaciones2, 
+		Observaciones3, fecha_registro, idUsuario ) 
+		values ( $encabezado->numero, '$encabezado->tipo', $encabezado->idfactura, 
+		$encabezado->idcliente, 'pendiente', '$fecha_mysql', $encabezado->iva, 
+		$encabezado->subtotal, $encabezado->total, '$encabezado->concepto', 
+		'$encabezado->tipo_concepto', '$encabezado->obs0', '$encabezado->obs1', 
+		'$encabezado->obs2', '$encabezado->obs3', NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
-		
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function editarNota( $dbh, $encabezado, $idu ){
 
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
 		$q = "update nota set idCliente = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
-		SubTotal = $encabezado->subtotal, Total = $encabezado->total, concepto = '$encabezado->concepto', 
-		tipo_concepto = '$encabezado->tipo_concepto', tipo='$encabezado->tipo', fecha_modificacion = NOW()  
-		WHERE idFactura = $encabezado->idr and idUsuario = $idu";
+		SubTotal = $encabezado->subtotal, Total = $encabezado->total, 
+		concepto = '$encabezado->concepto', tipo_concepto = '$encabezado->tipo_concepto', 
+		tipo='$encabezado->tipo', fecha_modificacion = NOW() 
+		WHERE idNota = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function etiquetaNota( $tipo, $notacion ){
 		//Retorna la etiqueta correspondiente al tipo de Nota para formatos y registros en BD
 		$etiquetas = array(	
@@ -216,6 +218,6 @@
 
 		echo json_encode( $res );
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 
 	

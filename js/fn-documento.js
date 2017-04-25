@@ -31,7 +31,6 @@ function obtenerCondicionForm(){
 		valor = $("#condicion_defecto").val();
 	}
 	
-	alert(valor);
 	return valor;
 }
 /* ----------------------------------------------------------------------------------- */

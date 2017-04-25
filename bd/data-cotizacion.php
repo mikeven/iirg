@@ -1,15 +1,15 @@
 <?php
 	/* R&G - Gestión de datos de cotizaciones */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	ini_set( 'display_errors', 1 );
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaCotizaciones( $link, $idu, $estado ){
 		$xq = ""; $lista_c = array();
 		if( $estado != "" ) $xq = "and estado = '$estado'";
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, 
+		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total 
-		from cotizacion c, cliente k where c.IdCliente2 = k.IdCliente2 and c.tipo = 'cotizacion' 
+		from cotizacion c, cliente k where c.idCliente = k.idCliente and c.tipo = 'cotizacion' 
 		and idUsuario = $idu $xq order by c.fecha_emision DESC";
 		
 		$data = mysql_query( $q, $link );
@@ -18,19 +18,19 @@
 		}
 		return $lista_c;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerSolicitudesCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.IdCotizacion2 as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') 
+		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') 
 		as Fecha, p.Nombre as Nombre, c.Total as Total from cotizacion c, proveedor p 
-		where c.IdCliente2 = p.idProveedor and c.tipo = 'solicitud' and idUsuario = $idu order by c.fecha_emision DESC";
+		where c.idCliente = p.idProveedor and c.tipo = 'solicitud' and idUsuario = $idu order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
 		}
 		return $lista_c;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerProximoNumeroCotizacion( $dbh, $idu ){
 		$q = "select MAX(numero) as num from cotizacion where tipo = 'cotizacion' and idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
@@ -42,13 +42,13 @@
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleCotizacion( $dbh, $idc ){
 		//Retorna una lista con el detalle de una cotización
 		$detalle = array();
 		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, 
 		Cantidad as cantidad, PrecioUnit as punit, PrecioTotal as ptotal, und FROM detallecotizacion 
-		WHERE IdCotizacion2 = $idc";
+		WHERE idCotizacion = $idc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
@@ -56,11 +56,11 @@
 		}
 		return $detalle;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerCotizacionPorId( $dbh, $idc ){
 		//Retorna el registro de una cotización y sus ítems de detalle dado su id
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, 
-		c.IdCliente2 as idcliente, DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
+		$q = "select c.numero as nro, c.idCotizacion as idc, c.tipo as tipo, c.estado as estado, 
+		c.idCliente as idcliente, DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i') as fregistro, 
 		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
 		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
@@ -69,17 +69,17 @@
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
 		c.Observaciones2 as obs2, c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, 
 		k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2,
-		k.Email as email FROM cotizacion c, cliente k where c.IdCotizacion2 = $idc and c.IdCliente2 = k.IdCliente2";
+		k.Email as email FROM cotizacion c, cliente k where c.idCotizacion = $idc and c.idCliente = k.idCliente";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
 		
 		return $cotizacion;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerSolicitudCotizacionPorId( $dbh, $idc ){
 		//Obtiene solicitud de cotización dado su id. Usa idcliente como id de proveedor	
-		$q = "select c.numero as nro, c.IdCotizacion2 as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
+		$q = "select c.numero as nro, c.idCotizacion as idc, c.tipo as tipo, c.estado as estado, p.idProveedor as idproveedor, 
 		DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
@@ -88,25 +88,25 @@
 		c.pcontacto as pcontacto, c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
 		c.Observaciones2 as obs2, c.Observaciones3 as obs3, p.Nombre as nombre, p.Rif as rif, p.direccion1 as dir1, 
 		p.direccion2 as dir2, p.telefono1 as tlf1, p.telefono2 as tlf2, p.Email as email FROM cotizacion c, proveedor p 
-		where c.IdCotizacion2 = ".$idc." and c.IdCliente2 = p.idProveedor";
+		where c.idCotizacion = ".$idc." and c.idCliente = p.idProveedor";
 		
 		$cotizacion["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$cotizacion["detalle"] = obtenerDetalleCotizacion( $dbh, $idc );
 		
 		return $cotizacion;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function guardarItemDetalle( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de cotización
 		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
 		$ptotal = $item->dcant * $item->dpunit;
-		$q = "insert into detallecotizacion ( IdCotizacion2, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
+		$q = "insert into detallecotizacion ( idCotizacion, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
 		values ( $idc, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function guardarDetalleCotizacion( $dbh, $idc, $detalle, $iva ){
 		//Registra los ítems contenidos en el detalle de la cotización
 		$exito = true;
@@ -120,17 +120,17 @@
 		
 		return $exito;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function guardarCotizacion( $dbh, $encabezado, $idu ){
 		// Guarda el registro de la cotización y solicitud de cotización
-		// idCliente2 funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
+		// idCliente funciona para indicar cliente o proveedor según el valor del campo tipo de registro (tipo)
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
 		if( $encabezado->tipo == "cotizacion" ){
 			$param = "valor_condicion, condicion,";
 			$valores = $encabezado->vcondicion.", '".$encabezado->ncondicion."',";	
 		} else { $param = ""; $valores = ""; }
 		
-		$q = "insert into cotizacion ( numero, tipo, estado, IdCliente2, fecha_emision, fecha_vencimiento, 
+		$q = "insert into cotizacion ( numero, tipo, estado, idCliente, fecha_emision, fecha_vencimiento, 
 		pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, $param iva, Total, idUsuario ) 
 		values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
@@ -143,9 +143,9 @@
 		$data = mysql_query( $q, $dbh );
 		return mysql_insert_id();
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Cotizaciones */
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	//Registro de nueva cotización
 	if( isset( $_POST["reg_cotizacion"] ) ){
 		include( "bd.php" );
@@ -176,15 +176,19 @@
 
 		echo json_encode( $res );
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	function editarCotizacion( $dbh, $encabezado, $idu ){
 		//Actualiza los valores del encabezado de una cotización
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
-		$q = "update cotizacion set IdCliente2 = $encabezado->idc, fecha_emision = '$fecha_mysql', 
+		if( $encabezado->tipo == "cotizacion" ){
+			$param = "valor_condicion = $encabezado->vcondicion, 
+			condicion = '$encabezado->ncondicion',";
+		} else { $param = ""; }
+		$q = "update cotizacion set idCliente = $encabezado->idc, fecha_emision = '$fecha_mysql', 
 		pcontacto = '$encabezado->pcontacto', iva = $encabezado->iva, Total = $encabezado->total, 
-		valor_condicion = $encabezado->vcondicion, condicion = '$encabezado->ncondicion', 
-		observaciones1 = '$encabezado->obs1', observaciones2 = '$encabezado->obs2', observaciones3 = '$encabezado->obs3', 
-		idUsuario = $idu WHERE IdCotizacion2 = $encabezado->idr and idUsuario = $idu";
+		observaciones1 = '$encabezado->obs1', observaciones2 = '$encabezado->obs2', 
+		observaciones3 = '$encabezado->obs3', $param idUsuario = $idu  
+		WHERE idCotizacion = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -205,7 +209,7 @@
 		
 		if( $r_edit != -1 ){
 			
-			eliminarDetalleDocumento( $dbh, "detallecotizacion", "IdCotizacion2", $encabezado->idr );
+			eliminarDetalleDocumento( $dbh, "detallecotizacion", "idCotizacion", $encabezado->idr );
 			$exito = guardarDetalleCotizacion( $dbh, $encabezado->idr, $detalle, $encabezado->iva );
 			
 			if( $exito == true ){

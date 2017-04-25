@@ -1,28 +1,28 @@
 <?php
 	/* R&G - Funciones de clentes */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/	
+	/* ------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */	
 	function obtenerListaFacturas( $link, $idu ){
 		//Obtiene los registros de factura con los datos para mostrar en las tablas
 		$lista_f = array();
-		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.IdCliente2 as idc, C.Nombre as cliente, 
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.idCliente as idc, C.Nombre as cliente, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
-		where F.IdCliente = C.IdCliente2 and idUsuario = $idu order by F.fecha_emision desc";
+		where F.IdCliente = C.idCliente and idUsuario = $idu order by F.fecha_emision desc";
 		$data = mysql_query( $q, $link );
 		while( $f = mysql_fetch_array( $data ) ){
 			$lista_f[] = $f;	
 		}
 		return $lista_f;	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerProximoNumeroFactura( $dbh, $idu ){
 		//Retorna el número correspondiente al próximo registro de factura a guardar
 		$q = "select MAX(numero) as num from factura where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
 		return $data["num"] + 1;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function tieneNotaAsociada( $dbh, $id ){
 		//Determina si un nota (crédito/débito) está asociada a una factura dado su id  
 		$asociada = false;
@@ -33,7 +33,7 @@
 		
 		return $asociada;		
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerDetalleFactura( $dbh, $idf ){
 		// Obtiene los ítems del detalle de una factura
 		$detalle = array();
@@ -46,7 +46,7 @@
 		}
 		return $detalle;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle dado su id
 		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente as idcliente, 
@@ -60,14 +60,14 @@
 		f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, 
 		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, 
 		c.telefono2 as tlf2, c.Email as email FROM factura f, cliente c 
-		WHERE f.IdFactura = $idf and f.IdCliente = c.IdCliente2";
+		WHERE f.IdFactura = $idf and f.IdCliente = c.idCliente";
 		
 		$factura["encabezado"] = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		$factura["detalle"] = obtenerDetalleFactura( $dbh, $idf );
 		
 		return $factura;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarItemDetalleF( $dbh, $idf, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		$ptotal = $item->dcant * $item->dpunit;
@@ -78,7 +78,7 @@
 
 		return mysql_insert_id();
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarDetalleFactura( $dbh, $idf, $detalle ){
 		//Registra los ítems contenidos en el detalle de la factura
 		$exito = true;
@@ -93,7 +93,7 @@
 		
 		return $exito;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	function guardarFactura( $dbh, $encabezado, $detalle, $idu ){
 		//Guarda el registro de una factura
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
@@ -114,7 +114,7 @@
 		//echo $q;
 		return mysql_insert_id();
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	function editarFactura( $dbh, $encabezado, $idu ){
 		//Actualiza los datos de encabezado de una factura
 		$fecha_emision = cambiaf_a_mysql( $encabezado->femision );
@@ -135,9 +135,9 @@
 		return mysql_affected_rows();	
 	}
 	
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
 	
 	//Registro de nueva factura
 	if( isset( $_POST["reg_factura"] ) ){
@@ -173,7 +173,7 @@
 		
 		echo json_encode( $res );
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 	//Edición de factura
 	if( isset( $_POST["edit_factura"] ) ){
 		
@@ -209,6 +209,6 @@
 
 		echo json_encode( $res );
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------------------- */
 
 	

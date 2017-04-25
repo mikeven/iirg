@@ -210,14 +210,8 @@ function obtenerFormatoDocumento( doc ){
 	});	
 }
 /* ----------------------------------------------------------------------------------- */
-$( document ).ready(function() {
-	
-    $(".bloque_nota").hide();
-	var cant = "";
-
-	/* ----------------------------------------------------------------------------------- */
+function initSubtotal(){
 	if ( $("#subtotal").is('[readonly]') == false ){
-		
 		$("#subtotal").on( "blur keyup", function(){
 			var subtotal = parseFloat( $(this).val() ); 
 			var piva = subtotal * $("#iva").val();
@@ -226,15 +220,21 @@ $( document ).ready(function() {
 			$("#v_iva").val( piva.toFixed( 2 ) );
 			$("#total").val( total.toFixed( 2 ) );
 	    });
-    
+
 	    $("#subtotal").on( "blur", function(){ 
 	    	var subtotal = parseFloat( $(this).val() );  
 	    	$("#subtotal").val( subtotal.toFixed( 2 ) );   
 	    });
+	}
+}
+/* ----------------------------------------------------------------------------------- */
+$( document ).ready(function() {
+	
+    $(".bloque_nota").hide();
+    initSubtotal();	
+	var cant = "";
 
-    }
-    /* ----------------------------------------------------------------------------------- */
-    $(".ocn").click( function(){ //Selección de ajuste global
+    $(".ocn").click( function(){ // Selección de ajuste global
 		$("#tconcepto").val( $(this).html() );
 		$("#etq_concepto").html( $(this).html() );
 		
@@ -244,8 +244,9 @@ $( document ).ready(function() {
 			$("#tdetalle").fadeIn(200); $("#subtotal").attr("readonly", "true"); 
 			calcularTotales();
 		}
+		initSubtotal();
     });
-	/* ----------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
     /* Acciones ejecutadas al seleccionar tipo de nota */
     $("#tnota").change( function(){
 		var tipo_nota = $(this).val();
