@@ -103,6 +103,7 @@
         });
     </script>
     <script src="js/fn-articulos.js"></script>
+    <script src="js/fn-ui.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

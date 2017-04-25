@@ -8,7 +8,7 @@
 function strSerialForm( form, cont ){
 	var str = "";
 	var art = null;
-	if( form != null ) art = frm.serialize();
+	if( form != null ) art = form.serialize();
 	else {
 		$( cont + " .form-control").each(function() {
 			if( $(this).attr('type') != "hidden" )
@@ -200,7 +200,6 @@ $( document ).ready(function() {
 	$("#bt_reg_art_modal").on( "click", function() {
 		if( checkArticulo('alerta') == 0 ){
 			guardarArticulo( null, "print", 'tresalerta' );
-
 		}
 		else
 			$("#resalerta").fadeIn("slow");	

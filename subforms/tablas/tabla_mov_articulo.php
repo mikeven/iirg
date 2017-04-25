@@ -16,11 +16,13 @@
         <?php 
           foreach( $operaciones as $o ){ 
             $ie = iconoEstado( $o["estado"] );
-            $lnk = "";
+            if( $o["documento"] == "Cotización" ) $td = "ctz";
+            if( $o["documento"] == "Factura" ) $td = "fac";
+            $lnk = "documento.php?tipo_documento=$td&id=$o[id]";
         ?>  
         <tr>
-            <td> <?php echo $o["documento"]. " Nro. ".$o["numero"];  ?></td>
-            <td> <?php echo $o["femision"];   ?></td>
+            <td><a href="<?php echo $lnk;?>"> <?php echo $o["documento"]. " Nro. ".$o["numero"];  ?></a></td>
+            <td> <?php echo $o["femision"]; ?></td>
             <td> <?php echo number_format( $o["total"], 2, ",", "." ); ?></td>
             <td align="center">
               <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>

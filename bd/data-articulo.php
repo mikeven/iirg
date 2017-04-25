@@ -43,7 +43,7 @@
 		//Modifica los datos de un artículo
 		$resp["cambio"] = "exito";
 		$q = "update articulo set Codigo = '$articulo[codigo]', Descripcion = '$articulo[descripcion]', 
-		Presentacion = '$articulo[pres]', idCategoria = $articulo[categoria] where idArticulo = $articulo[id]";
+		Presentacion = '$articulo[presentacion]', idCategoria = $articulo[categoria] where idArticulo = $articulo[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $articulo["id"];
@@ -104,9 +104,9 @@
 	function obtenerOperacionesArticulo( $dbh, $ida ){
 		//Retorna una lista de documentos (facturas cotizaciones) que incluyan un artículo dado por su id
 		$lista = array();
-		$q = "Select c.idCotizacion2 as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		$q = "Select c.idCotizacion as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM cotizacion c, detallecotizacion dc 
-		where dc.IdCotizacion2 = c.idCotizacion2 and dc.IdArticulo = $ida UNION ALL 
+		where dc.idCotizacion = c.idCotizacion and dc.IdArticulo = $ida UNION ALL 
 			Select f.idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM factura f, detallefactura df 
 		where df.IdFactura = f.idFactura and df.IdArticulo = $ida order by femision DESC"; 
@@ -127,21 +127,16 @@
 		return $existente;	
 	}
 	/*--------------------------------------------------------------------------------------------------------*/
-	if( isset( $_POST["reg_articulo"] ) || isset( $_POST["mod_articulo"] ) ){
+	if( isset( $_POST["mod_articulo"] ) ){
 		include( "bd.php" );
 		$articulo["descripcion"] = $_POST["descripcion"];
 		$articulo["codigo"] = $_POST["codigo"];
 		$articulo["presentacion"] = $_POST["presentacion"];
 		$articulo["categoria"] = $_POST["categoria"];
-
-		if( isset( $_POST["reg_articulo"] )){
-			$idr = agregarArticulo( $articulo, $dbh );
-		}
-		if( isset( $_POST["mod_articulo"] )){
-			$articulo["id"] = $_POST["idArticulo"];
-			$res = modificarArticulo( $articulo, $dbh );
-			$idr = $res["id"]."&res=$res[cambio]";
-		}
+		$articulo["id"] = $_POST["idArticulo"];
+		
+		$res = modificarArticulo( $articulo, $dbh );
+		$idr = $res["id"]."&res=$res[cambio]";
 		
 		echo "<script>window.location.href='../ficha_articulo.php?a=$idr'</script>";	
 	}

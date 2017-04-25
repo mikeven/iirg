@@ -199,21 +199,23 @@
                   
                   <div class="tab-pane" id="tab_2">
                     <form role="form" id="frm_marticulo" name="form_modificar_articulo" action="bd/data-articulo.php" method="post">
-                        <input name="reg_articulo" type="hidden" value="1">
+                        <input name="mod_articulo" type="hidden" value="1">
                         <input name="idArticulo" type="hidden" value="<?php echo $articulo["idArticulo"];?>">
                         <div class="box-body">
                           <div class="form-group">
                             
                               <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-bookmark-o"></i></div>
-                                <input type="text" class="form-control" id="pdescripcion" placeholder="Descripción" name="descripcion" value="<?php echo $articulo["descripcion"];?>">
+                                <input type="text" class="form-control" id="pdescripcion" placeholder="Descripción" name="descripcion" 
+                                value="<?php echo $articulo["descripcion"];?>">
                               </div>
                           </div><!-- /.form group -->
                           
                           <div class="form-group">
                               <div class="input-group">
                                   <div class="input-group-addon"><i class="fa fa-barcode"></i></div>
-                                  <input id="pcodigo" type="text" class="form-control" placeholder="Código" data-mask name="codigo" value="<?php echo $articulo["codigo"];?>">
+                                  <input id="pcodigo" type="text" class="form-control" placeholder="Código" data-mask name="codigo" 
+                                  value="<?php echo $articulo["codigo"];?>">
                               </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           
@@ -225,7 +227,7 @@
                                       <?php foreach( $unidades as $u ){ $s = selop( $u["nombre"], $articulo["presentacion"] );?>
                                       <option value="<?php echo $u["nombre"] ?>" <?php echo $s;?>><?php echo $u["nombre"] ?></option>
                                       <?php } ?>
-                            		</select>
+                            		  </select>
                               </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           
@@ -250,9 +252,9 @@
                   </div><!-- /.tab-pane -->
                   
                   <div class="tab-pane" id="tab_3">
-                    <!-- Tabla operaciones cliente -->
+                    <!-- Tabla operaciones artículo -->
                       <?php include("subforms/tablas/tabla_mov_articulo.php"); ?>
-                    <!-- /.Tabla operaciones cliente --> 
+                    <!-- /.Tabla operaciones artículo --> 
                   </div><!-- /.tab-pane -->
 
                 </div><!-- /.tab-content -->
