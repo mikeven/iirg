@@ -1,7 +1,26 @@
 <?php
+	/* ----------------------------------------------------------------------------------- */
 	/* R&G - Funciones de usuarios */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+	function ultimaActualizacion( $dbh, $idu ){
+		//Retorna la fecha donde se realizó la última actualización de documentos de usuario
+		$q = "select date_format(ultima_act_doc,'%Y-%m-%d') as fecha from usuario 
+			where idUsuario = $idu";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		return $data["fecha"];
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function chequearActualizacion( $dbh, $hoy, $idu ){
+		//Chequea el estado de actualización de documentos e invoca a su revisión
+		include("bd/data-documento.php");
+		$fult_act_docs = "2017-04-25";//ultimaActualizacion( $dbh, $idu );
+		
+		if( $fult_act_docs < $hoy ){
+			revisarEstadoDocumentos( $dbh, $idu );
+		}		
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function checkSession( $page ){
 		if( isset( $_SESSION["login"] ) ){
 			if( $page == "index" ) 
@@ -11,7 +30,7 @@
 				echo "<script> window.location = 'index.php'</script>";		
 		}
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function usuarioValido( $usuario, $dbh ){
 		$valido = true;
 
@@ -21,13 +40,13 @@
 
 		return $valido;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerUsuarioPorId( $idu, $dbh ){
 		$sql = "select * from usuario where idUsuario = $idu";
 		$data_user = mysql_fetch_array( mysql_query ( $sql, $dbh ) );
 		return $data_user;					
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function registrarInicioSesion( $usuario, $dbh ){
 		$adj_time = 96; // Tiempo para ajustar diferencia con hora de servidor ( minutos )
 		$adjsql = "NOW() + INTERVAL $adj_time MINUTE";
@@ -35,7 +54,7 @@
 		$Rs = mysql_query ( $query, $dbh );
 		return mysql_insert_id();	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function registrarUsuario( $usuario, $pass, $dbh ){
 		$query = "insert into usuario (usuario, password) values ( '$usuario', '$pass' )";
 		//echo $query;
@@ -43,7 +62,7 @@
 		
 		return mysql_insert_id();	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function iniciarSesion( $usuario, $pass, $dbh ){
 		session_start();
 		$idresult = 0; 
@@ -62,7 +81,7 @@
 		
 		return $idresult;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function modificarDatosEmpresa( $usuario, $dbh ){
 		$actualizado = 1;
 		$q = "update usuario set empresa = '$usuario[empresa]', subtitulo = '$usuario[subtitulo]', rif = '$usuario[rif]', 
@@ -77,7 +96,7 @@
 		
 		return $actualizado;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function modificarDatosUsuario( $usuario, $dbh ){
 		$actualizado = 1;
 		$q = "update usuario set usuario = '$usuario[usuario]', nombre = '$usuario[nombre]' 
@@ -89,7 +108,7 @@
 		
 		return $actualizado;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function modificarPassword( $usuario, $dbh ){
 		$actualizado = 1;
 		$q = "update usuario set password = '$usuario[password]' where idUsuario = $usuario[id]";
@@ -102,10 +121,10 @@
 		
 		return $actualizado;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
-	/* ----------------------------------------------------------------------------------------------------- */
-	//Inicio de sesión
+	/* ----------------------------------------------------------------------------------- */
+	//Inicio de sesión (asinc)
 	if( isset( $_POST["login"] ) ){
 		include( "bd.php" );
 		$usuario = $_POST["usuario"];
@@ -114,8 +133,8 @@
 		
 		echo $return;
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
-	//Registro de nuevo usuario
+	/* ----------------------------------------------------------------------------------- */
+	//Registro de nuevo usuario (asinc)
 	if( isset( $_POST["registro"] ) ){
 		include( "bd.php" );
 		$usuario = $_POST["rusuario"];
@@ -139,22 +158,22 @@
 		echo json_encode( $res );
 	}
 	
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Usuarios */
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	//Inicio de sesión
 	if( isset( $_SESSION["login"] ) ){
 		$idu = $_SESSION["user"]["idUsuario"];
 	}else $idu = NULL;
 	
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	//Cierre de sesión
 	if( isset( $_GET["logout"] ) ){
 		//include( "bd.php" );
 		unset( $_SESSION["login"] );
 		echo "<script> window.location = 'index.php'</script>";		
 	}	
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	//Modificar datos de usuario. Bloque: empresa
 	if( isset( $_POST["mod_empresa"] ) ){
 		
@@ -178,6 +197,7 @@
 		
 		echo json_encode( $res );	
 	}
+	/* ----------------------------------------------------------------------------------- */
 	//Modificar datos de usuario. Bloque: datos personales
 	if( isset( $_POST["mod_usuario"] ) ){
 		include( "bd.php" );
@@ -194,7 +214,8 @@
 		
 		echo json_encode( $res );
 	}
-	//Modificar datos de usuario. Bloque: contraseña
+	/* ----------------------------------------------------------------------------------- */
+	//Modificar datos de usuario. Bloque: contraseña (asinc)
 	if( isset( $_POST["mod_passw"] ) ){
 		
 		include("bd.php");
@@ -210,4 +231,5 @@
 		
 		echo json_encode( $res );	
 	}
+	/* ----------------------------------------------------------------------------------- */
 ?>

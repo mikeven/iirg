@@ -1,4 +1,5 @@
 <?php
+	/* ----------------------------------------------------------------------------------- */
 	/* R&G - Gestión de datos de cotizaciones */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
@@ -7,8 +8,9 @@
 	function obtenerListaCotizaciones( $link, $idu, $estado ){
 		$xq = ""; $lista_c = array();
 		if( $estado != "" ) $xq = "and estado = '$estado'";
-		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, 
-		date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, k.Nombre as Nombre, c.Total as Total 
+		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, 
+		c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, 
+		c.valor_condicion as dias_validos, k.Nombre as Nombre, c.Total as Total 
 		from cotizacion c, cliente k where c.idCliente = k.idCliente and c.tipo = 'cotizacion' 
 		and idUsuario = $idu $xq order by c.fecha_emision DESC";
 		
