@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$facturas = obtenerListaFacturas( $dbh, $usuario["idUsuario"] );
+	$facturas = obtenerListaFacturas( $dbh, $usuario["idUsuario"], "" );
 ?>
 <div class="modal fade" id="lista_facturas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width:60%;">

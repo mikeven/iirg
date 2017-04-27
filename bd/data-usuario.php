@@ -17,7 +17,7 @@
 		$fult_act_docs = "2017-04-25";//ultimaActualizacion( $dbh, $idu );
 		
 		if( $fult_act_docs < $hoy ){
-			revisarEstadoDocumentos( $dbh, $idu );
+			revisarEstadoDocumentos( $dbh, $idu, $hoy );
 		}		
 	}
 	/* ----------------------------------------------------------------------------------- */

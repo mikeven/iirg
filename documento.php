@@ -272,6 +272,7 @@
         </section><!-- /.content -->
         
         <section id="bloque_data_documento" class="col-sm-2 invoice">
+          
           <h2 class="page-header">
             <div id="destado">
               <i class="fa <?php echo $iconoi["icono"]." ".$iconoi["color"]; ?>"></i> 
@@ -279,7 +280,7 @@
             </div>
           </h2>
           <div id="bloque_fechas" class="bdatadoc">
-            <?php echo fechasDocumento( $encabezado ); ?>
+            <?php echo fechasDocumento( $encabezado ); //fn-documento.php ?>
           </div>
           <div id="bloque_opciones_rapidas" class="bdatadoc">
               <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { ?>
@@ -291,6 +292,7 @@
                 <i class="fa fa-check"></i> Marcar como pagada</a>
               <?php } ?> 
           </div>
+          
           <div id="btn_opciones" class="btn-group pull-right bdatadoc" align="center">
             <button type="button" class="btn btn-info">Más Opciones</button>
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

@@ -19,7 +19,9 @@
 	
   checkSession( '' );
 	
-  if( isset( $_GET["idc"] ) ){
+  if( isset( $_GET["idc"] ) ){  
+    // Obtención de datos para realizar factura desde una cotización
+    
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] ); //data-cotizacion.php
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
@@ -27,20 +29,21 @@
   }
   
   if ( isset( $_GET["idref"] ) ){
+    // Obtención de datos para realizar factura desde una factura de referencia (copia)
+    
     $id_do = $_GET["idref"];
     $factura = obtenerFacturaPorId( $dbh, $id_do );
     $encabezado = $factura["encabezado"];
     $detalle = $factura["detalle"];
-    
   }    
   
-  if( isset( $encabezado ) ){
+  if( ( isset( $encabezado ) ) && ( isset( $cotizacion ) ) ){
     $iva = $encabezado["iva"];
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
   }else
   { $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; }
-	
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -241,7 +244,7 @@
                                 <div class="input-group">
                                   <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                    data-target="#lista_clientes" <?php if( isset($cotizacion) ) echo "disabled";?>>CLIENTE</button>
+                                    data-target="#lista_clientes" <?php if( isset( $cotizacion ) ) echo "disabled";?>>CLIENTE</button>
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -292,7 +295,9 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
+                                                  //Si no hay encabezado: Fact sin cotiz->no se compara condición encabezado
+                                                  //Si hay cotización: Fact con cotiz->no se compara condición encabezado 
+                                                  if( !isset( $encabezado ) || isset( $cotizacion ) ) $encabezado["cprev"] = 0;
                                                   echo opCondicion( $encabezado, $c );    // bd/data-forms.php
                                                 }?>                                                
                                             </select>
@@ -413,7 +418,7 @@
                                                   	<div id="fsub_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
+                                                          id="subtotal" value="<?php if( isset( $encabezado ) ) echo $totales["subtotal"]; ?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>
@@ -425,9 +430,9 @@
                                                   <th width="15%">
                                                   	<div id="impuesto" class="totalizacion">
                                                       	<div class="input-group">
-                                                          	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                          <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
+                                                          id="v_iva" value="<?php if( isset( $encabezado ) ) echo $totales["iva"]; ?>" readonly>
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -439,7 +444,7 @@
                                                   	  <div id="fac_total" class="totalizacion">
                                                       	<div class="input-group">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                              id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
+                                                          id="total" value="<?php if( isset( $encabezado ) ) echo $totales["total"]; ?>" readonly>
                                                   		</div>
                                                   	</div>
                                                   </th>

@@ -27,7 +27,7 @@
                     <tr>
                         <td><?php echo $c["numero"];?></td>
                         <td><?php echo $c["Fecha"];?></td>
-                        <td><a href="<?php echo $destino; ?>?idc=<?php echo $c["idc"]; ?>">
+                        <td><a href="<?php echo $destino; ?>?idc=<?php echo $c["id"]; ?>">
                           <?php echo $c["Nombre"]; ?></a>
                         </td>
                         <td><?php echo number_format( $c["Total"], 2, ",", "." ); ?></td>

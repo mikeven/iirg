@@ -8,9 +8,9 @@
 	function obtenerListaCotizaciones( $link, $idu, $estado ){
 		$xq = ""; $lista_c = array();
 		if( $estado != "" ) $xq = "and estado = '$estado'";
-		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, 
+		$q = "Select c.idCotizacion as id, c.tipo as tipo, c.numero as numero, 
 		c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') as Fecha, 
-		c.valor_condicion as dias_validos, k.Nombre as Nombre, c.Total as Total 
+		c.valor_condicion as vcondicion, k.Nombre as Nombre, c.Total as Total 
 		from cotizacion c, cliente k where c.idCliente = k.idCliente and c.tipo = 'cotizacion' 
 		and idUsuario = $idu $xq order by c.fecha_emision DESC";
 		
@@ -186,17 +186,23 @@
 			$param = "valor_condicion = $encabezado->vcondicion, 
 			condicion = '$encabezado->ncondicion',";
 		} else { $param = ""; }
-		$q = "update cotizacion set idCliente = $encabezado->idc, fecha_emision = '$fecha_mysql', 
-		pcontacto = '$encabezado->pcontacto', iva = $encabezado->iva, Total = $encabezado->total, 
-		observaciones1 = '$encabezado->obs1', observaciones2 = '$encabezado->obs2', 
-		observaciones3 = '$encabezado->obs3', $param idUsuario = $idu  
+		$q = "update cotizacion set 
+		idCliente = $encabezado->idc, 
+		fecha_emision = '$fecha_mysql',
+		fecha_modificacion = NOW(), 
+		pcontacto = '$encabezado->pcontacto', 
+		iva = $encabezado->iva, 
+		Total = $encabezado->total, 
+		observaciones1 = '$encabezado->obs1', 
+		observaciones2 = '$encabezado->obs2', 
+		observaciones3 = '$encabezado->obs3', 
+		$param idUsuario = $idu  
 		WHERE idCotizacion = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();	
 	}
-
 	/* ------------------------------------------------------------------------------- */
 	//Edición de cotización
 	if( isset( $_POST["edit_cotizacion"] ) ){

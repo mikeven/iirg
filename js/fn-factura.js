@@ -117,7 +117,7 @@ function guardarFactura(){
 				bloquearDocumento();
 			}
 		});	
-	}	
+	}else alert("ERR_else");	
 }
 /* ----------------------------------------------------------------------------------- */
 function editarFactura(){
@@ -162,6 +162,12 @@ function checkFactura(){
 	if( $("#fordc").val() == "" ){
 		//Asignación de valor por defecto ('N/A') a orden de compra si no es indicado
 		$("#fordc").val("N/A");
+	}
+
+	if( $("#total").val() == "" ){
+		//Factura sin total
+		$("#tx-vmsj").html("Error en totalización");
+		error = 1;
 	}
 
 	if( error == 1 ){

@@ -233,7 +233,7 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled selected>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
+                                                  if( !isset( $encabezado ) ) $encabezado["cprev"] = 0;
                                                   echo opCondicion( $encabezado, $c );    // bd/data-forms.php
                                                 }?>
                                             </select>

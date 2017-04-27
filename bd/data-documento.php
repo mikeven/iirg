@@ -72,8 +72,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function idTabla( $tabla ){
 		/* Retorna el id de la tabla correspondiente al documento indicado por parámetro */
-		$ids = array( "cotizacion" => "IdCotizacion2",
-					  "factura" => "IdFactura",
+		$ids = array( "cotizacion" => "idCotizacion",
+					  "factura" => "idFactura",
 					  "nota" => "idNota",
 					  "orden_compra" => "idOrden" );
 
@@ -81,7 +81,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerFechaFutura( $fecha, $dias ){
-		//Obtiene una fecha después de los días especificados
+		//Obtiene una fecha después/antes de los días especificados
 		$fecha_f = date( "Y-m-d", strtotime( "$fecha + $dias day" ) );
 		return $fecha_f;
 	}
@@ -123,8 +123,8 @@
 		//Actualiza el campo de estado de un documento
 		$idtabla = idTabla( $tabla );
 		$campo_fecha = array(
-			"aprobada" => "aprobacion", "anulada" => "anulacion", "pagada" => "pago", 
-			"vencida" => "vencimiento", "vencida" => "vencimiento"
+			"aprobada" => "aprobacion", "anulada" => "anulacion", 
+			"pagada" => "pago", "vencida" => "venc_sist"
 		);
 		$pfecha = "fecha_".$campo_fecha[$estado];
 		$q = "Update $tabla set estado = '$estado', $pfecha = NOW() where $idtabla = $id";
@@ -161,14 +161,30 @@
 		return mysql_affected_rows();
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function revisarEstadoDocumentos( $dbh, $idu ){
+	function chequearVigenciaDocumentos( $dbh, $documentos, $nombre, $hoy ){
+		//Compara la fecha de emisión-validez y fecha actual para determinar vigencia de 
+		//la lista de documentos
+		foreach ( $documentos as $doc ) {
+			$fecha_emision = $doc["Fecha"];
+			$dias_validos = $doc["vcondicion"];
+			$fecha_valida = obtenerFechaFutura( cambiaf_a_mysql( $fecha_emision ), $dias_validos );
+			//echo $nombre." FEM:".$fecha_emision." D:".$dias_validos." FVAL: ".$fecha_valida." HOY:".$hoy."<br>";
+			if( $hoy >= $fecha_valida ){
+				//echo "CAMBIAR ESTADO<br>";
+				cambiarEstadoDocumento( $dbh, $doc["id"], $nombre, "vencida" );
+			}
+		}
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function revisarEstadoDocumentos( $dbh, $idu, $hoy ){
 		//Chequea la vigencia de los documentos(cotizaciones y facturas) e invoca 
 		//la actualización del estado
 		include("data-cotizacion.php");
+		include("data-factura.php");
 		$cotizaciones = obtenerListaCotizaciones( $dbh, $idu, "pendiente" );
-		foreach ( $cotizaciones as $c ) {
-			$dias = $c["dias_validos"];	
-		}
+		$facturas = obtenerListaFacturas( $dbh, $idu, "pendiente" );
+		chequearVigenciaDocumentos( $dbh, $cotizaciones, "cotizacion", $hoy );
+		chequearVigenciaDocumentos( $dbh, $facturas, "factura", $hoy );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */

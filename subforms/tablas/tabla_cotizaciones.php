@@ -29,7 +29,7 @@
             <td> <?php echo $c["numero"];  ?></td>
             <td> <?php echo $c["Fecha"];  ?></td>
             <td>
-              <a href="documento.php?tipo_documento=<?php echo $td; ?>&id=<?php echo $c["idc"]; ?>"><?php echo $c["Nombre"]; ?></a>
+              <a href="documento.php?tipo_documento=<?php echo $td; ?>&id=<?php echo $c["id"]; ?>"><?php echo $c["Nombre"]; ?></a>
             </td>
             <?php if( $tipo != "solicitud" ) { ?> 
               <td> 

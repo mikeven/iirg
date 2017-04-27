@@ -108,8 +108,9 @@
 		// tipo de documento para mostrarse en la ficha del mismo
 		$bloque_fechas = "";
 		$arr_fechas = array( 	
-			"femision" => "Emitida", 
+			"femision" => "Emitida",
 			"fregistro" => "Registrada", 
+			"fvencimiento" => "Vence", 
 			"fmodificacion" => "Últ. mod.", 
 			"faprobacion" => "Aprobada", 
 			"fanulacion" => "Anulada", 
@@ -126,6 +127,7 @@
 
 		return $bloque_fechas;
 	}
+	
 	/*--------------------------------------------------------------------------------------------------------*/
 	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){

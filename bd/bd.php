@@ -15,7 +15,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function cambiaf_a_mysql( $fecha ){
 		//Obtiene una fecha del formato dd/mm/YYYY al formato YYYY-mm-dd
-		list($dia, $mes, $ano) = explode( "/", $fecha );
+		list( $dia, $mes, $ano ) = explode( "/", $fecha );
     	$lafecha = "$ano-$mes-$dia";
 		return $lafecha; 
 	}

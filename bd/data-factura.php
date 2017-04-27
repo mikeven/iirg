@@ -3,12 +3,16 @@
 	/* ------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------- */	
-	function obtenerListaFacturas( $link, $idu ){
+	function obtenerListaFacturas( $link, $idu, $estado ){
 		//Obtiene los registros de factura con los datos para mostrar en las tablas
-		$lista_f = array();
-		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, C.idCliente as idc, C.Nombre as cliente, 
-		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total from factura F, cliente C 
-		where F.IdCliente = C.idCliente and idUsuario = $idu order by F.fecha_emision desc";
+		$xq = ""; $lista_f = array();
+		if( $estado != "" ) $xq = "and estado = '$estado'";
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total 
+		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu $xq 
+		order by F.fecha_emision desc";
+		
 		$data = mysql_query( $q, $link );
 		while( $f = mysql_fetch_array( $data ) ){
 			$lista_f[] = $f;	
@@ -55,7 +59,8 @@
 		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
 		DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
 		DATE_FORMAT(f.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion, 
-		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, f.valor_condicion as vcondicion, f.iva as iva, 
+		DATE_FORMAT(f.fecha_vencimiento,'%d/%m/%Y') as fvencimiento,
+		DATE_FORMAT(f.fecha_venc_sist,'%d/%m/%Y') as fvenc_sist, f.valor_condicion as vcondicion, f.iva as iva, 
 		f.orden_compra as oc, f.condicion as condicion, f.valor_condicion as vcondicion, f.introduccion as intro, 
 		f.Observaciones as obs0, f.Observaciones1 as obs1, f.Observaciones2 as obs2, f.Observaciones3 as obs3, 
 		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, 
