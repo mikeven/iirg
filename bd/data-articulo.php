@@ -52,7 +52,7 @@
 		
 		return $resp;		
 	}
-	/*---------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaArticulos( $link ){
 		$lista_a = array();
 		$q = "Select idArticulo, Codigo, Descripcion, Presentacion from articulo order by Descripcion asc";
@@ -62,25 +62,25 @@
 		}
 		return $lista_a;	
 	}
-	/*---------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function actualizarCategoria( $dbh, $id, $campo, $valor ){
 		$q = "update categoria set $campo = '$valor' where iDcategoria = $id";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
-	/*---------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function actualizarUnidad( $dbh, $id, $nombre ){
 		$q = "update unidad set nombre = '$nombre' where idUnidad = $id";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
-	/*---------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function eliminarUnidad( $dbh, $id ){
 		$q = "delete from unidad where idUnidad = $id";
 		//$data = mysql_query( $q, $dbh );
 		return $id;
 	}
-	/*---------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerCategoriasArticulos( $dbh ){
 		$lista_c = array();
 		$q = "select * from categoria order by nombre asc";
