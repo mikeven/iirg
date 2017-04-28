@@ -132,12 +132,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="main.php" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
+    <?php include("sub-scripts/nav/logo.html");?>
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -149,16 +144,16 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Mensajes: style can be found in dropdown.less-->
-          <?php include("subforms/nav/mensajes.php");?>
+          <?php include("sub-scripts/nav/mensajes.php");?>
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
-          <?php include("subforms/nav/notificaciones.php");?>
+          <?php include("sub-scripts/nav/notificaciones.php");?>
           <!-- Notificaciones-->
           <!-- Tareas: style can be found in dropdown.less -->
-          <?php include("subforms/nav/tareas.php");?>
+          <?php include("sub-scripts/nav/tareas.php");?>
           <!-- Tareas: style can be found in dropdown.less -->
           <!-- User Account: style can be found in dropdown.less -->
-          <?php include("subforms/nav/perfil.php");?>
+          <?php include("sub-scripts/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -169,7 +164,7 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("subforms/nav/menu_ppal.php");?>
+  <?php include("sub-scripts/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -343,11 +338,11 @@
   <!-- /.content-wrapper -->
 
   <!-- /footer -->
-  <?php include("subforms/nav/footer.php"); ?>
+  <?php include("sub-scripts/nav/footer.php"); ?>
   <!-- /.footer -->
 
   <!-- Panel de configuración -->
-  <?php include("subforms/nav/panel_control.php"); ?>
+  <?php include("sub-scripts/nav/panel_control.php"); ?>
   <!-- /.Panel de configuración -->
 
 </div>

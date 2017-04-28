@@ -8,7 +8,6 @@
   include( "bd/bd.php" );
   include( "bd/data-usuario.php" );
   include( "bd/data-formato.php" );
-  include( "bd/data-pedido.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
   include( "bd/data-documento.php" );

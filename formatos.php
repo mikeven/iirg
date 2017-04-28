@@ -79,12 +79,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="main.php" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
+    <?php include("sub-scripts/nav/logo.html");?>
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -96,16 +91,16 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Mensajes: style can be found in dropdown.less-->
-          <?php include("subforms/nav/mensajes.php");?>
+          <?php include("sub-scripts/nav/mensajes.php");?>
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
-          <?php include("subforms/nav/notificaciones.php");?>
+          <?php include("sub-scripts/nav/notificaciones.php");?>
           <!-- Notificaciones-->
           <!-- Tareas: style can be found in dropdown.less -->
-          <?php include("subforms/nav/tareas.php");?>
+          <?php include("sub-scripts/nav/tareas.php");?>
           <!-- Tareas: style can be found in dropdown.less -->
           <!-- User Account: style can be found in dropdown.less -->
-          <?php include("subforms/nav/perfil.php");?>
+          <?php include("sub-scripts/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -117,7 +112,7 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <?php 
-    include("subforms/nav/menu_ppal.php");
+    include("sub-scripts/nav/menu_ppal.php");
     
     /* Data cotizaciones */
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
@@ -184,40 +179,40 @@
                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
                     
                     <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/cotizaciones.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/cotizaciones.php" ); ?>
                     <!-- /.Sección panel formato de cotizaciones -->
                     
                     <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/solicitud_cotizaciones.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/solicitud_cotizaciones.php" ); ?>
                     <!-- /.Sección panel formato de cotizaciones -->
                     
                     <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "subforms/config-formatos/pedidos.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/pedidos.php" ); ?>
                     <!-- /.Sección panel formato de cotizaciones -->
                     
                     <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/facturas.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/facturas.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
 
                     <!-- Sección panel formato de orden de compra -->
-                    <?php include( "subforms/config-formatos/orden_compra.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/orden_compra.php" ); ?>
                     <!-- /.Sección panel formato de orden de compra -->
 
                     <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/nota_credito.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/nota_credito.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
 
                     <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/nota_debito.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/nota_debito.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
 
                     <!-- Sección panel formato de facturas -->
-                    <?php include( "subforms/config-formatos/nota_entrega.php" ); ?>
+                    <?php include( "sub-scripts/config-formatos/nota_entrega.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
 
                   </div>
                   <!-- Bloque de respuesta del servidor -->
-                  <?php include("subforms/nav/mensaje_rcpf.php"); ?>
+                  <?php include("sub-scripts/nav/mensaje_rcpf.php"); ?>
                   <!-- /.Bloque de respuesta del servidor -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -236,11 +231,11 @@
   <!-- /.content-wrapper -->
 
   <!-- /footer -->
-  <?php include("subforms/nav/footer.php"); ?>
+  <?php include("sub-scripts/nav/footer.php"); ?>
   <!-- /.footer -->
   
   <!-- Panel de configuración -->
-  <?php include("subforms/nav/panel_control.php"); ?>
+  <?php include("sub-scripts/nav/panel_control.php"); ?>
   <!-- /.Panel de configuración -->
 
 </div>

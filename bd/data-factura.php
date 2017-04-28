@@ -126,13 +126,12 @@
 		$q = "update factura set 
 				idCliente = $encabezado->idcliente, 
 				fecha_emision = '$fecha_emision', 
-				idCondicion = $encabezado->idcondicion, 
-				validez = '$encabezado->validez', 
+				valor_condicion = $encabezado->vcondicion, 
+				condicion = '$encabezado->ncondicion', 
 				fecha_vencimiento = '$encabezado->fvencimiento', 
 				SubTotal = $encabezado->subtotal, 
 				Total = $encabezado->total, 
-				fecha_modificacion = NOW(), 
-				idCondicion = $encabezado->idcondicion 
+				fecha_modificacion = NOW() 
 			WHERE idFactura = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;

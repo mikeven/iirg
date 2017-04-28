@@ -37,7 +37,7 @@ function obtenerCondicionForm(){
 function obtenerEncabezadoBase(){
 	//Retorna un objeto con los elementos comunes del encabezado de un documento
 	encabezado = new Object();
-	encabezado.idu = $( '#idu_sesion' ).val();		// subforms/nav/perfil.php
+	encabezado.idu = $( '#idu_sesion' ).val();		// sub-scripts/nav/perfil.php
 	encabezado.idr = $( '#id_documento' ).val();
 	encabezado.numero = $( '#ndocumento' ).val();
 	encabezado.estado = $( '#estado' ).val();

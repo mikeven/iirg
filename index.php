@@ -108,7 +108,7 @@
               </div>
             </form>
           </div>
-        <?php include("subforms/nav/mensaje_rcpf.php");?>
+        <?php include("sub-scripts/nav/mensaje_rcpf.php");?>
         <div id="rreg"></div>
         <!--<a href="#">I forgot my password</a><br>
         <a href="register.html" class="text-center">Register a new membership</a>-->

@@ -92,10 +92,11 @@
 	function guardarOrdenCompra( $dbh, $encabezado, $idu ){
 		// Guarda el registro de una orden de compra
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision ); 
-		$q = "insert into orden_compra ( numero, idProveedor, fecha_emision, introduccion, Observaciones, 
-		observaciones1, observaciones2, observaciones3, iva, Total, idUsuario ) values ( $encabezado->numero, 
-		$encabezado->idproveedor, '$fecha_mysql', '$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', 
-		'$encabezado->obs2', '$encabezado->obs3', $encabezado->iva, $encabezado->total, $idu )";
+		$q = "insert into orden_compra ( numero, idProveedor, estado, fecha_emision, fecha_registro, introduccion, 
+		Observaciones, observaciones1, observaciones2, observaciones3, iva, Total, idUsuario ) 
+		values ( $encabezado->numero, $encabezado->idproveedor, '$encabezado->estado', '$fecha_mysql', NOW(), 
+		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', 
+		$encabezado->iva, $encabezado->total, $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );

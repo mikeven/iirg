@@ -55,13 +55,13 @@
 	function obtenerOperacionesCliente( $dbh, $idc ){
 		//Retorna una lista de documentos (facturas, notas, cotizaciones) asociados a un cliente
 		$lista = array();
-		$q = "Select idCotizacion2 as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		$q = "Select idCotizacion as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM cotizacion where idCliente = $idc UNION ALL 
 			Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM factura where idCliente = $idc UNION ALL
 			Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM nota where idCliente = $idc order by femision DESC"; 
-		
+		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		while( $reg = mysql_fetch_array( $data ) ){
 			$lista[] = $reg;	

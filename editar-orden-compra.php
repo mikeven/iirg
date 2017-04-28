@@ -117,16 +117,16 @@
                <div class="navbar-custom-menu">
                   <ul class="nav navbar-nav">
                      <!-- Mensajes: style can be found in dropdown.less-->
-                     <?php include("subforms/nav/mensajes.php");?>
+                     <?php include("sub-scripts/nav/mensajes.php");?>
                      <!-- Mensajes-->
                      <!-- Notificaciones: style can be found in dropdown.less -->
-                     <?php include("subforms/nav/notificaciones.php");?>
+                     <?php include("sub-scripts/nav/notificaciones.php");?>
                      <!-- Notificaciones-->
                      <!-- Tareas: style can be found in dropdown.less -->
-                     <?php include("subforms/nav/tareas.php");?>
+                     <?php include("sub-scripts/nav/tareas.php");?>
                      <!-- Tareas: style can be found in dropdown.less -->
                      <!-- User Account: style can be found in dropdown.less -->
-                     <?php include("subforms/nav/perfil.php");?>
+                     <?php include("sub-scripts/nav/perfil.php");?>
                      <!-- Control Sidebar Toggle Button -->
                      <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -140,7 +140,7 @@
             $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
          ?>
          <!-- Left side column. contains the logo and sidebar -->
-         <?php include("subforms/nav/menu_ppal.php");?>
+         <?php include("sub-scripts/nav/menu_ppal.php");?>
          <!-- Left side column. contains the logo and sidebar -->
          <!-- Content Wrapper. Contains page content -->
          <div class="content-wrapper">
@@ -193,7 +193,7 @@
                                     <!-- /.form group -->
                                     <!-- Modal -->
                                        <?php 
-                                         include( "subforms/tablas/tabla_proveedores_modal.php" );
+                                         include( "sub-scripts/tablas/tabla_proveedores_modal.php" );
                                        ?>
                                     <!-- /.Modal -->
                                     <div class="row">
@@ -245,7 +245,7 @@
                                        </div>
                                        <!-- /.form group -->
                                        <!-- Modal -->
-                                       <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
+                                       <?php include( "sub-scripts/tablas/tabla_articulos_modal.php" ); ?>
                                        <!-- /.Modal -->
                                        <div class="row" id="sumador_items">
                                           <div class="col-md-6">
@@ -391,7 +391,7 @@
                               <!-- Bloque de respuesta del servidor -->
                                  <button type="button" id="enl_vmsj" data-toggle="modal" 
                                  data-target="#ventana_mensaje"></button>
-                                 <?php include("subforms/nav/mensaje_respuesta.php");?>
+                                 <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
                               <!-- /.Bloque de respuesta del servidor -->
                            </div>
                            <!-- /.box-body -->
@@ -400,7 +400,7 @@
                                  data-target="#ventana_confirmacion">Guardar</button>
                            </div>
                            <?php 
-                              include( "subforms/nav/mensaje_confirmacion.php" );
+                              include( "sub-scripts/nav/mensaje_confirmacion.php" );
                            ?>
                         </form>
                      </div>
@@ -414,10 +414,10 @@
          </div>
          <!-- /.content-wrapper -->
          <!-- /footer -->
-         <?php include("subforms/nav/footer.php"); ?>
+         <?php include("sub-scripts/nav/footer.php"); ?>
          <!-- /.footer -->
          <!-- Panel de configuración -->
-         <?php include("subforms/nav/panel_control.php"); ?>
+         <?php include("sub-scripts/nav/panel_control.php"); ?>
          <!-- /.Panel de configuración -->
       </div>
       <!-- ./wrapper -->

@@ -23,7 +23,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerSolicitudesCotizaciones( $link, $idu ){
 		$lista_c = array();
-		$q = "Select c.idCotizacion as idc, c.tipo as tipo, c.numero as numero, c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') 
+		$q = "Select c.idCotizacion as id, c.tipo as tipo, c.numero as numero, c.estado as estado, date_format(c.fecha_emision,'%d/%m/%Y') 
 		as Fecha, p.Nombre as Nombre, c.Total as Total from cotizacion c, proveedor p 
 		where c.idCliente = p.idProveedor and c.tipo = 'solicitud' and idUsuario = $idu order by c.fecha_emision DESC";
 		$data = mysql_query( $q, $link );
@@ -63,9 +63,9 @@
 		//Retorna el registro de una cotización y sus ítems de detalle dado su id
 		$q = "select c.numero as nro, c.idCotizacion as idc, c.tipo as tipo, c.estado as estado, 
 		c.idCliente as idcliente, DATE_FORMAT(c.fecha_emision,'%d/%m/%Y') as femision, 
-		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i') as fregistro, 
+		DATE_FORMAT(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		DATE_FORMAT(c.fecha_aprobacion,'%d/%m/%Y') as faprobacion, 
-		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
+		DATE_FORMAT(c.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
 		DATE_FORMAT(c.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
 		c.valor_condicion as vcondicion, c.condicion as validez, c.iva as iva, c.pcontacto as pcontacto, 
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
@@ -133,10 +133,10 @@
 		} else { $param = ""; $valores = ""; }
 		
 		$q = "insert into cotizacion ( numero, tipo, estado, idCliente, fecha_emision, fecha_vencimiento, 
-		pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
+		fecha_registro, pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, $param iva, Total, idUsuario ) 
 		values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
-		$encabezado->idc, '$fecha_emision', '$encabezado->fvencimiento', '$encabezado->pcontacto', 
+		$encabezado->idc, '$fecha_emision', '$encabezado->fvencimiento', NOW(), '$encabezado->pcontacto', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 		'$encabezado->obs3', $valores $encabezado->iva, 
 		$encabezado->total, $idu )";
@@ -187,16 +187,17 @@
 			condicion = '$encabezado->ncondicion',";
 		} else { $param = ""; }
 		$q = "update cotizacion set 
-		idCliente = $encabezado->idc, 
-		fecha_emision = '$fecha_mysql',
-		fecha_modificacion = NOW(), 
-		pcontacto = '$encabezado->pcontacto', 
-		iva = $encabezado->iva, 
-		Total = $encabezado->total, 
-		observaciones1 = '$encabezado->obs1', 
-		observaciones2 = '$encabezado->obs2', 
-		observaciones3 = '$encabezado->obs3', 
-		$param idUsuario = $idu  
+			idCliente = $encabezado->idc, 
+			fecha_emision = '$fecha_mysql',
+			fecha_modificacion = NOW(), 
+			pcontacto = '$encabezado->pcontacto', 
+			iva = $encabezado->iva, 
+			Total = $encabezado->total, 
+			observaciones1 = '$encabezado->obs1', 
+			observaciones2 = '$encabezado->obs2', 
+			observaciones3 = '$encabezado->obs3',
+			fecha_modificacion = NOW(), 
+			$param idUsuario = $idu  
 		WHERE idCotizacion = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;

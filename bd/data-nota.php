@@ -45,8 +45,11 @@
 		}
 		
 		$q = "select n.numero nro, n.idNota as idn, n.tipo as tipo, $campo n.idCliente as idcliente, n.estado as estado, 
-		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, DATE_FORMAT(n.fecha_registro,'%d/%m/%Y %h:%i') as fregistro,
-		DATE_FORMAT(n.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, n.iva as iva, n.SubTotal as SubTotal, n.Total as Total,  
+		DATE_FORMAT(n.fecha_emision,'%d/%m/%Y') as femision, 
+		DATE_FORMAT(n.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro,
+		DATE_FORMAT(n.fecha_modificacion,'%d/%m/%Y %h:%i %p') as fmodificacion,
+		DATE_FORMAT(n.fecha_anulacion,'%d/%m/%Y %h:%i') as fanulacion, 
+		n.iva as iva, n.SubTotal as SubTotal, n.Total as Total,  
 		n.tipo_concepto as tipo_concepto, n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
 		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, c.Nombre as nombre, c.Rif as rif, 
 		c.direccion1 as dir1, c.direccion2 as dir2, c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email 
@@ -114,12 +117,17 @@
 	}
 	/* ------------------------------------------------------------------------------- */
 	function editarNota( $dbh, $encabezado, $idu ){
-
+		//Actualiza los valores del encabezado de una nota
 		$fecha_mysql = cambiaf_a_mysql( $encabezado->femision );
-		$q = "update nota set idCliente = $encabezado->idcliente, fecha_emision = '$fecha_mysql', 
-		SubTotal = $encabezado->subtotal, Total = $encabezado->total, 
-		concepto = '$encabezado->concepto', tipo_concepto = '$encabezado->tipo_concepto', 
-		tipo='$encabezado->tipo', fecha_modificacion = NOW() 
+		$q = "update nota set 
+			idCliente = $encabezado->idcliente, 
+			fecha_emision = '$fecha_mysql', 
+			SubTotal = $encabezado->subtotal, 
+			Total = $encabezado->total, 
+			concepto = '$encabezado->concepto', 
+			tipo_concepto = '$encabezado->tipo_concepto', 
+			tipo='$encabezado->tipo', 
+			fecha_modificacion = NOW() 
 		WHERE idNota = $encabezado->idr and idUsuario = $idu";
 		
 		//echo $q;

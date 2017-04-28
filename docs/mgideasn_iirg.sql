@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2017 at 12:21 AM
+-- Generation Time: Apr 29, 2017 at 12:14 AM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -2543,7 +2543,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `NroPrecio` int(1) DEFAULT NULL,
   `AccionSql` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=318 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=319 ;
 
 --
 -- Dumping data for table `cliente`
@@ -2834,7 +2834,8 @@ INSERT INTO `cliente` (`idCliente`, `Nombre`, `Rif`, `pcontacto`, `Nit`, `direcc
 (281, 'RODOLFO LEON', 'V-14.807.140', 'SRTA. GISDELL TORCATT', NULL, NULL, 'AV. FCO. DE MIRANDA C.C. CENTRO LIDO NIVEL 4 OFIC.41-D URB. EL ROSAL', 'CARACAS', '0212-9056302', '0212-9056302', 1, NULL, 10, NULL, 0, 1, NULL, NULL, 0, 1, 'GCLI'),
 (282, 'INTERFACE DE COMUNICACIONES, C.A.', 'J-40181830-7', NULL, NULL, NULL, 'AV. RIO DE ORO, CALLE GIRASOL, EDIF. INTANA, PISO 3, URBANIZACION PRADOS DEL ESTE', 'CARACAS', '0212-614-5731', NULL, 1, NULL, 10, NULL, 0, 1, NULL, NULL, 0, 0, 'GCLI'),
 (316, 'MG Ideas', 'J-55588488-4', 'José Gabriel Baptista', NULL, 'Calle Los Chaguaramos, Centro DENU PB, La Castellana', '', NULL, '(0212)-263.14.18', '(0414)-137.09.80', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'contacto@mgideas.net', NULL, NULL, NULL),
-(317, 'Grupo Arcytec, C.A.', 'J-96526561-8', 'Antonio Bermúdez', NULL, 'Av. ppal las Mercedes, Centro Empresarial Los Llanos', 'Piso 1, oficina 7', NULL, '(0212)-952.15.35', '(0414)-655.48.12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'abermudez@arcytec.com', NULL, NULL, NULL);
+(317, 'Grupo Arcytec, C.A.', 'J-96526561-8', 'Antonio Bermúdez', NULL, 'Av. ppal las Mercedes, Centro Empresarial Los Llanos', 'Piso 1, oficina 7', NULL, '(0212)-952.15.35', '(0414)-655.48.12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'abermudez@arcytec.com', NULL, NULL, NULL),
+(318, 'Corporación 5', 'J-65652665-4', 'Andrés Núñez', NULL, 'Av ppal los Netts', 'Calle 5', NULL, '(0212)-622.31.54', '(0212)-622.34.55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ventas@corpo5.com', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2919,7 +2920,7 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idCotizacion`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `cotizacion`
@@ -2932,9 +2933,10 @@ INSERT INTO `cotizacion` (`idCotizacion`, `numero`, `Fecha`, `fecha_emision`, `f
 (4, 4, NULL, '2017-04-20', NULL, NULL, '2017-04-23 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 266, NULL, NULL, NULL, NULL, NULL, 'SR. GERMAN MATOS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, 57120.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
 (5, 5, NULL, '2017-04-20', NULL, NULL, '2017-04-25 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 141, NULL, NULL, NULL, NULL, NULL, 'SRA. YUDITH ZANELLA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, 86889.60, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
 (6, 1, NULL, '2017-04-20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 3, '3 días', NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(7, 2, NULL, '2017-04-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 'Marcel Mancera', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 5, '5 días', NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
+(7, 2, NULL, '2017-04-22', NULL, '2017-04-28 16:42:51', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 'Marcel Mancera', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 5, '5 días', NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
 (8, 6, NULL, '2017-04-27', NULL, NULL, '2017-04-30 00:00:00', NULL, NULL, '2017-04-27 17:36:33', NULL, 111, NULL, NULL, NULL, NULL, NULL, 'SR. LAURENCE IBARRAS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, 263200.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
-(9, 7, NULL, '2017-04-27', NULL, NULL, '2017-04-30 00:00:00', NULL, NULL, NULL, NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', 3, '3 días', NULL, 131600.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1);
+(9, 7, NULL, '2017-04-27', '2017-04-27 15:30:05', NULL, '2017-04-30 00:00:00', NULL, NULL, NULL, NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'pendiente', 3, '3 días', NULL, 394800.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
+(10, 3, NULL, '2017-04-28', NULL, NULL, '1970-01-01 00:00:00', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1);
 
 -- --------------------------------------------------------
 
@@ -2958,7 +2960,7 @@ CREATE TABLE IF NOT EXISTS `detallecotizacion` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `detallecotizacion`
@@ -2969,11 +2971,13 @@ INSERT INTO `detallecotizacion` (`IdMovimiento`, `idCotizacion`, `Item`, `IdArti
 (2, 2, NULL, '37', NULL, 'AGENDA DE TRABAJO ISOFI', 6, 9820.00, NULL, 58920.00, NULL, 'UND', NULL, NULL),
 (3, 3, NULL, '118', NULL, 'BOLIGRAFOS FABER CASTELL C/TAPA NE 034', 24, 3950.75, NULL, 94818.00, NULL, 'UND', NULL, NULL),
 (5, 5, NULL, '2288', NULL, 'AJAX LIQUIDO 2 LTS.', 9, 8620.00, NULL, 77580.00, NULL, 'UND', NULL, NULL),
-(7, 7, NULL, '37', NULL, 'AGENDA DE TRABAJO ISOFI', 32, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (8, 4, NULL, '76', NULL, 'ACETATOS TRANS. T/C PAQ. X 50', 6, 8500.00, NULL, 51000.00, NULL, 'UND', NULL, NULL),
 (12, 6, NULL, '73', NULL, 'ACETATOS', 4, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
 (13, 8, NULL, '1045', NULL, 'CANON S35 TONER', 2, 117500.00, NULL, 235000.00, NULL, 'UND', NULL, NULL),
-(14, 9, NULL, '1045', NULL, 'CANON S35 TONER', 1, 117500.00, NULL, 117500.00, NULL, 'UND', NULL, NULL);
+(15, 10, NULL, '54', NULL, 'ANILLOS DOBLE CARTA PLAST. 7/8', 25, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(16, 10, NULL, '12', NULL, 'ARCHIVADORES LOMO ANCHO AKTA CARTA', 6, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL),
+(18, 9, NULL, '1045', NULL, 'CANON S35 TONER', 3, 117500.00, NULL, 352500.00, NULL, 'UND', NULL, NULL),
+(19, 7, NULL, '37', NULL, 'AGENDA DE TRABAJO ISOFI', 15, 0.00, NULL, 0.00, NULL, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2997,7 +3001,7 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `detallefactura`
@@ -3007,7 +3011,9 @@ INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `c
 (1, 1, NULL, 73, NULL, 'UND', 'ACETATOS', 9, '6500.00', 0.00, NULL, 58500.00, NULL, NULL),
 (2, 2, NULL, 1028, NULL, 'UND', 'CANON TINTA BX-3 FAX B-540/550/640 NEGRO', 2, '117500.00', 0.00, NULL, 235000.00, NULL, NULL),
 (3, 3, NULL, 37, NULL, 'UND', 'AGENDA DE TRABAJO ISOFI', 6, '6500.00', 0.00, NULL, 39000.00, NULL, NULL),
-(4, 4, NULL, 1045, NULL, 'UND', 'CANON S35 TONER', 2, '117500.00', 0.00, NULL, 235000.00, NULL, NULL);
+(4, 4, NULL, 1045, NULL, 'UND', 'CANON S35 TONER', 2, '117500.00', 0.00, NULL, 235000.00, NULL, NULL),
+(15, 5, NULL, 1045, NULL, 'UND', 'CANON S35 TONER', 3, '117500.00', 0.00, NULL, 352500.00, NULL, NULL),
+(16, 5, NULL, 37, NULL, 'UND', 'AGENDA DE TRABAJO ISOFI', 3, '3205.62', 0.00, NULL, 9616.86, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3035,7 +3041,7 @@ CREATE TABLE IF NOT EXISTS `detallenota` (
   `TotMts` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `detallenota`
@@ -3043,7 +3049,8 @@ CREATE TABLE IF NOT EXISTS `detallenota` (
 
 INSERT INTO `detallenota` (`IdDetalle`, `IdNota`, `Item`, `IdArticulo`, `codigo_producto`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `Alicuota`, `und`, `IdItem`, `IdMovNE`, `TotKgs`, `TotMts`, `TotalIVA`) VALUES
 (1, 1, NULL, 76, NULL, 'ACETATOS TRANS. T/C PAQ. X 50', 9, '9500.00', 0.00, NULL, 85500.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
-(2, 2, NULL, 73, NULL, 'ACETATOS', 200, '3250.00', 0.00, NULL, 650000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
+(2, 2, NULL, 73, NULL, 'ACETATOS', 200, '3250.00', 0.00, NULL, 650000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(6, 6, NULL, 32, NULL, 'ARCHICOMODO PLASTICO', 20, '15250.75', 0.00, NULL, 305015.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3065,7 +3072,7 @@ CREATE TABLE IF NOT EXISTS `detalleordencompra` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `detalleordencompra`
@@ -3083,7 +3090,11 @@ INSERT INTO `detalleordencompra` (`IdMovimiento`, `idOrden`, `Item`, `IdArticulo
 (12, 6, NULL, '1034', 'CANON GPR-2 IMAGE RUNNER 330/400', 2, 232650.23, NULL, 465300.47, 'UND', NULL, NULL),
 (13, 6, NULL, '1364', 'HP 122 CH561HL NEGRO', 3, 113642.23, NULL, 340926.69, 'UND', NULL, NULL),
 (14, 7, NULL, '73', 'ACETATOS', 6, 9500.00, NULL, 57000.00, 'UND', NULL, NULL),
-(15, 8, NULL, '721', 'PAPEL P/FOTOCOPIADORA', 30, 12000.00, NULL, 360000.00, 'UND', NULL, NULL);
+(15, 8, NULL, '721', 'PAPEL P/FOTOCOPIADORA', 30, 12000.00, NULL, 360000.00, 'UND', NULL, NULL),
+(16, 9, NULL, '13', 'ARCHIVADOR LOMO ANCHO T/OFICIO', 25, 6200.00, NULL, 155000.00, 'UND', NULL, NULL),
+(17, 9, NULL, '152', 'BAT. AA ALCALINA X 2', 3, 65000.00, NULL, 195000.00, 'UND', NULL, NULL),
+(18, 10, NULL, '721', 'PAPEL P/FOTOCOPIADORA', 20, 32000.00, NULL, 640000.00, 'UND', NULL, NULL),
+(19, 11, NULL, '37', 'AGENDA DE TRABAJO ISOFI', 12, 12000.00, NULL, 144000.00, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3153,7 +3164,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
   PRIMARY KEY (`idFactura`),
   KEY `idUsuario` (`idUsuario`),
   KEY `IdCotizacion` (`idCotizacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `factura`
@@ -3163,7 +3174,8 @@ INSERT INTO `factura` (`idFactura`, `numero`, `idCliente`, `fecha_emision`, `fec
 (1, 1, 258, '2017-04-18 00:00:00', '2017-04-18 18:12:15', NULL, '2017-05-03 00:00:00', NULL, NULL, NULL, NULL, '8520', 'pendiente', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '65520.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
 (2, 2, 49, '2017-04-18 00:00:00', '2017-04-18 18:15:48', NULL, '2017-05-03 00:00:00', NULL, NULL, NULL, NULL, '8530', 'pendiente', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '263200.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
 (3, 3, 143, '2017-04-20 00:00:00', '2017-04-20 16:40:40', NULL, '2017-05-05 00:00:00', NULL, NULL, NULL, NULL, '9562', 'pendiente', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '43680.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', NULL, NULL, NULL, 8, 'N/A', 'pendiente', 3, '3 días', NULL, 0.12, NULL, NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1);
+(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', NULL, NULL, NULL, 8, 'N/A', 'pendiente', 3, '3 días', NULL, 0.12, NULL, NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(5, 5, 111, '2017-04-28 00:00:00', '2017-04-28 14:48:07', '2017-04-28 15:23:51', '2017-04-29 00:00:00', NULL, NULL, NULL, 8, '9521', 'pendiente', 1, 'CONTADO', NULL, 0.12, '362116.86', NULL, NULL, '405570.88', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1);
 
 -- --------------------------------------------------------
 
@@ -3237,7 +3249,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idNota`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `nota`
@@ -3248,7 +3260,8 @@ INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_reg
 (2, 2, 94, '2017-04-24 00:00:00', '2017-04-24 20:22:18', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '650000.00', NULL, '728000', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
 (3, 1, 49, '2017-04-24 00:00:00', '2017-04-24 20:34:48', NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, 0.12, '35000.00', NULL, '39200', NULL, '', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
 (4, 2, 49, '2017-04-24 00:00:00', '2017-04-24 20:36:12', NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, 0.12, '85000.00', NULL, '95200', NULL, 'Descripción MM', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
-(5, 1, 258, '2017-04-24 00:00:00', '2017-04-24 21:03:36', '2017-04-24 21:23:58', NULL, 'nota_debito', 1, 'pendiente', NULL, 0.12, '18500.00', NULL, '20720', NULL, 'Devolución por defectos', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', 1);
+(5, 1, 258, '2017-04-24 00:00:00', '2017-04-24 21:03:36', '2017-04-24 21:23:58', NULL, 'nota_debito', 1, 'pendiente', NULL, 0.12, '18500.00', NULL, '20720', NULL, 'Devolución por defectos', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', 1),
+(6, 3, 107, '2017-04-28 00:00:00', '2017-04-28 17:11:28', '2017-04-28 17:57:32', NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '305015.00', NULL, '341616.8', NULL, 'Omisión de factura', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1);
 
 -- --------------------------------------------------------
 
@@ -3257,42 +3270,44 @@ INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_reg
 --
 
 CREATE TABLE IF NOT EXISTS `orden_compra` (
-  `numero` int(5) DEFAULT NULL,
   `idOrden` int(5) NOT NULL AUTO_INCREMENT,
+  `numero` int(5) DEFAULT NULL,
   `idProveedor` int(7) DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   `fecha_emision` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `iva` decimal(10,2) DEFAULT NULL,
-  `SubTotal` varchar(9) DEFAULT NULL,
-  `Total` varchar(10) DEFAULT NULL,
+  `subototal` varchar(9) DEFAULT NULL,
+  `total` varchar(10) DEFAULT NULL,
   `estado` varchar(20) DEFAULT NULL,
-  `TipoDoc` varchar(1) DEFAULT NULL,
   `introduccion` varchar(200) DEFAULT NULL,
   `Observaciones` varchar(50) DEFAULT NULL,
   `Observaciones1` varchar(17) DEFAULT NULL,
   `Observaciones2` varchar(10) DEFAULT NULL,
   `Observaciones3` varchar(10) DEFAULT NULL,
-  `Texto` varchar(5) DEFAULT NULL,
+  `texto` varchar(5) DEFAULT NULL,
   `documento` varchar(20) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idOrden`),
   KEY `idProveedor` (`idProveedor`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `orden_compra`
 --
 
-INSERT INTO `orden_compra` (`numero`, `idOrden`, `idProveedor`, `fecha_registro`, `fecha_emision`, `fecha_modificacion`, `iva`, `SubTotal`, `Total`, `estado`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Texto`, `documento`, `idUsuario`) VALUES
-(2, 2, 3, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '104882.40', 'pendiente', NULL, 'Datos de la orden de compra', 'CONDICIONES ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(3, 3, 1, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '60436.45', 'pendiente', NULL, 'Datos de la orden de compra', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(4, 4, 1, NULL, '2017-02-08 00:00:00', NULL, 0.12, NULL, '5125.96', 'pendiente', NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(5, 5, 4, NULL, '2017-02-19 00:00:00', '2017-03-27 16:06:52', 0.12, '205143.60', '229760.83', 'pendiente', NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(6, 6, 5, NULL, '2017-03-27 00:00:00', NULL, 0.12, NULL, '902974.41', NULL, NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(7, 7, 3, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '63840', NULL, NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(8, 8, 4, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '403200', NULL, NULL, 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
+INSERT INTO `orden_compra` (`idOrden`, `numero`, `idProveedor`, `fecha_registro`, `fecha_emision`, `fecha_modificacion`, `iva`, `subototal`, `total`, `estado`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `texto`, `documento`, `idUsuario`) VALUES
+(2, 2, 3, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '104882.40', 'pendiente', 'Datos de la orden de compra', 'CONDICIONES ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(3, 3, 1, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '60436.45', 'pendiente', 'Datos de la orden de compra', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(4, 4, 1, NULL, '2017-02-08 00:00:00', NULL, 0.12, NULL, '5125.96', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(5, 5, 4, NULL, '2017-02-19 00:00:00', '2017-03-27 16:06:52', 0.12, '205143.60', '229760.83', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(6, 6, 5, NULL, '2017-03-27 00:00:00', NULL, 0.12, NULL, '902974.41', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(7, 7, 3, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '63840', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(8, 8, 4, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '403200', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(9, 9, 5, NULL, '2017-04-28 00:00:00', NULL, 0.12, NULL, '392000', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(10, 10, 4, '2017-04-28 11:46:51', '2017-04-28 00:00:00', NULL, 0.12, NULL, '716800', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(11, 11, 4, '2017-04-28 12:00:37', '2017-04-28 00:00:00', NULL, 0.12, NULL, '161280', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -3593,7 +3608,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `nombre`, `empresa`, `subtitulo`, `rif`, `telefonos`, `email`, `vendedor`, `direccion1`, `direccion2`) VALUES
 (1, 'admin', 'aba12345', 'Miguel', 'Insumos Informáticos R&G, C.A.', 'Suministro de Papelería y oficina', 'J-55989255-4', '02125456529 / 04266521524 / 04146589854', 'mrangel@mgideas.net / mikeven@gmail.com', 'Nidia', 'Av la Salle, Calle la Trinidad con cruce', 'Parroquia Verde y Azul'),
-(2, 'ryg', '123', 'Dibo Rangel', 'R & G Consumibles, C.A.', 'Insumos de papeería y oficina', 'J-48595499-8', '', 'rygconsumibles@gmail.com', '', '', '');
+(2, 'ryg', '154', 'Dibo Rangel', 'R & G Consumibles, C.A.', 'Insumos de papeería y oficina', 'J-48595499-8', '', 'rygconsumibles@gmail.com', '', '', '');
 
 -- --------------------------------------------------------
 

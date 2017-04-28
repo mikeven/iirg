@@ -110,12 +110,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="main.php" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
+    <?php include("sub-scripts/nav/logo.html");?>
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -127,16 +122,16 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Mensajes: style can be found in dropdown.less-->
-          <?php include("subforms/nav/mensajes.php");?>
+          <?php include("sub-scripts/nav/mensajes.php");?>
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
-          <?php include("subforms/nav/notificaciones.php");?>
+          <?php include("sub-scripts/nav/notificaciones.php");?>
           <!-- Notificaciones-->
           <!-- Tareas: style can be found in dropdown.less -->
-          <?php include("subforms/nav/tareas.php");?>
+          <?php include("sub-scripts/nav/tareas.php");?>
           <!-- Tareas: style can be found in dropdown.less -->
           <!-- User Account: style can be found in dropdown.less -->
-          <?php include("subforms/nav/perfil.php");?>
+          <?php include("sub-scripts/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -151,7 +146,7 @@
     $cond_defecto = obtenerCondicionDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("subforms/nav/menu_ppal.php");?>
+  <?php include("sub-scripts/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -203,7 +198,7 @@
                                   </div>
                               </div><!-- /.form group -->
                               <!-- Modal -->
-                              	<?php include( "subforms/tablas/tabla_clientes_modal.php" ); ?>
+                              	<?php include( "sub-scripts/tablas/tabla_clientes_modal.php" ); ?>
                               <!-- /.Modal -->
                               <div class="row">
                               <div class="col-md-6">
@@ -227,7 +222,7 @@
                                             <select name="validez" id="vcondicion" class="form-control blq_bdoc">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  if( !isset( $encabezado ) ) $encabezado = NULL;
+                                                  $encabezado["cprev"] = 1;
                                                   echo opCondicion( $encabezado, $c );  // bd/data-forms.php
                                                 }?>                                                
                                             </select>
@@ -284,8 +279,8 @@
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Lista de artículos en sistema -->
-                                    <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
-                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
+                                    <?php include( "sub-scripts/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "sub-scripts/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Lista de artículos en sistema -->
                                     
                                     <div class="row" id="sumador_items">
@@ -428,9 +423,9 @@
                         </div><!-- /.pie_cotizacion -->
                         
                         <!-- Bloque de respuesta del servidor -->
-                          <?php //include("subforms/nav/mensaje_rcpf.php");?>
+                          <?php //include("sub-scripts/nav/mensaje_rcpf.php");?>
                           <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
-                          <?php include("subforms/nav/mensaje_respuesta.php");?>
+                          <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
                         <!-- /.Bloque de respuesta del servidor -->
                     
                     </div><!-- /.box-body -->
@@ -439,7 +434,7 @@
                       data-toggle="modal" data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
-                      include( "subforms/nav/mensaje_confirmacion.php" );
+                      include( "sub-scripts/nav/mensaje_confirmacion.php" );
                     ?>
                 </form>
               
@@ -456,11 +451,11 @@
   <!-- /.content-wrapper -->
 
   <!-- /footer -->
-  <?php include("subforms/nav/footer.php"); ?>
+  <?php include("sub-scripts/nav/footer.php"); ?>
   <!-- /.footer -->
 
   <!-- Panel de configuración -->
-  <?php include("subforms/nav/panel_control.php"); ?>
+  <?php include("sub-scripts/nav/panel_control.php"); ?>
   <!-- /.Panel de configuración -->
 
 </div>

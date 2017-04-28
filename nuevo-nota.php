@@ -147,12 +147,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="main.php" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
+    <?php include("sub-scripts/nav/logo.html");?>
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -164,16 +159,16 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Mensajes: style can be found in dropdown.less-->
-          <?php include("subforms/nav/mensajes.php");?>
+          <?php include("sub-scripts/nav/mensajes.php");?>
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
-          <?php include("subforms/nav/notificaciones.php");?>
+          <?php include("sub-scripts/nav/notificaciones.php");?>
           <!-- Notificaciones-->
           <!-- Tareas: style can be found in dropdown.less -->
-          <?php include("subforms/nav/tareas.php");?>
+          <?php include("sub-scripts/nav/tareas.php");?>
           <!-- Tareas: style can be found in dropdown.less -->
           <!-- User Account: style can be found in dropdown.less -->
-          <?php include("subforms/nav/perfil.php");?>
+          <?php include("sub-scripts/nav/perfil.php");?>
           <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -191,7 +186,7 @@
     }
   ?>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("subforms/nav/menu_ppal.php");?>
+  <?php include("sub-scripts/nav/menu_ppal.php");?>
   <!-- Left side column. contains the logo and sidebar -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -288,8 +283,8 @@
                               value="<?php if( isset($encabezado) ) echo $encabezado["idcliente"]; ?>">
                               <!-- Modal -->
                               	<?php 
-                                  include( "subforms/tablas/tabla_clientes_modal.php" );
-                                  include( "subforms/tablas/tabla_facturas_modal.php" );
+                                  include( "sub-scripts/tablas/tabla_clientes_modal.php" );
+                                  include( "sub-scripts/tablas/tabla_facturas_modal.php" );
                                 ?>
                               <!-- /.Modal -->
                                 <div class="row">
@@ -341,8 +336,8 @@
                                         </div>
                                     </div><!-- /.form group -->
                                     <!-- Modal -->
-                                    <?php include( "subforms/tablas/tabla_articulos_modal.php" ); ?>
-                                    <?php include( "subforms/forms/nuevo_articulo_modal.php" ); ?>
+                                    <?php include( "sub-scripts/tablas/tabla_articulos_modal.php" ); ?>
+                                    <?php include( "sub-scripts/forms/nuevo_articulo_modal.php" ); ?>
                                     <!-- /.Modal -->
                                     
                                     <div class="row" id="sumador_items">
@@ -519,7 +514,7 @@
                           <!-- Bloque de respuesta del servidor -->
                             <button type="button" id="enl_vmsj" data-toggle="modal" 
                             data-target="#ventana_mensaje" class="hidden"></button>
-                            <?php include("subforms/nav/mensaje_respuesta.php");?>
+                            <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
                           <!-- /.Bloque de respuesta del servidor -->
 
 
@@ -530,7 +525,7 @@
                       data-target="#ventana_confirmacion">Guardar</button>
                     </div>
                     <?php 
-                      include( "subforms/nav/mensaje_confirmacion.php" );
+                      include( "sub-scripts/nav/mensaje_confirmacion.php" );
                     ?>
                 </form>
               
@@ -547,11 +542,11 @@
   <!-- /.content-wrapper -->
 
   <!-- /footer -->
-  <?php include("subforms/nav/footer.php"); ?>
+  <?php include("sub-scripts/nav/footer.php"); ?>
   <!-- /.footer -->
 
   <!-- Panel de configuración -->
-  <?php include("subforms/nav/panel_control.php"); ?>
+  <?php include("sub-scripts/nav/panel_control.php"); ?>
   <!-- /.Panel de configuración -->
 
 </div>
@@ -564,8 +559,8 @@
   </script>
 <?php } ?>
 <!-- ./wrapper -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
-<script src="js/velocity-setup.js"></script>
+  <script src='js/velocity/velocity.min.js'></script>
+  <script src='js/velocity/velocity.ui.min.js'></script>
+  <script src="js/velocity-setup.js"></script>
 </body>
 </html>

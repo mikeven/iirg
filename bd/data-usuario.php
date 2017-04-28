@@ -24,7 +24,7 @@
 	function checkSession( $page ){
 		if( isset( $_SESSION["login"] ) ){
 			if( $page == "index" ) 
-				echo "<script> window.location = 'close.php'</script>";
+				echo "<script> window.location = 'main.php'</script>";
 		}else{
 			if( $page == "" )
 				echo "<script> window.location = 'index.php'</script>";		

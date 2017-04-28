@@ -7,7 +7,6 @@
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-	include( "bd/data-pedido.php" );
   include( "bd/data-orden-compra.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-factura.php" );
@@ -60,12 +59,8 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index.php" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
-        </a>
+        <?php include("sub-scripts/nav/logo.html");?>
+        
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -79,16 +74,16 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Mensajes: style can be found in dropdown.less-->
-              <?php include("subforms/nav/mensajes.php");?>
+              <?php include("sub-scripts/nav/mensajes.php");?>
               <!-- Mensajes-->
               <!-- Notificaciones: style can be found in dropdown.less -->
-              <?php include("subforms/nav/notificaciones.php");?>
+              <?php include("sub-scripts/nav/notificaciones.php");?>
               <!-- Notificaciones-->
               <!-- Tareas: style can be found in dropdown.less -->
-              <?php include("subforms/nav/tareas.php");?>
+              <?php include("sub-scripts/nav/tareas.php");?>
               <!-- Tareas: style can be found in dropdown.less -->
               <!-- User Account: style can be found in dropdown.less -->
-              <?php include("subforms/nav/perfil.php");?>
+              <?php include("sub-scripts/nav/perfil.php");?>
               <!-- Control Sidebar Toggle Button -->
               <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
             </ul>
@@ -106,7 +101,7 @@
         //print_r($encabezado);
       ?>
       <!-- Left side column. contains the logo and sidebar -->
-	     <?php include( "subforms/nav/menu_ppal.php" );?>
+	     <?php include( "sub-scripts/nav/menu_ppal.php" );?>
       <!-- Left side column. contains the logo and sidebar -->
 
       <!-- Content Wrapper. Contains page content -->
@@ -267,7 +262,7 @@
             </div>
             <!-- Pie de documento (no para impresión) -->
             <?php 
-              include( "subforms/nav/mensaje_confirmacion_estado.php" );
+              include( "sub-scripts/nav/mensaje_confirmacion_estado.php" );
             ?>
         </section><!-- /.content -->
         
@@ -283,10 +278,10 @@
             <?php echo fechasDocumento( $encabezado ); //fn-documento.php ?>
           </div>
           <div id="bloque_opciones_rapidas" class="bdatadoc">
-              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
                 <a class="btn btn-block btn-social btn-success"><i class="fa fa-check"></i> Aprobar y emitir factura</a>
               <?php } ?>
-              <?php if( admiteCambioEstado( $tdd, $encabezado, "marcar_pagada" ) ) { ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "marcar_pagada" ) ) { //fn-documento.php ?>
                 <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
                 data-target="#ventana_estado" data-valor="pagada" data-taccion="Marcar como pagada">
                 <i class="fa fa-check"></i> Marcar como pagada</a>
@@ -300,20 +295,20 @@
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="aprobada" 
                 data-taccion="Aprobar"><i class="fa fa-check"></i> Aprobar</a>
               </li>
               <?php } ?>
-              <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { ?>
+              <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { //fn-documento.php ?>
                 <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
               <?php } ?>
               
               <li><a href="<?php echo $enlace_cop; ?>" target="_blank"><i class="fa fa-copy"></i> Copiar</a></li>
               
               <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
-              <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { ?>
+              <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { //fn-documento.php ?>
               <li class="divider"></li>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 
@@ -331,12 +326,12 @@
       
 
       <!-- /footer -->
-      <?php include("subforms/nav/footer.php"); ?>
+      <?php include("sub-scripts/nav/footer.php"); ?>
       <!-- /.footer -->
 
 
       <!-- Panel de configuración -->
-      <?php include("subforms/nav/panel_control.php"); ?>
+      <?php include("sub-scripts/nav/panel_control.php"); ?>
       <!-- /.Panel de configuración -->
   
     </div><!-- ./wrapper -->
