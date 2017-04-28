@@ -9,7 +9,7 @@
     <div class="modal-content">
       
       <div class="modal-body">
-        <?php include( "subforms/forms/form-agregar-articulo.php" ); ?>
+        <?php include( "sub-scripts/forms/form-agregar-articulo.php" ); ?>
       </div>
       
       <div class="alert alert-danger alert-dismissible" id="resalerta" style="display:none;">

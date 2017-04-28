@@ -1,0 +1,1601 @@
+Searching 1207 files for "sub-scriptss"
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\articulos.php:
+  106          <ul class="nav navbar-nav">
+  107            <!-- Mensajes: style can be found in dropdown.less-->
+  108:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  109            <!-- Mensajes-->
+  110            <!-- Notificaciones: style can be found in dropdown.less -->
+  111:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  112            <!-- Notificaciones-->
+  113            <!-- Tareas: style can be found in dropdown.less -->
+  114:           <?php include("sub-scriptss/nav/tareas.php");?>
+  115            <!-- Tareas: style can be found in dropdown.less -->
+  116            <!-- User Account: style can be found in dropdown.less -->
+  117:           <?php include("sub-scriptss/nav/perfil.php");?>
+  118            <!-- Control Sidebar Toggle Button -->
+  119            <li>
+  ...
+  126    </header>
+  127    <!-- Left side column. contains the logo and sidebar -->
+  128:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  129    <!-- Left side column. contains the logo and sidebar -->
+  130  
+  ...
+  154                  </div><!-- /.box-header -->
+  155               	<div class="box-body">
+  156:                 	<?php include("sub-scriptss/tablas/tabla_articulos.php"); ?>
+  157                  </div><!-- /.box-body -->
+  158                </div><!-- /.box -->
+  ...
+  165  
+  166    <!-- /footer -->
+  167:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  168    <!-- /.footer -->
+  169  
+  170    <!-- Panel de configuración -->
+  171:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  172    <!-- /.Panel de configuración -->
+  173  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\BU1\nuevo-orden-compra.php:
+  138          <ul class="nav navbar-nav">
+  139            <!-- Mensajes: style can be found in dropdown.less-->
+  140:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  141            <!-- Mensajes-->
+  142            <!-- Notificaciones: style can be found in dropdown.less -->
+  143:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  144            <!-- Notificaciones-->
+  145            <!-- Tareas: style can be found in dropdown.less -->
+  146:           <?php include("sub-scriptss/nav/tareas.php");?>
+  147            <!-- Tareas: style can be found in dropdown.less -->
+  148            <!-- User Account: style can be found in dropdown.less -->
+  149:           <?php include("sub-scriptss/nav/perfil.php");?>
+  150            <!-- Control Sidebar Toggle Button -->
+  151            <li>
+  ...
+  158    </header>
+  159    <!-- Left side column. contains the logo and sidebar -->
+  160:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  161    <!-- Left side column. contains the logo and sidebar -->
+  162  
+  ...
+  221                              <!-- Modal -->
+  222                              	<?php 
+  223:                                 include( "sub-scriptss/tablas/tabla_cotizaciones_modal.php" );
+  224:                                 //include( "sub-scriptss/tablas/tabla_clientes_modal.php" ); 
+  225                                ?>
+  226                              <!-- /.Modal -->
+  ...
+  269                                      </div><!-- /.form group -->
+  270                                      <!-- Modal -->
+  271:                                         <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  272                                      <!-- /.Modal -->
+  273                                      
+  ...
+  396                            </div><!-- /.pie_cotizacion -->
+  397                            <!-- Bloque de respuesta del servidor -->
+  398:                             <?php include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  399                            <!-- /.Bloque de respuesta del servidor -->
+  400                      </div><!-- /.box-body -->
+  ...
+  405                      </div>
+  406                      <?php 
+  407:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  408                      ?>
+  409                  </form>
+  ...
+  422  
+  423    <!-- /footer -->
+  424:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  425    <!-- /.footer -->
+  426  
+  427    <!-- Panel de configuración -->
+  428:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  429    <!-- /.Panel de configuración -->
+  430  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\categorias.php:
+  150          <ul class="nav navbar-nav">
+  151            <!-- Mensajes: style can be found in dropdown.less-->
+  152:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  153            <!-- Mensajes-->
+  154            <!-- Notificaciones: style can be found in dropdown.less -->
+  155:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  156            <!-- Notificaciones-->
+  157            <!-- Tareas: style can be found in dropdown.less -->
+  158:           <?php include("sub-scriptss/nav/tareas.php");?>
+  159            <!-- Tareas: style can be found in dropdown.less -->
+  160            <!-- User Account: style can be found in dropdown.less -->
+  161:           <?php include("sub-scriptss/nav/perfil.php");?>
+  162            <!-- Control Sidebar Toggle Button -->
+  163            <li>
+  ...
+  170    </header>
+  171    <!-- Left side column. contains the logo and sidebar -->
+  172:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  173    <!-- Left side column. contains the logo and sidebar -->
+  174  
+  ...
+  344  
+  345    <!-- /footer -->
+  346:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  347    <!-- /.footer -->
+  348  
+  349    <!-- Panel de configuración -->
+  350:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  351    <!-- /.Panel de configuración -->
+  352  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\clientes.php:
+  106          <ul class="nav navbar-nav">
+  107            <!-- Mensajes: style can be found in dropdown.less-->
+  108:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  109            <!-- Mensajes-->
+  110            <!-- Notificaciones: style can be found in dropdown.less -->
+  111:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  112            <!-- Notificaciones-->
+  113            <!-- Tareas: style can be found in dropdown.less -->
+  114:           <?php include("sub-scriptss/nav/tareas.php");?>
+  115            <!-- Tareas: style can be found in dropdown.less -->
+  116            <!-- User Account: style can be found in dropdown.less -->
+  117:           <?php include("sub-scriptss/nav/perfil.php");?>
+  118            <!-- Control Sidebar Toggle Button -->
+  119            <li>
+  ...
+  126    </header>
+  127    <!-- Left side column. contains the logo and sidebar -->
+  128:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  129    <!-- Left side column. contains the logo and sidebar -->
+  130  
+  ...
+  154                  </div><!-- /.box-header -->
+  155               	<div class="box-body">
+  156:                 	<?php include( "sub-scriptss/tablas/tabla_clientes.php" )?>
+  157                  </div><!-- /.box-body -->
+  158                </div><!-- /.box -->
+  ...
+  165  
+  166    <!-- /footer -->
+  167:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  168    <!-- /.footer -->
+  169  
+  170    <!-- Panel de configuración -->
+  171:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  172    <!-- /.Panel de configuración -->
+  173  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\cotizaciones.php:
+   79          <ul class="nav navbar-nav">
+   80            <!-- Mensajes: style can be found in dropdown.less-->
+   81:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   82            <!-- Mensajes-->
+   83            <!-- Notificaciones: style can be found in dropdown.less -->
+   84:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   85            <!-- Notificaciones-->
+   86            <!-- Tareas: style can be found in dropdown.less -->
+   87:           <?php include("sub-scriptss/nav/tareas.php");?>
+   88            <!-- Tareas: style can be found in dropdown.less -->
+   89            <!-- User Account: style can be found in dropdown.less -->
+   90:           <?php include("sub-scriptss/nav/perfil.php");?>
+   91            <!-- Control Sidebar Toggle Button -->
+   92            <li>
+   ..
+   99    </header>
+  100    <!-- Left side column. contains the logo and sidebar -->
+  101:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  102    <!-- Left side column. contains the logo and sidebar -->
+  103  
+  ...
+  127                  </div><!-- /.box-header -->
+  128               	<div class="box-body">
+  129:                 	<?php include( "sub-scriptss/tablas/tabla_cotizaciones.php" ); ?>
+  130                  </div><!-- /.box-body -->
+  131                </div><!-- /.box -->
+  ...
+  138  
+  139    <!-- /footer -->
+  140:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  141    <!-- /.footer -->
+  142  
+  143    <!-- Panel de configuración -->
+  144:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  145    <!-- /.Panel de configuración -->
+  146  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\cuenta.php:
+  117          <ul class="nav navbar-nav">
+  118            <!-- Mensajes: style can be found in dropdown.less-->
+  119:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  120            <!-- Mensajes-->
+  121            <!-- Notificaciones: style can be found in dropdown.less -->
+  122:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  123            <!-- Notificaciones-->
+  124            <!-- Tareas: style can be found in dropdown.less -->
+  125:           <?php include("sub-scriptss/nav/tareas.php");?>
+  126            <!-- Tareas: style can be found in dropdown.less -->
+  127            <!-- User Account: style can be found in dropdown.less -->
+  128:           <?php include("sub-scriptss/nav/perfil.php");?>
+  129            <!-- Control Sidebar Toggle Button -->
+  130            <li>
+  ...
+  137    </header>
+  138    <!-- Left side column. contains the logo and sidebar -->
+  139:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  140    <!-- Left side column. contains the logo and sidebar -->
+  141  
+  ...
+  357                    
+  358                    <!-- Bloque de respuesta del servidor -->
+  359:                   <?php include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  360                    <!-- /.Bloque de respuesta del servidor -->
+  361  
+  ...
+  378  
+  379    <!-- /footer -->
+  380:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  381    <!-- /.footer -->
+  382  
+  383    <!-- Panel de configuración -->
+  384:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  385    <!-- /.Panel de configuración -->
+  386  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\documento.php:
+   80              <ul class="nav navbar-nav">
+   81                <!-- Mensajes: style can be found in dropdown.less-->
+   82:               <?php include("sub-scriptss/nav/mensajes.php");?>
+   83                <!-- Mensajes-->
+   84                <!-- Notificaciones: style can be found in dropdown.less -->
+   85:               <?php include("sub-scriptss/nav/notificaciones.php");?>
+   86                <!-- Notificaciones-->
+   87                <!-- Tareas: style can be found in dropdown.less -->
+   88:               <?php include("sub-scriptss/nav/tareas.php");?>
+   89                <!-- Tareas: style can be found in dropdown.less -->
+   90                <!-- User Account: style can be found in dropdown.less -->
+   91:               <?php include("sub-scriptss/nav/perfil.php");?>
+   92                <!-- Control Sidebar Toggle Button -->
+   93                <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+   ..
+  107        ?>
+  108        <!-- Left side column. contains the logo and sidebar -->
+  109: 	     <?php include( "sub-scriptss/nav/menu_ppal.php" );?>
+  110        <!-- Left side column. contains the logo and sidebar -->
+  111  
+  ...
+  268              <!-- Pie de documento (no para impresión) -->
+  269              <?php 
+  270:               include( "sub-scriptss/nav/mensaje_confirmacion_estado.php" );
+  271              ?>
+  272          </section><!-- /.content -->
+  ...
+  332  
+  333        <!-- /footer -->
+  334:       <?php include("sub-scriptss/nav/footer.php"); ?>
+  335        <!-- /.footer -->
+  336  
+  337  
+  338        <!-- Panel de configuración -->
+  339:       <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  340        <!-- /.Panel de configuración -->
+  341    
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\editar-cotizacion.php:
+  128          <ul class="nav navbar-nav">
+  129            <!-- Mensajes: style can be found in dropdown.less-->
+  130:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  131            <!-- Mensajes-->
+  132            <!-- Notificaciones: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  134            <!-- Notificaciones-->
+  135            <!-- Tareas: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/tareas.php");?>
+  137            <!-- Tareas: style can be found in dropdown.less -->
+  138            <!-- User Account: style can be found in dropdown.less -->
+  139:           <?php include("sub-scriptss/nav/perfil.php");?>
+  140            <!-- Control Sidebar Toggle Button -->
+  141            <li>
+  ...
+  152    ?>
+  153    <!-- Left side column. contains the logo and sidebar -->
+  154:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  155    <!-- Left side column. contains the logo and sidebar -->
+  156  
+  ...
+  204                                </div><!-- /.form group -->
+  205                                <!-- Modal -->
+  206:                               	<?php include( "sub-scriptss/tablas/tabla_clientes_modal.php" ); ?>
+  207                                <!-- /.Modal -->
+  208                                <div class="row">
+  ...
+  285                                      </div><!-- /.form group -->
+  286                                      <!-- Lista de artículos en sistema -->
+  287:                                     <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  288:                                     <?php include( "sub-scriptss/forms/nuevo_articulo_modal.php" ); ?>
+  289                                      <!-- /.Lista de artículos en sistema -->
+  290                                      
+  ...
+  429                          
+  430                          <!-- Bloque de respuesta del servidor -->
+  431:                           <?php //include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  432                            <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+  433:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  434                          <!-- /.Bloque de respuesta del servidor -->
+  435                      
+  ...
+  440                      </div>
+  441                      <?php 
+  442:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  443                      ?>
+  444                  </form>
+  ...
+  457  
+  458    <!-- /footer -->
+  459:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  460    <!-- /.footer -->
+  461  
+  462    <!-- Panel de configuración -->
+  463:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  464    <!-- /.Panel de configuración -->
+  465  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\editar-factura.php:
+  138          <ul class="nav navbar-nav">
+  139            <!-- Mensajes: style can be found in dropdown.less-->
+  140:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  141            <!-- Mensajes-->
+  142            <!-- Notificaciones: style can be found in dropdown.less -->
+  143:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  144            <!-- Notificaciones-->
+  145            <!-- Tareas: style can be found in dropdown.less -->
+  146:           <?php include("sub-scriptss/nav/tareas.php");?>
+  147            <!-- Tareas: style can be found in dropdown.less -->
+  148            <!-- User Account: style can be found in dropdown.less -->
+  149:           <?php include("sub-scriptss/nav/perfil.php");?>
+  150            <!-- Control Sidebar Toggle Button -->
+  151            <li>
+  ...
+  162    ?>
+  163    <!-- Left side column. contains the logo and sidebar -->
+  164:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  165    <!-- Left side column. contains the logo and sidebar -->
+  166  
+  ...
+  248                              <!-- Modal -->
+  249                              	<?php 
+  250:                                 include( "sub-scriptss/tablas/tabla_pedidos_modal.php" );
+  251:                                 include( "sub-scriptss/tablas/tabla_clientes_modal.php" );
+  252                                ?>
+  253                              <!-- /.Modal -->
+  ...
+  317                                      </div><!-- /.form group -->
+  318                                      <!-- Modal -->
+  319:                                         <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  320                                      <!-- /.Modal -->
+  321                                      
+  ...
+  456                            <button type="button" id="enl_vmsj" data-toggle="modal" 
+  457                            data-target="#ventana_mensaje"></button>
+  458:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  459                            <!-- /.Bloque de respuesta del servidor -->
+  460  
+  ...
+  466                      </div>
+  467                      <?php 
+  468:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  469                      ?>
+  470                  </form>
+  ...
+  483  
+  484    <!-- /footer -->
+  485:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  486    <!-- /.footer -->
+  487  
+  488    <!-- Panel de configuración -->
+  489:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  490    <!-- /.Panel de configuración -->
+  491  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\editar-nota.php:
+  146          <ul class="nav navbar-nav">
+  147            <!-- Mensajes: style can be found in dropdown.less-->
+  148:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  149            <!-- Mensajes-->
+  150            <!-- Notificaciones: style can be found in dropdown.less -->
+  151:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  152            <!-- Notificaciones-->
+  153            <!-- Tareas: style can be found in dropdown.less -->
+  154:           <?php include("sub-scriptss/nav/tareas.php");?>
+  155            <!-- Tareas: style can be found in dropdown.less -->
+  156            <!-- User Account: style can be found in dropdown.less -->
+  157:           <?php include("sub-scriptss/nav/perfil.php");?>
+  158            <!-- Control Sidebar Toggle Button -->
+  159            <li>
+  ...
+  172    ?>
+  173    <!-- Left side column. contains the logo and sidebar -->
+  174:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  175    <!-- Left side column. contains the logo and sidebar -->
+  176  
+  ...
+  265                                <!-- Modal -->
+  266                                	<?php 
+  267:                                   include( "sub-scriptss/tablas/tabla_clientes_modal.php" );
+  268:                                   include( "sub-scriptss/tablas/tabla_facturas_modal.php" );
+  269                                  ?>
+  270                                <!-- /.Modal -->
+  ...
+  314                                      </div><!-- /.form group -->
+  315                                      <!-- Modal -->
+  316:                                         <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  317                                      <!-- /.Modal -->
+  318                                      
+  ...
+  479                          
+  480                            <!-- Bloque de respuesta del servidor -->
+  481:                             <?php //include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  482                              <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+  483:                             <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  484                            <!-- /.Bloque de respuesta del servidor -->
+  485  
+  ...
+  492                      </div>
+  493                      <?php 
+  494:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  495                      ?>
+  496                  </form>
+  ...
+  509  
+  510    <!-- /footer -->
+  511:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  512    <!-- /.footer -->
+  513  
+  514    <!-- Panel de configuración -->
+  515:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  516    <!-- /.Panel de configuración -->
+  517  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\editar-orden-compra.php:
+  118                    <ul class="nav navbar-nav">
+  119                       <!-- Mensajes: style can be found in dropdown.less-->
+  120:                      <?php include("sub-scriptss/nav/mensajes.php");?>
+  121                       <!-- Mensajes-->
+  122                       <!-- Notificaciones: style can be found in dropdown.less -->
+  123:                      <?php include("sub-scriptss/nav/notificaciones.php");?>
+  124                       <!-- Notificaciones-->
+  125                       <!-- Tareas: style can be found in dropdown.less -->
+  126:                      <?php include("sub-scriptss/nav/tareas.php");?>
+  127                       <!-- Tareas: style can be found in dropdown.less -->
+  128                       <!-- User Account: style can be found in dropdown.less -->
+  129:                      <?php include("sub-scriptss/nav/perfil.php");?>
+  130                       <!-- Control Sidebar Toggle Button -->
+  131                       <li>
+  ...
+  141           ?>
+  142           <!-- Left side column. contains the logo and sidebar -->
+  143:          <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  144           <!-- Left side column. contains the logo and sidebar -->
+  145           <!-- Content Wrapper. Contains page content -->
+  ...
+  194                                      <!-- Modal -->
+  195                                         <?php 
+  196:                                          include( "sub-scriptss/tablas/tabla_proveedores_modal.php" );
+  197                                         ?>
+  198                                      <!-- /.Modal -->
+  ...
+  246                                         <!-- /.form group -->
+  247                                         <!-- Modal -->
+  248:                                        <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  249                                         <!-- /.Modal -->
+  250                                         <div class="row" id="sumador_items">
+  ...
+  392                                   <button type="button" id="enl_vmsj" data-toggle="modal" 
+  393                                   data-target="#ventana_mensaje"></button>
+  394:                                  <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  395                                <!-- /.Bloque de respuesta del servidor -->
+  396                             </div>
+  ...
+  401                             </div>
+  402                             <?php 
+  403:                               include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  404                             ?>
+  405                          </form>
+  ...
+  415           <!-- /.content-wrapper -->
+  416           <!-- /footer -->
+  417:          <?php include("sub-scriptss/nav/footer.php"); ?>
+  418           <!-- /.footer -->
+  419           <!-- Panel de configuración -->
+  420:          <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  421           <!-- /.Panel de configuración -->
+  422        </div>
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\editar-solicitud-cotizacion.php:
+  125          <ul class="nav navbar-nav">
+  126            <!-- Mensajes: style can be found in dropdown.less-->
+  127:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  128            <!-- Mensajes-->
+  129            <!-- Notificaciones: style can be found in dropdown.less -->
+  130:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  131            <!-- Notificaciones-->
+  132            <!-- Tareas: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/tareas.php");?>
+  134            <!-- Tareas: style can be found in dropdown.less -->
+  135            <!-- User Account: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/perfil.php");?>
+  137            <!-- Control Sidebar Toggle Button -->
+  138            <li>
+  ...
+  149    ?>
+  150    <!-- Left side column. contains the logo and sidebar -->
+  151:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  152    <!-- Left side column. contains the logo and sidebar -->
+  153  
+  ...
+  201                                </div><!-- /.form group -->
+  202                                <!-- Modal -->
+  203:                                   <?php include( "sub-scriptss/tablas/tabla_proveedores_modal.php" ); ?>
+  204                                <!-- /.Modal -->
+  205                                <div class="row">
+  ...
+  274                                      </div><!-- /.form group -->
+  275                                      <!-- Lista de artículos en sistema -->
+  276:                                     <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  277                                      <!-- /.Lista de artículos en sistema -->
+  278                                      
+  ...
+  423                          
+  424                          <!-- Bloque de respuesta del servidor -->
+  425:                           <?php //include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  426                            <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje"></button>
+  427:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  428                          <!-- /.Bloque de respuesta del servidor -->
+  429                      
+  ...
+  434                      </div>
+  435                      <?php 
+  436:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  437                      ?>
+  438                  </form>
+  ...
+  451  
+  452    <!-- /footer -->
+  453:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  454    <!-- /.footer -->
+  455  
+  456    <!-- Panel de configuración -->
+  457:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  458    <!-- /.Panel de configuración -->
+  459  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\facturas.php:
+   81          <ul class="nav navbar-nav">
+   82            <!-- Mensajes: style can be found in dropdown.less-->
+   83:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   84            <!-- Mensajes-->
+   85            <!-- Notificaciones: style can be found in dropdown.less -->
+   86:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   87            <!-- Notificaciones-->
+   88            <!-- Tareas: style can be found in dropdown.less -->
+   89:           <?php include("sub-scriptss/nav/tareas.php");?>
+   90            <!-- Tareas: style can be found in dropdown.less -->
+   91            <!-- User Account: style can be found in dropdown.less -->
+   92:           <?php include("sub-scriptss/nav/perfil.php");?>
+   93            <!-- Control Sidebar Toggle Button -->
+   94            <li>
+   ..
+  101    </header>
+  102    <!-- Left side column. contains the logo and sidebar -->
+  103:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  104    <!-- Left side column. contains the logo and sidebar -->
+  105  
+  ...
+  131                  </div><!-- /.box-header -->
+  132               	<div class="box-body">
+  133:                 	<?php include( "sub-scriptss/tablas/tabla_facturas.php" )?>
+  134                  </div><!-- /.box-body -->
+  135                </div><!-- /.box -->
+  ...
+  142  
+  143    <!-- /footer -->
+  144:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  145    <!-- /.footer -->
+  146  
+  147    <!-- Panel de configuración -->
+  148:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  149    <!-- /.Panel de configuración -->
+  150  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\ficha_articulo.php:
+  134          <ul class="nav navbar-nav">
+  135            <!-- Mensajes: style can be found in dropdown.less-->
+  136:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  137            <!-- Mensajes-->
+  138            <!-- Notificaciones: style can be found in dropdown.less -->
+  139:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  140            <!-- Notificaciones-->
+  141            <!-- Tareas: style can be found in dropdown.less -->
+  142:           <?php include("sub-scriptss/nav/tareas.php");?>
+  143            <!-- Tareas: style can be found in dropdown.less -->
+  144            <!-- User Account: style can be found in dropdown.less -->
+  145:           <?php include("sub-scriptss/nav/perfil.php");?>
+  146            <!-- Control Sidebar Toggle Button -->
+  147            <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+  ...
+  152    </header>
+  153    <!-- Left side column. contains the logo and sidebar -->
+  154:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  155    <!-- Left side column. contains the logo and sidebar -->
+  156  
+  ...
+  254                    <div class="tab-pane" id="tab_3">
+  255                      <!-- Tabla operaciones artículo -->
+  256:                       <?php include("sub-scriptss/tablas/tabla_mov_articulo.php"); ?>
+  257                      <!-- /.Tabla operaciones artículo --> 
+  258                    </div><!-- /.tab-pane -->
+  ...
+  276  
+  277    <!-- /footer -->
+  278:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  279    <!-- /.footer -->
+  280  
+  281    <!-- Panel de configuración -->
+  282:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  283    <!-- /.Panel de configuración -->
+  284  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\ficha_cliente.php:
+  140          <ul class="nav navbar-nav">
+  141            <!-- Mensajes: style can be found in dropdown.less-->
+  142:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  143            <!-- Mensajes-->
+  144            <!-- Notificaciones: style can be found in dropdown.less -->
+  145:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  146            <!-- Notificaciones-->
+  147            <!-- Tareas: style can be found in dropdown.less -->
+  148:           <?php include("sub-scriptss/nav/tareas.php");?>
+  149            <!-- Tareas: style can be found in dropdown.less -->
+  150            <!-- User Account: style can be found in dropdown.less -->
+  151:           <?php include("sub-scriptss/nav/perfil.php");?>
+  152            <!-- Control Sidebar Toggle Button -->
+  153            <li>
+  ...
+  160    </header>
+  161    <!-- Left side column. contains the logo and sidebar -->
+  162:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  163    <!-- Left side column. contains the logo and sidebar -->
+  164  
+  ...
+  321                    <div class="tab-pane" id="tab_3">
+  322                      <!-- Tabla operaciones cliente -->
+  323:                       <?php include("sub-scriptss/tablas/tabla_doc_clientes.php"); ?>
+  324                      <!-- /.Tabla operaciones cliente -->  
+  325                    </div><!-- /.tab-pane -->
+  ...
+  345  
+  346    <!-- /footer -->
+  347:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  348    <!-- /.footer -->
+  349  
+  350    <!-- Panel de configuración -->
+  351:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  352    <!-- /.Panel de configuración -->
+  353  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\ficha_producto.php:
+  125          <ul class="nav navbar-nav">
+  126            <!-- Mensajes: style can be found in dropdown.less-->
+  127:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  128            <!-- Mensajes-->
+  129            <!-- Notificaciones: style can be found in dropdown.less -->
+  130:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  131            <!-- Notificaciones-->
+  132            <!-- Tareas: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/tareas.php");?>
+  134            <!-- Tareas: style can be found in dropdown.less -->
+  135            <!-- User Account: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/perfil.php");?>
+  137            <!-- Control Sidebar Toggle Button -->
+  138            <li>
+  ...
+  145    </header>
+  146    <!-- Left side column. contains the logo and sidebar -->
+  147:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  148    <!-- Left side column. contains the logo and sidebar -->
+  149  
+  ...
+  272  
+  273    <!-- /footer -->
+  274:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  275    <!-- /.footer -->
+  276  
+  277    <!-- Panel de configuración -->
+  278:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  279    <!-- /.Panel de configuración -->
+  280  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\ficha_proveedor.php:
+  134          <ul class="nav navbar-nav">
+  135            <!-- Mensajes: style can be found in dropdown.less-->
+  136:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  137            <!-- Mensajes-->
+  138            <!-- Notificaciones: style can be found in dropdown.less -->
+  139:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  140            <!-- Notificaciones-->
+  141            <!-- Tareas: style can be found in dropdown.less -->
+  142:           <?php include("sub-scriptss/nav/tareas.php");?>
+  143            <!-- Tareas: style can be found in dropdown.less -->
+  144            <!-- User Account: style can be found in dropdown.less -->
+  145:           <?php include("sub-scriptss/nav/perfil.php");?>
+  146            <!-- Control Sidebar Toggle Button -->
+  147            <li>
+  ...
+  154    </header>
+  155    <!-- Left side column. contains the logo and sidebar -->
+  156:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  157    <!-- Left side column. contains the logo and sidebar -->
+  158  
+  ...
+  320  
+  321    <!-- /footer -->
+  322:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  323    <!-- /.footer -->
+  324  
+  325    <!-- Panel de configuración -->
+  326:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  327    <!-- /.Panel de configuración -->
+  328  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\formatos.php:
+   97          <ul class="nav navbar-nav">
+   98            <!-- Mensajes: style can be found in dropdown.less-->
+   99:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  100            <!-- Mensajes-->
+  101            <!-- Notificaciones: style can be found in dropdown.less -->
+  102:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  103            <!-- Notificaciones-->
+  104            <!-- Tareas: style can be found in dropdown.less -->
+  105:           <?php include("sub-scriptss/nav/tareas.php");?>
+  106            <!-- Tareas: style can be found in dropdown.less -->
+  107            <!-- User Account: style can be found in dropdown.less -->
+  108:           <?php include("sub-scriptss/nav/perfil.php");?>
+  109            <!-- Control Sidebar Toggle Button -->
+  110            <li>
+  ...
+  118    <!-- Left side column. contains the logo and sidebar -->
+  119    <?php 
+  120:     include("sub-scriptss/nav/menu_ppal.php");
+  121      
+  122      /* Data cotizaciones */
+  ...
+  185                      
+  186                      <!-- Sección panel formato de cotizaciones -->
+  187:                     <?php include( "sub-scriptss/config-formatos/cotizaciones.php" ); ?>
+  188                      <!-- /.Sección panel formato de cotizaciones -->
+  189                      
+  190                      <!-- Sección panel formato de cotizaciones -->
+  191:                     <?php include( "sub-scriptss/config-formatos/solicitud_cotizaciones.php" ); ?>
+  192                      <!-- /.Sección panel formato de cotizaciones -->
+  193                      
+  194                      <!-- Sección panel formato de cotizaciones -->
+  195:                     <?php include( "sub-scriptss/config-formatos/pedidos.php" ); ?>
+  196                      <!-- /.Sección panel formato de cotizaciones -->
+  197                      
+  198                      <!-- Sección panel formato de facturas -->
+  199:                     <?php include( "sub-scriptss/config-formatos/facturas.php" ); ?>
+  200                      <!-- /.Sección panel formato de facturas -->
+  201  
+  202                      <!-- Sección panel formato de orden de compra -->
+  203:                     <?php include( "sub-scriptss/config-formatos/orden_compra.php" ); ?>
+  204                      <!-- /.Sección panel formato de orden de compra -->
+  205  
+  206                      <!-- Sección panel formato de facturas -->
+  207:                     <?php include( "sub-scriptss/config-formatos/nota_credito.php" ); ?>
+  208                      <!-- /.Sección panel formato de facturas -->
+  209  
+  210                      <!-- Sección panel formato de facturas -->
+  211:                     <?php include( "sub-scriptss/config-formatos/nota_debito.php" ); ?>
+  212                      <!-- /.Sección panel formato de facturas -->
+  213  
+  214                      <!-- Sección panel formato de facturas -->
+  215:                     <?php include( "sub-scriptss/config-formatos/nota_entrega.php" ); ?>
+  216                      <!-- /.Sección panel formato de facturas -->
+  217  
+  218                    </div>
+  219                    <!-- Bloque de respuesta del servidor -->
+  220:                   <?php include("sub-scriptss/nav/mensaje_rcpf.php"); ?>
+  221                    <!-- /.Bloque de respuesta del servidor -->
+  222                  </div><!-- /.box-body -->
+  ...
+  237  
+  238    <!-- /footer -->
+  239:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  240    <!-- /.footer -->
+  241    
+  242    <!-- Panel de configuración -->
+  243:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  244    <!-- /.Panel de configuración -->
+  245  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\index.php:
+  109              </form>
+  110            </div>
+  111:         <?php include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  112          <div id="rreg"></div>
+  113          <!--<a href="#">I forgot my password</a><br>
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\js\fn-documento.js:
+   38  	//Retorna un objeto con los elementos comunes del encabezado de un documento
+   39  	encabezado = new Object();
+   40: 	encabezado.idu = $( '#idu_sesion' ).val();		// sub-scriptss/nav/perfil.php
+   41  	encabezado.idr = $( '#id_documento' ).val();
+   42  	encabezado.numero = $( '#ndocumento' ).val();
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\main.php:
+   88              <ul class="nav navbar-nav">
+   89                <!-- Mensajes: style can be found in dropdown.less-->
+   90:               <?php include("sub-scriptss/nav/mensajes.php");?>
+   91                <!-- Mensajes-->
+   92                <!-- Notificaciones: style can be found in dropdown.less -->
+   93:               <?php include("sub-scriptss/nav/notificaciones.php");?>
+   94                <!-- Notificaciones-->
+   95                <!-- Tareas: style can be found in dropdown.less -->
+   96:               <?php include("sub-scriptss/nav/tareas.php");?>
+   97                <!-- Tareas: style can be found in dropdown.less -->
+   98                <!-- User Account: style can be found in dropdown.less -->
+   99:               <?php include("sub-scriptss/nav/perfil.php");?>
+  100                <!-- Control Sidebar Toggle Button -->
+  101                <li>
+  ...
+  108        </header>
+  109        <!-- Left side column. contains the logo and sidebar -->
+  110:       <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  111        <!-- Left side column. contains the logo and sidebar -->
+  112  
+  ...
+  135  
+  136        <!-- /footer -->
+  137:       <?php include("sub-scriptss/nav/footer.php"); ?>
+  138        <!-- /.footer -->
+  139  
+  140        <!-- Panel de configuración -->
+  141:       <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  142        <!-- /.Panel de configuración -->
+  143  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\mantenimiento.php:
+   98          <ul class="nav navbar-nav">
+   99            <!-- Mensajes: style can be found in dropdown.less-->
+  100:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  101            <!-- Mensajes-->
+  102            <!-- Notificaciones: style can be found in dropdown.less -->
+  103:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  104            <!-- Notificaciones-->
+  105            <!-- Tareas: style can be found in dropdown.less -->
+  106:           <?php include("sub-scriptss/nav/tareas.php");?>
+  107            <!-- Tareas: style can be found in dropdown.less -->
+  108            <!-- User Account: style can be found in dropdown.less -->
+  109:           <?php include("sub-scriptss/nav/perfil.php");?>
+  110            <!-- Control Sidebar Toggle Button -->
+  111            <li>
+  ...
+  119    <!-- Left side column. contains the logo and sidebar -->
+  120    <?php 
+  121:     include("sub-scriptss/nav/menu_ppal.php");
+  122    ?>
+  123    <!-- Left side column. contains the logo and sidebar -->
+  ...
+  299                          <!-- Bloque de respuesta del servidor -->
+  300                            <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" class="hidden"></button>
+  301:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  302                          <!-- /.Bloque de respuesta del servidor -->
+  303                        </div><!-- /.nav-tabs-custom -->
+  ...
+  325  
+  326    <!-- /footer -->
+  327:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  328    <!-- /.footer -->
+  329    
+  330    <!-- Panel de configuración -->
+  331:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  332    <!-- /.Panel de configuración -->
+  333  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\notas.php:
+   81          <ul class="nav navbar-nav">
+   82            <!-- Mensajes: style can be found in dropdown.less-->
+   83:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   84            <!-- Mensajes-->
+   85            <!-- Notificaciones: style can be found in dropdown.less -->
+   86:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   87            <!-- Notificaciones-->
+   88            <!-- Tareas: style can be found in dropdown.less -->
+   89:           <?php include("sub-scriptss/nav/tareas.php");?>
+   90            <!-- Tareas: style can be found in dropdown.less -->
+   91            <!-- User Account: style can be found in dropdown.less -->
+   92:           <?php include("sub-scriptss/nav/perfil.php");?>
+   93            <!-- Control Sidebar Toggle Button -->
+   94            <li>
+   ..
+  101    </header>
+  102    <!-- Left side column. contains the logo and sidebar -->
+  103:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  104    <!-- Left side column. contains the logo and sidebar -->
+  105  
+  ...
+  129                  </div><!-- /.box-header -->
+  130               	  <div class="box-body">
+  131:                 	<?php include( "sub-scriptss/tablas/tabla_notas.php" ) ?>
+  132                  </div><!-- /.box-body -->
+  133                </div><!-- /.box -->
+  ...
+  140  
+  141    <!-- /footer -->
+  142:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  143    <!-- /.footer -->
+  144  
+  145    <!-- Panel de configuración -->
+  146:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  147    <!-- /.Panel de configuración -->
+  148  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-articulo.php:
+  129          <ul class="nav navbar-nav">
+  130            <!-- Mensajes: style can be found in dropdown.less-->
+  131:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  132            <!-- Mensajes-->
+  133            <!-- Notificaciones: style can be found in dropdown.less -->
+  134:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  135            <!-- Notificaciones-->
+  136            <!-- Tareas: style can be found in dropdown.less -->
+  137:           <?php include("sub-scriptss/nav/tareas.php");?>
+  138            <!-- Tareas: style can be found in dropdown.less -->
+  139            <!-- User Account: style can be found in dropdown.less -->
+  140:           <?php include("sub-scriptss/nav/perfil.php");?>
+  141            <!-- Control Sidebar Toggle Button -->
+  142            <li>
+  ...
+  149    </header>
+  150    <!-- Left side column. contains the logo and sidebar -->
+  151:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  152    <!-- Left side column. contains the logo and sidebar -->
+  153  
+  ...
+  173            
+  174            <!-- general form elements -->
+  175:           <?php include( "sub-scriptss/forms/form-agregar-articulo.php" ); ?>
+  176            <!-- Bloque de respuesta del servidor -->
+  177              <button type="button" id="enl_vmsj" data-toggle="modal" 
+  178              data-target="#ventana_mensaje" class="_hidden"></button>
+  179:             <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  180            <!-- /.Bloque de respuesta del servidor -->
+  181          </div><!--/.col (left) -->        
+  ...
+  187  
+  188    <!-- /footer -->
+  189:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  190    <!-- /.footer -->
+  191  
+  192    <!-- Panel de configuración -->
+  193:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  194    <!-- /.Panel de configuración -->
+  195  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-cliente.php:
+  125          <ul class="nav navbar-nav">
+  126            <!-- Mensajes: style can be found in dropdown.less-->
+  127:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  128            <!-- Mensajes-->
+  129            <!-- Notificaciones: style can be found in dropdown.less -->
+  130:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  131            <!-- Notificaciones-->
+  132            <!-- Tareas: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/tareas.php");?>
+  134            <!-- Tareas: style can be found in dropdown.less -->
+  135            <!-- User Account: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/perfil.php");?>
+  137            <!-- Control Sidebar Toggle Button -->
+  138            <li>
+  ...
+  145    </header>
+  146    <!-- Left side column. contains the logo and sidebar -->
+  147:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  148    <!-- Left side column. contains the logo and sidebar -->
+  149  
+  ...
+  255  
+  256    <!-- /footer -->
+  257:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  258    <!-- /.footer -->
+  259  
+  260    <!-- Panel de configuración -->
+  261:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  262    <!-- /.Panel de configuración -->
+  263  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-clientes.php:
+  125          <ul class="nav navbar-nav">
+  126            <!-- Mensajes: style can be found in dropdown.less-->
+  127:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  128            <!-- Mensajes-->
+  129            <!-- Notificaciones: style can be found in dropdown.less -->
+  130:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  131            <!-- Notificaciones-->
+  132            <!-- Tareas: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/tareas.php");?>
+  134            <!-- Tareas: style can be found in dropdown.less -->
+  135            <!-- User Account: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/perfil.php");?>
+  137            <!-- Control Sidebar Toggle Button -->
+  138            <li>
+  ...
+  145    </header>
+  146    <!-- Left side column. contains the logo and sidebar -->
+  147:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  148    <!-- Left side column. contains the logo and sidebar -->
+  149  
+  ...
+  255  
+  256    <!-- /footer -->
+  257:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  258    <!-- /.footer -->
+  259  
+  260    <!-- Panel de configuración -->
+  261:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  262    <!-- /.Panel de configuración -->
+  263  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-cotizacion.php:
+  131          <ul class="nav navbar-nav">
+  132            <!-- Mensajes: style can be found in dropdown.less-->
+  133:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  134            <!-- Mensajes-->
+  135            <!-- Notificaciones: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  137            <!-- Notificaciones-->
+  138            <!-- Tareas: style can be found in dropdown.less -->
+  139:           <?php include("sub-scriptss/nav/tareas.php");?>
+  140            <!-- Tareas: style can be found in dropdown.less -->
+  141            <!-- User Account: style can be found in dropdown.less -->
+  142:           <?php include("sub-scriptss/nav/perfil.php");?>
+  143            <!-- Control Sidebar Toggle Button -->
+  144            <li>
+  ...
+  159    ?>
+  160    <!-- Left side column. contains the logo and sidebar -->
+  161:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  162    <!-- Left side column. contains the logo and sidebar -->
+  163  
+  ...
+  211                                  </div><!-- /.form group -->
+  212                                  <!-- Modal -->
+  213:                                 	<?php include( "sub-scriptss/tablas/tabla_clientes_modal.php" ); ?>
+  214                                  <!-- /.Modal -->
+  215                                  <div class="row">
+  ...
+  290                                      </div><!-- /.form group -->
+  291                                      <!-- Modal -->
+  292:                                     <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  293:                                     <?php include( "sub-scriptss/forms/nuevo_articulo_modal.php" ); ?>
+  294                                      <!-- /.Modal -->
+  295                                      
+  ...
+  437                          
+  438                          <!-- Bloque de respuesta del servidor -->
+  439:                           <?php //include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  440                            <button type="button" id="enl_vmsj" data-toggle="modal" 
+  441                            data-target="#ventana_mensaje" class="hidden"></button>
+  442:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  443                          <!-- /.Bloque de respuesta del servidor -->
+  444                      
+  ...
+  449                      </div>
+  450                      <?php 
+  451:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  452                      ?>
+  453                  </form>
+  ...
+  466  
+  467    <!-- /footer -->
+  468:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  469    <!-- /.footer -->
+  470  
+  471    <!-- Panel de configuración -->
+  472:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  473    <!-- /.Panel de configuración -->
+  474  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-nota.php:
+  165          <ul class="nav navbar-nav">
+  166            <!-- Mensajes: style can be found in dropdown.less-->
+  167:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  168            <!-- Mensajes-->
+  169            <!-- Notificaciones: style can be found in dropdown.less -->
+  170:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  171            <!-- Notificaciones-->
+  172            <!-- Tareas: style can be found in dropdown.less -->
+  173:           <?php include("sub-scriptss/nav/tareas.php");?>
+  174            <!-- Tareas: style can be found in dropdown.less -->
+  175            <!-- User Account: style can be found in dropdown.less -->
+  176:           <?php include("sub-scriptss/nav/perfil.php");?>
+  177            <!-- Control Sidebar Toggle Button -->
+  178            <li>
+  ...
+  192    ?>
+  193    <!-- Left side column. contains the logo and sidebar -->
+  194:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  195    <!-- Left side column. contains the logo and sidebar -->
+  196  
+  ...
+  289                                <!-- Modal -->
+  290                                	<?php 
+  291:                                   include( "sub-scriptss/tablas/tabla_clientes_modal.php" );
+  292:                                   include( "sub-scriptss/tablas/tabla_facturas_modal.php" );
+  293                                  ?>
+  294                                <!-- /.Modal -->
+  ...
+  342                                      </div><!-- /.form group -->
+  343                                      <!-- Modal -->
+  344:                                     <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  345:                                     <?php include( "sub-scriptss/forms/nuevo_articulo_modal.php" ); ?>
+  346                                      <!-- /.Modal -->
+  347                                      
+  ...
+  520                              <button type="button" id="enl_vmsj" data-toggle="modal" 
+  521                              data-target="#ventana_mensaje" class="hidden"></button>
+  522:                             <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  523                            <!-- /.Bloque de respuesta del servidor -->
+  524  
+  ...
+  531                      </div>
+  532                      <?php 
+  533:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  534                      ?>
+  535                  </form>
+  ...
+  548  
+  549    <!-- /footer -->
+  550:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  551    <!-- /.footer -->
+  552  
+  553    <!-- Panel de configuración -->
+  554:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  555    <!-- /.Panel de configuración -->
+  556  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-orden-compra.php:
+  134                    <ul class="nav navbar-nav">
+  135                       <!-- Mensajes: style can be found in dropdown.less-->
+  136:                      <?php include("sub-scriptss/nav/mensajes.php");?>
+  137                       <!-- Mensajes-->
+  138                       <!-- Notificaciones: style can be found in dropdown.less -->
+  139:                      <?php include("sub-scriptss/nav/notificaciones.php");?>
+  140                       <!-- Notificaciones-->
+  141                       <!-- Tareas: style can be found in dropdown.less -->
+  142:                      <?php include("sub-scriptss/nav/tareas.php");?>
+  143                       <!-- Tareas: style can be found in dropdown.less -->
+  144                       <!-- User Account: style can be found in dropdown.less -->
+  145:                      <?php include("sub-scriptss/nav/perfil.php");?>
+  146                       <!-- Control Sidebar Toggle Button -->
+  147                       <li>
+  ...
+  158           ?>
+  159           <!-- Left side column. contains the logo and sidebar -->
+  160:          <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  161           <!-- Left side column. contains the logo and sidebar -->
+  162           <!-- Content Wrapper. Contains page content -->
+  ...
+  209                                      <!-- Modal -->
+  210                                         <?php 
+  211:                                          include( "sub-scriptss/tablas/tabla_proveedores_modal.php" );
+  212                                         ?>
+  213                                      <!-- /.Modal -->
+  ...
+  262                                         <!-- /.form group -->
+  263                                         <!-- Modal -->
+  264:                                        <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" );
+  265                                          ?>
+  266:                                         <?php include( "sub-scriptss/forms/nuevo_articulo_modal.php" ); ?>
+  267                                         <!-- /.Modal -->
+  268                                         <div class="row" id="sumador_items">
+  ...
+  417                                   <button type="button" id="enl_vmsj" data-toggle="modal" 
+  418                                   data-target="#ventana_mensaje" class="hidden"></button>
+  419:                                  <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  420                                <!-- /.Bloque de respuesta del servidor -->
+  421                             </div>
+  ...
+  426                             </div>
+  427                             <?php 
+  428:                               include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  429                             ?>
+  430                          </form>
+  ...
+  440           <!-- /.content-wrapper -->
+  441           <!-- /footer -->
+  442:          <?php include("sub-scriptss/nav/footer.php"); ?>
+  443           <!-- /.footer -->
+  444           <!-- Panel de configuración -->
+  445:          <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  446           <!-- /.Panel de configuración -->
+  447        </div>
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-pedido.php:
+  121          <ul class="nav navbar-nav">
+  122            <!-- Mensajes: style can be found in dropdown.less-->
+  123:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  124            <!-- Mensajes-->
+  125            <!-- Notificaciones: style can be found in dropdown.less -->
+  126:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  127            <!-- Notificaciones-->
+  128            <!-- Tareas: style can be found in dropdown.less -->
+  129:           <?php include("sub-scriptss/nav/tareas.php");?>
+  130            <!-- Tareas: style can be found in dropdown.less -->
+  131            <!-- User Account: style can be found in dropdown.less -->
+  132:           <?php include("sub-scriptss/nav/perfil.php");?>
+  133            <!-- Control Sidebar Toggle Button -->
+  134            <li>
+  ...
+  145    ?>
+  146    <!-- Left side column. contains the logo and sidebar -->
+  147:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  148    <!-- Left side column. contains the logo and sidebar -->
+  149  
+  ...
+  211                              <!-- Modal -->
+  212                              	<?php 
+  213:                                 include( "sub-scriptss/tablas/tabla_cotizaciones_modal.php" );
+  214:                                 //include( "sub-scriptss/tablas/tabla_clientes_modal.php" ); 
+  215                                ?>
+  216                              <!-- /.Modal -->
+  ...
+  259                                      </div><!-- /.form group -->
+  260                                      <!-- Modal -->
+  261:                                         <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  262                                      <!-- /.Modal -->
+  263                                      
+  ...
+  402                              <button type="button" id="enl_vmsj" data-toggle="modal" 
+  403                              data-target="#ventana_mensaje"></button>
+  404:                             <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  405                            <!-- /.Bloque de respuesta del servidor -->
+  406  
+  ...
+  412                      </div>
+  413                      <?php 
+  414:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  415                      ?>
+  416                  </form>
+  ...
+  429  
+  430    <!-- /footer -->
+  431:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  432    <!-- /.footer -->
+  433  
+  434    <!-- Panel de configuración -->
+  435:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  436    <!-- /.Panel de configuración -->
+  437  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-producto.php:
+  146          <ul class="nav navbar-nav">
+  147            <!-- Mensajes: style can be found in dropdown.less-->
+  148:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  149            <!-- Mensajes-->
+  150            <!-- Notificaciones: style can be found in dropdown.less -->
+  151:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  152            <!-- Notificaciones-->
+  153            <!-- Tareas: style can be found in dropdown.less -->
+  154:           <?php include("sub-scriptss/nav/tareas.php");?>
+  155            <!-- Tareas: style can be found in dropdown.less -->
+  156            <!-- User Account: style can be found in dropdown.less -->
+  157:           <?php include("sub-scriptss/nav/perfil.php");?>
+  158            <!-- Control Sidebar Toggle Button -->
+  159            <li>
+  ...
+  166    </header>
+  167    <!-- Left side column. contains the logo and sidebar -->
+  168:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  169    <!-- Left side column. contains the logo and sidebar -->
+  170  
+  ...
+  329  
+  330    <!-- /footer -->
+  331:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  332    <!-- /.footer -->
+  333  
+  334    <!-- Panel de configuración -->
+  335:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  336    <!-- /.Panel de configuración -->
+  337  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-proveedor.php:
+  125          <ul class="nav navbar-nav">
+  126            <!-- Mensajes: style can be found in dropdown.less-->
+  127:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  128            <!-- Mensajes-->
+  129            <!-- Notificaciones: style can be found in dropdown.less -->
+  130:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  131            <!-- Notificaciones-->
+  132            <!-- Tareas: style can be found in dropdown.less -->
+  133:           <?php include("sub-scriptss/nav/tareas.php");?>
+  134            <!-- Tareas: style can be found in dropdown.less -->
+  135            <!-- User Account: style can be found in dropdown.less -->
+  136:           <?php include("sub-scriptss/nav/perfil.php");?>
+  137            <!-- Control Sidebar Toggle Button -->
+  138            <li>
+  ...
+  145    </header>
+  146    <!-- Left side column. contains the logo and sidebar -->
+  147:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  148    <!-- Left side column. contains the logo and sidebar -->
+  149  
+  ...
+  253  
+  254    <!-- /footer -->
+  255:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  256    <!-- /.footer -->
+  257  
+  258    <!-- Panel de configuración -->
+  259:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  260    <!-- /.Panel de configuración -->
+  261  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\nuevo-solicitud-cotizacion.php:
+  143          <ul class="nav navbar-nav">
+  144            <!-- Mensajes: style can be found in dropdown.less-->
+  145:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  146            <!-- Mensajes-->
+  147            <!-- Notificaciones: style can be found in dropdown.less -->
+  148:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  149            <!-- Notificaciones-->
+  150            <!-- Tareas: style can be found in dropdown.less -->
+  151:           <?php include("sub-scriptss/nav/tareas.php");?>
+  152            <!-- Tareas: style can be found in dropdown.less -->
+  153            <!-- User Account: style can be found in dropdown.less -->
+  154:           <?php include("sub-scriptss/nav/perfil.php");?>
+  155            <!-- Control Sidebar Toggle Button -->
+  156            <li>
+  ...
+  168    ?>
+  169    <!-- Left side column. contains the logo and sidebar -->
+  170:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  171    <!-- Left side column. contains the logo and sidebar -->
+  172  
+  ...
+  220                                  </div><!-- /.form group -->
+  221                                  <!-- Modal -->
+  222:                                 	<?php include( "sub-scriptss/tablas/tabla_proveedores_modal.php" ); ?>
+  223                                  <!-- /.Modal -->
+  224                                  <div class="row">
+  ...
+  294                                      </div><!-- /.form group -->
+  295                                      <!-- Modal -->
+  296:                                     <?php include( "sub-scriptss/tablas/tabla_articulos_modal.php" ); ?>
+  297:                                     <?php include( "sub-scriptss/forms/nuevo_articulo_modal.php" ); ?>
+  298                                      <!-- /.Modal -->
+  299                                      
+  ...
+  447                          
+  448                          <!-- Bloque de respuesta del servidor -->
+  449:                           <?php //include("sub-scriptss/nav/mensaje_rcpf.php");?>
+  450                            <button type="button" id="enl_vmsj" data-toggle="modal" 
+  451                            data-target="#ventana_mensaje" class="hidden"></button>
+  452:                           <?php include("sub-scriptss/nav/mensaje_respuesta.php");?>
+  453                          <!-- /.Bloque de respuesta del servidor -->
+  454                          <div id="response_server"></div>
+  ...
+  459                      </div>
+  460                      <?php 
+  461:                       include( "sub-scriptss/nav/mensaje_confirmacion.php" );
+  462                      ?>
+  463                  </form>
+  ...
+  480    </script>
+  481    <!-- /footer -->
+  482:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  483    <!-- /.footer -->
+  484  
+  485    <!-- Panel de configuración -->
+  486:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  487    <!-- /.Panel de configuración -->
+  488  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\ordenes-compras.php:
+   80          <ul class="nav navbar-nav">
+   81            <!-- Mensajes: style can be found in dropdown.less-->
+   82:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   83            <!-- Mensajes-->
+   84            <!-- Notificaciones: style can be found in dropdown.less -->
+   85:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   86            <!-- Notificaciones-->
+   87            <!-- Tareas: style can be found in dropdown.less -->
+   88:           <?php include("sub-scriptss/nav/tareas.php");?>
+   89            <!-- Tareas: style can be found in dropdown.less -->
+   90            <!-- User Account: style can be found in dropdown.less -->
+   91:           <?php include("sub-scriptss/nav/perfil.php");?>
+   92            <!-- Control Sidebar Toggle Button -->
+   93            <li>
+   ..
+  100    </header>
+  101    <!-- Left side column. contains the logo and sidebar -->
+  102:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  103    <!-- Left side column. contains the logo and sidebar -->
+  104  
+  ...
+  128                  </div><!-- /.box-header -->
+  129               	<div class="box-body">
+  130:                 	<?php include( "sub-scriptss/tablas/tabla_ordenes_compra.php" )?>
+  131                  </div><!-- /.box-body -->
+  132                </div><!-- /.box -->
+  ...
+  139  
+  140    <!-- /footer -->
+  141:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  142    <!-- /.footer -->
+  143  
+  144    <!-- Panel de configuración -->
+  145:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  146    <!-- /.Panel de configuración -->
+  147  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\pedidos.php:
+   80          <ul class="nav navbar-nav">
+   81            <!-- Mensajes: style can be found in dropdown.less-->
+   82:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   83            <!-- Mensajes-->
+   84            <!-- Notificaciones: style can be found in dropdown.less -->
+   85:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   86            <!-- Notificaciones-->
+   87            <!-- Tareas: style can be found in dropdown.less -->
+   88:           <?php include("sub-scriptss/nav/tareas.php");?>
+   89            <!-- Tareas: style can be found in dropdown.less -->
+   90            <!-- User Account: style can be found in dropdown.less -->
+   91:           <?php include("sub-scriptss/nav/perfil.php");?>
+   92            <!-- Control Sidebar Toggle Button -->
+   93            <li>
+   ..
+  100    </header>
+  101    <!-- Left side column. contains the logo and sidebar -->
+  102:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  103    <!-- Left side column. contains the logo and sidebar -->
+  104  
+  ...
+  128                  </div><!-- /.box-header -->
+  129               	<div class="box-body">
+  130:                 	<?php include( "sub-scriptss/tablas/tabla_pedidos.php" )?>
+  131                  </div><!-- /.box-body -->
+  132                </div><!-- /.box -->
+  ...
+  139  
+  140    <!-- /footer -->
+  141:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  142    <!-- /.footer -->
+  143  
+  144    <!-- Panel de configuración -->
+  145:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  146    <!-- /.Panel de configuración -->
+  147  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\productos.php:
+  106          <ul class="nav navbar-nav">
+  107            <!-- Mensajes: style can be found in dropdown.less-->
+  108:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  109            <!-- Mensajes-->
+  110            <!-- Notificaciones: style can be found in dropdown.less -->
+  111:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  112            <!-- Notificaciones-->
+  113            <!-- Tareas: style can be found in dropdown.less -->
+  114:           <?php include("sub-scriptss/nav/tareas.php");?>
+  115            <!-- Tareas: style can be found in dropdown.less -->
+  116            <!-- User Account: style can be found in dropdown.less -->
+  117:           <?php include("sub-scriptss/nav/perfil.php");?>
+  118            <!-- Control Sidebar Toggle Button -->
+  119            <li>
+  ...
+  126    </header>
+  127    <!-- Left side column. contains the logo and sidebar -->
+  128:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  129    <!-- Left side column. contains the logo and sidebar -->
+  130  
+  ...
+  154                  </div><!-- /.box-header -->
+  155               	  <div class="box-body">
+  156:                 	<?php include("sub-scriptss/tablas/tabla_productos.php");?>
+  157                  </div><!-- /.box-body -->
+  158                </div><!-- /.box -->
+  ...
+  165  
+  166    <!-- /footer -->
+  167:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  168    <!-- /.footer -->
+  169  
+  170    <!-- Panel de configuración -->
+  171:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  172    <!-- /.Panel de configuración -->
+  173  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\proveedores.php:
+  106          <ul class="nav navbar-nav">
+  107            <!-- Mensajes: style can be found in dropdown.less-->
+  108:           <?php include("sub-scriptss/nav/mensajes.php");?>
+  109            <!-- Mensajes-->
+  110            <!-- Notificaciones: style can be found in dropdown.less -->
+  111:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+  112            <!-- Notificaciones-->
+  113            <!-- Tareas: style can be found in dropdown.less -->
+  114:           <?php include("sub-scriptss/nav/tareas.php");?>
+  115            <!-- Tareas: style can be found in dropdown.less -->
+  116            <!-- User Account: style can be found in dropdown.less -->
+  117:           <?php include("sub-scriptss/nav/perfil.php");?>
+  118            <!-- Control Sidebar Toggle Button -->
+  119            <li>
+  ...
+  126    </header>
+  127    <!-- Left side column. contains the logo and sidebar -->
+  128:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  129    <!-- Left side column. contains the logo and sidebar -->
+  130  
+  ...
+  154                  </div><!-- /.box-header -->
+  155               	<div class="box-body">
+  156:                 	<?php include("sub-scriptss/tablas/tabla_proveedores.php"); ?>
+  157                  </div><!-- /.box-body -->
+  158                </div><!-- /.box -->
+  ...
+  165  
+  166    <!-- /footer -->
+  167:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  168    <!-- /.footer -->
+  169  
+  170    <!-- Panel de configuración -->
+  171:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  172    <!-- /.Panel de configuración -->
+  173  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\solicitud_cotizaciones.php:
+   78          <ul class="nav navbar-nav">
+   79            <!-- Mensajes: style can be found in dropdown.less-->
+   80:           <?php include("sub-scriptss/nav/mensajes.php");?>
+   81            <!-- Mensajes-->
+   82            <!-- Notificaciones: style can be found in dropdown.less -->
+   83:           <?php include("sub-scriptss/nav/notificaciones.php");?>
+   84            <!-- Notificaciones-->
+   85            <!-- Tareas: style can be found in dropdown.less -->
+   86:           <?php include("sub-scriptss/nav/tareas.php");?>
+   87            <!-- Tareas: style can be found in dropdown.less -->
+   88            <!-- User Account: style can be found in dropdown.less -->
+   89:           <?php include("sub-scriptss/nav/perfil.php");?>
+   90            <!-- Control Sidebar Toggle Button -->
+   91            <li>
+   ..
+   98    </header>
+   99    <!-- Left side column. contains the logo and sidebar -->
+  100:   <?php include("sub-scriptss/nav/menu_ppal.php");?>
+  101    <!-- Left side column. contains the logo and sidebar -->
+  102  
+  ...
+  126                  </div><!-- /.box-header -->
+  127               	<div class="box-body">
+  128:                 	<?php include( "sub-scriptss/tablas/tabla_cotizaciones.php" ); ?>
+  129                  </div><!-- /.box-body -->
+  130                </div><!-- /.box -->
+  ...
+  137  
+  138    <!-- /footer -->
+  139:   <?php include("sub-scriptss/nav/footer.php"); ?>
+  140    <!-- /.footer -->
+  141  
+  142    <!-- Panel de configuración -->
+  143:   <?php include("sub-scriptss/nav/panel_control.php"); ?>
+  144    <!-- /.Panel de configuración -->
+  145  
+
+C:\Program Files (x86)\EasyPHP-5.3.2\www\IIRG-gh\trunk\sub-scripts\forms\nuevo_articulo_modal.php:
+   10        
+   11        <div class="modal-body">
+   12:         <?php include( "sub-scriptss/forms/form-agregar-articulo.php" ); ?>
+   13        </div>
+   14        
+
+340 matches across 39 files
