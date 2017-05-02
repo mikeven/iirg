@@ -8,6 +8,7 @@
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-proveedor.php" );
+  include( "fn/fn-documento.php" );
 	checkSession( '' );
 	if( isset( $_GET["p"] ) ){
 		$proveedor = obtenerProveedorPorId( $_GET["p"], $dbh );
@@ -37,6 +38,8 @@
     <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -65,6 +68,9 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <!-- DataTables -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script>
       $(function () {
         //Initialize Select2 Elements
@@ -168,77 +174,80 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <!-- left column -->
-            <div class="col-md-8">
-              <!-- Custom Tabs -->
-              <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Datos de proveedor</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Detalles operaciones</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Modificar datos de proveedor</a></li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      Más acciones <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar proveedor</a></li>
-                    </ul>
-                  </li>
-                  
+        
+        <!-- left column -->
+        <div class="col-md-8">
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Datos de proveedor</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Modificar datos de proveedor</a></li>
+              <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Más acciones <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar proveedor</a></li>
                 </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1">
-                    <div><span class="txh"><b><?php echo $proveedor["Nombre"];?></b></span></div>
-                    <div><span class="tx1"><?php echo $proveedor["Rif"];?></span></div>
-                    <div><span class="tx1"><?php echo $proveedor["Direccion1"];?></span></div>
-                    <div><span class="tx1"><?php echo $proveedor["Direccion2"];?></span></div>
-                    <div class="info_tab3">
-                    <div><span class="tx1"><span class="fa fa-envelope"></span> <?php echo $proveedor["Email"];?></span></div>
-                    <div><span class="tx1"><span class="fa fa-user"></span> <?php echo $proveedor["pcontacto"];?></span></div>
-                    <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $proveedor["telefono1"];?></span></div>
-                    <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $proveedor["telefono2"];?></span></div>
-                    </div>
-                  </div><!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_2">
-                    
-                  </div><!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_3">
-                    <form role="form" id="frm_mproveedor" name="form_modificar_proveedor" method="post" action="bd/data-proveedor.php">
-                      <input name="idProveedor" type="hidden" value="<?php echo $proveedor["idProveedor"];?>">
-                      <input name="mod_proveedor" type="hidden" value="1">
-                      <div class="box-body">
+              </li>
+              
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <div><span class="txh"><b><?php echo $proveedor["Nombre"];?></b></span></div>
+                  <div><span class="tx1"><?php echo $proveedor["Rif"];?></span></div>
+                  <div><span class="tx1"><?php echo $proveedor["Direccion1"];?></span></div>
+                  <div><span class="tx1"><?php echo $proveedor["Direccion2"];?></span></div>
+                  <div class="info_tab3">
+                  <div><span class="tx1"><span class="fa fa-envelope"></span> <?php echo $proveedor["Email"];?></span></div>
+                  <div><span class="tx1"><span class="fa fa-user"></span> <?php echo $proveedor["pcontacto"];?></span></div>
+                  <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $proveedor["telefono1"];?></span></div>
+                  <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $proveedor["telefono2"];?></span></div>
+                  </div>
+                </div><!-- /.tab-pane -->
+                
+                <div class="tab-pane" id="tab_2">
+                  <form role="form" id="frm_mproveedor" name="form_modificar_proveedor" method="post" action="bd/data-proveedor.php">
+                    <input name="idProveedor" type="hidden" value="<?php echo $proveedor["idProveedor"];?>">
+                    <input name="mod_proveedor" type="hidden" value="1">
+                    <div class="box-body">
+                        
                         <div class="form-group">
                           <!--<label for="exampleInputEmail1">Email address</label>-->
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-bookmark-o"></i>
-                                <label for="nombre" class="iconlab">Nombre:</label>
-                              </div>
-                              <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
-                              required value="<?php echo $proveedor["Nombre"]; ?>">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-bookmark-o"></i>
+                              <label for="nombre" class="iconlab">Nombre:</label>
                             </div>
+                            <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
+                            required value="<?php echo $proveedor["Nombre"]; ?>">
+                          </div>
                         </div><!-- /.form group -->
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-registered"></i>
-                                <label for="rif" class="iconlab">RIF:</label>
-                              </div>
-                              <input id="crif" type="text" class="form-control" placeholder="RIF" 
-                              data-mask name="rif" value="<?php echo $proveedor["Rif"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                         <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-envelope-o"></i>
-                                <label for="email" class="iconlab">Email:</label>
-                              </div>
-                              <input id="cemail" type="text" class="form-control" placeholder="Email" 
-                              data-mask name="email" value="<?php echo $proveedor["Email"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                          <div class="form-group">
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-registered"></i>
+                              <label for="rif" class="iconlab">RIF:</label>
+                            </div>
+                            <input id="crif" type="text" class="form-control" placeholder="RIF" 
+                            data-mask name="rif" value="<?php echo $proveedor["Rif"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                     
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-envelope-o"></i>
+                              <label for="email" class="iconlab">Email:</label>
+                            </div>
+                            <input id="cemail" type="text" class="form-control" placeholder="Email" 
+                            data-mask name="email" value="<?php echo $proveedor["Email"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
                           <div class="input-group">
                               <div class="input-group-addon">
                                 <i class="fa fa-user"></i>
@@ -246,70 +255,80 @@
                               </div>
                               <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $proveedor["pcontacto"];?>">
                             </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                          
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-map-marker"></i>
-                                <label for="dir" class="iconlab">Dirección -1-:</label>
-                              </div>
-                              <input id="cdir1" type="text" class="form-control" placeholder="Dirección 1" 
-                              data-mask name="direccion1" value="<?php echo $proveedor["Direccion1"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-map-marker"></i>
-                                <label for="dir" class="iconlab">Dirección -2-:</label>
-                              </div>
-                              <input id="cdir2" type="text" class="form-control" placeholder="Dirección 2" 
-                              data-mask name="direccion2" value="<?php echo $proveedor["Direccion2"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                          
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-phone"></i>
-                                <label for="tel1" class="iconlab">Teléfono 1:</label>
-                              </div>
-                              <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" 
-                              data-mask name="telefono1" value="<?php echo $proveedor["telefono1"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-phone"></i>
-                                <label for="tel2" class="iconlab">Teléfono 2:</label>
-                              </div>
-                              <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
-                              data-mask name="telefono2" value="<?php echo $proveedor["telefono2"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-                      </div><!-- /.box-body -->
-    
-                      <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary" id="bt_mod_proveedor">Guardar</button>
-                      </div>
-                	</form>
-                  </div><!-- /.tab-pane -->
-                </div><!-- /.tab-content -->
-              </div><!-- nav-tabs-custom -->
-
-            </div><!--/.col (left) -->
-            <!-- right column -->
-            <div class="col-md-6">
-              <!-- Horizontal Form -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-map-marker"></i>
+                              <label for="dir" class="iconlab">Dirección -1-:</label>
+                            </div>
+                            <input id="cdir1" type="text" class="form-control" placeholder="Dirección 1" 
+                            data-mask name="direccion1" value="<?php echo $proveedor["Direccion1"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-map-marker"></i>
+                              <label for="dir" class="iconlab">Dirección -2-:</label>
+                            </div>
+                            <input id="cdir2" type="text" class="form-control" placeholder="Dirección 2" 
+                            data-mask name="direccion2" value="<?php echo $proveedor["Direccion2"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-phone"></i>
+                              <label for="tel1" class="iconlab">Teléfono 1:</label>
+                            </div>
+                            <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" 
+                            data-mask name="telefono1" value="<?php echo $proveedor["telefono1"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-phone"></i>
+                              <label for="tel2" class="iconlab">Teléfono 2:</label>
+                            </div>
+                            <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
+                            data-mask name="telefono2" value="<?php echo $proveedor["telefono2"];?>">
+                          </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    
+                    </div><!-- /.box-body -->
+  
+                    <div class="box-footer" align="center">
+                      <button type="submit" class="btn btn-primary" id="bt_mod_proveedor">Guardar</button>
+                    </div>
+                  
+                  </form> 
+                  
+                </div><!-- /.tab-pane --> 
+              	
+                <div class="tab-pane" id="tab_3">
+                  <!-- Tabla operaciones cliente -->
+                    <?php include("sub-scripts/tablas/tabla_doc_proveedores.php"); ?>
+                  <!-- /.Tabla operaciones cliente -->
+                </div><!-- /.tab-pane -->
               
-              
-            </div><!--/.col (right) -->
-          </div>  
+            </div><!-- /.tab-content -->
+          </div><!-- nav-tabs-custom -->
+        </div><!--/.col (left:8) -->
+        
+        <!-- right column -->
+        <div class="col-md-6">
+          <!-- Horizontal Form -->     
+        </div><!--/.col (right:6) -->
       
+      </div>  <!--/.row -->
     </section>
-    <!-- /.content -->
+    <!-- /.section -->
   </div>
   <!-- /.content-wrapper -->
 

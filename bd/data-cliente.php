@@ -48,10 +48,6 @@
 		return $data;	
 	}
 	/* ------------------------------------------------------------------------------- */
-	function tagDocumentoOperacion(){
-
-	}
-	/* ------------------------------------------------------------------------------- */
 	function obtenerOperacionesCliente( $dbh, $idc ){
 		//Retorna una lista de documentos (facturas, notas, cotizaciones) asociados a un cliente
 		$lista = array();

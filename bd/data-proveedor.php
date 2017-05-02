@@ -1,8 +1,8 @@
 <?php
 	/* R&G - Funciones de clentes */
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function agregarProveedor( $p, $dbh ){
 		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
 		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion1]', '$p[direccion2]' )";
@@ -10,13 +10,13 @@
 		//echo $q;
 		return mysql_insert_id();		
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function modificarProveedor( $p, $dbh ){
 		
 		$resp["cambio"] = "exito";
-		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', pcontacto = '$p[pcontacto]', 
-		telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', Direccion1 = '$p[direccion1]', Direccion2 = '$p[direccion2]' 
-		where idProveedor = $p[id]";
+		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', 
+		pcontacto = '$p[pcontacto]', telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', 
+		Direccion1 = '$p[direccion1]', Direccion2 = '$p[direccion2]' where idProveedor = $p[id]";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 
@@ -26,7 +26,7 @@
 		
 		return $resp;		
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaProveedores( $link ){
 		$lista_c = array();
 		$q = "Select * from proveedor order by Nombre asc";
@@ -36,7 +36,7 @@
 		}
 		return $lista_c;	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerProveedorPorId( $id, $dbh ){
 		
 		$q = "select * from proveedor where idProveedor = $id";
@@ -44,7 +44,25 @@
 		
 		return $data;	
 	}
-	/* ----------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------------------- */
+	function obtenerOperacionesProveedor( $dbh, $idp ){
+		//Retorna una lista de documentos (facturas, notas, cotizaciones) asociados a un proveedor
+		$lista = array();
+		//idCliente: hace referencia a proveedor en cotización tipo 'solicitud'
+		$q = "Select idCotizacion as id, 'Solicitud de cotización' as documento, estado, numero, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total 
+		FROM cotizacion where idCliente = $idp and tipo='solicitud' UNION ALL 
+		Select idOrden as id, 'Orden de compra' as documento, estado, numero, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total 
+		FROM orden_compra WHERE idProveedor = $idp order by femision DESC"; 
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		while( $reg = mysql_fetch_array( $data ) ){
+			$lista[] = $reg;	
+		}
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_proveedor"] ) || isset( $_POST["mod_proveedor"] ) ){
 		include("bd.php");
 		$p["nombre"] = $_POST["nombre"];

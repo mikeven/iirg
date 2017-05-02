@@ -212,7 +212,7 @@
                                     
                   <div class="tab-pane" id="tab_2">
                     <form role="form" id="frm_mcliente" name="form_modificar_cliente" method="post" action="bd/data-cliente.php">
-                      <input name="idCliente" type="hidden" value="<?php echo $cliente["idCliente2"];?>">
+                      <input name="idCliente" type="hidden" value="<?php echo $cliente["idCliente"];?>">
                       <input name="mod_cliente" type="hidden" value="1">
                       
                       <div class="box-body">
@@ -319,7 +319,7 @@
                     <!-- /.Tabla operaciones cliente -->  
                   </div><!-- /.tab-pane -->
 
-                  </form>
+                  
                   </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
               </div><!-- nav-tabs-custom -->

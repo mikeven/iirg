@@ -15,16 +15,6 @@
 	include( "bd/data-orden-compra.php" );
 	
 	checkSession( '' );	
-	
-   /*if( isset( $_GET["idc"] ) ){
-      $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] );
-      $encabezado = $cotizacion["encabezado"];
-      $detalle = $cotizacion["detalle"];
-      $nitems = count( $detalle );
-      $iva = $encabezado["iva"];
-      $eiva = $iva * 100;
-      $totales = obtenerTotales( $detalle, $encabezado["iva"] );
-   }*/
    
    if ( isset( $_GET["idref"] ) ){
       $id_do = $_GET["idref"];
@@ -202,8 +192,8 @@
                                                 data-target="#lista_proveedores">PROVEEDOR</button>
                                           </div>
                                           <!-- /btn-group -->
-                                          <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor">
-                                          <input type="hidden" class="form-control" id="idProveedor" value="">
+                                          <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor" value="<?php if( isset( $encabezado ) ) echo $encabezado["nombre"]?>">
+                                    <input type="hidden" class="form-control" id="idProveedor" value="<?php if( isset( $encabezado ) ) echo $encabezado["idproveedor"]?>">
                                        </div>
                                     </div>
                                     <!-- /.form group -->

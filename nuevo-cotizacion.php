@@ -374,7 +374,7 @@
                                                 	<div id="csub_total" class="totalizacion">
                                                     	<div class="input-group">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="subtotal" value="<?php if(isset( $encabezado )) echo $totales["subtotal"]?>" readonly>
+                                                            id="subtotal" value="<?php if(isset( $cotizacion )) echo $totales["subtotal"]?>" readonly>
                                                 		</div>
                                                 	</div>
                                                 </th>
@@ -388,7 +388,7 @@
                                                     	<div class="input-group">
                                                         	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
+                                                            id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
                                                 		</div>
                                                 	</div></th>
                                                 <th width="5%"></th>
@@ -400,7 +400,7 @@
                                                 	<div id="ctz_total" class="totalizacion">
                                                     	<div class="input-group">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="total" value="<?php if(isset( $encabezado )) echo $totales["total"]?>" readonly>
+                                                            id="total" value="<?php if(isset( $cotizacion )) echo $totales["total"]?>" readonly>
                                                 		</div>
                                                 	</div>
                                                 </th>
