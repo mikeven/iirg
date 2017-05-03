@@ -108,7 +108,7 @@
     </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-factura.js"></script>
-    <script src="js/fn-ui.js"></script>Admin
+    <script src="js/fn-ui.js"></script>
     
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

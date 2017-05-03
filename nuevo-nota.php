@@ -22,10 +22,13 @@
   if( isset( $_GET["idf"] ) ){
     $factura = obtenerFacturaPorId( $dbh, $_GET["idf"] );
     $encabezado = $factura["encabezado"];
-    $encabezado["data-fac"] = $encabezado["nombre"]." ($encabezado[femision])";
+    $encabezado_factura = $encabezado;
+    $encabezado["data-fac"] = $encabezado_factura["nombre"].
+                              " - Fact N° ".$encabezado_factura["nro"]." ".
+                              " ($encabezado_factura[femision])";
     $detalle = $factura["detalle"];
     $nitems = count( $detalle );
-    $totales = obtenerTotales( $detalle, $encabezado["iva"] );
+    $totales = obtenerTotales( $detalle, $encabezado_factura["iva"] );
   }
 
   if ( isset( $_GET["idref"] ) ){
@@ -35,9 +38,13 @@
     $encabezado = $nota["encabezado"];
     $detalle = $nota["detalle"];
 
-    $factura = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
-    $encabezado_factura = $factura["encabezado"];
-    $encabezado["data-fac"] = $encabezado_factura["nombre"]." ($encabezado_factura[femision])";
+    if( $tn != "nota_entrega" ){
+      $factura = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
+      $encabezado_factura = $factura["encabezado"];
+      $encabezado["data-fac"] = $encabezado["nombre"].
+                              " - Fact N° ".$encabezado_factura["nro"]." ".
+                              " ($encabezado[femision])";
+    }
     
     if( $encabezado["tipo_concepto"] == "Ajuste global" )
       $totales = obtenerTotalesFijos( $encabezado );                    //data-documento.php
@@ -250,7 +257,7 @@
                                         <label for="nfac" class="iconlab">N° Fact:</label>
                                       </div>
                                       <input type="text" class="form-control" id="nFactura" name="num_factura" 
-                                      value="<?php if(isset( $encabezado )) echo $encabezado["nro"]; ?>" readonly>
+                                      value="<?php if(isset( $encabezado_factura )) echo $encabezado_factura["nro"]; ?>" readonly>
                                     </div>
                                   </div><!-- /.form group -->
                                 </div><!-- /.col6 -->
@@ -262,7 +269,8 @@
                                       <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" data-target="#lista_clientes">CLIENTE</button>
                                     </div>
                                     <!-- /btn-group -->
-                                    <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" value="">
+                            <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                            value="<?php if( isset( $encabezado ) ) echo $encabezado["nombre"]; ?>">
                               	</div>
                               </div><!-- /.form group -->
                               
@@ -273,9 +281,9 @@
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ndatafac" readonly name="data_factura" 
-                                  value="<?php if( isset($encabezado) ) echo $encabezado["data-fac"]; ?>">
+                                  value="<?php if( isset( $factura ) ) echo $encabezado["data-fac"]; ?>">
                                   <input type="hidden" class="form-control" id="idFactura" 
-                                  value="<?php if( isset($encabezado) ) echo $encabezado["idf"]; ?>">
+                                  value="<?php if( isset( $factura ) ) echo $encabezado["idf"]; ?>">
                                 </div>
                               </div><!-- /.form group -->
 
@@ -563,4 +571,15 @@
   <script src='js/velocity/velocity.ui.min.js'></script>
   <script src="js/velocity-setup.js"></script>
 </body>
+<?php if( isset( $factura ) ) { ?>
+  <script>
+    $( document ).ready(function() { $("#bloquen_facturas").show(); });
+  </script>   
+<?php } ?>
+<?php if( isset( $nota ) && $tn == "nota_entrega" ) { ?>
+  <script>
+    $( document ).ready(function() { $("#bloquen_clientes").show(); });
+  </script>   
+<?php } ?>
+
 </html>

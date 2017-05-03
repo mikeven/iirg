@@ -96,6 +96,7 @@
       </script>
       <script src="js/fn-documento.js"></script>
       <script src="js/fn-orden-compra.js"></script>
+      <script src="js/fn-ui.js"></script>
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper">
@@ -172,7 +173,7 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <form role="form" id="frm_eordencompra" name="form_editar_ocompra" class="frm_documento">
-                           <input id="id_orden_compra" type="hidden" value="<?php echo $ido; ?>">
+                           <input id="id_documento" type="hidden" value="<?php echo $ido; ?>">
                            <div class="box-body">
                               <div class="row" id="encabezado_orden_compra">
                                  
@@ -204,8 +205,9 @@
                                                    <i class="fa fa-slack"></i> 
                                                    <label for="datepicker" class="iconlab">N°:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="nordencompra" 
-                                                name="numero" required readonly value="<?php echo $encabezado["nro"]; ?>">
+                                                <input type="text" class="form-control" 
+                                                id="ndocumento" name="numero" required readonly 
+                                                value="<?php echo $encabezado["nro"]; ?>">
                                              </div>
                                           </div>
                                           <!-- /.form group -->

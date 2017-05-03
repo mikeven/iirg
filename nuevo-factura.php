@@ -20,7 +20,7 @@
   checkSession( '' );
 	
   if( isset( $_GET["idc"] ) ){  
-    // Obtención de datos para realizar factura desde una cotización
+    //Obtención de datos para realizar factura desde una cotización
     
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] ); //data-cotizacion.php
     $encabezado = $cotizacion["encabezado"];
@@ -29,20 +29,23 @@
   }
   
   if ( isset( $_GET["idref"] ) ){
-    // Obtención de datos para realizar factura desde una factura de referencia (copia)
-    
+    //Obtención de datos para realizar factura desde una factura de referencia (copia)
     $id_do = $_GET["idref"];
     $factura = obtenerFacturaPorId( $dbh, $id_do );
     $encabezado = $factura["encabezado"];
     $detalle = $factura["detalle"];
   }    
   
-  if( ( isset( $encabezado ) ) && ( isset( $cotizacion ) ) ){
+  if( ( isset( $encabezado ) ) && ( isset( $cotizacion ) || isset( $factura )  ) ){
+    //Si está definido un encabezado y éste sea de una cotización o factura referencia
     $iva = $encabezado["iva"];
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
-  }else
-  { $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; }
+  }
+  else
+  { 
+    $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; 
+  }
 
 ?>
 <!DOCTYPE html>
@@ -216,8 +219,9 @@
                                       
                                       <input type="text" class="form-control" id="fcotizacion" readonly 
                                       name="cotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["nro"]." / Fecha: ".$encabezado["femision"]?>">
-                                      <input type="hidden" class="form-control" id="idCotizacion" value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
                                       <?php } ?>
+                                  <input type="hidden" class="form-control" id="idCotizacion" 
+                                  value="<?php if( isset($encabezado) ) echo $encabezado["idc"]?>">
                                     </div>
                                 </div><!-- /.form group -->
                               </div><!-- /.col6 -->

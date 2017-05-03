@@ -108,6 +108,7 @@ function editarNota(){
 function checkNota(){
 	//Validación de datos de nota antes de registrarse
 	var error = 0;
+	$("#ventana_mensaje").removeClass("modal-danger");
 	var tipo_nota = $("#tipofte").val();
 	
 	if ( tipo_nota != "" ){

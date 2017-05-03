@@ -107,13 +107,14 @@
 		if( $encabezado->idcotizacion == "" ) { $pidc = ""; $vidc = ""; } 
 		else{ $pidc="idCotizacion,"; $vidc = $encabezado->idcotizacion.","; }
 		
-		$q = "insert into factura ( numero, orden_compra, estado, $pidc IdCliente, 
-		fecha_emision, fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
+		$q = "insert into factura ( numero, orden_compra, estado, $pidc IdCliente, fecha_emision, 
+		fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, valor_condicion, condicion, iva, Total, fecha_registro, idUsuario ) 
-		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado',$vidc $encabezado->idcliente, 
-		'$fecha_emision', '$encabezado->fvencimiento', '$encabezado->introduccion', 
-		'$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', '$encabezado->obs3', 
-		$encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, $encabezado->total, NOW(), $idu )";
+		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado',
+		$vidc $encabezado->idcliente, '$fecha_emision', '$encabezado->fvencimiento', 
+		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
+		'$encabezado->obs3', $encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, 
+		$encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;
@@ -127,7 +128,8 @@
 				idCliente = $encabezado->idcliente, 
 				fecha_emision = '$fecha_emision', 
 				valor_condicion = $encabezado->vcondicion, 
-				condicion = '$encabezado->ncondicion', 
+				condicion = '$encabezado->ncondicion',
+				orden_compra = '$encabezado->noc', 
 				fecha_vencimiento = '$encabezado->fvencimiento', 
 				SubTotal = $encabezado->subtotal, 
 				Total = $encabezado->total, 
