@@ -458,8 +458,10 @@
                                                                   <li><a href="#!" class="ocn" id="on3" data-val=""></a></li>
                                                                 </ul>
                                                             </div><!-- /btn-group -->
-                                                            <input type="text" class="form-control" name="concepto" id="cnc" value=""> 
-                                                            <input type="hidden" name="tipo_concepto" id="tconcepto" value="">
+                                                            <input type="text" class="form-control" name="concepto" id="cnc" 
+                                                            value="<?php if ( isset( $encabezado["concepto"] ) ) echo $encabezado["concepto"]; ?>"> 
+                                                            <input type="hidden" name="tipo_concepto" id="tconcepto" 
+                                                            value="<?php if ( isset( $encabezado["tipo_concepto"] ) ) echo $encabezado["tipo_concepto"]; ?>">
                                                           </div>                                        
                                                         </div><!-- /.form group -->
                                                         <div id="etq_concepto"></div> 
