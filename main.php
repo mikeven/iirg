@@ -2,6 +2,8 @@
 	/*
 	 * R&G - Panel inicial
 	 * 
+   * Panel informativo con reportes puntuales:
+   * - 
 	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
@@ -36,6 +38,9 @@
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -48,22 +53,16 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- jQuery 2.1.4 -->
-      <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-      <!-- Bootstrap 3.3.5 -->
-      <script src="bootstrap/js/bootstrap.min.js"></script>
-      <script src="plugins/select2/select2.full.min.js"></script>
-      <script src="plugins/input-mask/jquery.inputmask.js"></script>
-      <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-      <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-      <script src="plugins/daterangepicker/daterangepicker.js"></script>
-      <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-      <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
-      <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-      <script src="plugins/iCheck/icheck.min.js"></script>
-      <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
   </head>
+  <?php 
+    $hoy = obtenerFechaActual();
+    chequearActualizacion( $dbh, $hoy["f2"]['fecha'], $idu );
+
+    $factdia = obtenerFacturacionDia( $dbh, '2017/04/18', $idu );
+    //print_r($factdia);
+  ?>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -110,8 +109,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Dashboard
-            <small>Version 2.0</small>
+            Panel
+            <small>principal</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
@@ -120,9 +119,154 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
-          
-          
+        <section class="content">          
+
+
+          <div class="row">
+            <!-- Calendario -->
+            <div class="col-lg-3 col-xs-6">
+              
+              <div class="box box-solid bg-aqua">
+                <div class="box-header">
+                  <i class="fa fa-calendar"></i>
+
+                  <h3 class="box-title">Calendario</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <!-- button with a dropdown -->
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bars"></i></button>
+                      <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Add new event</a></li>
+                        <li><a href="#">Clear events</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">View calendar</a></li>
+                      </ul>
+                    </div>
+                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <!-- <button type="button" class="btn btn-default btn-sm" 
+                    data-widget="remove"><i class="fa fa-times"></i> </button> -->
+                  </div>
+                  <!-- /. tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <!--The calendar -->
+                  <div id="calendar" style="width: 100%"></div>
+                </div>
+                <!-- /.box-body -->
+                
+              </div>
+            
+            </div>
+
+            <!-- Facturación del día -->
+            <div class="col-lg-5 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3><?php echo $factdia["nregs"]; ?></h3>
+                  <p>Facturación del día</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-file-text-o"></i>
+                </div>
+                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            
+            <div class="col-lg-4 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-teal">
+                <div class="inner">
+                  <h3>150</h3>
+                  <p>Movimientos del día</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-list"></i>
+                </div>
+                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.box -->          
+
+
+          <div class="row">
+            
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+
+            <div class="col-lg-6 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>3</h3>
+
+                  <p>Vencen hoy</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-warning"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+
+            
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>8</h3>
+
+                  <p>Documentos por vencerse</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+            <div class="col-lg-6 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>150</h3>
+                  <p>Facturación del mes</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-line-chart"></i>
+                </div>
+                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-gray">
+                <div class="inner">
+                  <h3>7</h3>
+                  <p>Documentos vencidos</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-calendar-times-o"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
         </section>
         <!-- /.content -->
       </div>
@@ -138,10 +282,49 @@
 
     </div>
     <!-- ./wrapper -->
+    <!-- jQuery 2.1.4 -->
+      
+      <!-- Bootstrap 3.3.5 -->
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+      
+      <script src="plugins/select2/select2.full.min.js"></script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+      <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+      <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+      <script src="plugins/daterangepicker/daterangepicker.js"></script>
+      <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+      
+      <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+      <script src="plugins/iCheck/icheck.min.js"></script>
+      <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+      
+      <!-- <script src="dist/js/pages/dashboard.js"></script> -->
+      <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+      <script src="plugins/knob/jquery.knob.js"></script>
+      <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+      <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script><!-- jvectormap -->
+      <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+      <script src="plugins/morris/morris.min.js"></script>
+      <script>
+        $( document ).ready(function() {
+          
+          $('#calendar').datepicker({
+            format:'dd/mm/yyyy',
+            language:'es'
+          });
+          
+        });  
+      </script>
 
+      <!-- <script src="plugins/input-mask/jquery.inputmask.js"></script>
+      <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+      <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+      <script src="dist/js/app.min.js"></script>
+      <script src="plugins/fastclick/fastclick.js"></script>
+      <script>$.widget.bridge('uibutton', $.ui.button);</script> -->
+      
   </body>
 </html>
-<?php 
-  $hoy = obtenerFechaActual();
-  chequearActualizacion( $dbh, $hoy["f2"]['fecha'], $idu ); 
-?>

@@ -14,12 +14,24 @@
 	function chequearActualizacion( $dbh, $hoy, $idu ){
 		//Chequea el estado de actualización de documentos e invoca a su revisión
 		include("bd/data-documento.php");
-		$fult_act_docs = "2017-04-25";//ultimaActualizacion( $dbh, $idu );
+		$fult_act_docs = ultimaActualizacion( $dbh, $idu );
 		
 		if( $fult_act_docs < $hoy ){
 			revisarEstadoDocumentos( $dbh, $idu, $hoy );
 		}		
 	}
+
+
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerFacturacionDia( $dbh, $hoy, $idu ){
+		include("bd/data-factura.php");
+		$facturas = obtenerListaFacturasFecha( $dbh, $hoy, $hoy, $idu );
+		$facturacion["data"] = $facturas;
+		$facturacion["nregs"] = count( $facturas );
+		return $facturacion;	
+	}
+
+
 	/* ----------------------------------------------------------------------------------- */
 	function checkSession( $page ){
 		if( isset( $_SESSION["login"] ) ){

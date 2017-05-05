@@ -3,7 +3,7 @@
 	/* ------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------- */	
-	function obtenerListaFacturas( $link, $idu, $estado ){
+	function obtenerListaFacturas( $dbh, $idu, $estado ){
 		//Obtiene los registros de factura con los datos para mostrar en las tablas
 		$xq = ""; $lista_f = array();
 		if( $estado != "" ) $xq = "and estado = '$estado'";
@@ -13,7 +13,24 @@
 		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu $xq 
 		order by F.fecha_emision desc";
 		
-		$data = mysql_query( $q, $link );
+		$data = mysql_query( $q, $dbh );
+		while( $f = mysql_fetch_array( $data ) ){
+			$lista_f[] = $f;	
+		}
+		return $lista_f;	
+	}
+	/* ------------------------------------------------------------------------------- */
+	function obtenerListaFacturasFecha( $dbh, $f1, $f2, $idu ){
+		//Obtiene los registros de factura entre dos fechas por usuario
+		$xq = ""; $lista_f = array();
+
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total 
+		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu and 
+		( F.fecha_emision between '$f1' AND '$f2' ) order by F.fecha_emision desc";
+		
+		$data = mysql_query( $q, $dbh );
 		while( $f = mysql_fetch_array( $data ) ){
 			$lista_f[] = $f;	
 		}
