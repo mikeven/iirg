@@ -3,12 +3,18 @@
 	 * R&G - Panel inicial
 	 * 
    * Panel informativo con reportes puntuales:
-   * - 
+   * - Facturación de día
+   * - Movimientos del día
+   * - Documentos de vencimiento del día
+   * - Documentos por vencerse
+   * - Facturación del mes
+   * - Documentos vencidos desde hace un período de tiempo
 	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
   include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
+  include( "fn/fn-documento.php" );
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -46,6 +52,7 @@
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
+
       
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,13 +61,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    
+    <style>
+      .cont_det{ background: #FFF; }
+      .tresumen{ width: 95%; color:#000; }
+    </style>
   </head>
   <?php 
     $hoy = obtenerFechaActual();
     chequearActualizacion( $dbh, $hoy["f2"]['fecha'], $idu );
-
-    $factdia = obtenerFacturacionDia( $dbh, '2017/04/18', $idu );
+    
+    $factdia = obtenerFacturacionDia( $dbh, $hoy["f2"]['fecha'], $idu );
+    $movdia = obtenerMovimientosDia( $dbh, $hoy["f2"]['fecha'], $idu );
     //print_r($factdia);
   ?>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -107,21 +118,10 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            Panel
-            <small>principal</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
-            <li class="active">Panel principal</li>
-          </ol>
-        </section>
+        <?php include("sub-scripts/nav/contenido-cabecera.php");?>
 
         <!-- Main content -->
-        <section class="content">          
-
-
+        <section class="content">
           <div class="row">
             <!-- Calendario -->
             <div class="col-lg-3 col-xs-6">
@@ -157,9 +157,7 @@
                   <div id="calendar" style="width: 100%"></div>
                 </div>
                 <!-- /.box-body -->
-                
               </div>
-            
             </div>
 
             <!-- Facturación del día -->
@@ -167,13 +165,20 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3><?php echo $factdia["nregs"]; ?></h3>
+                  <h3>
+                    <?php echo "Bsf ".$factdia["total"]." (".$factdia["nregs"].")"; ?>               
+                  </h3>
                   <p>Facturación del día</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-file-text-o"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#" class="small-box-footer lnk_detres" data-det="det_factdia">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_factdia" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_facturas_resumen.php");?>
+                </div>
               </div>
             </div>
             <!-- ./col -->
@@ -182,13 +187,18 @@
               <!-- small box -->
               <div class="small-box bg-teal">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3><?php echo $movdia["nregs"]; ?></h3>
                   <p>Movimientos del día</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-list"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#" class="small-box-footer lnk_detres" data-det="det_movdia">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_movdia" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_doc_resumen.php");?>
+                </div>
               </div>
             </div>
 
@@ -299,6 +309,9 @@
       <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
       <script src="plugins/iCheck/icheck.min.js"></script>
       <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+      <!-- DataTables -->
+      <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+      <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
       
       <!-- <script src="dist/js/pages/dashboard.js"></script> -->
       <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
@@ -308,16 +321,7 @@
       <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
       <script src="plugins/morris/morris.min.js"></script>
-      <script>
-        $( document ).ready(function() {
-          
-          $('#calendar').datepicker({
-            format:'dd/mm/yyyy',
-            language:'es'
-          });
-          
-        });  
-      </script>
+      <script src="js/fn-sistema.js"></script>
 
       <!-- <script src="plugins/input-mask/jquery.inputmask.js"></script>
       <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>

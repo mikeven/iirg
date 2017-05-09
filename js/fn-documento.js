@@ -233,6 +233,19 @@ function initDoc(){
 		$( "#bt_reg_art_modal" ).show();
     });	
 }
+/* ----------------------------------------------------------------------------------- */
+function checkExcento( condicion ){
+	//Verifica la condición de cliente excento para asignar valor al IVA: 0
+	if( condicion == "excento" ){
+		$("#iva").val(0.00);
+		$("#labiva").html("(0%)");
+	}else{
+		$iva_orig = $("#iva_orig").val();
+		$("#iva").val( $iva_orig );
+		$("#labiva").html( "(" + $iva_orig * 100 + "%)" );
+	}
+	calcularTotales();
+}
 /* =================================================================================== */
 
 $( document ).ready(function() {
@@ -254,6 +267,7 @@ $( document ).ready(function() {
 		$("#idCliente").val( $(this).attr("data-idc") );
 		$("#cpcontacto").val( $(this).attr("data-npc") );
 		$("#ncliente").css({'border-color' : '#ccc'});
+		checkExcento( $(this).attr("data-iex") );
 		$("#xmodalcliente").click();
     });
 

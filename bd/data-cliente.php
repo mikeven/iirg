@@ -5,9 +5,13 @@
 	ini_set( 'display_errors', 1 );
 	/* ------------------------------------------------------------------------------- */
 	function agregarCliente( $cliente, $dbh ){
-		$q = "insert into cliente (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
-		values ( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[pcontacto]', 
-			'$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion1]', '$cliente[direccion2]' )";
+		
+
+		$q = "insert into cliente (Nombre, rif, email, pcontacto, telefono1, telefono2, 
+		direccion1, direccion2, excento ) values 
+		( '$cliente[nombre]', '$cliente[rif]', '$cliente[email]', '$cliente[pcontacto]', 
+		'$cliente[tel1]', '$cliente[tel2]', '$cliente[direccion1]', '$cliente[direccion2]',
+		'$cliente[excento]' )";
 		$data = mysql_query( $q, $dbh );
 		
 		//echo $q;
@@ -20,7 +24,8 @@
 		$q = "update cliente set Nombre = '$cliente[nombre]', Rif = '$cliente[rif]', 
 		Email = '$cliente[email]', telefono1 = '$cliente[tel1]', telefono2 = '$cliente[tel2]', 
 		direccion1 = '$cliente[direccion1]', direccion2 = '$cliente[direccion2]', 
-		pcontacto = '$cliente[pcontacto]' where idCliente = $cliente[id]";
+		pcontacto = '$cliente[pcontacto]', excento = '$cliente[excento]' 
+		where idCliente = $cliente[id]";
 		$data = mysql_query( $q, $dbh );
 		
 		$resp["id"] = $cliente["id"];
@@ -32,7 +37,7 @@
 	/* ------------------------------------------------------------------------------- */
 	function obtenerListaClientes( $link ){
 		$lista_c = array();
-		$q = "Select * from cliente order by Nombre asc";
+		$q = "Select * from cliente order by nombre asc";
 		$data = mysql_query( $q, $link );
 		while( $c = mysql_fetch_array( $data ) ){
 			$lista_c[] = $c;	
@@ -51,11 +56,12 @@
 	function obtenerOperacionesCliente( $dbh, $idc ){
 		//Retorna una lista de documentos (facturas, notas, cotizaciones) asociados a un cliente
 		$lista = array();
-		$q = "Select idCotizacion as id, 'Cotización' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
-		Total as total, estado, numero FROM cotizacion where idCliente = $idc UNION ALL 
-			Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
-		Total as total, estado, numero FROM factura where idCliente = $idc UNION ALL
-			Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		$q = "Select idCotizacion as id, 'Cotización' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
+		FROM cotizacion where idCliente = $idc UNION ALL 
+		Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as 
+		femision, Total as total, estado, numero FROM factura where idCliente = $idc UNION ALL 
+		Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
 		Total as total, estado, numero FROM nota where idCliente = $idc order by femision DESC"; 
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -76,7 +82,11 @@
 		$cliente["pcontacto"] = $_POST["pcontacto"];
 		$cliente["tel1"] = $_POST["telefono1"];
 		$cliente["tel2"] = $_POST["telefono2"];
-		
+		$cliente["excento"] = "";	
+
+		if( isset( $_POST["excento"] ) && ( $_POST["excento"] == 'on' ) )
+			$cliente["excento"] = "excento";
+		 
 		if( isset( $_POST["reg_cliente"] )){
 			$idr = agregarCliente( $cliente, $dbh );
 		}

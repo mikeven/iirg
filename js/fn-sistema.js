@@ -165,6 +165,18 @@ function initBotonEliminarCondicion(){
 $( document ).ready(function() {
 	/* =============================================================================== */
 	
+	$('#calendar').datepicker({
+	    format:'dd/mm/yyyy',
+	    language:'es'
+	});
+	
+	$(".cont_det").hide();
+	$(".lnk_detres").on( "click", function(){
+		$("#" + $(this).attr("data-det")).fadeToggle( 500, "easeInOutQuint");
+		$("i", this).toggleClass("fa-arrow-circle-down fa-arrow-circle-up");
+    });
+
+	/* ------------------------------------------------------------------------------- */
 	$("#bt_act_iva").on( "click", function(){
 		var iva = $("#iva_valor").val();
 		actualizarValorIVA( iva );

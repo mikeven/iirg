@@ -1,7 +1,18 @@
 <?php
 	/* R&G - Complemento funcional de documento.php y archivos data-(docs).php */
-	/*---------------------------------------------------------------------------------------------------------------*/
-	/*---------------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+	function tipoDocEtiqueta( $etiqueta ){
+		$e_documento = array(
+			"Cotización" 		=> "ctz",
+			"Factura"			=> "fac",
+			"Nota"				=> "nota",
+			"Orden de compra" 	=> "odc",
+			"Sol.Cotiz" 		=> "sctz",
+		);
+		return $e_documento[$etiqueta];
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function arrRespuesta( $doc, $ndoc ){
 		
 		$params_documento = array(
@@ -29,7 +40,7 @@
 
 		return $doc;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function iconoEstado( $estado ){
 		//Retorna el ícono acorde al estado de un documento y la clase de estilo denominada por color
 		$icono = array(
@@ -43,7 +54,7 @@
 
 		return $icono[$estado];	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function admiteCambioEstado( $doc, $encabezado, $accion ){
 		//Determina si un documento es anulable
 		$admite = true;
@@ -69,7 +80,7 @@
 
 		return $admite;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function esModificable( $dbh, $tdd, $id, $encabezado ){
 		//Determina si un documento es modificable
 		$modificable = true;
@@ -80,9 +91,9 @@
 		}
 		return $modificable;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function enlaceAccion( $documento, $id_doc, $accion, $p ){
-	/* Retorna el enlace para modificar/copiar un documento de acuerdo al tipo de documento indicado */
+	/* Retorna el enlace para modificar/copiar un documento de acuerdo al tipo indicado */
 		$ndoc = array(
 			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
 			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"
@@ -91,7 +102,7 @@
 		$enlace = $accion."-".$ndoc[$documento].".php?".$p."=".$id_doc;
 		return $enlace;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function enlaceCopia( $documento, $id_doc ){
 	/* Retorna el enlace para copiar un documento de acuerdo al tipo de documento indicado */
 		$ndoc = array(
@@ -102,7 +113,7 @@
 		$enlace = "nuevo-".$ndoc[$documento].".php?"."id=".$id_doc;
 		return $enlace;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function fechasDocumento( $encabezado ){
 		//Retorna el bloque con las fechas registradas de un documento de acuerdo al 
 		// tipo de documento para mostrarse en la ficha del mismo
@@ -128,7 +139,7 @@
 		return $bloque_fechas;
 	}
 	
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	
 	if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
 	    //Asignación de variables para obtener los datos del documento de acuerdo a los parámetros al cargar 
@@ -197,5 +208,5 @@
   	else{
   		//Falta el parámetro de documento
   	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 ?>

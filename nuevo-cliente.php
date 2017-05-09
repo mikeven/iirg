@@ -14,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Crear nuevo clientes</title>
+  <title>IIRG | Crear nuevo cliente</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -83,16 +83,16 @@
                 fields: {
                     email: {
                         validators: { notEmpty: { message: 'Debe indicar un email' },
-						emailAddress: { message: 'Debe especificar un email válido' } }
-                    },
-					nombre: {
-                        validators: { notEmpty: { message: 'Debe indicar nombre' } }
-                    },
-					rif: {
+        						emailAddress: { message: 'Debe especificar un email válido' } }
+                            },
+        					  nombre: {
+                                validators: { notEmpty: { message: 'Debe indicar nombre' } }
+                            },
+        					  rif: {
                         validators: { notEmpty: { message: 'Debe indicar RIF' } }
                     }
                 },
-				callback: function () {
+				        callback: function () {
                 	alert("OK");
                 }
             });
@@ -145,16 +145,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Version 2.0</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
+    <?php include("sub-scripts/nav/contenido-cabecera.php");?>
 
     <!-- Main content -->
     <section class="content">
@@ -218,13 +209,21 @@
                           <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" data-mask name="telefono1">
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
+
                       <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                           <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" data-mask name="telefono2">
                         </div><!-- /.input group -->
                       </div><!-- /.form group -->
-                  
+                      
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="checkbox">
+                            <label> <input type="checkbox" name="excento"> Excento IVA</label>
+                          </div>
+                        </div>
+                      </div><!-- /.form group -->
                   		
                   </div><!-- /.box-body -->
 

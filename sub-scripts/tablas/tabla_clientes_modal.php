@@ -21,9 +21,11 @@
                 <?php foreach( $clientes as $c ){?>  
                 <tr>
                     <td>
-                    	<div class="item_cliente_lmodal" data-label="<?php echo $c["Nombre"];?>" 
-                        data-idc="<?php echo $c["idCliente"];?>" data-npc="<?php echo $c["pcontacto"];?>">
-							           <a href="#!"><?php echo $c["Nombre"];?></a>
+                    	<div class="item_cliente_lmodal" data-label="<?php echo $c["nombre"];?>" 
+                        data-idc="<?php echo $c["idCliente"];?>" 
+                        data-npc="<?php echo $c["pcontacto"];?>"
+                        data-iex="<?php echo $c["excento"];?>">
+							           <a href="#!"><?php echo $c["nombre"];?></a>
                       </div>
                     </td>
                 </tr>

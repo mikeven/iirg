@@ -12,6 +12,8 @@
 	checkSession( '' );
 	if( isset( $_GET["c"] ) ){
 		$cliente = obtenerClientePorId( $_GET["c"], $dbh );
+    if( $cliente["excento"] == "excento" )  
+      $exc_iva = "checked"; else $exc_iva = "";
 	}
 ?>
 <!DOCTYPE html>
@@ -19,7 +21,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | <?php echo $cliente["Nombre"]?></title>
+  <title>IIRG | <?php echo $cliente["nombre"]?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -160,16 +162,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Version 2.0</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
+    <?php include("sub-scripts/nav/contenido-cabecera.php");?>
 
     <!-- Main content -->
     <section class="content">
@@ -195,16 +188,17 @@
                   </li>
                   
                 </ul>
-                <div class="tab-content">
-                  
+                <div class="tab-content">                  
                   <div class="tab-pane active" id="tab_1">
-                    <div><span class="txh"><b><?php echo $cliente["Nombre"];?></b></span></div>
-                    <div><span class="tx1"><?php echo $cliente["Rif"];?></span></div>
+                    <div><span class="txh"><b><?php echo $cliente["nombre"];?></b></span></div>
+                    <div><span class="tx1"><?php echo $cliente["rif"];?></span></div>
                     <div><span class="tx1"><?php echo $cliente["direccion1"];?></span></div>
                     <div><span class="tx1"><?php echo $cliente["direccion2"];?></span></div>
                     <div class="info_tab3">
-                    <div><span class="tx1"><span class="fa fa-envelope"></span> <?php echo $cliente["Email"];?></span></div>
-                    <div><span class="tx1"><span class="fa fa-user"></span> <?php echo $cliente["pcontacto"];?></span></div>
+                    <div><span class="tx1"><span class="fa fa-envelope">                      
+                    </span> <?php echo $cliente["email"];?></span></div>
+                    <div><span class="tx1"><span class="fa fa-user">
+                    </span> <?php echo $cliente["pcontacto"];?></span></div>
                     <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono1"];?></span></div>
                     <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono2"];?></span></div>
                     </div>
@@ -224,7 +218,7 @@
                                 <label for="nombre" class="iconlab">Nombre:</label>
                               </div>
                               <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
-                              required value="<?php echo $cliente["Nombre"];?>">
+                              required value="<?php echo $cliente["nombre"];?>">
                             </div>
                         </div><!-- /.form group -->
 
@@ -235,7 +229,7 @@
                               <label for="rif" class="iconlab">RIF:</label>
                             </div>
                             <input id="crif" type="text" class="form-control" placeholder="RIF" 
-                            data-mask name="rif" value="<?php echo $cliente["Rif"];?>">
+                            data-mask name="rif" value="<?php echo $cliente["rif"];?>">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
                           
@@ -246,7 +240,7 @@
                               <label for="email" class="iconlab">Email:</label>
                             </div>
                             <input id="cemail" type="text" class="form-control" placeholder="Email" 
-                            data-mask name="email" value="<?php echo $cliente["Email"];?>">
+                            data-mask name="email" value="<?php echo $cliente["email"];?>">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
                         
@@ -302,6 +296,15 @@
                             <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
                             data-mask name="telefono2" value="<?php echo $cliente["telefono2"];?>">
                           </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="checkbox">
+                              <label> <input type="checkbox" 
+                              name="excento" <?php echo $exc_iva; ?> > Excento IVA</label>
+                            </div>
+                          </div>
                         </div><!-- /.form group -->
                       
                       </div><!-- /.box-body -->

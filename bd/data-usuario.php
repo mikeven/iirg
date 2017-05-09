@@ -20,19 +20,29 @@
 			revisarEstadoDocumentos( $dbh, $idu, $hoy );
 		}		
 	}
-
-
+	/* ----------------------------------------------------------------------------------- */
+	/* ------------------------------ Funciones reporte diario --------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerFacturacionDia( $dbh, $hoy, $idu ){
-		include("bd/data-factura.php");
+		//include("bd/data-factura.php");
 		$facturas = obtenerListaFacturasFecha( $dbh, $hoy, $hoy, $idu );
 		$facturacion["data"] = $facturas;
 		$facturacion["nregs"] = count( $facturas );
+		$total = number_format( sumarTotalesFacturas( $facturas ), 2, ",", "." );
+		$facturacion["total"] = $total;
 		return $facturacion;	
 	}
 
-
+	function obtenerMovimientosDia( $dbh, $hoy, $idu ){
+		//include("bd/data-factura.php");
+		$docs = obtenerListaMovimientosFecha( $dbh, $hoy, $hoy, $idu );
+		$mov["data"] = $docs;
+		$mov["nregs"] = count( $docs );
+		
+		return $mov;	
+	}
 	/* ----------------------------------------------------------------------------------- */
+	/* ------------------------------ Funciones reporte diario --------------------------- */
 	function checkSession( $page ){
 		if( isset( $_SESSION["login"] ) ){
 			if( $page == "index" ) 

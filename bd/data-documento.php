@@ -186,6 +186,42 @@
 		chequearVigenciaDocumentos( $dbh, $cotizaciones, "cotizacion", $hoy );
 		chequearVigenciaDocumentos( $dbh, $facturas, "factura", $hoy );
 	}
+
+	/* ----------------------------------------------------------------------------------- */
+	/* ------------------------------ Funciones reporte diario --------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaMovimientosFecha( $dbh, $f1, $f2, $idu ){
+		//Retorna una lista de documentos realizados en un período de tiempo
+		$lista = array();
+		$q = "Select idCotizacion as id, 'Cotización' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
+		FROM cotizacion where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu 
+		UNION ALL 
+		Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as 
+		femision, Total as total, estado, numero FROM factura 
+		where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu UNION ALL 
+		Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
+		Total as total, estado, numero FROM nota 
+		where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu UNION ALL 
+		Select idOrden as id, 'Orden de compra' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
+		FROM orden_compra where ( fecha_emision between '$f1' AND '$f2' ) 
+		and idUsuario = $idu UNION ALL
+		Select idCotizacion as id, 'Sol.Cotiz' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
+		FROM cotizacion where ( fecha_emision between '$f1' AND '$f2' ) and tipo = 'solicitud' and 
+		idUsuario = $idu order by femision DESC"; 
+		//echo $q;
+		
+		$data = mysql_query( $q, $dbh );
+		while( $reg = mysql_fetch_array( $data ) ){
+			$lista[] = $reg;	
+		}
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+	
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Facturas */
 	/* ----------------------------------------------------------------------------------- */

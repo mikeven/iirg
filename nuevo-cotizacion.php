@@ -159,16 +159,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Version 2.0</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
+    <?php include("sub-scripts/nav/contenido-cabecera.php");?>
 
     <!-- Main content -->
     <section class="content">
@@ -197,10 +188,10 @@
                                           data-target="#lista_clientes">CLIENTE</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
-                                        value="<?php if(isset($encabezado)) echo $encabezado["nombre"]?>">
-                                        <input type="hidden" class="form-control" id="idCliente" 
-                                        value="<?php if(isset($encabezado)) echo $encabezado["idcliente"]?>">
+                                <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
+                                value="<?php if(isset($encabezado)) echo $encabezado["nombre"]?>">
+                                <input type="hidden" class="form-control" id="idCliente" 
+                                value="<?php if(isset($encabezado)) echo $encabezado["idcliente"]?>">
                                         <input type="hidden" class="form-control" id="tipo" value="cotizacion">
                                 	</div>
                                 </div><!-- /.form group -->
@@ -382,13 +373,17 @@
                                             </tr>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
+                                                <th width="15%">
+                                                IVA <span id="labiva">(<?php echo $eiva; ?>%)</span>
+                                                </th>
                                                 <th width="15%">
                                                 	<div id="cimpuesto" class="totalizacion">
                                                     	<div class="input-group">
-                                                        	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
-                                                    		<input type="text" class="form-control itemtotaldocumento totalizacion" 
-                                                            id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+                                                      <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                    	<input type="text" class="form-control itemtotaldocumento totalizacion" 
+                                                      id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+
+                                                      <input id="iva_orig" type="hidden" value="<?php echo $iva;?>">
                                                 		</div>
                                                 	</div></th>
                                                 <th width="5%"></th>
