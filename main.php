@@ -72,7 +72,9 @@
     
     $factdia = obtenerFacturacionDia( $dbh, $hoy["f2"]['fecha'], $idu );
     $movdia = obtenerMovimientosDia( $dbh, $hoy["f2"]['fecha'], $idu );
-    //print_r($factdia);
+    $vencdia = obtenerDocsVencenHoy( $dbh, $hoy["f2"]['fecha'], $idu );
+
+    
   ?>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">

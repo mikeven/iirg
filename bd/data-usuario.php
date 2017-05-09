@@ -32,10 +32,19 @@
 		$facturacion["total"] = $total;
 		return $facturacion;	
 	}
-
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerMovimientosDia( $dbh, $hoy, $idu ){
 		//include("bd/data-factura.php");
 		$docs = obtenerListaMovimientosFecha( $dbh, $hoy, $hoy, $idu );
+		$mov["data"] = $docs;
+		$mov["nregs"] = count( $docs );
+		
+		return $mov;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerDocsVencenHoy( $dbh, $hoy, $idu ){
+		//include("bd/data-factura.php");
+		$docs = obtenerListaDocsVencidosFecha( $dbh, $hoy, $hoy, $idu );
 		$mov["data"] = $docs;
 		$mov["nregs"] = count( $docs );
 		
