@@ -24,7 +24,7 @@
 	/* ------------------------------ Funciones reporte diario --------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerFacturacionDia( $dbh, $hoy, $idu ){
-		//include("bd/data-factura.php");
+		//Devuelve una lista con las facturas registradas en el día actual
 		$facturas = obtenerListaFacturasFecha( $dbh, $hoy, $hoy, $idu );
 		$facturacion["data"] = $facturas;
 		$facturacion["nregs"] = count( $facturas );
@@ -34,7 +34,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerMovimientosDia( $dbh, $hoy, $idu ){
-		//include("bd/data-factura.php");
+		//Devuelve una lista con los documentos registradas en el día actual
 		$docs = obtenerListaMovimientosFecha( $dbh, $hoy, $hoy, $idu );
 		$mov["data"] = $docs;
 		$mov["nregs"] = count( $docs );
@@ -43,13 +43,35 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDocsVencenHoy( $dbh, $hoy, $idu ){
-		//include("bd/data-factura.php");
-		$docs = obtenerListaDocsVencidosFecha( $dbh, $hoy, $hoy, $idu );
+		//Devuelve una lista con los documentos que vencen en el día actual
+		$docs = obtenerListaDocsVencidosFecha( $dbh, $hoy, $idu );
 		$mov["data"] = $docs;
 		$mov["nregs"] = count( $docs );
 		
 		return $mov;	
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerDocsPorVencer( $dbh, $hoy, $idu ){
+		//Devuelve una lista con los documentos que vencen dentro de una cantidad de días
+		$dias_adelante = 3;
+		$fecha = obtenerFechaFutura( $hoy, $dias_adelante );
+		$docs = obtenerListaDocsVencidosFecha( $dbh, $fecha, $idu );
+		$mov["data"] = $docs;
+		$mov["nregs"] = count( $docs );
+		
+		return $mov;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerFacturacionMes( $dbh, $hoy, $idu ){
+		//Devuelve una lista con las facturas registradas en el día actual
+		$facturas = obtenerListaFacturasMes( $dbh, $hoy, $idu );
+		$facturacion["data"] = $facturas;
+		$facturacion["nregs"] = count( $facturas );
+		$total = number_format( sumarTotalesFacturas( $facturas ), 2, ",", "." );
+		$facturacion["total"] = $total;
+		return $facturacion;	
+	}
+
 	/* ----------------------------------------------------------------------------------- */
 	/* ------------------------------ Funciones reporte diario --------------------------- */
 	function checkSession( $page ){

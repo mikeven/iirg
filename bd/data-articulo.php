@@ -7,7 +7,8 @@
 		//Agrega un registro de artículo
 
 		$q = "insert into articulo ( codigo, descripcion, presentacion, idCategoria ) 
-		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[presentacion]', $articulo[categoria] )";
+		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[presentacion]', 
+		$articulo[categoria] )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		

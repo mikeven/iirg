@@ -73,7 +73,8 @@
     $factdia = obtenerFacturacionDia( $dbh, $hoy["f2"]['fecha'], $idu );
     $movdia = obtenerMovimientosDia( $dbh, $hoy["f2"]['fecha'], $idu );
     $vencdia = obtenerDocsVencenHoy( $dbh, $hoy["f2"]['fecha'], $idu );
-
+    $porvencer = obtenerDocsPorVencer( $dbh, $hoy["f2"]['fecha'], $idu );
+    $factmes = obtenerFacturacionMes( $dbh, $hoy["f2"]['fecha'], $idu );
     
   ?>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -175,7 +176,7 @@
                 <div class="icon">
                   <i class="fa fa-file-text-o"></i>
                 </div>
-                <a href="#" class="small-box-footer lnk_detres" data-det="det_factdia">
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_factdia">
                   Detalles <i class="fa fa-arrow-circle-down"></i>
                 </a>
                 <div id="det_factdia" class="cont_det">
@@ -195,11 +196,11 @@
                 <div class="icon">
                   <i class="fa fa-list"></i>
                 </div>
-                <a href="#" class="small-box-footer lnk_detres" data-det="det_movdia">
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_movdia">
                   Detalles <i class="fa fa-arrow-circle-down"></i>
                 </a>
                 <div id="det_movdia" class="cont_det">
-                  <?php include("sub-scripts/tablas/tabla_doc_resumen.php");?>
+                  <?php include("sub-scripts/tablas/tabla_doc_resumen.php"); ?>
                 </div>
               </div>
             </div>
@@ -219,31 +220,38 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>3</h3>
-
-                  <p>Vencen hoy</p>
+                  <h3><?php echo $vencdia["nregs"]; ?></h3>
+                  <p>Documentos que vencen hoy</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-warning"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_vencdia">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_vencdia" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_venchoy_resumen.php"); ?>
+                </div>
               </div>
             </div>
-
             
             <!-- ./col -->
             <div class="col-lg-6 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>8</h3>
-
+                  <h3><?php echo $porvencer["nregs"]; ?></h3>
                   <p>Documentos por vencerse</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-clock-o"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_porvencer">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_porvencer" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_porvencer_resumen.php"); ?>
+                </div>
               </div>
             </div>
           </div>
@@ -254,13 +262,18 @@
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3><?php echo "Bsf ".$factmes["total"]." (".$factmes["nregs"].")"; ?></h3>
                   <p>Facturación del mes</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-line-chart"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detalles <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_factmes">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_factmes" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_factmes_resumen.php"); ?>
+                </div>
               </div>
             </div>
             <!-- ./col -->
@@ -274,7 +287,7 @@
                 <div class="icon">
                   <i class="fa fa-calendar-times-o"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#!" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
               </div>
             </div>
           </div>

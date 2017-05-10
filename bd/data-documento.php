@@ -89,7 +89,8 @@
 	function agregarFechaVencimiento( $dbh, $encabezado, $doc ){
 		//Retorna la fecha de vencimiento de un documento a partir de su fecha de emisión y las condiciones de vencimiento
 		//$condicion = obtenerCondicionPorId( $dbh, $doc, $encabezado->idcondicion );
-		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), $encabezado->vcondicion );
+		return obtenerFechaFutura( cambiaf_a_mysql( $encabezado->femision ), 
+			$encabezado->vcondicion );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTotales( $detalle, $pcge ){
@@ -190,6 +191,31 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ------------------------------ Funciones reporte diario --------------------------- */
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaFacturasFecha( $dbh, $f1, $f2, $idu ){
+		//Obtiene los registros de factura entre dos fechas por usuario
+		$lista_f = array();
+
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total 
+		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu and 
+		( F.fecha_emision between '$f1' AND '$f2' ) order by F.fecha_emision desc";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		while( $f = mysql_fetch_array( $data ) ){
+			$lista_f[] = $f;	
+		}
+		return $lista_f;	
+	}
+	/* ------------------------------------------------------------------------------- */
+	function sumarTotalesFacturas( $facturas ){
+		$total = 0;
+		foreach ( $facturas as $f ){
+			$total += $f["Total"];
+		}
+		return $total;
+	}
+	/* ------------------------------------------------------------------------------- */
 	function obtenerListaMovimientosFecha( $dbh, $f1, $f2, $idu ){
 		//Retorna una lista de documentos realizados en un período de tiempo
 		$lista = array();
@@ -220,27 +246,19 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerListaDocsVencidosFecha( $dbh, $f1, $idu ){
+	function obtenerListaDocsVencidosFecha( $dbh, $f, $idu ){
 		//Retorna una lista de documentos realizados en un período de tiempo
 		$lista = array();
 		$q = "Select idCotizacion as id, 'Cotización' as documento, 
-		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
-		FROM cotizacion where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu 
-		UNION ALL 
-		Select idFactura as id, 'Factura' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as 
-		femision, Total as total, estado, numero FROM factura 
-		where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu UNION ALL 
-		Select idNota as id, 'Nota' as documento, DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, 
-		Total as total, estado, numero FROM nota 
-		where ( fecha_emision between '$f1' AND '$f2' ) and idUsuario = $idu UNION ALL 
-		Select idOrden as id, 'Orden de compra' as documento, 
-		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
-		FROM orden_compra where ( fecha_emision between '$f1' AND '$f2' ) 
-		and idUsuario = $idu UNION ALL
-		Select idCotizacion as id, 'Sol.Cotiz' as documento, 
-		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, Total as total, estado, numero 
-		FROM cotizacion where ( fecha_emision between '$f1' AND '$f2' ) and tipo = 'solicitud' and 
-		idUsuario = $idu order by femision DESC"; 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, condicion, 
+		DATE_FORMAT(fecha_vencimiento,'%d/%m/%Y') as fvencimiento, Total as total, estado, numero 
+		FROM cotizacion where ( fecha_vencimiento = '$f' ) and estado = 'vencida' 
+		and idUsuario = $idu UNION ALL 
+		Select idFactura as id, 'Factura' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, condicion, 
+		DATE_FORMAT(fecha_vencimiento,'%d/%m/%Y') as fvencimiento, Total as total, estado, numero 
+		FROM factura where ( fecha_vencimiento = '$f' ) and estado = 'vencida' 
+		and idUsuario = $idu order by femision DESC"; 
 		//echo $q;
 		
 		$data = mysql_query( $q, $dbh );
@@ -249,6 +267,25 @@
 		}
 		return $lista;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaFacturasMes( $dbh, $f, $idu ){
+		//Obtiene los registros de factura entre dos fechas por usuario
+		$lista_f = array();
+
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as femision, F.total as Total 
+		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu and 
+		F.fecha_emision between DATE_FORMAT('$f', '%Y-%m-01') and LAST_DAY('$f') 
+		and estado = 'pagada' order by F.fecha_emision desc";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		while( $f = mysql_fetch_array( $data ) ){
+			$lista_f[] = $f;	
+		}
+		return $lista_f;	
+	}
+	
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	
