@@ -285,6 +285,28 @@
 		}
 		return $lista_f;	
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaDocVencidosFecha( $dbh, $d, $idu ){
+		//Retorna una lista de documentos realizados en un período de tiempo
+		$lista = array();
+		$q = "Select idCotizacion as id, 'Cotización' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, condicion, 
+		DATE_FORMAT(fecha_vencimiento,'%d/%m/%Y') as fvencimiento, Total as total, estado, numero 
+		FROM cotizacion where fecha_vencimiento between DATE_ADD(CURDATE(), INTERVAL -$d DAY) and 
+		CURDATE() and estado = 'vencida' and idUsuario = $idu UNION ALL 
+		Select idFactura as id, 'Factura' as documento, 
+		DATE_FORMAT(fecha_emision,'%d/%m/%Y') as femision, condicion, 
+		DATE_FORMAT(fecha_vencimiento,'%d/%m/%Y') as fvencimiento, Total as total, estado, numero 
+		FROM factura where fecha_vencimiento between DATE_ADD(CURDATE(), INTERVAL -$d DAY) and 
+		CURDATE() and estado = 'vencida' and idUsuario = $idu order by femision DESC"; 
+		//echo $q;
+		
+		$data = mysql_query( $q, $dbh );
+		while( $reg = mysql_fetch_array( $data ) ){
+			$lista[] = $reg;	
+		}
+		return $lista;
+	}
 	
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */

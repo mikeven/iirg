@@ -75,6 +75,7 @@
     $vencdia = obtenerDocsVencenHoy( $dbh, $hoy["f2"]['fecha'], $idu );
     $porvencer = obtenerDocsPorVencer( $dbh, $hoy["f2"]['fecha'], $idu );
     $factmes = obtenerFacturacionMes( $dbh, $hoy["f2"]['fecha'], $idu );
+    $doc_vencidos = obtenerDocVencidos( $dbh, $hoy["f2"]['fecha'], $idu );
     
   ?>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -281,13 +282,18 @@
               <!-- small box -->
               <div class="small-box bg-gray">
                 <div class="inner">
-                  <h3>7</h3>
+                  <h3><?php echo $doc_vencidos["nregs"]; ?></h3>
                   <p>Documentos vencidos</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-calendar-times-o"></i>
                 </div>
-                <a href="#!" class="small-box-footer">More info <i class="fa fa-arrow-circle-down"></i></a>
+                <a href="#!" class="small-box-footer lnk_detres" data-det="det_docvenc">
+                  Detalles <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <div id="det_docvenc" class="cont_det">
+                  <?php include("sub-scripts/tablas/tabla_docvenc_resumen.php"); ?>
+                </div>
               </div>
             </div>
           </div>

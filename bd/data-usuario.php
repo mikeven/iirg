@@ -72,8 +72,17 @@
 		return $facturacion;	
 	}
 
+	function obtenerDocVencidos( $dbh, $hoy, $idu ){
+		//Devuelve una lista con las documentos vencidos desde hace una cantidad de días
+		$dias = 30;
+		$docs = obtenerListaDocVencidosFecha( $dbh, $dias, $idu );
+		$dv["data"] = $docs;
+		$dv["nregs"] = count( $docs );
+		return $dv;	
+	}
+
 	/* ----------------------------------------------------------------------------------- */
-	/* ------------------------------ Funciones reporte diario --------------------------- */
+	/* ----------------------------------------------------------------------------------- */
 	function checkSession( $page ){
 		if( isset( $_SESSION["login"] ) ){
 			if( $page == "index" ) 
