@@ -148,8 +148,8 @@
     }
 
     #dcliente{ width: 50% }
-    #dmed{ width: 1%; }
-    #ddocumento_der{ width: 35%; }
+    #dmed{ width: 12%; }
+    #dcotizacion{ width: 30%; }
 
     .tobsdoc{font-size: 16px;}
 
@@ -163,55 +163,53 @@
   <!-- Main content -->
   <section class="invoice">
     <!-- info row -->
-          <?php if( $tdd != "fac" ) { ?>
-            <div class="row" id="membrete">
-                <div class="col-sm-2"></div><!-- /.col -->
-                <div class="col-sm-8" align="center">
-                  
-                  <div id="lin1"> <?php echo $frt["enc1"]; ?> </div>
-                  <div id="lin2"> <?php echo $frt["enc2"]; ?> </div>
-                  <div id="lin3" class="membrete3"> <?php echo $frt["enc3"]; ?> </div>
-                  <div id="lin4" class="membrete3"> <?php echo $frt["enc4"]; ?> </div>
-                  <div id="lin5" class="membrete3"> <?php echo $frt["enc5"]; ?> </div>
-                  <div id="lin6" class="membrete3"> <?php echo $frt["enc6"]; ?> </div>
-
-                </div>
-                <div class="col-sm-2"></div><!-- /.col -->
-            </div><!-- /.row -->
-          <?php } ?>
+          <?php if($tdd != "fac") { ?>
+          <div class="row" id="membrete">
+              <div class="col-sm-2"></div><!-- /.col -->
+              <div class="col-sm-8" align="center">
+                  <div id="lin1"><?php echo $frt["enc1"]?></div>
+                    <div id="lin2"><?php echo $frt["enc2"]?></div>
+                    <div id="lin3" class="membrete3"><?php echo $frt["enc3"]?></div>
+                    <div id="lin4" class="membrete3"><?php echo $frt["enc4"]?></div>
+                    <div id="lin5" class="membrete3"><?php echo $frt["enc5"]?></div>
+                    <div id="lin6" class="membrete3"><?php echo $frt["enc6"]?></div>
+              </div><!-- /.col -->
+              <div class="col-sm-2"></div><!-- /.col -->
+          </div><!-- /.row -->
+          <?php }?>
           <div class="row" id="encabezado">
               <div class="col-sm-6 invoice-col" id="dcliente">
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                  <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
-                  <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
-                  <div id="dc_rif"><?php echo $encabezado["rif"]?></div>
+                  <div id="dc_nombre"><?php echo $encabezado["dir1"]?></div>
+                  <div id="dc_nombre"><?php echo $encabezado["dir2"]?></div>
+                  <div id="dc_nombre"><?php echo $encabezado["rif"]?></div>
               </div><!-- /.col -->
               
-              <div id="dmed" class="col-sm-2 invoice-col"> </div><!-- /.col -->
+              <div id="dmed" class="col-sm-3 invoice-col"> </div><!-- /.col -->
               
-              <div class="col-sm-4 col-xs-push-1 invoice-col" id="ddocumento_der">
+              <div class="col-sm-4 col-xs-push-1 invoice-col" id="dcotizacion">
                   
                   <table width="100%" border="0">
                     <tr>
-                      <td width="70%">
-                        <div id="doc_numero_et">
+                      <td width="65%">
+                        <div id="dctz_numero">
                           <?php echo "N° de ".$tdocumento.":";?>
                         </div>
                       </td>
-                      <td width="30%">
-                        <div id="doc_numero_val">
+                      <td width="35%">
+                        <div id="dctz_numero_val">
                           <?php echo $encabezado["nro"]; ?>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <div id="doc_femision_et">
+                        <div id="dctz_numero">
                           Fecha Emisión:
                         </div>
                       </td>
                       <td>
-                        <div id="doc_femision_val">
+                        <div id="dctz_numero">
                           <?php echo $encabezado["femision"];?>
                         </div>
                       </td>
@@ -219,24 +217,24 @@
                     <?php if($tdd == "ctz") { ?>
                     <tr>
                       <td>
-                          <div id="doc_vend_et">Vendedor:</div>
+                          <div id="dctz_tlf">Vendedor:</div>
                       </td>
                       <td>
-                        <?php if($tdd == "ctz") { ?><div id="doc_vend_val">Nidia</div><?php } ?>
+                        <?php if($tdd == "ctz") { ?><div id="dctz_tlf">Nidia</div><?php } ?>
                       </td>
                     </tr>
                     <?php } ?>
                     <?php if($tdd == "fac") { ?>
                     <tr>
-                      <td><div id="doc_fvenc">Fecha Vencimiento:</div></td>
+                      <td><div id="dctz_tlf">Fecha Vencimiento:</div></td>
                       <td><?php echo $encabezado["fvencimiento"]; ?></td>
                     </tr>
                     <tr>
-                      <td><div id="doc_cond">Condición de Pago</div></td>
-                      <td><?php echo $encabezado["condicion"]; ?></td>
+                      <td><div id="dctz_tlf">Condición de Pago</div></td>
+                      <td><?php echo $encabezado["validez"]; ?></td>
                     </tr>
                     <tr>
-                      <td><div id="doc_noc">N° Orden Compra:</div></td>
+                      <td><div id="dctz_tlf">N° Orden Compra:</div></td>
                       <td><?php echo $encabezado["oc"]; ?></td>
                     </tr>
                     <?php } ?>
@@ -275,12 +273,8 @@
                     <td class="tit_tdf_i" align="left"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["und"];?></td>
-                    <td class="tit_tdf" align="right">
-                      <?php echo number_format( $item["punit"], 2, ",", "." );?>
-                    </td>
-                    <td class="tit_tdf" align="right">
-                      <?php echo number_format( $item["ptotal"], 2, ",", "." );?>
-                    </td>
+                    <td class="tit_tdf" align="right"><?php echo number_format( $item["punit"], 2, ",", "." );?></td>
+                    <td class="tit_tdf" align="right"><?php echo number_format( $item["ptotal"], 2, ",", "." );?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -288,43 +282,37 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          <!-- Pie de documento -->
           <div id="pie_documento" class="row pie_documento" >
             
             <!-- Bloque de observaciones -->
             <div class="col-xs-6">
-                <div class="tobsdoc"> <?php echo $encabezado["obs0"]; ?> </div>
+              <div class="tobsdoc"><?php echo $encabezado["obs0"]; ?></div>
                 <div><?php echo $obs[1]; ?></div>
                 <div><?php echo $obs[2]; ?></div>
                 <div><?php echo $obs[3]; ?></div>  
+              </p>
             </div>
-            <!-- /.Bloque de observaciones -->
+            <!-- /.<!-- Bloque de observaciones -->
 
-            <!-- Totalización -->
             <div class="col-xs-6">
               <div class="table-responsive" style="float:right;">
                 <table class="table">
                   <tr>
                     <th style="width:75%">Subtotal:</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
                   </tr>
                   <tr>
                     <th>IVA (<?php echo $eiva; ?>%)</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
+                    <td class="tit_tdf_d" align="right"><?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
                   </tr>
                 </table>
               </div>
-            </div><!-- /.col:Totalización -->
-          
-          </div><!-- /.row: Pie de documento -->
-
+            </div><!-- /.col -->
+          </div><!-- /.row -->
   </section>
   <!-- /.content -->
 </div>
