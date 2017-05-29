@@ -63,6 +63,15 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function valorExistente( $dbh, $campo, $valor ){
+		$existente = 0;
+		$q = "select * from proveedor where $campo = '$valor'"; 
+		$data = mysql_query( $q, $dbh );
+		if( mysql_num_rows( $data ) > 0 ) $existente = 1;
+		
+		return $existente;	
+	}
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_POST["reg_proveedor"] ) || isset( $_POST["mod_proveedor"] ) ){
 		include("bd.php");
 		$p["nombre"] = $_POST["nombre"];
@@ -85,5 +94,10 @@
 		//echo $idr;
 		echo "<script>window.location.href='../ficha_proveedor.php?p=$idr'</script>";	
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
+	if( isset( $_POST["existe_rif"] ) ){
+		include( "bd.php" );		
+		echo valorExistente( $dbh, $_POST["campo"], $_POST["valor"] );
+	}
+	/* ----------------------------------------------------------------------------------- */
 ?>

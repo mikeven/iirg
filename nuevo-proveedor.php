@@ -68,8 +68,8 @@
         $(".select2").select2();
 
         //Datemask dd/mm/yyyy
-		$("#crif").inputmask({mask: "a-99999999-9"});
-		$(".ctel").inputmask({mask: "(9999)-999.99.99"});
+    		$("#crif").inputmask({mask: "a-99999999-9"});
+    		$(".ctel").inputmask({mask: "(9999)-999.99.99"});
       });
     </script>
     <script type="text/javascript">
@@ -82,24 +82,25 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    email: {
+                  email: {
                         validators: { notEmpty: { message: 'Debe indicar un email' },
-						emailAddress: { message: 'Debe especificar un email válido' } }
+						            emailAddress: { message: 'Debe especificar un email válido' } }
                     },
-					nombre: {
+					        nombre: {
                         validators: { notEmpty: { message: 'Debe indicar nombre' } }
                     },
-					rif: {
+					        rif: {
                         validators: { notEmpty: { message: 'Debe indicar RIF' } }
-                    }
+                  }
                 },
-			    callback: function () {
-              	alert("OK");
-              }
+			           callback: function () {
+              	   alert("OK");
+                  }
           });
         });
     </script>
     <script src="js/fn-proveedores.js"></script>
+    <script src="js/fn-ui.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -159,7 +160,7 @@
                   <div class="icon-color"><i class="fa fa-truck fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_nproveedor" name="form_agregar_proveedor" action="bd/data-proveedor.php" method="post">
+                <form role="form" id="frm_nproveedor" name="form_agregar_proveedor" action="" method="post">
 					          <input name="reg_proveedor" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
@@ -172,13 +173,16 @@
                         <div class="form-group">
                             <div class="input-group">
                             	<div class="input-group-addon"><i class="fa fa-registered"></i></div>
-                            	<input id="crif" type="text" class="form-control" placeholder="RIF" data-mask name="rif">
+                            	<input id="crif" type="text" class="form-control vexistente" placeholder="RIF" data-mask name="rif" data-err="#err_rif">
+                              <input type="hidden" class="form-control" id="err_rif" value="0">
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
                       	<div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
-                              <input id="cemail" type="text" class="form-control" placeholder="Email" data-mask name="email">
+                              <input id="cemail" type="text" class="form-control vexistente" 
+                              placeholder="Email" data-mask name="email" data-err="#err_email">
+                              <input type="hidden" class="form-control" id="err_email" value="0">
                             </div><!-- /.input group -->
                     	  </div><!-- /.form group -->
                         <div class="form-group">
@@ -218,8 +222,14 @@
                   </div><!-- /.box-body -->
 
                   <div class="box-footer" align="center">
-                    <button type="submit" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
                   </div>
+
+                  <!-- Bloque de respuesta del servidor -->
+                    <button type="button" id="enl_vmsj" data-toggle="modal" 
+                    data-target="#ventana_mensaje" class="hidden"></button>
+                    <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
+                  <!-- /.Bloque de respuesta del servidor -->
                 </form>
               </div><!-- /.box -->
 
@@ -247,5 +257,8 @@
 
 </div>
 <!-- ./wrapper -->
+  <script src='js/velocity/velocity.min.js'></script>
+  <script src='js/velocity/velocity.ui.min.js'></script>
+  <script src="js/velocity-setup.js"></script>
 </body>
 </html>

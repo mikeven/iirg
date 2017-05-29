@@ -85,7 +85,7 @@
 
         <!-- Logo -->
         <?php include("sub-scripts/nav/logo.html");?>
-
+        
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -170,6 +170,7 @@
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3>
+                    <?php //ff(); ?>
                     <?php echo "Bsf ".$factdia["total"]." (".$factdia["nregs"].")"; ?>               
                   </h3>
                   <p>Facturación del día</p>

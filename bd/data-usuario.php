@@ -33,6 +33,13 @@
 		return $facturacion;	
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function ff(){
+		$fecha = "2017-05-28"; $dias = 3;
+		$f = obtenerFechaFutura( $fecha, $dias );
+		echo $f." ".date("w", strtotime($f) ); 
+		//echo date('N', $f);
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerMovimientosDia( $dbh, $hoy, $idu ){
 		//Devuelve una lista con los documentos registradas en el día actual
 		$docs = obtenerListaMovimientosFecha( $dbh, $hoy, $hoy, $idu );

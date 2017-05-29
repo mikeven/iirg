@@ -80,9 +80,27 @@
 		return $ids[$tabla];
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function esDiaHabil( $fecha ){
+		//Determina si una fecha representa un día hábil
+		$habil = true;
+		if( date( "w", strtotime($fecha) ) == 6 || date( "w", strtotime($fecha) ) == 0 ) 
+		// Si fecha es sáb o dom
+			$habil = false;
+
+		return $habil;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerFechaFutura( $fecha, $dias ){
-		//Obtiene una fecha después/antes de los días especificados
-		$fecha_f = date( "Y-m-d", strtotime( "$fecha + $dias day" ) );
+		//Obtiene una fecha después/antes de los días hábiles especificados 
+		$dh = 0; $cd = 0;
+		do {
+		    $fecha_f = date( "Y-m-d", strtotime( "$fecha + $cd day" ) );
+		    if( esDiaHabil( $fecha_f ) ){
+		    	$dh++;
+		    }$cd++;
+
+		}while ( $dh < $dias );
+		
 		return $fecha_f;
 	}
 	/* ----------------------------------------------------------------------------------- */

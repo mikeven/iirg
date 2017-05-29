@@ -96,7 +96,7 @@
                         validators: { notEmpty: { message: 'Debe indicar código' } }
                     }
                 },
-				callback: function () {
+				        callback: function () {
                 	alert("OK");
                 }
             });

@@ -119,7 +119,7 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function valorExistent( $dbh, $campo, $valor ){
+	function valorExistente( $dbh, $campo, $valor ){
 		$existente = 0;
 		$q = "select * from articulo where $campo = '$valor'"; 
 		$data = mysql_query( $q, $dbh );
@@ -197,7 +197,7 @@
 
 	if( isset( $_POST["existe"] ) ){
 		include( "bd.php" );		
-		echo valorExistent( $dbh, $_POST["campo"], $_POST["valor"] );
+		echo valorExistente( $dbh, $_POST["campo"], $_POST["valor"] );
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>
