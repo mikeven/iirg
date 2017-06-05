@@ -266,7 +266,7 @@
             ?>
         </section><!-- /.content -->
         
-        <section id="bloque_data_documento" class="col-sm-2 invoice">
+        <section id="bloque_data_documento" class="col-sm-2 col-xs-12 invoice">
           
           <h2 class="page-header">
             <div id="destado">
@@ -279,16 +279,39 @@
           </div>
           <div id="bloque_opciones_rapidas" class="bdatadoc">
               <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
-                <a class="btn btn-block btn-social btn-success"><i class="fa fa-check"></i> Aprobar y emitir factura</a>
+                <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
+                data-target="#ventana_estado" data-valor="aprobada" 
+                data-taccion="Aprobar" data-rdir="nuevo-factura.php?idc=<?php echo $id; ?>">
+                <i class="fa fa-thumbs-up"></i>Aprobar y emitir factura</a>
               <?php } ?>
               <?php if( admiteCambioEstado( $tdd, $encabezado, "marcar_pagada" ) ) { //fn-documento.php ?>
-                <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
-                data-target="#ventana_estado" data-valor="pagada" data-taccion="Marcar como pagada">
-                <i class="fa fa-check"></i> Marcar como pagada</a>
-              <?php } ?> 
+                <a class="btn btn-block btn-social btn-primary actestado" data-toggle="modal" 
+                data-target="#ventana_estado" data-valor="pagada" data-taccion="Marcar como pagada" data-rdir="">
+                <i class="fa fa-check"></i>Marcar como pagada</a>
+              <?php } ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
+              <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
+              data-target="#ventana_estado" data-valor="aprobada" data-taccion="Aprobar" data-rdir="">
+              <i class="fa fa-thumbs-up"></i>Aprobar</a>
+              <?php } ?>
+              <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { //fn-documento.php ?>
+                <a class="btn btn-social bg-teal btn-block" href="<?php echo $enlace_edc; ?>">
+                <i class="fa fa-edit"></i>Editar</a>
+              <?php } ?>              
+              <a class="btn btn-social btn-default btn-block" href="<?php echo $enlace_cop; ?>" target="_blank">
+              <i class="fa fa-copy"></i>Copiar</a>
+
+              <a class="btn btn-social btn-default btn-block" href="#!">
+              <i class="fa fa-send-o"></i>Enviar por email</a>
+              <hr>
+              <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { //fn-documento.php ?>
+                <a class="actestado btn-block btn btn-social btn-danger" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 
+                data-taccion="Anular">
+                <i class="fa fa-ban"></i>Anular</a>
+              <?php } ?>
           </div>
           
-          <div id="btn_opciones" class="btn-group pull-right bdatadoc" align="center">
+          <div id="btn_opciones" class="btn-group pull-right bdatadoc hidden" align="center">
             <button type="button" class="btn btn-info">Más Opciones</button>
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
               <span class="caret"></span>
@@ -298,22 +321,21 @@
               <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
               <li>
                 <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="aprobada" 
-                data-taccion="Aprobar"><i class="fa fa-check"></i> Aprobar</a>
+                data-taccion="Aprobar"><i class="fa fa-check"></i>Aprobar</a>
               </li>
               <?php } ?>
               <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { //fn-documento.php ?>
-                <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i> Editar</a></li>
+                <li><a href="<?php echo $enlace_edc; ?>"><i class="fa fa-edit"></i>Editar</a></li>
               <?php } ?>
-              
-              <li><a href="<?php echo $enlace_cop; ?>" target="_blank"><i class="fa fa-copy"></i> Copiar</a></li>
-              
-              <li><a href="#"><i class="fa fa-send-o"></i> Enviar por email</a></li>
+
+              <li><a href="<?php echo $enlace_cop; ?>" target="_blank"><i class="fa fa-copy"></i>Copiar</a></li>
+
+              <li><a href="#"><i class=""></i>Enviar por email</a></li>
               <?php if ( admiteCambioEstado( $tdd, $encabezado, "anular" ) ) { //fn-documento.php ?>
               <li class="divider"></li>
               <li>
-                <a class="actestado" href="#!" data-toggle="modal" data-target="#ventana_estado" data-valor="anulada" 
-                data-taccion="Anular">
-                <i class="fa fa-ban"></i> Anular </a>
+                <a >
+                <i class=""></i>  </a>
               </li>
               <?php } ?>
             </ul>

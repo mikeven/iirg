@@ -3,10 +3,10 @@
 * fn-hoja-documento.js
 *
 */
-/* --------------------------------------------------------- */	
-/* --------------------------------------------------------- */
-/* --------------------------------------------------------- */
-function actualizarEstadoDocumento( id, filedoc, status ){
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+function actualizarEstadoDocumento( id, filedoc, status, redir ){
 	
 	$.ajax({
 		type:"POST",
@@ -16,25 +16,31 @@ function actualizarEstadoDocumento( id, filedoc, status ){
 		},
 		success: function( response ){
 			console.log( response );
-			location.reload();
+			if( redir == "" ) location.reload();
+			else
+				window.location.href=redir;
 		}
 	});		
 }
 
-/*===============================================================================================*/
+/* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 
 $( document ).ready(function() {
 	
 	$(".actestado").click( function(){
 		$("#accion_estado").attr('data-estado', $(this).attr('data-valor') );
+		$("#accion_estado").attr('data-rdir', $(this).attr('data-rdir') );
 		$("#taccionestado").html( $(this).attr('data-taccion') );	
     });	
 
 	$("#accion_estado").click( function(){
 		var filedoc = $(this).attr("data-file-doc");
 		var id = $("#id_documento").val();
-		actualizarEstadoDocumento( id, filedoc, $(this).attr('data-estado') );	
-    });  
+		var rdir = $(this).attr("data-rdir");
+		actualizarEstadoDocumento( id, filedoc, $(this).attr('data-estado'), rdir );	
+    });
+     	
 });
-/* --------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 

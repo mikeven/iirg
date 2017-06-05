@@ -64,7 +64,7 @@
 		if( $encabezado["estado"] != "pendiente" ) $admite = false;
 		
 		//Orden de compra y solicitudes de cotización: no permite ninguna acción
-		if( ($doc == "odc") || ($doc == "sctz") ) $admite = false;
+		if( ( $doc == "odc" ) || ( $doc == "sctz") ) $admite = false;
 		
 		if( in_array( $doc, $no_anulables ) && ( $accion == "anular" ) ) $admite = false;
 		

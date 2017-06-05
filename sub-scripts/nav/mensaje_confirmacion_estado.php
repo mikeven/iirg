@@ -11,7 +11,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Cancelar</button>
         <button id="accion_estado" type="button" class="btn btn-primary" 
-        data-file-doc="<?php echo $filedoc;?>" data-estado="">Confirmar</button>
+        data-file-doc="<?php echo $filedoc; ?>" data-estado="" data-rdir="">Confirmar</button> <!-- filedoc: fn-documento.php -->
       </div>
     </div>
   </div>

@@ -217,7 +217,8 @@
 		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total 
 		From factura F, cliente C where F.IdCliente = C.idCliente and idUsuario = $idu and 
-		( F.fecha_emision between '$f1' AND '$f2' ) order by F.fecha_emision desc";
+		estado <> 'anulada' and ( F.fecha_emision between '$f1' AND '$f2' ) 
+		order by F.fecha_emision desc";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		while( $f = mysql_fetch_array( $data ) ){
