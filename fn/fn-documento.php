@@ -62,6 +62,9 @@
 		
 		//Solo se actualizan los documentos con estado 'pendiente'
 		if( $encabezado["estado"] != "pendiente" ) $admite = false;
+
+		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "fac" ) && ( $accion == "marcar_pagada" ) ) 
+			$admite = true;
 		
 		//Orden de compra y solicitudes de cotización: no permite ninguna acción
 		if( ( $doc == "odc" ) || ( $doc == "sctz") ) $admite = false;

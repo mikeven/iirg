@@ -177,10 +177,6 @@
                     <?php include( "sub-scripts/config-formatos/solicitud_cotizaciones.php" ); ?>
                     <!-- /.Sección panel formato de cotizaciones -->
                     
-                    <!-- Sección panel formato de cotizaciones -->
-                    <?php include( "sub-scripts/config-formatos/pedidos.php" ); ?>
-                    <!-- /.Sección panel formato de cotizaciones -->
-                    
                     <!-- Sección panel formato de facturas -->
                     <?php include( "sub-scripts/config-formatos/facturas.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
@@ -202,9 +198,13 @@
                     <!-- /.Sección panel formato de facturas -->
 
                   </div>
+
                   <!-- Bloque de respuesta del servidor -->
-                  <?php include("sub-scripts/nav/mensaje_rcpf.php"); ?>
+                  <button type="button" id="enl_vmsj" data-toggle="modal" 
+                  data-target="#ventana_mensaje" class="hidden"></button>
+                  <?php include("sub-scripts/nav/mensaje_respuesta.php"); ?>
                   <!-- /.Bloque de respuesta del servidor -->
+
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
@@ -231,5 +231,8 @@
 
 </div>
 <!-- ./wrapper -->
+<script src='js/velocity/velocity.min.js'></script>
+<script src='js/velocity/velocity.ui.min.js'></script>
+<script src="js/velocity-setup.js"></script>
 </body>
 </html>

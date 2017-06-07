@@ -23,6 +23,9 @@ function reg_cliente( frm_cliente ){
 }
 /* --------------------------------------------------------- */
 $(document).ready(function(){
+	
+	$(".bdir").attr("maxlength", 46);
+
 	$("#bt_reg_cliente").click(function(e){ 
 		var frm = $("#frm_ncliente");
 		//reg_cliente( frm );

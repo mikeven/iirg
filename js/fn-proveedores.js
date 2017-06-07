@@ -62,6 +62,8 @@ function checkProveedor( mje_destino ){
 /* --------------------------------------------------------- */
 $(document).ready(function(){
 
+	$(".bdir").attr("maxlength", 46);
+
 	$(".vexistente").on( "change", function() {
 		var valor = $(this).val();
 		var clave = $(this).attr("name");

@@ -152,13 +152,13 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="toc1">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="toc1">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresc" data-c="toc1">Texto</a></li>
+                        <li><a href="#!" class="solectura" data-c="toc1">Validez de cotización</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="toc1">No mostrar</a></li>
+                        <li><a href="#!" class="blocampo" data-c="toc1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs1" id="toc1" 
+                    <input type="text" class="form-control csctzobs dataobs" name="obs1" id="toc1"  
                     data-v="<?php echo $doc[1]["dv"]; ?>" value="<?php echo $doc[1]["t"]; ?>" <?php echo $doc[1]["p"]; ?>>
                     <input type="hidden" name="vobs1" id="vtoc1" value="<?php echo $doc[1]["v"];?>">
                   </div>
@@ -171,13 +171,13 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="toc2">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="toc2">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresc" data-c="toc2">Texto</a></li>
+                        <li><a href="#!" class="solectura" data-c="toc2">Validez de cotización</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="toc2">No mostrar</a></li>
+                        <li><a href="#!" class="blocampo" data-c="toc2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs2" id="toc2" 
+                    <input type="text" class="form-control csctzobs dataobs" name="obs2" id="toc2" 
                     data-v="<?php echo $doc[2]["dv"]; ?>" value="<?php echo $doc[2]["t"];?>" <?php echo $doc[2]["p"]; ?>>
                     <input type="hidden" name="vobs2" id="vtoc2" value="<?php echo $doc[2]["v"];?>">
                   </div>                                        
@@ -190,13 +190,13 @@
                       <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" 
                       aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresc" data-c="toc3">Texto</a></li>
-                        <li><a href="#" class="solectura" data-c="toc3">Validez de cotización</a></li>
+                        <li><a href="#!" class="libresc" data-c="toc3">Texto</a></li>
+                        <li><a href="#!" class="solectura" data-c="toc3">Validez de cotización</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampo" data-c="toc3">No mostrar</a></li>
+                        <li><a href="#!" class="blocampo" data-c="toc3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs3" id="toc3" 
+                    <input type="text" class="form-control csctzobs dataobs" name="obs3" id="toc3" 
                     data-v="<?php echo $doc[3]["dv"]; ?>" value="<?php echo $doc[3]["t"];?>" <?php echo $doc[3]["p"]; ?>>
                     <input type="hidden" name="vobs3" id="vtoc3" value="<?php echo $doc[3]["v"];?>">
                   </div>                                        

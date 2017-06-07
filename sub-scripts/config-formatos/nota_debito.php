@@ -153,7 +153,8 @@
                         <li><a href="#!" class="blocampon" data-c="tond1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs1" id="tond1" value="<?php echo $frt_nd["obs1"]; ?>" <?php echo $frt_nd["obs1"]; ?>>
+                    <input type="text" class="form-control csctzobs dataobs" name="obs1" id="tond1" 
+                    value="<?php echo $frt_nd["obs1"]; ?>" <?php echo $frt_nd["obs1"]; ?>>
                     <input type="hidden" name="vobs1" id="vtond1" value="<?php echo $frt_nd["obs1"];?>">
                   </div>
                 </div><!-- /.form group -->
@@ -170,7 +171,7 @@
                         <li><a href="#!" class="blocampon" data-c="tond2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs2" id="tond2" 
+                    <input type="text" class="form-control csctzobs dataobs" name="obs2" id="tond2" 
                     value="<?php echo $frt_nd["obs2"];?>" <?php echo $frt_nd["obs2"]; ?>>
                     <input type="hidden" name="vobs2" id="vtond2" value="<?php echo $frt_nd["obs2"];?>">
                   </div>                                        
@@ -188,7 +189,7 @@
                         <li><a href="#!" class="blocampon" data-c="tond3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csctzobs" name="obs3" id="tond3" 
+                    <input type="text" class="form-control csctzobs dataobs" name="obs3" id="tond3" 
                     value="<?php echo $frt_nd["obs3"];?>" <?php echo $frt_nd["obs3"]; ?>>
                     <input type="hidden" name="vobs3" id="vtond3" value="<?php echo $frt_nd["obs3"];?>">
                   </div>                                        

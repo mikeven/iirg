@@ -260,7 +260,7 @@
                               <i class="fa fa-map-marker"></i>
                               <label for="dir" class="iconlab">Dirección - 1 -</label>
                             </div>
-                            <input id="cdir1" type="text" class="form-control" placeholder="Dirección" 
+                            <input id="cdir1" type="text" class="form-control bdir" placeholder="Dirección" 
                             data-mask name="direccion1" value="<?php echo $cliente["direccion1"];?>">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
@@ -271,7 +271,7 @@
                               <i class="fa fa-map-marker"></i>
                               <label for="dir" class="iconlab">Dirección - 2 -</label>
                             </div>
-                            <input id="cdir2" type="text" class="form-control" placeholder="Dirección" 
+                            <input id="cdir2" type="text" class="form-control bdir" placeholder="Dirección" 
                             data-mask name="direccion2" value="<?php echo $cliente["direccion2"];?>">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->

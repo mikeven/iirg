@@ -19,7 +19,7 @@ function dataform( frm, param ){
 		vector["idUsuario"] = $("#idUsuario").val();
 	}
 	
-	console.log( JSON.stringify( vector ) );	
+	//console.log( JSON.stringify( vector ) );	
 	return JSON.stringify( vector );
 }
 /* --------------------------------------------------------- */
@@ -33,15 +33,14 @@ function reg_formato( documento, frm, param ){
 			res = jQuery.parseJSON(response);
 			//$("#waitconfirm").html(response);
 			if( res.exito == '1' ){
-				$("#txexi").html( res.mje );
-				$("#mje_exito").show("slow").delay(5000).hide("slow");
-				$("#mje_error").hide();
+				$("#tx-vmsj").html( res.mje );
+				$("#ventana_mensaje").addClass("modal-success");				
 			}
 			if( res.exito == '0' ){
-				$("#mje_exito").hide();
-				$("#mje_error").show("slow").delay(10000).hide("slow");;
-				$("#txerr").html(res.mje);
+                $("#tx-vmsj").html(res.mje);				
+				$("#ventana_mensaje").addClass("modal-danger");				
 			}
+            $("#enl_vmsj").click();
         }
     });
 }
@@ -49,6 +48,7 @@ function reg_formato( documento, frm, param ){
 $( document ).ready(function() {
     
 	$(".alert").hide();
+    $(".dataobs").attr("maxlength", 50);
     
 	/* --------------------------------------------------------------------------- */ 
 	/* Validaciones: cotizaciones */ 
@@ -152,36 +152,6 @@ $( document ).ready(function() {
         onSuccess: function(e, data) {
 			e.preventDefault();
 			reg_formato( "odc", "#frm_mocobs", "obs" );
-        }
-    });
-	/* --------------------------------------------------------------------------- */
-	/* Validaciones: pedidos */
-    $('#frm_mencabezado_p').bootstrapValidator({	// Encabezado
-        fields: {
-        },
-		onSuccess: function( e, data ) {
-        	e.preventDefault();
-        	reg_formato( "ped", "#frm_mencabezado_p", "enc" );
-        }
-    });
-	
-	$('#frm_mpent').bootstrapValidator({			// Texto entrada
-        fields: {
-            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
-        },
-        onSuccess: function(e, data) {
-			e.preventDefault();
-			reg_formato( "ped", "#frm_mpent", "ent" );
-        }
-    });
-	
-	$('#frm_mpobs').bootstrapValidator({			// Observaciones
-        fields: {
-            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
-        },
-        onSuccess: function(e, data) {
-			e.preventDefault();
-			reg_formato( "ped", "#frm_mpobs", "obs" );
         }
     });
     /* --------------------------------------------------------------------------- */
@@ -297,7 +267,8 @@ $( document ).ready(function() {
 
     $('.blocampo').click( function(){
         var target = $(this).attr("data-c");
-        $("#" + target).val(""); $("#" + target).attr("readonly", "true");
+        $("#" + target).val(""); $("#v" + target).val( $(this).val() );
+        $("#" + target).attr("readonly", "true");
     });
     
     $('.libresc').click( function(){
@@ -325,7 +296,8 @@ $( document ).ready(function() {
 
     $('.blocampof').click( function(){
         var target = $(this).attr("data-f");
-        $("#" + target).val(""); $("#" + target).attr("readonly", "true");
+        $("#" + target).val(""); $("#v" + target).val( $(this).val() );
+        $("#" + target).attr("readonly", "true");
     });
     
     $('.libresf').click( function(){

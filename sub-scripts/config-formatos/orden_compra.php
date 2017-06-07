@@ -154,7 +154,8 @@
                         <li><a href="#" class="blocampof" data-f="to_oc1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs1" id="to_oc1" value="<?php echo $frt_oc["obs1"]; ?>" <?php echo $dof[1]["p"]; ?>>
+                    <input type="text" class="form-control csfacobs dataobs" name="obs1" id="to_oc1" 
+                    value="<?php echo $frt_oc["obs1"]; ?>" <?php echo $dof[1]["p"]; ?>>
                     <input type="hidden" name="vobs1" id="vto_oc1" value="<?php echo $frt_oc["obs1"];?>">
                   </div>
                 </div><!-- /.form group -->
@@ -162,14 +163,15 @@
                   <!--<label for="obs2">obs2</label>-->
                   <div class="input-group">
                     <div class="input-group-btn">
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                      aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
                         <li><a href="#" class="libresf" data-f="to_oc2">Texto</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="blocampof" data-f="to_oc2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs2" id="to_oc2" 
+                    <input type="text" class="form-control csfacobs dataobs" name="obs2" id="to_oc2" 
                     value="<?php echo $frt_oc["obs2"];?>" <?php echo $frt_oc["obs2"]; ?>>
                     <input type="hidden" name="vobs2" id="vto_oc2" value="<?php echo $frt_oc["obs2"]; ?>">
                   </div>                                        
@@ -178,15 +180,16 @@
                   <!--<label for="obs3">obs3</label>-->
                   <div class="input-group">
                     <div class="input-group-btn">
-                      <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
+                      <button type="button" class="btn btn-default dropdown-toggle libresc" 
+                      data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
                         <li><a href="#" class="libresf" data-f="to_oc3">Texto</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="blocampof" data-f="to_oc3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs3" id="to_oc3" 
-                    value="<?php echo $frt_oc["obs3"];?>" <?php echo $frt_oc["obs3"]; ?>>
+                    <input type="text" class="form-control csfacobs dataobs" name="obs3" id="to_oc3" 
+                    value="<?php echo $frt_oc["obs3"];?>" <?php echo $frt_oc["obs3"]; ?> >
                     <input type="hidden" name="vobs3" id="vto_oc3" value="<?php echo $frt_oc["obs3"];?>">
                   </div>                                        
                 </div><!-- /.form group -->

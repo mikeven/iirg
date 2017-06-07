@@ -196,13 +196,14 @@
                         <div class="form-group">
                           <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                            <input id="cdir1" type="text" class="form-control" placeholder="Dirección -1-" data-mask name="direccion1">
+                            <input id="cdir1" type="text" class="form-control bdir" placeholder="Dirección -1-" 
+                            data-mask name="direccion1">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
                         <div class="form-group">
                           <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                            <input id="cdir2" type="text" class="form-control" placeholder="Dirección -2-" data-mask name="direccion2">
+                            <input id="cdir2" type="text" class="form-control bdir" placeholder="Dirección -2-" data-mask name="direccion2">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
                         <!-- /.Bloque de dirección -->

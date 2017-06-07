@@ -73,13 +73,13 @@
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresf" data-f="tof1">Texto</a></li>
-                        <li><a href="#" class="solecturaf" data-f="tof1">Condición de pago</a></li>
+                        <li><a href="#!" class="libresf" data-f="tof1">Texto</a></li>
+                        <li><a href="#!" class="solecturaf" data-f="tof1">Condición de pago</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampof" data-f="tof1">No mostrar</a></li>
+                        <li><a href="#!" class="blocampof" data-f="tof1">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs1" id="tof1" 
+                    <input type="text" class="form-control csfacobs dataobs" name="obs1" id="tof1" 
                     data-v="<?php echo $dof[1]["dv"]; ?>" 
                     value="<?php echo $dof[1]["t"]; ?>" <?php echo $dof[1]["p"]; ?>>
                     <input type="hidden" name="vobs1" id="vtof1" value="<?php echo $dof[1]["v"];?>">
@@ -91,13 +91,13 @@
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresf" data-f="tof2">Texto</a></li>
-                        <li><a href="#" class="solecturaf" data-f="tof2">Condición de pago</a></li>
+                        <li><a href="#!" class="libresf" data-f="tof2">Texto</a></li>
+                        <li><a href="#!" class="solecturaf" data-f="tof2">Condición de pago</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampof" data-f="tof2">No mostrar</a></li>
+                        <li><a href="#!" class="blocampof" data-f="tof2">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs2" id="tof2" 
+                    <input type="text" class="form-control csfacobs dataobs" name="obs2" id="tof2" 
                     data-v="<?php echo $dof[2]["dv"]; ?>" 
                     value="<?php echo $dof[2]["t"];?>" <?php echo $dof[2]["p"]; ?>>
                     <input type="hidden" name="vobs2" id="vtof2" value="<?php echo $dof[2]["v"];?>">
@@ -109,13 +109,13 @@
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle libresc" data-toggle="dropdown" aria-expanded="false">Mostrar <span class="fa fa-caret-down"></span></button>
                       <ul class="dropdown-menu menuobs">
-                        <li><a href="#" class="libresf" data-f="tof3">Texto</a></li>
-                        <li><a href="#" class="solecturaf" data-f="tof3">Condición de pago</a></li>
+                        <li><a href="#!" class="libresf" data-f="tof3">Texto</a></li>
+                        <li><a href="#!" class="solecturaf" data-f="tof3">Condición de pago</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="blocampof" data-f="tof3">No mostrar</a></li>
+                        <li><a href="#!" class="blocampof" data-f="tof3">No mostrar</a></li>
                       </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control csfacobs" name="obs3" id="tof3" 
+                    <input type="text" class="form-control csfacobs dataobs" name="obs3" id="tof3" 
                     data-v="<?php echo $dof[3]["dv"]; ?>" 
                     value="<?php echo $dof[3]["t"];?>" <?php echo $dof[3]["p"]; ?>>
                     <input type="hidden" name="vobs3" id="vtof3" value="<?php echo $dof[3]["v"];?>">
