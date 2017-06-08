@@ -459,19 +459,21 @@
                                                       </div> <!-- /.bloque_concepto -->
                                                     <?php } ?>
                                                   </th>
-                                                  <th width="15%">
-                                                    IVA <span id="labiva"> 
-                                                      (<?php echo $eiva; ?>%) </span>
+                                                  <th width="15%" >
+                                                    <div class="iva_valor">
+                                                      IVA <span id="labiva"> (<?php echo $eiva; ?>%) </span>
+                                                    </div>
                                                   </th>
                                                   <th width="15%">
-                                                	<div id="impuesto" class="totalizacion">
+                                                	<div id="impuesto" class="totalizacion iva_valor">
                                                     	<div class="input-group">
                                                         <input id="iva" name="iva_doc" type="hidden" value="<?php echo $iva;?>">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" id="v_iva" value="<?php if(isset( $encabezado )) echo $totales["iva"]?>" readonly>
                                                         <input id="iva_orig" type="hidden" value="<?php echo $iva;?>">
                                                 		  </div>
-                                                  	</div></th>
-                                                  <th width="5%"></th>
+                                                  	</div>
+                                                  </th>
+                                                  <th width="5%"> </th>
                                               </tr>
                                               <tr>
                                                   <th width="65%"></th>

@@ -44,6 +44,16 @@ function stopRKey(evt) {
 }
 document.onkeypress = stopRKey; 
 /* ----------------------------------------------------------------------------------- */
+function anularIva(){
+	$("#iva").val(0.00);
+	$(".iva_valor").fadeOut("200");
+}
+/* ----------------------------------------------------------------------------------- */
+function reestablecerIva(){
+	$("#iva").val( $("#iva_orig").val() );
+	$(".iva_valor").fadeIn("200");		
+}
+/* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	//Retorna un objeto con los datos de encabezado de una nota
 	encabezado = obtenerEncabezadoBase();
@@ -263,12 +273,14 @@ $( document ).ready(function() {
 			$("#bloquen_clientes").show(300);
 			if ( $("#tipofte").val() != "" && $("#tipofte").val() != "nota_entrega" ) 
 				window.location.href = "nuevo-nota.php?t=nota_entrega";
+			anularIva();
 		}
 		else{
 
 			$("#bloque_concepto").show(300);
 			$("#bloquen_facturas").show(300);
 			$("#bloquen_clientes").hide(300);
+			reestablecerIva();
 			//$(".enlnn").attr("href", $(".enlnn").attr("href") + "&t=" + tipo_nota );
 		}
     });

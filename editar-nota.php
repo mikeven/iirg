@@ -450,7 +450,7 @@
                                                     <th width="65%"></th>
                                                     <th width="15%">Total</th>
                                                     <th width="15%">
-                                                    	  <div id="fac_total" class="totalizacion">
+                                                    	  <div id="fac_total" class="totalizacion ">
                                                         	<div class="input-group">
                                                         		<input type="text" class="form-control itemtotaldocumento totalizacion" 
                                                                 id="total" value="<?php if(isset( $nota )) echo $totales["total"]?>" readonly>
