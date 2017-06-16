@@ -236,13 +236,15 @@ function initDoc(){
 /* ----------------------------------------------------------------------------------- */
 function checkExcento( condicion ){
 	//Verifica la condición de cliente excento para asignar valor al IVA: 0
-	if( condicion == "excento" ){
-		$("#iva").val(0.00);
-		$("#labiva").html("(0%)");
-	}else{
-		$iva_orig = $("#iva_orig").val();
-		$("#iva").val( $iva_orig );
-		$("#labiva").html( "(" + $iva_orig * 100 + "%)" );
+	if( $("#tipofte").val() != "nota_entrega" ){
+		if( condicion == "excento" ){
+			$("#iva").val(0.00);
+			$("#labiva").html("(0%)");
+		}else{
+			$iva_orig = $("#iva_orig").val();
+			$("#iva").val( $iva_orig );
+			$("#labiva").html( "(" + $iva_orig * 100 + "%)" );
+		}
 	}
 	calcularTotales();
 }

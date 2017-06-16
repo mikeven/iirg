@@ -1,6 +1,7 @@
 <?php 
 	/*
 	*/
+
 	$facturas = obtenerListaFacturas( $dbh, $usuario["idUsuario"], "" );
 ?>
 <div class="modal fade" id="lista_facturas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -15,25 +16,31 @@
             <table id="lfacturas" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+                    <th>Número</th><th>Fecha</th><th>Cliente</th><th>Estado</th><th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
                     <?php foreach( $facturas as $f ){ 
-                      $df = $f["cliente"]." ($f[Fecha])"; ?>  
+                      $df = $f["cliente"]." ($f[Fecha])"; 
+                      $ie = iconoEstado( $f["estado"] );
+                    ?>
+                    <?php if($f["estado"] != "anulada" ) { ?>  
                     <tr>
                         <td><?php echo $f["numero"];?></td>
                         <td><?php echo $f["Fecha"];?></td>
                         <td>
                           <a href="#!" data-href="nuevo-nota.php?idf=<?php echo $f["id"]; ?>" class="enlnn"><?php echo $f["cliente"]; ?></a>
                         </td>
+                        <td align="center">
+                          <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+                        </td>
                         <td><?php echo number_format( $f["Total"], 2, ",", "." ); ?></td>
                     </tr>
-                    <?php } ?>
+                    <?php } } ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+                        <th>Número</th><th>Fecha</th><th>Cliente</th><th>Estado</th><th>Total</th>
                     </tr>
                 </tfoot>
             </table>

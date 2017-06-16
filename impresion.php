@@ -20,7 +20,7 @@
   if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
     $id = $_GET["id"];
     $tdd = $_GET["tipo_documento"]; 
-    $ftdd = $tdd;
+    $ftdd = $tdd; $tipo_n = "";
 
     if( $tdd == "ctz" ){
       $documento = obtenerCotizacionPorId( $dbh, $id );
@@ -77,6 +77,17 @@
   if( isset( $_GET["idu"] ) ){
     $idusuario = $_GET["idu"];
   }
+  /*========================================================*/
+  function tieneEncabezado( $tdd, $tn ){
+    $tiene = false;
+    if( $tdd == "fac" ) 
+        $tiene = true;
+    if( ( $tdd == "nota" ) && ( $tn == "nota_entrega" ) ) 
+      $tiene = true;
+
+    return $tiene;
+  }
+  /*========================================================*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,7 +174,7 @@
   <!-- Main content -->
   <section class="invoice">
     <!-- info row -->
-          <?php if( $tdd != "fac" ) { ?>
+          <?php if( tieneEncabezado( $tdd, $tipo_n ) ) { ?>
             <div class="row" id="membrete">
                 <div class="col-sm-2"></div><!-- /.col -->
                 <div class="col-sm-8" align="center">

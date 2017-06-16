@@ -47,11 +47,13 @@ document.onkeypress = stopRKey;
 function anularIva(){
 	$("#iva").val(0.00);
 	$(".iva_valor").fadeOut("200");
+	calcularTotales();
 }
 /* ----------------------------------------------------------------------------------- */
 function reestablecerIva(){
 	$("#iva").val( $("#iva_orig").val() );
-	$(".iva_valor").fadeIn("200");		
+	$(".iva_valor").fadeIn("200");
+	calcularTotales();		
 }
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorEncabezado(){
