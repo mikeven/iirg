@@ -126,13 +126,13 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 
 	id_bot_elim = "it" + nitem; $("#cont_item").val( nitem );
 	
-	var item_d = "<tr style='display: none;' id='"+ id_bot_elim + "'><th>" +
+	var item_d = "<tr style='display: none;' id='"+ id_bot_elim + "' class='itemdocumento'><th>" +
 				art + idart + nart + "</th><th>" +
 				qant + "</th><th>" +
 				und + "</th><th>" +
 				punit + "</th><th>" +
 				ptot + "</th><th><button type='button' class='btn btn-block btn-danger btn-xs bedf blq_bdoc' "+
-				"onClick='elimItemDetalle("+id_bot_elim +")'>" + "<i class='fa fa-times'></i></button></th></tr>";
+				"onClick='elimItemDetalle(" + id_bot_elim + ")'>" + "<i class='fa fa-times'></i></button></th></tr>";
 	
 	$( item_d ).appendTo( tabla + " tbody").show("slow");
 	
@@ -191,11 +191,12 @@ function actItemD( item ){
 /* ----------------------------------------------------------------------------------- */
 function contarItems(){
 	//Cuenta la cantidad de ítems en el detalle de un documento nuevo
-	var contitems = 0;
+	/*var contitems = 0;
 	$("#tdetalle input").each(function (){ 
 		contitems++;
-	});
-	return contitems;
+	});*/
+	var citem = $("#cont_item").val();
+	return citem;
 }
 /* ----------------------------------------------------------------------------------- */
 function checkItemForm( idart, punit, qant ){
@@ -247,6 +248,16 @@ function checkExcento( condicion ){
 		}
 	}
 	calcularTotales();
+}
+/* ----------------------------------------------------------------------------------- */
+function limiteItemsPermitido(){
+	var limite = 20;
+	var permitido = true;
+
+	if( contarItems() >= limite )
+		permitido = false;
+
+	return permitido;
 }
 /* =================================================================================== */
 
@@ -311,7 +322,12 @@ $( document ).ready(function() {
 		nitem++;	
 		
 		if( checkItemForm( idart, punit, qant ) == 1 ){	
-			agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );	
+			if( limiteItemsPermitido() )
+				agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );
+			else{
+				$("#ventana_mensaje").addClass("modal-danger");
+				$("#tit_vmsj").html( "No se permiten agregar más ítems" );
+			}	
 		}
     });
     /* ---------------------------------------------------------------------------- */

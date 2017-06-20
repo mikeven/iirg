@@ -293,7 +293,7 @@
                       <?php echo number_format( $item["ptotal"], 2, ",", "." );?>
                     </td>
                   </tr>
-                  <?php } ?>
+                  <?php } //end: foreach ?>
                 </tbody>
               </table>
             </div><!-- /.col -->
