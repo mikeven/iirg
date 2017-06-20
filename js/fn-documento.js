@@ -327,6 +327,7 @@ $( document ).ready(function() {
 			else{
 				$("#ventana_mensaje").addClass("modal-danger");
 				$("#tit_vmsj").html( "No se permiten agregar más ítems" );
+				$("#enl_vmsj").click();
 			}	
 		}
     });
