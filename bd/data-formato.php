@@ -23,7 +23,7 @@
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();
 	}
-
+	/* ----------------------------------------------------------------------------------- */
 	function docBD( $texto ){
 		$docbd = array( 'nota_entrega' => 'nde', 'nota_credito' => 'ndc', 'nota_debito' => 'ndd' );
 		return $docbd[$texto];

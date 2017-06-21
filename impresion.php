@@ -28,12 +28,8 @@
     }
     if( $tdd == "sctz" ){
       $documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
-      $tdocumento = "Solicitud de Cotización"; $ftdd = $tdd;
+      $tdocumento = "Solicitud de Cotización";
     }      
-    if( $tdd == "ped" ){
-      $documento = obtenerPedidoPorId( $dbh, $id );
-      $tdocumento = "Pedido";
-    }
     if( $tdd == "odc" ){
       $documento = obtenerOrdenCompraPorId( $dbh, $id );
       $tdocumento = "Orden de compra";
@@ -52,7 +48,7 @@
       $detalle_d = $documento["detalle"];
 
       $tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
-      $ftdd = $tipo_n;
+      $ftdd = docBD( $tipo_n );
       if( $t_concepto != "Ajuste global" )
           $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
         else
@@ -79,15 +75,18 @@
   }
   /*========================================================*/
   function tieneEncabezado( $tdd, $tn ){
-    $tiene = false;
+    //Determina si un documento lleva el encabezado configurado en el formato
+    $tiene = true;
+
     if( $tdd == "fac" ) 
-        $tiene = true;
-    if( ( $tdd == "nota" ) && ( $tn == "nota_entrega" ) ) 
-      $tiene = true;
+        $tiene = false;
+    if( ( $tdd == "nota" ) && ( $tn != "nota_entrega" ) ) 
+      $tiene = false;
 
     return $tiene;
   }
   /*========================================================*/
+  $tencabezado = tieneEncabezado( $tdd, $tipo_n );
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,7 +119,7 @@
 
     #encabezado{
       margin: 20px 0;
-      <?php if($tdd == "fac") { ?>
+      <?php if( !$tencabezado ) { ?>
         margin: 14% 0 20px 0;  
       <?php } ?>
     }
@@ -174,7 +173,8 @@
   <!-- Main content -->
   <section class="invoice">
     <!-- info row -->
-          <?php if( tieneEncabezado( $tdd, $tipo_n ) ) { ?>
+          
+          <?php if( $tencabezado ) { ?>
             <div class="row" id="membrete">
                 <div class="col-sm-2"></div><!-- /.col -->
                 <div class="col-sm-8" align="center">
@@ -190,6 +190,7 @@
                 <div class="col-sm-2"></div><!-- /.col -->
             </div><!-- /.row -->
           <?php } ?>
+
           <div class="row" id="encabezado">
               <div class="col-sm-6 invoice-col" id="dcliente">
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
