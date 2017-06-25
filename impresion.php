@@ -39,16 +39,24 @@
       $tdocumento = "Factura";
     }
     if( $tdd == "nota" ){
+
       $tipo_n = obtenerTipoNotaPorId( $dbh, $id );
       $documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
       $encabezado = $documento["encabezado"];
-      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
+      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" ); //data-nota.php
 
       $t_concepto = $encabezado["tipo_concepto"];
+      $c_concepto = $encabezado["concepto"];
       $detalle_d = $documento["detalle"];
 
-      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" );
-      $ftdd = docBD( $tipo_n );
+      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" ); //data-nota.php
+      $ftdd = docBD( $tipo_n );                          //data-formato.php
+      
+      if ( $tipo_n != "nota_entrega" ){
+        $factura_nota = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
+        $nfact_nota = $factura_nota["encabezado"]["nro"];  
+      }
+
       if( $t_concepto != "Ajuste global" )
           $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
         else
@@ -161,7 +169,8 @@
     #dmed{ width: 1%; }
     #ddocumento_der{ width: 35%; }
 
-    .tobsdoc{font-size: 16px;}
+    .tobsdoc{font-size: 16px; }
+    .uline{ text-decoration: underline; }
 
   </style>
 </head>
@@ -197,64 +206,18 @@
                   <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
                   <div id="dc_rif"><?php echo $encabezado["rif"]?></div>
+                  <?php if( ( $tdd == "nota" ) || ( $tdd == "nota" ) ) { ?>
+                    <div id="dc_telf">
+                      <?php echo $encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
+                    </div>  
+                  <?php } ?>  
               </div><!-- /.col -->
               
               <div id="dmed" class="col-sm-2 invoice-col"> </div><!-- /.col -->
               
-              <div class="col-sm-4 col-xs-push-1 invoice-col" id="ddocumento_der">
-                  
-                  <table width="100%" border="0">
-                    <tr>
-                      <td width="70%">
-                        <div id="doc_numero_et">
-                          <?php echo "N° de ".$tdocumento.":";?>
-                        </div>
-                      </td>
-                      <td width="30%">
-                        <div id="doc_numero_val">
-                          <?php echo $encabezado["nro"]; ?>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div id="doc_femision_et">
-                          Fecha Emisión:
-                        </div>
-                      </td>
-                      <td>
-                        <div id="doc_femision_val">
-                          <?php echo $encabezado["femision"];?>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php if($tdd == "ctz") { ?>
-                    <tr>
-                      <td>
-                          <div id="doc_vend_et">Vendedor:</div>
-                      </td>
-                      <td>
-                        <?php if($tdd == "ctz") { ?><div id="doc_vend_val">Nidia</div><?php } ?>
-                      </td>
-                    </tr>
-                    <?php } ?>
-                    <?php if($tdd == "fac") { ?>
-                    <tr>
-                      <td><div id="doc_fvenc">Fecha Vencimiento:</div></td>
-                      <td><?php echo $encabezado["fvencimiento"]; ?></td>
-                    </tr>
-                    <tr>
-                      <td><div id="doc_cond">Condición de Pago</div></td>
-                      <td><?php echo $encabezado["condicion"]; ?></td>
-                    </tr>
-                    <tr>
-                      <td><div id="doc_noc">N° Orden Compra:</div></td>
-                      <td><?php echo $encabezado["oc"]; ?></td>
-                    </tr>
-                    <?php } ?>
-                  </table>
-
-              </div><!-- /.col -->
+              <!-- Datos documento -->
+              <?php include("sub-scripts/impresion/datos_documento.php");?>
+              <!-- /.Datos documento -->
               
           </div><!-- /.row -->
           
@@ -301,41 +264,8 @@
           </div><!-- /.row -->
 
           <!-- Pie de documento -->
-          <div id="pie_documento" class="row pie_documento" >
-            
-            <!-- Bloque de observaciones -->
-            <div class="col-xs-6">
-                <div class="tobsdoc"> <?php echo $encabezado["obs0"]; ?> </div>
-                <div><?php echo $obs[1]; ?></div>
-                <div><?php echo $obs[2]; ?></div>
-                <div><?php echo $obs[3]; ?></div>  
-            </div>
-            <!-- /.Bloque de observaciones -->
-
-            <!-- Totalización -->
-            <div class="col-xs-6">
-              <div class="table-responsive" style="float:right;">
-                <table class="table">
-                  <tr>
-                    <th style="width:75%">Subtotal:</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
-                  </tr>
-                  <tr>
-                    <th>IVA (<?php echo $eiva; ?>%)</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
-                  </tr>
-                  <tr>
-                    <th>Total:</th>
-                    <td class="tit_tdf_d" align="right">
-                    <?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
-                  </tr>
-                </table>
-              </div>
-            </div><!-- /.col:Totalización -->
-          
-          </div><!-- /.row: Pie de documento -->
+          <?php include("sub-scripts/impresion/pie.php");?>
+          <!-- /.Pie de documento -->
 
   </section>
   <!-- /.content -->

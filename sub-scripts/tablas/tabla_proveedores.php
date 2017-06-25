@@ -15,7 +15,7 @@
         <?php foreach( $proveedores as $p ){?>  
         <tr>
             <td><a href="ficha_proveedor.php?p=<?php echo $p["idProveedor"]; ?>"><?php echo $p["Nombre"];?></a></td>
-            <td><?php echo $p["Rif"]; ?></td>
+            <td><?php echo $p["rif"]; ?></td>
             <td><?php echo $p["Email"];?></td>
         </tr>
         <?php } ?>

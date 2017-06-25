@@ -176,7 +176,7 @@
                   <li class="active"><a href="#tab_1" data-toggle="tab">Datos de cliente</a></li>
                   <li><a href="#tab_2" data-toggle="tab">Modificar datos de cliente</a></li>
                   <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
-                  <li class="dropdown">
+                  <!-- <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                       Más acciones <span class="caret"></span>
                     </a>
@@ -185,7 +185,7 @@
                       <li role="presentation" class="divider"></li>
                       <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar cliente</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                   
                 </ul>
                 <div class="tab-content">                  

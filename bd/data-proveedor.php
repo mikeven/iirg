@@ -63,7 +63,7 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function valorExistente( $dbh, $campo, $valor ){
+	function proveedorExistente( $dbh, $campo, $valor ){
 		$existente = 0;
 		$q = "select * from proveedor where $campo = '$valor'"; 
 		$data = mysql_query( $q, $dbh );
@@ -97,7 +97,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_POST["existe_rif"] ) ){
 		include( "bd.php" );		
-		echo valorExistente( $dbh, $_POST["campo"], $_POST["valor"] );
+		echo proveedorExistente( $dbh, $_POST["campo"], $_POST["valor"] );
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

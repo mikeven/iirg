@@ -15,6 +15,7 @@
 	include( "bd/data-nota.php" );
   include( "bd/data-forms.php" );
   include( "bd/data-formato.php" );
+  include( "fn/fn-documento.php" );
 
   checkSession( '' );           
 	
