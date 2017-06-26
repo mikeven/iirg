@@ -34,7 +34,7 @@
             <li><a href="categorias.php"><i class="fa fa-cubes"></i>Categorías</a></li>
           </ul>
         </li>
-        <li class="header">DOCUMENTOS</li>
+        <li class="header">MOVIMIENTOS</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-book"></i>
@@ -75,6 +75,16 @@
           <ul class="treeview-menu">
             <li><a href="notas.php"><i class="fa fa-list-alt"></i>Consultar notas</a></li>
             <li><a href="nuevo-nota.php"><i class="fa fa-plus"></i>Crear nueva nota</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-shopping-cart"></i><span>Compras</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="compras.php"><i class="fa fa-list-alt"></i>Consultar compras</a></li>
+            <li><a href="nuevo-compra.php"><i class="fa fa-plus"></i>Registrar compra</a></li>
           </ul>
         </li>
         

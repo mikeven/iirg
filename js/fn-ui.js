@@ -36,6 +36,20 @@ function ventanaMensaje( exito, mensaje, enlace ){
 	$("#enl_vmsj").click();
 }*/
 /* ----------------------------------------------------------------------------------- */
+function isNumberKey(evt){
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if ( charCode != 46 && charCode > 31 && ( charCode < 48 || charCode > 57 ))
+		return false;
+	return true;
+}
+
+function isIntegerKey(evt){
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if ( charCode < 48 || charCode > 57 )
+		return false;
+	return true;
+}
+/* ----------------------------------------------------------------------------------- */
 function alertaMensaje( exito, mensaje ){
 	//$("#resalerta").removeClass("alert-danger", "alert-success");
 	var clase_m = ["alert-danger", "alert-success"];
@@ -63,6 +77,20 @@ function enviarRespuesta( res, modo, idhtml ){
 	}
 	if( modo == "redireccion" ){
 		var url = "ficha_articulo.php?a=" + res.articulo.id;
+		window.location.href = url;
+	}
+	if( modo == "print" ){
+		alertaMensaje( res.exito, res.mje );
+	}
+}
+/* ----------------------------------------------------------------------------------- */
+function enviarRespuestaServidor( res, modo, idhtml, url_dest ){
+	//Manejo de respuesta de acuerdo al modo indicado
+	if( modo == "ventana" ){
+		ventanaMensaje( res.exito, res.mje );
+	}
+	if( modo == "redireccion" ){
+		var url = url_dest + res.registro.id;
 		window.location.href = url;
 	}
 	if( modo == "print" ){

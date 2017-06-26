@@ -35,6 +35,10 @@
 	border-color: #008d4c; 
 }
 
+.tx1, .txh{
+	font-size: 16px;
+}
+
 #resalerta{ width: 85%; margin: 0 auto; }
 
 .btn-tvent{
