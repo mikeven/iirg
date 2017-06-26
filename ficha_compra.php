@@ -62,26 +62,27 @@
     <script src="plugins/input-mask/jquery.inputmask.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js">
+    </script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
-	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
+    
     <!-- DataTables -->
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script>
       $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-        //Datemask dd/mm/yyyy
-    		$("#crif").inputmask({mask: "a-99999999-9"});
-    		$("#ctel1").inputmask({mask: "(9999)-999.99.99"});
-    		$("#ctel2").inputmask({mask: "(9999)-999.99.99"});
+        //Inicialización de elementos
       });
     </script>
+
     <script type="text/javascript">
         $( document ).ready(function() {
             $('#frm_marticulo').bootstrapValidator({
@@ -103,10 +104,17 @@
                 	alert("OK");
                 }
             });
+            <?php if( $compra["estado"] == "creada" ) { ?>
+            iniciarVentanaConfirmacion( "bt_edo_compra", "Eliminar compra" );
+            <?php } ?>
+            <?php if( $compra["estado"] == "eliminada" ) { ?>
+            iniciarVentanaConfirmacion( "bt_edo_compra", "Recuperar compra" );
+            <?php } ?>
         });
     </script>
     
-    <script src="js/fn-articulos.js"></script>
+    <script src="js/fn-compras.js"></script>
+    <script src="js/fn-ui.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -158,152 +166,176 @@
             <!-- left column -->
             <div class="col-md-8">
               <!-- Custom Tabs -->
-              <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Datos de artículo</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Modificar datos de compra</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      Más acciones <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar artículo</a></li>
+              <div id="ficha_compra" class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">DATOS DE COMPRA</h3>
+                  <div class="icon-color"><i class="fa fa-shopping-cart fa-2x"></i></div>
+                </div><!-- /.box-header -->           
+                <div class="box-body">
+                  <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#tab_1" data-toggle="tab">Datos de compra</a></li>
+                      <li><a href="#tab_2" data-toggle="tab">Modificar datos de compra</a></li>
                     </ul>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1">
-                    <div>
-                      <span class="txh"><i class="fa fa-bookmark-o"></i>&nbsp;
-                      <b>Proveedor: <?php echo $compra["proveedor"];?></b></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa-calendar"></i>&nbsp;
-                      Fecha emisión: <?php echo $compra["femision"];?></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa-calendar"></i>&nbsp;
-                      Registrada: <?php echo $compra["fregistro"];?></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa fa-slack"></i>&nbsp;
-                      Número de control: <?php echo $compra["ncontrol"];?></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa-file-text-o"></i>&nbsp;
-                      Número de factura: <?php echo $compra["nfactura"];?></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa-file-text-o"></i>&nbsp;
-                      Monto Base: <?php echo number_format( $compra["mbase"], 2, ",", "." );?></span>
-                    </div>
-                    <div><span class="tx1">
-                      <i class="fa fa-percent"></i>&nbsp;
-                      IVA: <?php echo $compra["iva"];?></span>
-                    </div>
-                    <div class="info_tab3">
-                    </div>
-                  </div><!-- /.tab-pane -->
-                  
-                  <div class="tab-pane" id="tab_2">
-                    <form role="form" id="frm_ncompra" name="form_agregar_compra">
-                
-                        <div class="box-body">
-                          
-                          <div class="form-group">
-                             <div class="input-group">
-                                <div class="input-group-btn">
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                      data-target="#lista_proveedores">PROVEEDOR</button>
-                                </div>
-                                <!-- /btn-group -->
-                                <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor" value="<?php echo $compra["proveedor"]; ?>">
-                                <input type="hidden" class="form-control" id="idProveedor" 
-                                name="idProveedor" value="<?php echo $compra["idp"]; ?>">
-                             </div>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_1">
+                        <div>
+                          <span class="txh"><i class="fa fa-bookmark-o"></i>&nbsp;
+                          <b>Proveedor: <?php echo $compra["proveedor"];?></b></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-calendar"></i>&nbsp;
+                          Fecha emisión: <?php echo $compra["femision"];?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-calendar"></i>&nbsp;
+                          Registrada: <?php echo $compra["fregistro"];?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa fa-slack"></i>&nbsp;
+                          Número de control: <?php echo $compra["ncontrol"];?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-file-text-o"></i>&nbsp;
+                          Número de factura: <?php echo $compra["nfactura"];?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-file-text-o"></i>&nbsp;
+                          Monto Base: <?php echo number_format( $compra["mbase"], 2, ",", "." );?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-percent"></i>&nbsp;
+                          IVA: <?php echo $compra["iva"];?></span>
+                        </div>
+                        <?php if( $compra["estado"] == "eliminada" ) { ?>
+                          <hr>
+                          <div><span class="tx1 text-red"><i class="fa fa-window-close"></i>&nbsp;ELIMINADA</span>
                           </div>
-                          <!-- /.form group -->
-                          <!-- Modal -->
-                             <?php 
-                               include( "sub-scripts/tablas/tabla_proveedores_modal.php" );
-                             ?>
-                          <!-- /.Modal -->
-                          
-                          <div class="form-group">
-                              <div class="input-group date">
-                                  <div class="input-group-addon">
-                                      <i class="fa fa-calendar"></i> 
-                                      <label for="datepicker" class="iconlab">Fecha emisión:</label>
+                        <?php } ?>
+                        <hr>
+                        
+                        <?php if( $compra["estado"] == "creada" ) { ?>
+                        <div class="box-footer" align="right">
+                          <input type="hidden" id="edoaccion" value="eliminada">                          
+                          <button type="button" class="btn btn-danger original btn_edo_accion" id="btn_confirmacion" 
+                          data-toggle="modal" data-target="#ventana_confirmacion">Eliminar</button>
+                        </div>
+                        <?php } ?>
+
+                        <?php if( $compra["estado"] == "eliminada" ) { ?>
+                        <div class="box-footer" align="right">
+                          <input type="hidden" id="edoaccion" value="creada">
+                          <button type="button" class="btn btn-success original btn_edo_accion" id="btn_confirmacion" 
+                          data-toggle="modal" data-target="#ventana_confirmacion">Recuperar</button>
+                        </div>
+                        <?php } ?>
+
+                        <button type="button" id="enl_vmsj" data-toggle="modal" 
+                          data-target="#ventana_mensaje" class="hidden"></button>
+                        <?php
+                          include("sub-scripts/nav/mensaje_respuesta.php");
+                          include( "sub-scripts/nav/mensaje_confirmacion.php" );
+                        ?>
+                        <div class="info_tab3">
+                        </div>
+                      </div><!-- /.tab-pane -->
+                      
+                      <div class="tab-pane" id="tab_2">
+                        <form role="form" id="frm_mcompra" name="form_modificar_compra">
+                            <input id="idCompra" name="idCompra" type="hidden" value="<?php echo $compra["idcompra"];?>">
+                            <div class="box-body">                          
+                              <div class="form-group">
+                                 <div class="input-group">
+                                    <div class="input-group-btn">
+                                       <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                          data-target="#lista_proveedores">PROVEEDOR</button>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    <input type="text" class="form-control" id="nproveedor" readonly name="nombre_proveedor" value="<?php echo $compra["proveedor"]; ?>">
+                                    <input type="hidden" class="form-control" id="idProveedor" 
+                                    name="idProveedor" value="<?php echo $compra["idp"]; ?>">
+                                 </div>
+                              </div>
+                              <!-- /.form group -->
+                              <!-- Modal -->
+                                 <?php 
+                                   include( "sub-scripts/tablas/tabla_proveedores_modal.php" );
+                                 ?>
+                              <!-- /.Modal -->
+                              
+                              <div class="form-group">
+                                  <div class="input-group date">
+                                      <div class="input-group-addon">
+                                          <i class="fa fa-calendar"></i> 
+                                          <label for="datepicker" class="iconlab">Fecha emisión:</label>
+                                      </div>
+                                      <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly value="<?php echo $compra["femision"]; ?>">
                                   </div>
-                                  <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly value="<?php echo $compra["femision"]; ?>">
-                              </div>
-                          </div><!-- /.form group -->
-                          
-                          <div class="form-group">
-                            <!--<label for="ncontrol">Email address</label>-->
-                              <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                                <input type="text" class="form-control" id="ncontrol" placeholder="N° Control" name="ncontrol" required value="<?php echo $compra["ncontrol"]; ?>">
-                              </div>
-                          </div><!-- /.form group -->
-                          
-                          <div class="form-group">
-                            <!--<label for="nfactura">Email address</label>-->
-                              <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                                <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required value="<?php echo $compra["nfactura"]; ?>">
-                            </div>
-                          </div><!-- /.form group -->
-
-                          <div class="form-group">
-                            <!--<label for="mbase">Email address</label>-->
-                              <div class="input-group">
-                                <div class="input-group-addon">
-                                  
-                                  <label for="datepicker" class="iconlab">BsF</label>
+                              </div><!-- /.form group -->
+                              
+                              <div class="form-group">
+                                <!--<label for="ncontrol">N° Control</label>-->
+                                  <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                    <input type="text" class="form-control" id="ncontrol" placeholder="N° Control" name="ncontrol" required value="<?php echo $compra["ncontrol"]; ?>">
+                                  </div>
+                              </div><!-- /.form group -->
+                              
+                              <div class="form-group">
+                                <!--<label for="nfactura">N° Factura</label>-->
+                                  <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                    <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required value="<?php echo $compra["nfactura"]; ?>">
                                 </div>
-                                <input type="text" class="form-control" id="mbase" placeholder="Monto Base" name="mbase" required onkeypress="return isNumberKey(event)" 
-                                value="<?php echo number_format( $compra["mbase"], 2, ",", "." ); ?>">
-                              </div>
-                          </div><!-- /.form group -->  
-                          
-                          <div class="form-group">
-                            <!--<label for="mbase">Email address</label>-->
-                              <div class="input-group">
-                                <div class="input-group-addon">
-                                  <i class="fa fa-percent"></i>                          
+                              </div><!-- /.form group -->
+
+                              <div class="form-group">
+                                <!--<label for="mbase">Monto Base</label>-->
+                                  <div class="input-group">
+                                    <div class="input-group-addon">                                  
+                                      <label for="datepicker" class="iconlab">BsF</label>
+                                    </div>
+                                    <input type="text" class="form-control" id="mbase" placeholder="Monto Base" name="mbase" required onkeypress="return isNumberKey(event)" 
+                                    value="<?php echo number_format( $compra["mbase"], 2, ".", "" ); ?>">
+                                  </div>
+                              </div><!-- /.form group -->  
+                              
+                              <div class="form-group">
+                                <!--<label for="iva">IVA</label>-->
+                                  <div class="input-group">
+                                    <div class="input-group-addon">
+                                      <i class="fa fa-percent"></i>                          
+                                    </div>
+                                    <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)" 
+                                    value="<?php echo $compra["iva"]; ?>">
                                 </div>
-                                <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)" 
-                                value="<?php echo $compra["iva"]; ?>">
-                            </div>
-                          </div><!-- /.form group -->
-                            
-                        </div><!-- /.box-body -->
-                      <div class="box-footer" align="center">
-                        <button type="button" class="btn btn-primary original" id="bt_reg_compra">Guardar</button>
-                        <button type="button" class="btn btn-primary" id="bt_reg_art_modal" style="display:none;">Guardar</button>
-                      </div>
-                    </form>
+                              </div><!-- /.form group -->
+                                
+                            </div><!-- /.box-body -->
+                          <div class="box-footer" align="center">
+                            <button type="button" class="btn btn-primary original" id="bt_mod_compra">Guardar</button>
+                          </div>
+                        </form>
 
-                  </div><!-- /.tab-pane -->
-                  
-                  <div class="tab-pane" id="tab_3">
-                    <!-- Tabla operaciones artículo -->
-                      <?php include("sub-scripts/tablas/tabla_mov_articulo.php"); ?>
-                    <!-- /.Tabla operaciones artículo --> 
-                  </div><!-- /.tab-pane -->
+                      </div><!-- /.tab-pane -->
+                      
+                      <div class="tab-pane" id="tab_3">
+                        <!-- Tabla operaciones artículo -->
+                          <?php include("sub-scripts/tablas/tabla_mov_articulo.php"); ?>
+                        <!-- /.Tabla operaciones artículo --> 
+                      </div><!-- /.tab-pane -->
 
-                </div><!-- /.tab-content -->
-              </div><!-- nav-tabs-custom -->
-
+                    </div><!-- /.tab-content -->
+                  </div><!-- nav-tabs-custom -->
+                </div>
+              </div>
             </div><!--/.col (left) -->
+
             <!-- right column -->
             <div class="col-md-6">
               <!-- Horizontal Form -->
-              
-              
             </div><!--/.col (right) -->
+          
           </div>  
       
     </section>

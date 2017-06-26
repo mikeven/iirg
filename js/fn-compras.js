@@ -71,20 +71,34 @@ function strSerialForm( form, cont ){
 	return art;
 }
 /* ----------------------------------------------------------------------------------- */
-function guardarCompra( form, modo_respuesta, idhtml ){
-	//Invocación a registrar artículo
+function guardarCompra( form, modo_respuesta, idhtml, accion ){
+	//Invocación a registrar compra
 	var url_data = "bd/data-compra.php";
-	var compra = strSerialForm( form, "#frm_ncompra" ); 
+	var compra = strSerialForm( $(form), form ); 
 	var idu = $( '#idu_sesion' ).val();
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ ncompra: compra, id_u: idu },
+        data:{ ncompra: compra, id_u: idu, c_accion: accion },
         success: function( response ){
 			console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarRespuestaServidor( res, modo_respuesta, idhtml, "ficha_compra.php?id=" );
-			//actVentanaModalArt( res );
+        }
+    });
+}
+/* ----------------------------------------------------------------------------------- */
+function estadoCompra( id, estado, modo_respuesta, idhtml ){
+	//Invocación a registrar compra
+	var url_data = "bd/data-compra.php";
+	var idu = $( '#idu_sesion' ).val();
+	$.ajax({
+        type:"POST", url:url_data, 
+        data:{ ecompra: id, edo: estado, id_u: idu },
+        success: function( response ){
+			console.log(response);
+			res = jQuery.parseJSON(response);
+			enviarRespuestaServidor( res, modo_respuesta, idhtml, "" );
         }
     });
 }
@@ -144,6 +158,13 @@ function checkCompra( mje_destino ){
 
 	return error;
 }
+/* ----------------------------------------------------------------------------------- */
+
+function iniciarVentanaConfirmacion( boton, titulo ){
+	$("#titulo_emergente").html( titulo );
+	$("#mje_confirmacion").html( "¿ Confirmar acción ?" );
+	$("#btn_confirm").attr("id", boton );
+}
 
 /* ----------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------- */
@@ -159,55 +180,38 @@ $( document ).ready(function() {
 		language:'es',
 		title:true
 	});
-
+	/*--------------------*/
 	$(".item_proveedor_lmodal").click( function(){
 
 		$("#nproveedor").val( $(this).attr("data-label") );
-		$("#idProveedor").val( $(this).attr("data-idp") );	// Para órdenes de compra
+		$("#idProveedor").val( $(this).attr("data-idp") );
 		$("#nproveedor").css({'border-color' : '#ccc'});
 		$("#xmodalproveedor").click();
     });
-	
-	$("#bt_reg_compra").on( "click", function() {
+	/*--------------------*/
+	$("#bt_reg_compra").on( "click", function() {	// Agregar registro de compra
 		if( checkCompra('modal') == 0 )
-			guardarCompra( $("#frm_ncompra"), "redireccion", '' );
+			guardarCompra( "#frm_ncompra", "redireccion", '', "agregar" );
 		else
 			$("#enl_vmsj").click();	
 	});
 	/*--------------------*/
-	$("#bt_reg_art_modal").on( "click", function() {
-		if( checkArticulo('alerta') == 0 ){
-			guardarArticulo( null, "print", 'tresalerta' );
-		}
+	$("#bt_mod_compra").on( "click", function() {	// Modificar registro de compra
+		if( checkCompra('modal') == 0 )
+			guardarCompra( "#frm_mcompra", "redireccion", '', "editar" );
 		else
-			$("#resalerta").fadeIn("slow");	
+			$("#enl_vmsj").click();	
 	});
 	/*--------------------*/
-	$(".vexistente").on( "change", function() {
-		var valor = $(this).val();
-		var clave = $(this).attr("name");
-		var cres = $(this).attr("data-err");
-		valorExistente( $(this), clave, valor, cres );
+	$("#bt_edo_compra").on( "click", function() {	// Eliminar/Recuperar registro de compra
+		$("#closeModal").click();
+		estadoCompra( $("#idCompra").val(), $("#edoaccion").val(), "ventana", '' );
+		$(".btn_edo_accion").fadeOut("slow");
+		$("#ventana_mensaje").on("hidden.bs.modal", function () {
+		    location.reload();
+		});	
 	});
 	/*--------------------*/
-	$(".lncat").blur(function(){
-		valor = $(this).val(); idr = $(this).attr("id");
-		actualizarCategoria( idr, "nombre", valor );
-    })
-	/*--------------------*/
-	$(".ldcat").blur(function(){
-		valor = $(this).val(); idr = $(this).attr("id");
-		actualizarCategoria( idr, "descripcion", valor );
-    })
-    /*--------------------*/
-    $(".lnund").on( "change", function(){
-		valor = $(this).val(); idr = $( this ).attr("id");
-		actualizarUnidad( idr, valor );
-    })
-    /*--------------------*/
-	$(".euv").on( "click", function() {
-		eliminarUnidad( $(this).attr( "data-idu" ) );
-	});
 });
 
 /* ----------------------------------------------------------------------------------- */

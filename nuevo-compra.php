@@ -81,9 +81,7 @@
 
     <script>
       $(function () {
-        //Initialize elements
-        
-
+        //Inicialización de elementos
       });
     </script>
     

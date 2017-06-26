@@ -86,14 +86,14 @@ function enviarRespuesta( res, modo, idhtml ){
 /* ----------------------------------------------------------------------------------- */
 function enviarRespuestaServidor( res, modo, idhtml, url_dest ){
 	//Manejo de respuesta de acuerdo al modo indicado
-	if( modo == "ventana" ){
+	if( modo == "ventana" ){		//Muestra la respuesta en una ventana emergente
 		ventanaMensaje( res.exito, res.mje );
 	}
-	if( modo == "redireccion" ){
+	if( modo == "redireccion" ){	//Redirige a una ubicación dada por url
 		var url = url_dest + res.registro.id;
 		window.location.href = url;
 	}
-	if( modo == "print" ){
+	if( modo == "print" ){			//Muestra la respuesta dentro de una etiqueta indicada
 		alertaMensaje( res.exito, res.mje );
 	}
 }

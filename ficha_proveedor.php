@@ -168,8 +168,17 @@
         
         <!-- left column -->
         <div class="col-md-8">
-          <!-- Custom Tabs -->
-          <div class="nav-tabs-custom">
+          
+          <div id="ficha_proveedor" class="box box-primary">
+            
+            <div class="box-header with-border">
+              <h3 class="box-title">DATOS DE CLIENTE</h3>
+              <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
+            </div><!-- /.box-header -->           
+            
+            <div class="box-body">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#tab_1" data-toggle="tab">Datos de proveedor</a></li>
               <li><a href="#tab_2" data-toggle="tab">Modificar datos de proveedor</a></li>
@@ -187,7 +196,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                   <div><span class="txh"><b><?php echo $proveedor["Nombre"];?></b></span></div>
-                  <div><span class="tx1"><?php echo $proveedor["Rif"];?></span></div>
+                  <div><span class="tx1"><?php echo $proveedor["rif"];?></span></div>
                   <div><span class="tx1"><?php echo $proveedor["Direccion1"];?></span></div>
                   <div><span class="tx1"><?php echo $proveedor["Direccion2"];?></span></div>
                   <div class="info_tab3">
@@ -223,7 +232,7 @@
                               <label for="rif" class="iconlab">RIF:</label>
                             </div>
                             <input id="crif" type="text" class="form-control" placeholder="RIF" 
-                            data-mask name="rif" value="<?php echo $proveedor["Rif"];?>">
+                            data-mask name="rif" value="<?php echo $proveedor["rif"];?>">
                           </div><!-- /.input group -->
                         </div><!-- /.form group -->
                      
@@ -309,7 +318,11 @@
                 </div><!-- /.tab-pane -->
               
             </div><!-- /.tab-content -->
-          </div><!-- nav-tabs-custom -->
+              </div><!-- nav-tabs-custom -->
+            </div>
+          
+          </div>  
+        
         </div><!--/.col (left:8) -->
         
         <!-- right column -->

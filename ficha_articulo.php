@@ -167,9 +167,17 @@
     	<div class="row">
             <!-- left column -->
             <div class="col-md-8">
-              <!-- Custom Tabs -->
-              <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+              <div id="ficha_articulo" class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">DATOS DE ARTÍCULO</h3>
+                  <div class="icon-color"><i class="fa fa-barcode fa-2x"></i></div>
+                </div><!-- /.box-header -->           
+                
+                <div class="box-body">
+                  <!-- Custom Tabs -->
+                  <div class="nav-tabs-custom">
+                    
+                    <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab">Datos de artículo</a></li>
                   <li><a href="#tab_2" data-toggle="tab">Modificar datos de artículo</a></li>
                   <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
@@ -181,8 +189,8 @@
                       <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar artículo</a></li>
                     </ul>
                   </li>
-                </ul>
-                <div class="tab-content">
+                    </ul>
+                    <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
                     <div><span class="txh"><i class="fa fa-bookmark-o"></i>&nbsp;<b><?php echo $articulo["descripcion"];?></b></span></div>
                     <div><span class="tx1"><i class="fa fa-cube"></i>&nbsp;<?php echo $articulo["presentacion"];?></span></div>
@@ -251,10 +259,12 @@
                       <?php include("sub-scripts/tablas/tabla_mov_articulo.php"); ?>
                     <!-- /.Tabla operaciones artículo --> 
                   </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-content -->
+                  
+                  </div><!-- nav-tabs-custom -->
+                </div>
 
-                </div><!-- /.tab-content -->
-              </div><!-- nav-tabs-custom -->
-
+              </div>
             </div><!--/.col (left) -->
             <!-- right column -->
             <div class="col-md-6">

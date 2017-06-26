@@ -169,164 +169,175 @@
     	<div class="row">
             <!-- left column -->
             <div class="col-md-8">
-              <!-- Custom Tabs -->
-              <div class="nav-tabs-custom">
-                
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Datos de cliente</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Modificar datos de cliente</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
-                  <!-- <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      Más acciones <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Crear cotización</a></li>
-                      <li role="presentation" class="divider"></li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar cliente</a></li>
-                    </ul>
-                  </li> -->
+
+              <div id="ficha_cliente" class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">DATOS DE CLIENTE</h3>
+                    <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
+                  </div><!-- /.box-header -->           
                   
-                </ul>
-                <div class="tab-content">                  
-                  <div class="tab-pane active" id="tab_1">
-                    <div><span class="txh"><b><?php echo $cliente["nombre"];?></b></span></div>
-                    <div><span class="tx1"><?php echo $cliente["rif"];?></span></div>
-                    <div><span class="tx1"><?php echo $cliente["direccion1"];?></span></div>
-                    <div><span class="tx1"><?php echo $cliente["direccion2"];?></span></div>
-                    <div class="info_tab3">
-                    <div><span class="tx1"><span class="fa fa-envelope">                      
-                    </span> <?php echo $cliente["email"];?></span></div>
-                    <div><span class="tx1"><span class="fa fa-user">
-                    </span> <?php echo $cliente["pcontacto"];?></span></div>
-                    <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono1"];?></span></div>
-                    <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono2"];?></span></div>
-                    </div>
-                  </div><!-- /.tab-pane -->
-                                    
-                  <div class="tab-pane" id="tab_2">
-                    <form role="form" id="frm_mcliente" name="form_modificar_cliente" method="post" action="bd/data-cliente.php">
-                      <input name="idCliente" type="hidden" value="<?php echo $cliente["idCliente"];?>">
-                      <input name="mod_cliente" type="hidden" value="1">
-                      
-                      <div class="box-body">
-                        <div class="form-group">
-                          <!--<label for="exampleInputEmail1">Email address</label>-->
+                  <div class="box-body">
+                    <!-- Custom Tabs -->
+                    <div class="nav-tabs-custom">
+                  
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Datos de cliente</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Modificar datos de cliente</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
+                    <!-- <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Más acciones <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Crear cotización</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eliminar cliente</a></li>
+                      </ul>
+                    </li> -->
+                    
+                  </ul>
+                  <div class="tab-content">                  
+                    <div class="tab-pane active" id="tab_1">
+                      <div><span class="txh"><b><?php echo $cliente["nombre"];?></b></span></div>
+                      <div><span class="tx1"><?php echo $cliente["rif"];?></span></div>
+                      <div><span class="tx1"><?php echo $cliente["direccion1"];?></span></div>
+                      <div><span class="tx1"><?php echo $cliente["direccion2"];?></span></div>
+                      <div class="info_tab3">
+                      <div><span class="tx1"><span class="fa fa-envelope">                      
+                      </span> <?php echo $cliente["email"];?></span></div>
+                      <div><span class="tx1"><span class="fa fa-user">
+                      </span> <?php echo $cliente["pcontacto"];?></span></div>
+                      <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono1"];?></span></div>
+                      <div><span class="tx1"><span class="glyphicon glyphicon-phone-alt"></span> <?php echo $cliente["telefono2"];?></span></div>
+                      </div>
+                    </div><!-- /.tab-pane -->
+                                      
+                    <div class="tab-pane" id="tab_2">
+                      <form role="form" id="frm_mcliente" name="form_modificar_cliente" method="post" action="bd/data-cliente.php">
+                        <input name="idCliente" type="hidden" value="<?php echo $cliente["idCliente"];?>">
+                        <input name="mod_cliente" type="hidden" value="1">
+                        
+                        <div class="box-body">
+                          <div class="form-group">
+                            <!--<label for="exampleInputEmail1">Email address</label>-->
+                              <div class="input-group">
+                                <div class="input-group-addon">
+                                  <i class="fa fa-bookmark-o"></i>
+                                  <label for="nombre" class="iconlab">Nombre:</label>
+                                </div>
+                                <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
+                                required value="<?php echo $cliente["nombre"];?>">
+                              </div>
+                          </div><!-- /.form group -->
+
+                          <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-addon">
-                                <i class="fa fa-bookmark-o"></i>
-                                <label for="nombre" class="iconlab">Nombre:</label>
+                                <i class="fa fa-registered"></i>
+                                <label for="rif" class="iconlab">RIF:</label>
                               </div>
-                              <input type="text" class="form-control" id="cnombre" placeholder="Nombre" name="nombre" 
-                              required value="<?php echo $cliente["nombre"];?>">
-                            </div>
-                        </div><!-- /.form group -->
-
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-registered"></i>
-                              <label for="rif" class="iconlab">RIF:</label>
-                            </div>
-                            <input id="crif" type="text" class="form-control" placeholder="RIF" 
-                            data-mask name="rif" value="<?php echo $cliente["rif"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
+                              <input id="crif" type="text" class="form-control" placeholder="RIF" 
+                              data-mask name="rif" value="<?php echo $cliente["rif"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                            
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-envelope-o"></i>
+                                <label for="email" class="iconlab">Email:</label>
+                              </div>
+                              <input id="cemail" type="text" class="form-control" placeholder="Email" 
+                              data-mask name="email" value="<?php echo $cliente["email"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
                           
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-envelope-o"></i>
-                              <label for="email" class="iconlab">Email:</label>
-                            </div>
-                            <input id="cemail" type="text" class="form-control" placeholder="Email" 
-                            data-mask name="email" value="<?php echo $cliente["email"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-user"></i>
-                              <label for="pcontacto" class="iconlab">Persona de contacto:</label>
-                            </div>
-                            <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $cliente["pcontacto"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-map-marker"></i>
-                              <label for="dir" class="iconlab">Dirección - 1 -</label>
-                            </div>
-                            <input id="cdir1" type="text" class="form-control bdir" placeholder="Dirección" 
-                            data-mask name="direccion1" value="<?php echo $cliente["direccion1"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-map-marker"></i>
-                              <label for="dir" class="iconlab">Dirección - 2 -</label>
-                            </div>
-                            <input id="cdir2" type="text" class="form-control bdir" placeholder="Dirección" 
-                            data-mask name="direccion2" value="<?php echo $cliente["direccion2"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                                <label for="pcontacto" class="iconlab">Persona de contacto:</label>
+                              </div>
+                              <input id="ccontacto" type="text" class="form-control" placeholder="Persona de contacto" name="pcontacto" value="<?php echo $cliente["pcontacto"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                                <label for="dir" class="iconlab">Dirección - 1 -</label>
+                              </div>
+                              <input id="cdir1" type="text" class="form-control bdir" placeholder="Dirección" 
+                              data-mask name="direccion1" value="<?php echo $cliente["direccion1"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                                <label for="dir" class="iconlab">Dirección - 2 -</label>
+                              </div>
+                              <input id="cdir2" type="text" class="form-control bdir" placeholder="Dirección" 
+                              data-mask name="direccion2" value="<?php echo $cliente["direccion2"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
 
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-phone"></i>
-                              <label for="tel1" class="iconlab">Teléfono 1:</label>
-                            </div>
-                            <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" 
-                            data-mask name="telefono1" value="<?php echo $cliente["telefono1"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-phone"></i>
-                              <label for="tel2" class="iconlab">Teléfono 2:</label>
-                            </div>
-                            <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
-                            data-mask name="telefono2" value="<?php echo $cliente["telefono2"];?>">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                                <label for="tel1" class="iconlab">Teléfono 1:</label>
+                              </div>
+                              <input id="ctel1" type="text" class="form-control" placeholder="Teléfono" 
+                              data-mask name="telefono1" value="<?php echo $cliente["telefono1"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
+                          
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                                <label for="tel2" class="iconlab">Teléfono 2:</label>
+                              </div>
+                              <input id="ctel2" type="text" class="form-control" placeholder="Teléfono" 
+                              data-mask name="telefono2" value="<?php echo $cliente["telefono2"];?>">
+                            </div><!-- /.input group -->
+                          </div><!-- /.form group -->
 
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="checkbox">
-                              <label> <input type="checkbox" 
-                              name="excento" <?php echo $exc_iva; ?> > Excento IVA</label>
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="checkbox">
+                                <label> <input type="checkbox" 
+                                name="excento" <?php echo $exc_iva; ?> > Excento IVA</label>
+                              </div>
                             </div>
-                          </div>
-                        </div><!-- /.form group -->
+                          </div><!-- /.form group -->
+                        
+                        </div><!-- /.box-body -->
+      
+                        <div class="box-footer" align="center">
+                          <button type="submit" class="btn btn-primary" id="bt_mod_cliente">Guardar</button>
+                        </div>
                       
-                      </div><!-- /.box-body -->
-    
-                      <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary" id="bt_mod_cliente">Guardar</button>
-                      </div>
+                      </form>
+                  	
+                    </div>
+                    <div class="tab-pane" id="tab_3">
+                      <!-- Tabla operaciones cliente -->
+                        <?php include("sub-scripts/tablas/tabla_doc_clientes.php"); ?>
+                      <!-- /.Tabla operaciones cliente -->  
+                    </div><!-- /.tab-pane -->
+
                     
-                    </form>
-                	
+                    </div><!-- /.tab-pane -->
+                  </div><!-- /.tab-content -->
+                    </div><!-- nav-tabs-custom -->
+
                   </div>
-                  <div class="tab-pane" id="tab_3">
-                    <!-- Tabla operaciones cliente -->
-                      <?php include("sub-scripts/tablas/tabla_doc_clientes.php"); ?>
-                    <!-- /.Tabla operaciones cliente -->  
-                  </div><!-- /.tab-pane -->
-
-                  
-                  </div><!-- /.tab-pane -->
-                </div><!-- /.tab-content -->
-              </div><!-- nav-tabs-custom -->
-
+              </div>
+                 
             </div><!--/.col (left) -->
             <!-- right column -->
             <div class="col-md-6">
