@@ -1,4 +1,3 @@
-
 <div class="modal" data-easein="shrinkIn" id="ventana_mensaje" tabindex="-1" role="dialog" 
 data-easein="fadeIn">
   <div class="modal-dialog">

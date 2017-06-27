@@ -170,10 +170,10 @@
                   <div class="nav-tabs-custom">
                     
                     <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Datos de artículo</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Modificar datos de artículo</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
-                  <li class="dropdown">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Datos de artículo</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Modificar datos de artículo</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Detalles operaciones</a></li>
+                    <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                       Más acciones <span class="caret"></span>
                     </a>

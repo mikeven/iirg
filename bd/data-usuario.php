@@ -167,6 +167,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function modificarDatosUsuario( $usuario, $dbh ){
+		//Actualiza los datos de cuenta de usuario
 		$actualizado = 1;
 		$q = "update usuario set usuario = '$usuario[usuario]', nombre = '$usuario[nombre]' 
 		where idUsuario = $usuario[id]";
@@ -179,6 +180,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function modificarPassword( $usuario, $dbh ){
+		//Actualiza el valor de contraseña de usuario
 		$actualizado = 1;
 		$q = "update usuario set password = '$usuario[password]' where idUsuario = $usuario[id]";
 		//echo $q;
@@ -189,6 +191,27 @@
 			$actualizado = 0;
 		
 		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function guardarCuentaBancaria( $dbh, $cuenta, $idu  ){
+		//Guarda un registro de cuenta bancaria
+		$q = "insert into data_usuario (dato1, dato2, idUsuario ) 
+		values ( '$cuenta[banco]', '$cuenta[desc]', $idu )";
+		//echo $q;
+		$data = mysql_query ( $q, $dbh );
+		
+		return mysql_insert_id();	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaCuentasBancarias( $dbh, $idu ){
+		//Devuelve la lista de cuentas bancarias asociadas a la cuenta de usuario
+		$cuentas = array();
+		$q = "select dato1, dato2 from data_usuario where tipo='bancario' and idUsuario = $idu";
+		$data = mysql_query( $q, $dbh );
+		while( $item = mysql_fetch_array( $data ) ){
+			$cuentas[] = $item;	
+		}
+		return $cuentas;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
@@ -226,7 +249,16 @@
 
 		echo json_encode( $res );
 	}
-	
+	/* ----------------------------------------------------------------------------------- */
+
+	function obtenerListaBancos(){
+		$bancos = array( "Banesco", "Mercantil", "Provincial", "BFC", "Venezuela", "BNC", 
+					"BOD", "Exterior", "Venezolano de Crédito", "Bancaribe", "Bicentenario", 
+					"Del Tesoro", "Caroní", "Banplus", "Bancrecer", "Plaza", "100% Banco", 
+					"Sofitasa");
+		return $bancos;
+	}
+
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Usuarios */
 	/* ----------------------------------------------------------------------------------- */
@@ -301,4 +333,26 @@
 		echo json_encode( $res );	
 	}
 	/* ----------------------------------------------------------------------------------- */
+	//Agregar cuenta bancaria (asinc)
+	if( isset( $_POST["banco"] ) ){
+		
+		include("bd.php");
+		$cuenta["banco"] = $_POST["banco"];
+		$cuenta["desc"] = $_POST["desc"];
+		
+		$idc = guardarCuentaBancaria( $dbh, $cuenta, $_POST["id_u"] );
+		
+		if( ( $idc != 0 ) && ( $idc != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Cuenta registrada";
+			$cuenta["id"] = $idc;
+			$res["registro"] = $cuenta;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar cuenta";
+		}
+		echo json_encode( $res );	
+	}
+	/* ----------------------------------------------------------------------------------- */
+
 ?>

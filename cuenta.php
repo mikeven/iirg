@@ -10,6 +10,8 @@
 	checkSession( '' );
 	
   $usuario = obtenerUsuarioPorId( $_SESSION["user"]["idUsuario"], $dbh );
+  $lbancos = obtenerListaBancos();
+  $lctabanco = obtenerListaCuentasBancarias( $dbh,  $_SESSION["user"]["idUsuario"] );
   $nombre_usuario = $usuario["nombre"];
   $title = $usuario["empresa"];
   if( $usuario["empresa"] == "" ) $title = $nombre_usuario;
@@ -68,7 +70,9 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
+    
     <script src="js/fn-usuario.js"></script>
+    <script src="js/fn-ui.js"></script> 
     
     <script>
       $(function () {
@@ -82,7 +86,7 @@
     </script>
     <script type="text/javascript">
         $( document ).ready(function() {
-          initValid();
+            initValid();
             $(".alert").hide();
             $(".alert").click( function(){  $(this).hide(350);  });
             $(".act_du").click( function(){  $(".alert").hide(100);  });
@@ -90,7 +94,8 @@
     </script>
     
     <style>
-      .iconlab{ line-height: 0; }
+      .iconlab{ line-height: 0; } 
+      .width-usuario{ width: 50%; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -142,13 +147,23 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <!-- left column -->
-            <div class="col-md-8">
+        <!-- left column -->
+        <div class="col-md-10">
+        
+          <div id="ficha_cuenta" class="box box-primary">
+            
+            <div class="box-header with-border">
+              <h3 class="box-title">DATOS DE CUENTA DE USUARIO</h3>
+              <div class="icon-color"><i class="fa fa-barcode fa-2x"></i></div>
+            </div><!-- /.box-header -->           
+            
+            <div class="box-body">
               <!-- Custom Tabs -->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#dcuenta" data-toggle="tab">Datos de cuenta</a></li>
                   <li><a href="#dempresa" data-toggle="tab">Modificar datos de empresa</a></li>
+                  <li><a href="#dbancos" data-toggle="tab">Cuentas bancarias</a></li>
                   <li><a href="#dusuario" data-toggle="tab">Modificar datos de usuario</a></li>
                   <li><a href="#dpassw" data-toggle="tab">Modificar contraseña</a></li>
                 </ul>
@@ -168,9 +183,8 @@
                     <div><b><i class="fa fa-at"></i> Emails: </b><span class="tx1"> <?php echo $usuario["email"];?></span></div>
                     <div><b><i class="fa fa-briefcase"></i> Vendedor: </b><span class="tx1"> <?php echo $usuario["vendedor"];?></span></div>
                   </div><!-- /.tab-pane -->
-                  
+                  <!-- ................................................................................... -->
                   <div class="tab-pane" id="dempresa">
-                    
                     <form role="form" id="frm_mcuenta" name="form_modificar_cuenta" method="post">
                       <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
                       <input name="mod_empresa" type="hidden" value="1">
@@ -263,99 +277,151 @@
                       <div class="box-footer" align="center">
                         <button type="submit" class="btn btn-primary act_du" id="bt_mod_cuenta">Guardar</button>
                       </div>
-                	</form>
+              	    </form>
                   </div><!-- /.tab-pane -->
                   <!-- ................................................................................... -->
-                  <div class="tab-pane" id="dusuario">
-                    
-                    <form role="form" id="frm_musuario" name="form_m_usuario" method="post">
+                  <div class="tab-pane width-usuario" id="dbancos">
+                    <form role="form" id="frn_cta_banco" name="form_agregar_banco">
                       <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                      <input name="mod_usuario" type="hidden" value="1">
                       <div class="box-body">
-                        
+                        <dt>Agregar cuenta bancaria</dt>
+                        <hr>
                         <div class="form-group">
-                          <!--<label for="nombre">Nombre</label>-->
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-smile-o"></i>
-                                <label for="nombre" class="iconlab">Nombre:</label>
-                              </div>
-                              <input type="text" class="form-control" id="unombre" name="nombre" 
-                              value="<?php echo $usuario["nombre"];?>">
-                            </div>
+                          <select class="form-control" id="banco">
+                            <option value="0" disabled selected class="lb">Banco</option>
+                            <?php foreach( $lbancos as $b ) { ?>
+                              <option value="<?php echo $b; ?>" class="lb"><?php echo $b; ?></option>                             
+                            <?php } ?>                          
+                          </select>
                         </div><!-- /.form group -->
                         
                         <div class="form-group">
-                          <!--<label for="usuario">Usuario</label>-->
+                          <!--<label for="subtitulo">Subtítulo</label>-->
                             <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                                <label for="usuario" class="iconlab">Usuario:</label>
-                              </div>
-                              <input type="text" class="form-control" id="cnombre" name="usuario" 
-                              required value="<?php echo $usuario["usuario"];?>">
+                              <div class="input-group-addon"><i class="fa fa-pencil-square-o"></i> </div>
+                              <input type="text" class="form-control" id="bdescripcion" name="descripcion" 
+                              required placeholder="Descripción" value="">
                             </div>
                         </div><!-- /.form group -->
                           
                       </div><!-- /.box-body -->
     
                       <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary act_du" id="bt_mod_usuario">Guardar</button>
+                        <button type="button" class="btn btn-primary act_du" id="bt_ag_ctab">Guardar</button>
                       </div>
 
-                  </form>   
+                      <!-- Bloque de respuesta del servidor -->
+                      <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" 
+                      class="hidden"></button>
+                      <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
+                      <!-- /.Bloque de respuesta del servidor -->
+
+                    </form>
+                    <hr>
+                    <dt>Lista de cuentas registradas</dt>
+                    <hr>
+                    
+                    <table id="lbancos_usuario" class="table table-bordered">
+                      <tbody>
+                        <tr><th>Banco</th><th>Descrición</th></tr>
+                        <?php foreach( $lctabanco as $c ) { ?>
+                          <tr><th><?php echo $c["dato1"] ?></th><th><?php echo $c["dato2"] ?></th></tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+
+                  </div><!-- /.tab-pane -->
+                  <!-- ................................................................................... -->
+                  <div class="tab-pane" id="dusuario">
+                    <form role="form" id="frm_musuario" name="form_m_usuario" method="post">
+                  <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                  <input name="mod_usuario" type="hidden" value="1">
+                  <div class="box-body">
+                    
+                    <div class="form-group">
+                      <!--<label for="nombre">Nombre</label>-->
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-smile-o"></i>
+                            <label for="nombre" class="iconlab">Nombre:</label>
+                          </div>
+                          <input type="text" class="form-control" id="unombre" name="nombre" 
+                          value="<?php echo $usuario["nombre"];?>">
+                        </div>
+                    </div><!-- /.form group -->
+                    
+                    <div class="form-group">
+                      <!--<label for="usuario">Usuario</label>-->
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                            <label for="usuario" class="iconlab">Usuario:</label>
+                          </div>
+                          <input type="text" class="form-control" id="cnombre" name="usuario" 
+                          required value="<?php echo $usuario["usuario"];?>">
+                        </div>
+                    </div><!-- /.form group -->
+                      
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer" align="center">
+                    <button type="submit" class="btn btn-primary act_du" id="bt_mod_usuario">Guardar</button>
+                  </div>
+                    </form>  
                   </div><!-- /.tab-pane -->
                   <!-- ................................................................................... -->
                   <div class="tab-pane" id="dpassw">
                     <form role="form" id="frm_mpassw" name="form_m_passw" method="post" action="bd/data-usuario.php">
-                      <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
-                      <input name="mod_passw" type="hidden" value="1">
-                      <div class="box-body">
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-lock"></i>
-                              <label for="rif" class="iconlab">Password:</label>
-                            </div>
-                            <input id="upass1" type="password" class="form-control" name="password1" value="">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-lock"></i>
-                              <label for="email" class="iconlab">Confirmar nuevo password:</label>
-                            </div>
-                            <input id="upass2" type="password" class="form-control" name="password2" value="">
-                          </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                          
-                      </div><!-- /.box-body -->
-    
-                      <div class="box-footer" align="center">
-                        <button type="submit" class="btn btn-primary act_du" id="bt_mod_passw">Guardar</button>
-                      </div>
+                  <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                  <input name="mod_passw" type="hidden" value="1">
+                  <div class="box-body">
+                    
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-lock"></i>
+                          <label for="rif" class="iconlab">Password:</label>
+                        </div>
+                        <input id="upass1" type="password" class="form-control" name="password1" value="">
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+                    
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-lock"></i>
+                          <label for="email" class="iconlab">Confirmar nuevo password:</label>
+                        </div>
+                        <input id="upass2" type="password" class="form-control" name="password2" value="">
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+                      
+                  </div><!-- /.box-body -->
 
-                  </form>   
+                  <div class="box-footer" align="center">
+                    <button type="submit" class="btn btn-primary act_du" id="bt_mod_passw">Guardar</button>
+                  </div>
+                    </form>   
                   </div><!-- /.tab-pane -->
+              
                   
-                  <!-- Bloque de respuesta del servidor -->
-                  <?php include("sub-scripts/nav/mensaje_rcpf.php");?>
-                  <!-- /.Bloque de respuesta del servidor -->
 
-              </div><!-- nav-tabs-custom -->
-                
-              </div><!-- /.tab-content -->
-              
-            </div><!--/.col (left) -->
-            <!-- right column -->
-            <div class="col-md-6">
-              <!-- Horizontal Form -->
-              
-            </div><!--/.col (right) -->
-          </div>  
+                </div><!-- /.tab-content -->
+
+              </div><!-- /.nav-tabs-custom -->
+            
+            </div><!-- /.box-body -->
+
+          </div><!-- /.box-primary -->
+
+        </div><!--/.col (left) -->
+        
+        <!-- right column -->
+        <div class="col-md-2">
+          <!-- Horizontal Form -->
+          
+        </div><!--/.col (right) -->
+      </div>  
       
     </section>
     <!-- /.content -->

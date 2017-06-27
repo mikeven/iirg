@@ -139,3 +139,65 @@ function modificarDatosUsuario( param ){
         }
     });
 }
+/* --------------------------------------------------------- */
+function actualizarTablaCtasBancarias( data ){
+	var item_d = "<tr><th>" + data.banco + "</th><th>" + data.desc + "</th></tr>";
+	$( item_d ).appendTo( "#lbancos_usuario tbody").show("slow");
+	$( '#bdescripcion' ).val(""); $("#banco").val(0);
+}
+/* --------------------------------------------------------- */
+function agregarCuentaBancaria(){
+	var idu = $( '#idu_sesion' ).val();
+	var vbanco = $( '#banco' ).val();
+	var vdesc = $( '#bdescripcion' ).val(); 
+
+	$.ajax({
+        type:"POST",
+        url:"bd/data-usuario.php",
+        data:{ banco: vbanco, desc: vdesc, id_u: idu },
+        success: function( response ){
+			res = jQuery.parseJSON(response);
+			if( res.exito == '1' ){
+				console.log(response);
+				actualizarTablaCtasBancarias( res.registro );
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show(100);
+				$("#txerr").html(res.mje);
+			}
+        }
+    });
+}
+/* --------------------------------------------------------- */
+function checkCuentaBancaria(){
+	//Validación de formulario de cuenta bancaria previo a su registro
+	var error = 0; 
+	
+	if( $("#bdescripcion").val() == "" ){
+		//Cliente no seleccionado
+		$("#tx-vmsj").html( "Debe indicar una descripción" );
+		$("#bdescripcion").css({'border-color' : '#dd4b39'});	
+		error = 1;
+	}
+
+	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
+	
+	return error;	
+}
+/* --------------------------------------------------------- */
+
+$( document ).ready(function() {
+    $("#bt_ag_ctab").on( "click", function(){
+		$("#closeModal").click();
+		if( checkCuentaBancaria() == 0 )
+			agregarCuentaBancaria();
+		else
+			$("#enl_vmsj").click();
+    });
+});
+
+/* --------------------------------------------------------- */

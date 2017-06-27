@@ -80,11 +80,13 @@
 
         <li>
           <a href="#">
-            <i class="fa fa-shopping-cart"></i><span>Compras</span>
+            <i class="fa fa-shopping-cart"></i><span>Gastos</span>
           </a>
           <ul class="treeview-menu">
             <li><a href="compras.php"><i class="fa fa-list-alt"></i>Consultar compras</a></li>
             <li><a href="nuevo-compra.php"><i class="fa fa-plus"></i>Registrar compra</a></li>
+            <li><a href="gastos.php"><i class="fa fa-list-alt"></i>Consultar gastos</a></li>
+            <li><a href="nuevo-gasto.php"><i class="fa fa-plus"></i>Registrar gasto</a></li>
           </ul>
         </li>
         
