@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.5
+-- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 26, 2017 at 11:03 PM
--- Server version: 5.1.43
--- PHP Version: 5.3.2
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-06-2017 a las 07:02:09
+-- Versión del servidor: 5.6.15-log
+-- Versión de PHP: 5.4.24
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,13 +17,13 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `mgideasn_iirg`
+-- Base de datos: `mgideasn_iirg`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `articulo`
+-- Estructura de tabla para la tabla `articulo`
 --
 
 CREATE TABLE IF NOT EXISTS `articulo` (
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=2466 ;
 
 --
--- Dumping data for table `articulo`
+-- Volcado de datos para la tabla `articulo`
 --
 
 INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `ubicacion`, `foto`, `idCategoria`) VALUES
@@ -170,14 +171,14 @@ INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `
 (127, '10B04011', 'BOLIGRAFOS SOLITA C/TAPA NE', 'UND', 0, '0', 1),
 (128, '10B04012', 'BOLIGRAFOS SOLITA C/TAPA RO', 'UND', 0, '0', 1),
 (129, '10B04013', 'BOLIGRAFOS KILOMETRICO AZUL', 'UND', 0, '11,34', 1),
-(130, '10B04014', 'BOLIGRAFOS DE OFICINA NEGROS', 'UND', 0, '11,34', 1),
+(130, '10B04014', 'BOLIGRAFOS DE OFICINA NEGROS', 'DOC', 0, '11,34', 1),
 (131, '10B04015', 'BOLIGRAFOS DE OFICINA ROJO', 'UND', 0, '11,34', 1),
 (132, '10B04020', 'MARCADORES UNIB AZUL', 'UND', 0, '29,99', 1),
 (133, '10B04021', 'BOLIGRAFOS UNI-BALL 104 NEGRO', 'UND', 0, '26,99', 1),
 (134, '10B04022', 'BOLIGRAFOS UNIBMICRO ROJO', 'UND', 0, '26,99', 1),
 (135, '10B04023', 'BOLIGRAFOS KORES COLOR ROJO', 'UND', 0, '3,67', 1),
 (136, '10B04024', 'BOLIGRAFOS KILOMETRICO ROJO', 'UND', 0, '4,95', 1),
-(137, '10B04025', 'BOLIGRAFOS NEGRO (CAJA)', 'UND', 0, '4,46', 1),
+(137, '10B04025', 'BOLIGRAFOS ARTESCO  NEGRO ', 'DOC', 0, '4,46', 1),
 (138, '10B04026', 'BOLIGRAFOS FABER CASTELL REF. 061 NEGRO', 'UND', 0, '11,64', 1),
 (139, '10B04027', 'BOLIGRAFOS FABER CASTELL REF. 061 AZUL', 'UND', 0, '0', 1),
 (140, '10B04028', 'BOLIGRAFOS DE OFICINA AZUL', 'UND', 0, '4,46', 1),
@@ -216,13 +217,13 @@ INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `
 (173, '10BO8000', 'BOLAS DE ANIME', 'UND', 0, '0', 0),
 (174, '10BO8001', 'BOLAS DE ANIME Nº 5', 'UND', 0, '0', 1),
 (175, '10C01000', 'CARPETAS', 'UND', 0, '0', 0),
-(176, '10C01001', 'CARP. FIBRA OFICIO POPULAR X 25', 'UND', 0, '21,5', 1),
-(177, '10C01002', 'CARP. FIBRA CARTA X 25', 'UND', 0, '20,93', 1),
-(178, '10C01003', 'CARP. FIBRA OFICIO X 25', 'UND', 0, '28,75', 1),
+(176, '10C01001', 'CARP. FIBRA OFICIO POPULAR X 25', 'CAJ', 0, '21,5', 1),
+(177, '10C01002', 'CARP. FIBRA CARTA X 25', 'CAJ', 0, '20,93', 1),
+(178, '10C01003', 'CARP. FIBRA OFICIO X 25', 'CAJ', 0, '28,75', 1),
 (179, '10C01004', 'CARP. FIBRA MODERNO CARTA X 25', 'UND', 0, '21,38', 1),
 (180, '10C01005', 'CARP. FIBRA CARIBE 1ERA. T/OFICIO X 25', 'UND', 0, '27,5', 1),
 (181, '10C01006', 'CARP. FIBRA AKTIVA OFICIO X 25', 'UND', 0, '0', 1),
-(182, '10C01007', 'CARP. FIBRA CARIBE 1ERA. T/CARTA X 25', 'UND', 0, '0', 1),
+(182, '10C01007', 'CARP. FIBRA CARIBE 1ERA. T/CARTA X 50', 'CAJ', 0, '0', 1),
 (183, '10C01020', 'CARP. MANILA OSLO OFICIO X 100', 'UND', 0, '21', 1),
 (184, '10C01021', 'CARP. FIBRA AKTIVA CARTA X 25', 'UND', 0, '20', 1),
 (185, '10C01022', 'CARP. MANILA SUPREMO OFICIO', 'UND', 0, '26', 1),
@@ -1801,11 +1802,11 @@ INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `
 (1756, '20TO2021', 'TOSHIBA T-1640, TONER NEGRO 163/E165/E205/166/167/207/237', 'UND', 0, '0', 1),
 (1757, '20TO2022', 'TONER RICOH 1130', 'UND', 0, '0', 1),
 (1758, '20TO2023', 'HP Q7580A TONER NE LJ 3505N/3800', 'UND', 0, '0', 1),
-(1759, '20TO2024', 'HP TONER COMPATIBLE CB435A SERIE P1005/P1006', 'UND', 0, '0', 1),
-(1760, '20TO2025', 'HP TONER COMPATIBLE CB436A SERIE 1500 / M1522 / P1505', 'UND', 0, '0', 1),
-(1761, '20TO2026', 'HP TONER COMPATIBLE HP CC364A P-P4015 CAP. 10000 COPIAS', 'UND', 0, '0', 1),
+(1759, '20TO2024', 'TONER COMPATIBLE C/ HP CB435A SERIE P1005/P1006', 'UND', 0, '0', 1),
+(1760, '20TO2025', 'TONER COMPATIBLE  C/HP CB436A SERIE 1500 / M1522 / P1505', 'UND', 0, '0', 1),
+(1761, '20TO2026', 'TONER COMPATIBLE C/HP CC364A P-P4015 CAP. 10000 COPIAS', 'UND', 0, '0', 1),
 (1762, '20TO2027', 'TONER COMPATIBLE C/HP Q2612A', 'UND', 0, '0', 1),
-(1763, '20TO2028', 'TONER COMPATIBLE HP Q7553A', 'UND', 0, '0', 1),
+(1763, '20TO2028', 'TONER COMPATIBLE C/HP Q7553A', 'UND', 0, '0', 1),
 (1764, '20XE1000', 'TINTA XEROX', 'UND', 0, '0', 0),
 (1765, '20XE1001', 'XEROX TINTA 108R336 P/FAX 170', 'UND', 0, '0', 1),
 (1766, '20XE1002', 'TINTA XEROX PARA FAX 108R336 CARTRIDGE.', 'UND', 0, '0', 1),
@@ -1820,7 +1821,7 @@ INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `
 (1775, '20XE2007', 'XEROX CART. TONER PHASER 8500 CYAN CJA. X3', 'UND', 0, '0', 1),
 (1776, '20XE2008', 'XEROX CART. TONER PHASER 8500 MAG CAJA X 3', 'UND', 0, '0', 1),
 (1777, '20XE2009', 'XEROX CART. TONER PHASER 8500 YE CAJA X 6', 'UND', 0, '0', 1),
-(1778, '20XE2010', 'XEROX 3R999629/9439 COMPATIBLE TONER HP C3906A 5L 6L', 'UND', 0, '0', 1),
+(1778, '20XE2010', 'TONER COMPATIBLE C/XEROX 3R999629/9439', 'UND', 0, '0', 1),
 (1779, '20XE2011', 'XEROX M15 TONER 106R00584', 'UND', 0, '0', 1),
 (1780, '20XE2012', 'XEROX TONER 428 113R634', 'UND', 0, '0', 1),
 (1781, '20XE2013', 'XEROX 113R00712 TONER PHASER ALTO R 4510 19000 PAG.', 'UND', 0, '0', 1),
@@ -2491,7 +2492,7 @@ INSERT INTO `articulo` (`idArticulo`, `codigo`, `descripcion`, `presentacion`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Estructura de tabla para la tabla `categoria`
 --
 
 CREATE TABLE IF NOT EXISTS `categoria` (
@@ -2502,7 +2503,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `categoria`
+-- Volcado de datos para la tabla `categoria`
 --
 
 INSERT INTO `categoria` (`idCategoria`, `nombre`, `descripcion`) VALUES
@@ -2517,7 +2518,7 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Estructura de tabla para la tabla `cliente`
 --
 
 CREATE TABLE IF NOT EXISTS `cliente` (
@@ -2535,10 +2536,10 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `pagweb` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=320 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=321 ;
 
 --
--- Dumping data for table `cliente`
+-- Volcado de datos para la tabla `cliente`
 --
 
 INSERT INTO `cliente` (`idCliente`, `nombre`, `rif`, `pcontacto`, `nit`, `direccion1`, `direccion2`, `ciudad`, `telefono1`, `telefono2`, `excento`, `pagweb`, `email`) VALUES
@@ -2588,7 +2589,7 @@ INSERT INTO `cliente` (`idCliente`, `nombre`, `rif`, `pcontacto`, `nit`, `direcc
 (44, 'FUNDICIONES Y ALEACIONES INDUSTRIALES,C.A. FALINCA', 'J-07584415-7', 'SRTA. MARISOL', NULL, NULL, 'CARRETERA NACIONAL CAGUA VILLA DE CURA, CASA Nº 15-0509 SECTOR ZONA IND. CAGUA EDO. ARAGUA', 'ARAGUA', '0212-2380740/0056/', '0212-2372049', '10', NULL, NULL),
 (45, 'GRUPO EVO-LAB, C..A', 'J-31210268-3', 'SRA. MAOLY PALACIOS', NULL, NULL, 'AV. EL CENTRO, EDIF. TORRE MEGAO IV, PISO 8, APTO. 108, URB. LOS DOS CAMINOS', 'CARACAS', '0212-975.0315', '9750375', '10', NULL, NULL),
 (46, 'SERVICIOS ADMINISTRATIVOS GRUPO EIFFEL, C.A.', 'J-30060610-4', 'SRA. INGRIT VERDUT', NULL, NULL, 'CALLE 6, C/CALLE 9, EDIF. LA INDUSTRIOSA, PISO 2, ZONA IND. LA URBINA', 'CARACAS', '0212-2049411', '0212-2049424', '10', NULL, NULL),
-(47, 'DISTRIBUIDORA FARALLON (DIFSA), S.A.', 'J-31083865-8', 'SRTA. HEIMAR HERNANDEZ', 309729021, 'AV. AVENIDA INTERCOMUNAL DE ANTIMANO', 'LOCAL GALPON NRO S/N SECTOR CARAPA', 'CARACAS, DTTO. CAPITAL ZP 1000', '(0212)-715.61.60', '(0212)-263.24.95', '', NULL, 'heimar@farrallon.com'),
+(47, 'DISTRIBUIDORA FARALLON (DIFSA), S.A.', 'J-31083865-8', 'SRTA. HEIMAR HERNANDEZ', 309729021, NULL, 'AV. AVENIDA INTERCOMUNAL DE ANTIMANO, LOCAL GALPON NRO S/N SECTOR CARAPA', 'CARACAS, DTTO. CAPITAL ZP 1000', '0212-715-6160/2889', '02122632495', '1', NULL, NULL),
 (48, 'ELECTRONICA MOYBADE, C.A.', 'J-31513226-5', NULL, NULL, '', 'AV. LOS SAMANES, N° 30, PRADO DE MARIA', 'CARACAS', '(0212)-631.95.74', '', '10', NULL, 'compras_moybade@gmail.com'),
 (49, 'FUNDACION SANTA INES UCAB', 'J-30614465-0', 'SRA. BETZABETH REQUENA', NULL, NULL, 'AV. TEHERAN, PARQUE SOCIAL PADRE MANUEL AGUIRRE, CENTRO DE SALUD SANTA INES, MONTALBAN', 'CARACAS', '0212-4074508/4715580', '0212-471-6923', '10', NULL, 'brequena@ucab.edu.ve'),
 (50, 'LABORATORIO MULTICOLOR DIGITAL, C.A.', 'J-31452350-3', 'SR. PEDRO GUAL', NULL, NULL, 'CALLE LIBERTADOR NORTE, EDIF. CAMPO HERMOSO, PB, LOCAL Nº 03, SECTOR CTRO. LA VICTORIA, EDO. ARAGUA', 'CARACAS', '0244-3228415', NULL, '1', NULL, NULL),
@@ -2828,12 +2829,13 @@ INSERT INTO `cliente` (`idCliente`, `nombre`, `rif`, `pcontacto`, `nit`, `direcc
 (316, 'MG Ideas', 'J-55588488-4', 'José Gabriel Baptista', NULL, 'Calle Los Chaguaramos, Centro DENU PB, La Castellana', '', NULL, '(0212)-263.14.18', '(0414)-137.09.80', NULL, NULL, 'contacto@mgideas.net'),
 (317, 'Grupo Arcytec, C.A.', 'J-96526561-8', 'Antonio Bermúdez', NULL, 'Av. ppal las Mercedes, Centro Empresarial Los Llanos', 'Piso 1, oficina 7', NULL, '(0212)-952.15.35', '(0414)-655.48.12', NULL, NULL, 'abermudez@arcytec.com'),
 (318, 'Corporación 5', 'J-65652665-4', 'Andrés Núñez', NULL, 'Av ppal los Netts', 'Calle 5', NULL, '(0212)-622.31.54', '(0212)-622.34.55', NULL, NULL, 'ventas@corpo5.com'),
-(319, 'Remmeca, C.A.', 'J-13516161-6', 'Maira Torres', NULL, 'Av los apamates, res los  gorriones', 'Altamira', NULL, '(0212)-952.26.35', '(0212)-952.26.32', NULL, NULL, 'ventas@remmeca.com');
+(319, 'Remmeca, C.A.', 'J-13516161-6', 'Maira Torres', NULL, 'Av los apamates, res los  gorriones', 'Altamira', NULL, '(0212)-952.26.35', '(0212)-952.26.32', NULL, NULL, 'ventas@remmeca.com'),
+(320, 'ACADEMIA AA,  C.A.', 'J-35847141-1', 'VIRGINIA GIL', NULL, 'AV. UNIVERSIDAD, ESQ. DE SOCIEDAD, CARACAS', '', NULL, '(0212)-547.89.85', '', 'excento', NULL, 'Vmineo@mgideas.net');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `compra`
+-- Estructura de tabla para la tabla `compra`
 --
 
 CREATE TABLE IF NOT EXISTS `compra` (
@@ -2841,28 +2843,27 @@ CREATE TABLE IF NOT EXISTS `compra` (
   `idProveedor` int(7) NOT NULL,
   `estado` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_emision` datetime NOT NULL,
-  `fecha_registro` datetime NOT NULL,
+  `fecha_registro` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `ncontrol` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `nfactura` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `monto` float(10,2) NOT NULL,
-  `iva` float(5,2) NOT NULL,
+  `iva` float NOT NULL,
   `idUsuario` int(11) NOT NULL,
+  `nfactura` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `monto` float(12,2) NOT NULL,
   PRIMARY KEY (`idCompra`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `compra`
+-- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`idCompra`, `idProveedor`, `estado`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `ncontrol`, `nfactura`, `monto`, `iva`, `idUsuario`) VALUES
-(1, 4, 'creada', '2017-06-26 00:00:00', '2017-06-26 10:30:08', '2017-06-26 14:39:39', '95200', '1632', 195650.50, 12.00, 1),
-(2, 6, 'creada', '2017-06-26 00:00:00', '2017-06-26 11:24:16', '2017-06-26 11:45:04', '48518', '32655', 650830.25, 12.00, 1);
+INSERT INTO `compra` (`idCompra`, `idProveedor`, `estado`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `ncontrol`, `iva`, `idUsuario`, `nfactura`, `monto`) VALUES
+(1, 4, NULL, '2017-06-25 00:00:00', '2017-06-25 22:17:13', NULL, '652100', 12, 1, '9562', 95636.35);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `condicion`
+-- Estructura de tabla para la tabla `condicion`
 --
 
 CREATE TABLE IF NOT EXISTS `condicion` (
@@ -2877,7 +2878,7 @@ CREATE TABLE IF NOT EXISTS `condicion` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=18 ;
 
 --
--- Dumping data for table `condicion`
+-- Volcado de datos para la tabla `condicion`
 --
 
 INSERT INTO `condicion` (`idCondicion`, `nombre`, `valor`, `documento`, `idUsuario`, `sistema`) VALUES
@@ -2901,7 +2902,7 @@ INSERT INTO `condicion` (`idCondicion`, `nombre`, `valor`, `documento`, `idUsuar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cotizacion`
+-- Estructura de tabla para la tabla `cotizacion`
 --
 
 CREATE TABLE IF NOT EXISTS `cotizacion` (
@@ -2942,34 +2943,37 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idCotizacion`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `cotizacion`
+-- Volcado de datos para la tabla `cotizacion`
 --
 
 INSERT INTO `cotizacion` (`idCotizacion`, `numero`, `Fecha`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_venc_sist`, `fecha_anulacion`, `fecha_aprobacion`, `validez`, `idCliente`, `Nombre`, `Telefono`, `Rif`, `Fax`, `Email`, `pcontacto`, `idProveedor`, `iva`, `tipo`, `CotizAprobada`, `SubTotal`, `TotalDescto`, `estado`, `valor_condicion`, `condicion`, `ISV`, `Total`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `idUsuario`) VALUES
-(1, 1, NULL, '2017-04-17', NULL, NULL, '2017-04-18 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 94, NULL, NULL, NULL, NULL, NULL, 'YULBILL INOJOSA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, 690480.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 2', 'COTZ 3', 1),
-(2, 2, NULL, '2017-04-18', NULL, NULL, '2017-04-21 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 266, NULL, NULL, NULL, NULL, NULL, 'SR. GERMAN MATOS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '1 día', NULL, 65990.40, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
-(3, 3, NULL, '2017-04-18', NULL, NULL, '2017-04-19 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 202, NULL, NULL, NULL, NULL, NULL, 'SR. VICTOR AYALA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, 106196.16, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
-(4, 4, NULL, '2017-04-20', NULL, NULL, '2017-04-23 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 266, NULL, NULL, NULL, NULL, NULL, 'SR. GERMAN MATOS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, 57120.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
-(5, 5, NULL, '2017-04-20', NULL, NULL, '2017-04-25 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 141, NULL, NULL, NULL, NULL, NULL, 'SRA. YUDITH ZANELLA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, 86889.60, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
-(6, 1, NULL, '2017-04-20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 3, '3 días', NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(7, 2, NULL, '2017-04-22', NULL, '2017-04-28 16:42:51', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 'Marcel Mancera', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 5, '5 días', NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(8, 6, NULL, '2017-04-27', NULL, NULL, '2017-04-30 00:00:00', NULL, NULL, '2017-04-27 17:36:33', NULL, 111, NULL, NULL, NULL, NULL, NULL, 'SR. LAURENCE IBARRAS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, 263200.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
-(9, 7, NULL, '2017-04-27', '2017-04-27 15:30:05', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '3 días', NULL, 394800.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
-(10, 3, NULL, '2017-04-28', NULL, NULL, '1970-01-01 00:00:00', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(11, 4, NULL, '2017-05-01', '2017-05-01 15:10:41', NULL, '1970-01-01 00:00:00', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, 'Julio Hernández', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, 0.00, 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(12, 8, NULL, '2017-05-01', '2017-05-01 19:20:33', '2017-05-01 19:57:56', '2017-05-06 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, 141, NULL, NULL, NULL, NULL, NULL, 'SRA. YUDITH ZANELLA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, 102379.20, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
-(13, 9, NULL, '2017-05-01', '2017-05-01 20:01:35', NULL, '2017-05-06 00:00:00', NULL, NULL, '2017-05-01 20:02:55', NULL, 245, NULL, NULL, NULL, NULL, NULL, 'SRA. ROSA BRITO', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 5, '5 días', NULL, 102379.20, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
-(14, 10, NULL, '2017-05-02', '2017-05-02 14:22:33', NULL, '2017-05-05 00:00:00', NULL, NULL, '2017-05-02 14:23:14', NULL, 246, NULL, NULL, NULL, NULL, NULL, 'SR. ALFREDO DELGADO', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, 74007.36, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
-(15, 11, NULL, '2017-05-08', '2017-05-08 19:16:39', NULL, '2017-05-09 00:00:00', NULL, NULL, '2017-05-08 19:17:52', NULL, 27, NULL, NULL, NULL, NULL, NULL, 'SRA. BOLIVAR / KATTY', NULL, 0, 'cotizacion', NULL, NULL, NULL, 'aprobada', 1, '1 día', NULL, 98400.00, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
-(16, 12, NULL, '2017-06-05', '2017-06-05 14:25:58', NULL, '2017-06-07 00:00:00', NULL, NULL, '2017-06-05 17:53:12', NULL, 232, NULL, NULL, NULL, NULL, NULL, 'GENEROSO', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, 724483.20, 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1);
+(1, 1, NULL, '2017-04-17', NULL, NULL, '2017-04-18 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 94, NULL, NULL, NULL, NULL, NULL, 'YULBILL INOJOSA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, '690480.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: ', 'COTZ 2', 'COTZ 3', 1),
+(2, 2, NULL, '2017-04-18', NULL, NULL, '2017-04-21 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 266, NULL, NULL, NULL, NULL, NULL, 'SR. GERMAN MATOS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '1 día', NULL, '65990.40', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
+(3, 3, NULL, '2017-04-18', NULL, NULL, '2017-04-19 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 202, NULL, NULL, NULL, NULL, NULL, 'SR. VICTOR AYALA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, '106196.16', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
+(4, 4, NULL, '2017-04-20', NULL, NULL, '2017-04-23 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 266, NULL, NULL, NULL, NULL, NULL, 'SR. GERMAN MATOS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, '57120.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
+(5, 5, NULL, '2017-04-20', NULL, NULL, '2017-04-25 00:00:00', '2017-04-27 17:29:27', NULL, NULL, NULL, 141, NULL, NULL, NULL, NULL, NULL, 'SRA. YUDITH ZANELLA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, '86889.60', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
+(6, 1, NULL, '2017-04-20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 3, '3 días', NULL, '0.00', 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
+(7, 2, NULL, '2017-04-22', NULL, '2017-04-28 16:42:51', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 'Marcel Mancera', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', 5, '5 días', NULL, '0.00', 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
+(8, 6, NULL, '2017-04-27', NULL, NULL, '2017-04-30 00:00:00', NULL, NULL, '2017-04-27 17:36:33', NULL, 111, NULL, NULL, NULL, NULL, NULL, 'SR. LAURENCE IBARRAS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, '263200.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
+(9, 7, NULL, '2017-04-27', '2017-04-27 15:30:05', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '3 días', NULL, '394800.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
+(10, 3, NULL, '2017-04-28', NULL, NULL, '1970-01-01 00:00:00', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'Javier Gómez', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, '0.00', 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
+(11, 4, NULL, '2017-05-01', '2017-05-01 15:10:41', NULL, '1970-01-01 00:00:00', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, 'Julio Hernández', NULL, 0.12, 'solicitud', NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, '0.00', 'Agredecido de su pronta respuesta', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
+(12, 8, NULL, '2017-05-01', '2017-05-01 19:20:33', '2017-05-01 19:57:56', '2017-05-06 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, 141, NULL, NULL, NULL, NULL, NULL, 'SRA. YUDITH ZANELLA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 5, '5 días', NULL, '102379.20', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
+(13, 9, NULL, '2017-05-01', '2017-05-01 20:01:35', NULL, '2017-05-06 00:00:00', NULL, NULL, '2017-05-01 20:02:55', NULL, 245, NULL, NULL, NULL, NULL, NULL, 'SRA. ROSA BRITO', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 5, '5 días', NULL, '102379.20', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 5 días', 'COTZ 2', 'COTZ 3', 1),
+(14, 10, NULL, '2017-05-02', '2017-05-02 14:22:33', NULL, '2017-05-05 00:00:00', NULL, NULL, '2017-05-02 14:23:14', NULL, 246, NULL, NULL, NULL, NULL, NULL, 'SR. ALFREDO DELGADO', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, '74007.36', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'COTZ 2', 'COTZ 3', 1),
+(15, 11, NULL, '2017-05-08', '2017-05-08 19:16:39', NULL, '2017-05-09 00:00:00', NULL, NULL, '2017-05-08 19:17:52', NULL, 27, NULL, NULL, NULL, NULL, NULL, 'SRA. BOLIVAR / KATTY', NULL, 0, 'cotizacion', NULL, NULL, NULL, 'aprobada', 1, '1 día', NULL, '98400.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'COTZ 2', 'COTZ 3', 1),
+(16, 12, NULL, '2017-05-27', '2017-05-27 20:46:37', NULL, '2017-05-30 00:00:00', '2017-05-28 12:58:10', NULL, NULL, NULL, 247, NULL, NULL, NULL, NULL, NULL, 'YUDITH ZANELLA - JEFE COMPRAS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '3 días', NULL, '2859360.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'LA EXISTENCIA PUEDE VARIAR', '', 1),
+(17, 13, NULL, '2017-06-25', '2017-06-25 12:54:10', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, NULL, 214, NULL, NULL, NULL, NULL, NULL, 'SRTA. LUISANA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, '1148000.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
+(18, 14, NULL, '2017-06-25', '2017-06-25 12:57:34', '2017-06-25 14:42:32', '2017-06-28 00:00:00', NULL, NULL, '2017-06-25 14:42:58', NULL, 216, NULL, NULL, NULL, NULL, NULL, 'SRA NANCY CHACON', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, '1273624.80', 'DE ACUERDO A SUS REQUERIMIENTOS', 'IMPORTANTE:', 'Validez: 3 días', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
+(19, 15, NULL, '2017-06-25', '2017-06-25 13:32:37', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 13:43:05', NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 1, '1 día', NULL, '753090.24', 'DE ACUERDO A SUS REQUERIMIENTOS', 'IMPORTANTE:', 'Validez: 1 día', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detallecotizacion`
+-- Estructura de tabla para la tabla `detallecotizacion`
 --
 
 CREATE TABLE IF NOT EXISTS `detallecotizacion` (
@@ -2988,10 +2992,10 @@ CREATE TABLE IF NOT EXISTS `detallecotizacion` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`IdMovimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
--- Dumping data for table `detallecotizacion`
+-- Volcado de datos para la tabla `detallecotizacion`
 --
 
 INSERT INTO `detallecotizacion` (`IdMovimiento`, `idCotizacion`, `Item`, `IdArticulo`, `IdProducto`, `Descripcion`, `Cantidad`, `PrecioUnit`, `Porcentaje`, `PrecioTotal`, `Alicuota`, `und`, `IdItem`, `TotalIVA`) VALUES
@@ -3015,12 +3019,22 @@ INSERT INTO `detallecotizacion` (`IdMovimiento`, `idCotizacion`, `Item`, `IdArti
 (28, 14, NULL, '152', NULL, 'BAT. AA ALCALINA X 2', 6, 1233.00, NULL, 7398.00, NULL, 'UND', NULL, NULL),
 (29, 14, NULL, '153', NULL, 'BAT. AAA ALCALINA', 9, 6520.00, NULL, 58680.00, NULL, 'UND', NULL, NULL),
 (30, 15, NULL, '54', NULL, 'ANILLOS DOBLE CARTA PLAST. 7/8', 12, 8200.00, NULL, 98400.00, NULL, 'UND', NULL, NULL),
-(31, 16, NULL, '1075', NULL, 'CANON E40 TONER PC940', 3, 215620.00, NULL, 646860.00, NULL, 'UND', NULL, NULL);
+(31, 16, NULL, '453', NULL, 'FORMAS CONT. 9 1/2 X 11 1 PARTE BL', 5, 225000.00, NULL, 1125000.00, NULL, 'UND', NULL, NULL),
+(32, 16, NULL, '454', NULL, 'FORMAS CONT. 9 1/2 X 11 2 PARTES BL', 6, 238000.00, NULL, 1428000.00, NULL, 'UND', NULL, NULL),
+(33, 17, NULL, '1072', NULL, 'CANON GPR-11 TONER IR C3200 /3220 CYAN', 1, 345000.00, NULL, 345000.00, NULL, 'UND', NULL, NULL),
+(34, 17, NULL, '725', NULL, 'PAPEL P/FOTOC. REPROGRAF T/CARTA', 20, 34000.00, NULL, 680000.00, NULL, 'UND', NULL, NULL),
+(36, 19, NULL, '1045', NULL, 'CANON S35 TONER', 3, 215000.00, NULL, 645000.00, NULL, 'UND', NULL, NULL),
+(37, 19, NULL, '140', NULL, 'BOLIGRAFOS DE OFICINA AZUL', 3, 4567.00, NULL, 13701.00, NULL, 'DOC', NULL, NULL),
+(38, 19, NULL, '570', NULL, 'LAPIZ GRAFITO', 3, 4567.00, NULL, 13701.00, NULL, 'DOC', NULL, NULL),
+(39, 18, NULL, '725', NULL, 'PAPEL P/FOTOC. REPROGRAF T/CARTA', 20, 34000.00, NULL, 680000.00, NULL, 'UND', NULL, NULL),
+(40, 18, NULL, '187', NULL, 'CARP. COLGANTE ACCO T/CARTA X 25', 5, 45677.00, NULL, 228385.00, NULL, 'UND', NULL, NULL),
+(41, 18, NULL, '632', NULL, 'MARCADORES GRUESOS MAKETTE VERDE', 10, 15678.00, NULL, 156780.00, NULL, 'UND', NULL, NULL),
+(42, 18, NULL, '79', NULL, 'BANDEJAS ACRILICAS 3 NIVELES', 3, 24000.00, NULL, 72000.00, NULL, 'UND', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detallefactura`
+-- Estructura de tabla para la tabla `detallefactura`
 --
 
 CREATE TABLE IF NOT EXISTS `detallefactura` (
@@ -3039,10 +3053,10 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
--- Dumping data for table `detallefactura`
+-- Volcado de datos para la tabla `detallefactura`
 --
 
 INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `codigo_producto`, `und`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `IdItem`, `TotalIVA`) VALUES
@@ -3064,13 +3078,30 @@ INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `c
 (34, 10, NULL, 153, NULL, 'UND', 'BAT. AAA ALCALINA', 9, '6520.00', 0.00, NULL, 58680.00, NULL, NULL),
 (35, 11, NULL, 54, NULL, 'UND', 'ANILLOS DOBLE CARTA PLAST. 7/8', 12, '8200.00', 0.00, NULL, 98400.00, NULL, NULL),
 (37, 12, NULL, 2288, NULL, 'UND', 'AJAX LIQUIDO 2 LTS.', 8, '65520.00', 0.00, NULL, 524160.00, NULL, NULL),
-(38, 13, NULL, 37, NULL, 'UND', 'AGENDA DE TRABAJO ISOFI', 3, '3200.00', 0.00, NULL, 9600.00, NULL, NULL),
-(39, 14, NULL, 1075, NULL, 'UND', 'CANON E40 TONER PC940', 3, '215620.00', 0.00, NULL, 646860.00, NULL, NULL);
+(41, 13, NULL, 1529, NULL, 'UND', 'HP CE252A TONER LJ CP 3525 YE', 1, '456000.00', 0.00, NULL, 456000.00, NULL, NULL),
+(40, 13, NULL, 1062, NULL, 'UND', 'CANON TONER GPR-22 1019J/1023/1023N/1025IF', 1, '230000.00', 0.00, NULL, 230000.00, NULL, NULL),
+(42, 14, NULL, 451, NULL, 'UND', 'FORMAS CONT. 14 7/8 X 11 3 PARTES BL', 15, '456000.00', 0.00, NULL, 6840000.00, NULL, NULL),
+(43, 14, NULL, 737, NULL, 'UND', 'PAPEL P/FOTOC, T/CARTA ALPES', 500, '25000', 0.00, NULL, 12500000.00, NULL, NULL),
+(44, 15, NULL, 140, NULL, 'UND', 'BOLIGRAFOS DE OFICINA AZUL', 12, '2456.00', 0.00, NULL, 29472.00, NULL, NULL),
+(45, 15, NULL, 130, NULL, 'UND', 'BOLIGRAFOS DE OFICINA NEGROS', 12, '2456.00', 0.00, NULL, 29472.00, NULL, NULL),
+(46, 15, NULL, 580, NULL, 'UND', 'LIBRETAS COSIDA DE UNA LINEA 100 H.', 12, '5678.00', 0.00, NULL, 68136.00, NULL, NULL),
+(47, 15, NULL, 737, NULL, 'UND', 'PAPEL P/FOTOC, T/CARTA ALPES', 20, '25000.00', 0.00, NULL, 500000.00, NULL, NULL),
+(48, 16, NULL, 152, NULL, 'UND', 'BAT. AA ALCALINA X 2', 6, '1233.00', 0.00, NULL, 7398.00, NULL, NULL),
+(49, 16, NULL, 153, NULL, 'UND', 'BAT. AAA ALCALINA', 9, '6520.00', 0.00, NULL, 58680.00, NULL, NULL),
+(50, 16, NULL, 140, NULL, 'UND', 'BOLIGRAFOS DE OFICINA AZUL', 1, '4567.00', 0.00, NULL, 4567.00, NULL, NULL),
+(51, 17, NULL, 35, NULL, 'UND', 'AGENDAS', 1, '5862.00', 0.00, NULL, 5862.00, NULL, NULL),
+(56, 18, NULL, 140, NULL, 'DOC', 'BOLIGRAFOS DE OFICINA AZUL', 3, '4567.00', 0.00, NULL, 13701.00, NULL, NULL),
+(55, 18, NULL, 1045, NULL, 'UND', 'CANON S35 TONER', 3, '215000.00', 0.00, NULL, 645000.00, NULL, NULL),
+(57, 18, NULL, 570, NULL, 'DOC', 'LAPIZ GRAFITO', 3, '4567.00', 0.00, NULL, 13701.00, NULL, NULL),
+(58, 19, NULL, 725, NULL, 'UND', 'PAPEL P/FOTOC. REPROGRAF T/CARTA', 20, '34000.00', 0.00, NULL, 680000.00, NULL, NULL),
+(59, 19, NULL, 187, NULL, 'UND', 'CARP. COLGANTE ACCO T/CARTA X 25', 5, '45677.00', 0.00, NULL, 228385.00, NULL, NULL),
+(60, 19, NULL, 632, NULL, 'UND', 'MARCADORES GRUESOS MAKETTE VERDE', 10, '15678.00', 0.00, NULL, 156780.00, NULL, NULL),
+(61, 19, NULL, 79, NULL, 'UND', 'BANDEJAS ACRILICAS 3 NIVELES', 3, '24000.00', 0.00, NULL, 72000.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detallenota`
+-- Estructura de tabla para la tabla `detallenota`
 --
 
 CREATE TABLE IF NOT EXISTS `detallenota` (
@@ -3093,10 +3124,10 @@ CREATE TABLE IF NOT EXISTS `detallenota` (
   `TotMts` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
--- Dumping data for table `detallenota`
+-- Volcado de datos para la tabla `detallenota`
 --
 
 INSERT INTO `detallenota` (`IdDetalle`, `IdNota`, `Item`, `IdArticulo`, `codigo_producto`, `Descripcion`, `Cantidad`, `PrecioUnit`, `punit`, `Porcentaje`, `PrecioTotal`, `Alicuota`, `und`, `IdItem`, `IdMovNE`, `TotKgs`, `TotMts`, `TotalIVA`) VALUES
@@ -3106,13 +3137,17 @@ INSERT INTO `detallenota` (`IdDetalle`, `IdNota`, `Item`, `IdArticulo`, `codigo_
 (9, 7, NULL, 32, NULL, 'ARCHICOMODO PLASTICO', 18, '15250.75', 0.00, NULL, 274513.50, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (11, 8, NULL, 152, NULL, 'BAT. AA ALCALINA X 2', 6, '1500', 0.00, NULL, 9000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
 (13, 9, NULL, 54, NULL, 'ANILLOS DOBLE CARTA PLAST. 7/8', 2, '8200.00', 0.00, NULL, 16400.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
-(14, 10, NULL, 73, NULL, 'ACETATOS', 12, '1400.00', 0.00, NULL, 16800.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
-(15, 11, NULL, 1812, NULL, 'AMPLIFICADOR', 12, '6500.00', 0.00, NULL, 78000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
+(14, 10, NULL, 76, NULL, 'ACETATOS TRANS. T/C PAQ. X 50', 20, '4562.00', 0.00, NULL, 91240.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(18, 12, NULL, 580, NULL, 'LIBRETAS COSIDA DE UNA LINEA 100 H.', 12, '5678.00', 0.00, NULL, 68136.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(17, 13, NULL, 580, NULL, 'LIBRETAS COSIDA DE UNA LINEA 100 H.', 12, '5678.00', 0.00, NULL, 68136.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(19, 14, NULL, 1529, NULL, 'HP CE252A TONER LJ CP 3525 YE', 1, '300000', 0.00, NULL, 300000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(20, 15, NULL, 793, NULL, 'PERFORADOR 2 HUECOS 7080 OSLO', 4, '84000.00', 0.00, NULL, 336000.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL),
+(21, 15, NULL, 2190, NULL, 'PAPEL HIGIENICO BL ALTO DIAMETRO 9', 18, '5800.00', 0.00, NULL, 104400.00, NULL, 'UND', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalleordencompra`
+-- Estructura de tabla para la tabla `detalleordencompra`
 --
 
 CREATE TABLE IF NOT EXISTS `detalleordencompra` (
@@ -3132,7 +3167,7 @@ CREATE TABLE IF NOT EXISTS `detalleordencompra` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
--- Dumping data for table `detalleordencompra`
+-- Volcado de datos para la tabla `detalleordencompra`
 --
 
 INSERT INTO `detalleordencompra` (`IdMovimiento`, `idOrden`, `Item`, `IdArticulo`, `Descripcion`, `Cantidad`, `PrecioUnit`, `Porcentaje`, `PrecioTotal`, `und`, `IdItem`, `TotalIVA`) VALUES
@@ -3162,7 +3197,7 @@ INSERT INTO `detalleordencompra` (`IdMovimiento`, `idOrden`, `Item`, `IdArticulo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detallepedido`
+-- Estructura de tabla para la tabla `detallepedido`
 --
 
 CREATE TABLE IF NOT EXISTS `detallepedido` (
@@ -3184,15 +3219,10 @@ CREATE TABLE IF NOT EXISTS `detallepedido` (
   PRIMARY KEY (`IdMovimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `detallepedido`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `factura`
+-- Estructura de tabla para la tabla `factura`
 --
 
 CREATE TABLE IF NOT EXISTS `factura` (
@@ -3227,32 +3257,37 @@ CREATE TABLE IF NOT EXISTS `factura` (
   PRIMARY KEY (`idFactura`),
   KEY `idUsuario` (`idUsuario`),
   KEY `IdCotizacion` (`idCotizacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `factura`
+-- Volcado de datos para la tabla `factura`
 --
 
 INSERT INTO `factura` (`idFactura`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_venc_sist`, `fecha_pago`, `fecha_anulacion`, `idCotizacion`, `orden_compra`, `estado`, `valor_condicion`, `condicion`, `idVendedor`, `iva`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `Total`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `idUsuario`) VALUES
-(1, 1, 258, '2017-04-18 00:00:00', '2017-04-18 18:12:15', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8520', 'vencida', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '65520.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(2, 2, 49, '2017-04-18 00:00:00', '2017-04-18 18:15:48', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8530', 'vencida', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '263200.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(3, 3, 143, '2017-04-20 00:00:00', '2017-04-20 16:40:40', NULL, '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, '9562', 'vencida', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '43680.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, 'N/A', 'vencida', 3, '3 días', NULL, 0.12, NULL, NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(5, 5, 111, '2017-04-28 00:00:00', '2017-04-28 14:48:07', '2017-04-28 15:23:51', '2017-04-29 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, '9521', 'vencida', 1, 'CONTADO', NULL, 0.12, '362116.86', NULL, NULL, '405570.88', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(6, 6, 246, '2017-05-02 00:00:00', '2017-05-02 14:24:16', '2017-05-02 14:39:08', '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, 14, '9520', 'vencida', 3, '3 días', NULL, 0.12, '22000.00', NULL, NULL, '24640', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(7, 7, 246, '2017-05-02 00:00:00', '2017-05-02 14:42:25', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '6231', 'vencida', 1, 'CONTADO', NULL, 0.12, NULL, NULL, NULL, '56000', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(8, 8, 246, '2017-05-02 00:00:00', '2017-05-02 14:55:24', '2017-05-02 15:22:33', '2017-05-17 00:00:00', NULL, NULL, '2017-05-02 15:24:45', 14, '9216', 'anulada', 15, '15 días', NULL, 0.12, '44000.00', NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(9, 9, 246, '2017-05-02 00:00:00', '2017-05-02 15:34:52', NULL, '2017-05-05 00:00:00', NULL, '2017-05-02 15:34:57', NULL, 14, '9254', 'pagada', 3, '3 días', NULL, 0.12, NULL, NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(10, 10, 246, '2017-05-06 00:00:00', '2017-05-06 02:29:51', NULL, '2017-05-07 00:00:00', '2017-05-07 20:05:06', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, 0.12, NULL, NULL, NULL, '74007.36', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(11, 11, 27, '2017-05-08 00:00:00', '2017-05-08 19:18:28', NULL, '2017-05-09 00:00:00', '2017-05-09 09:28:01', NULL, NULL, 15, 'N/A', 'vencida', 1, 'CONTADO', NULL, 0.00, NULL, NULL, NULL, '98400', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(12, 12, 247, '2017-05-08 00:00:00', '2017-05-08 22:08:49', '2017-05-08 22:31:52', '2017-05-11 00:00:00', '2017-05-16 15:42:26', NULL, NULL, NULL, '9562', 'vencida', 3, '3 días', NULL, 0.12, '524160.00', NULL, NULL, '587059.2', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(13, 13, 47, '2017-06-05 00:00:00', '2017-06-05 11:39:58', NULL, '2017-06-07 00:00:00', '2017-06-07 10:18:16', NULL, NULL, NULL, '6521', 'vencida', 3, '3 días', NULL, 0.12, NULL, NULL, NULL, '10752', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(14, 14, 232, '2017-06-07 00:00:00', '2017-06-07 15:15:21', NULL, '2017-06-27 00:00:00', NULL, NULL, NULL, 16, '6521', 'pendiente', 15, '15 días', NULL, 0.12, NULL, NULL, NULL, '724483.2', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', '', '33333333333333333333333333333333333333333333333333', 1);
+(1, 1, 258, '2017-04-18 00:00:00', '2017-04-18 18:12:15', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8520', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '65520.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(2, 2, 49, '2017-04-18 00:00:00', '2017-04-18 18:15:48', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8530', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '263200.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(3, 3, 143, '2017-04-20 00:00:00', '2017-04-20 16:40:40', NULL, '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, '9562', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '43680.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, 'N/A', 'vencida', 3, '3 días', NULL, '0.12', NULL, NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(5, 5, 111, '2017-04-28 00:00:00', '2017-04-28 14:48:07', '2017-04-28 15:23:51', '2017-04-29 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, '9521', 'vencida', 1, 'CONTADO', NULL, '0.12', '362116.86', NULL, NULL, '405570.88', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(6, 6, 246, '2017-05-02 00:00:00', '2017-05-02 14:24:16', '2017-05-02 14:39:08', '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, 14, '9520', 'vencida', 3, '3 días', NULL, '0.12', '22000.00', NULL, NULL, '24640', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(7, 7, 246, '2017-05-02 00:00:00', '2017-05-02 14:42:25', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '6231', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '56000', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(8, 8, 246, '2017-05-02 00:00:00', '2017-05-02 14:55:24', '2017-05-02 15:22:33', '2017-05-17 00:00:00', NULL, NULL, '2017-05-02 15:24:45', 14, '9216', 'anulada', 15, '15 días', NULL, '0.12', '44000.00', NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(9, 9, 246, '2017-05-02 00:00:00', '2017-05-02 15:34:52', NULL, '2017-05-05 00:00:00', NULL, '2017-05-02 15:34:57', NULL, 14, '9254', 'pagada', 3, '3 días', NULL, '0.12', NULL, NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(10, 10, 246, '2017-05-06 00:00:00', '2017-05-06 02:29:51', NULL, '2017-05-07 00:00:00', '2017-05-07 20:05:06', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '74007.36', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(11, 11, 27, '2017-05-08 00:00:00', '2017-05-08 19:18:28', NULL, '2017-05-09 00:00:00', '2017-05-09 21:03:58', NULL, NULL, 15, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.00', NULL, NULL, NULL, '98400', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(12, 12, 247, '2017-05-08 00:00:00', '2017-05-08 22:08:49', '2017-05-08 22:31:52', '2017-05-11 00:00:00', '2017-05-11 09:38:20', NULL, NULL, NULL, '9562', 'vencida', 3, '3 días', NULL, '0.12', '524160.00', NULL, NULL, '587059.2', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(13, 13, 111, '2017-05-27 00:00:00', '2017-05-27 19:30:51', '2017-05-27 19:33:24', '2017-05-28 00:00:00', '2017-05-28 10:27:43', NULL, NULL, NULL, '4500045', 'vencida', 1, 'CONTADO', NULL, '0.12', '686000.00', NULL, NULL, '768320', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(14, 14, 266, '2017-05-27 00:00:00', '2017-05-27 19:47:43', NULL, '2017-05-28 00:00:00', NULL, NULL, '2017-05-27 19:49:46', NULL, 'N/A', 'anulada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '21660800', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: INSUMOS IN', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', '', 1),
+(15, 15, 202, '2017-05-27 00:00:00', '2017-05-27 19:57:42', NULL, '2017-05-28 00:00:00', NULL, '2017-05-27 20:03:36', NULL, NULL, '1234', 'pagada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '702329.6', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(16, 16, 246, '2017-06-25 00:00:00', '2017-06-25 12:03:38', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '79122.4', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(17, 17, 258, '2017-06-25 00:00:00', '2017-06-25 12:32:34', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 12:33:18', NULL, '165', 'anulada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '6565.44', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(18, 18, 111, '2017-06-25 00:00:00', '2017-06-25 13:43:29', '2017-06-25 13:44:41', '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 19, '45000002545', 'vencida', 1, 'CONTADO', NULL, '0.12', '672402.00', NULL, NULL, '753090.24', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(19, 19, 216, '2017-06-25 00:00:00', '2017-06-25 14:43:20', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 18, '1425', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '1273624.8', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `formato`
+-- Estructura de tabla para la tabla `formato`
 --
 
 CREATE TABLE IF NOT EXISTS `formato` (
@@ -3275,48 +3310,43 @@ CREATE TABLE IF NOT EXISTS `formato` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `formato`
+-- Volcado de datos para la tabla `formato`
 --
 
 INSERT INTO `formato` (`idFormato`, `doc`, `entrada`, `enc1`, `enc2`, `enc3`, `enc4`, `enc5`, `enc6`, `titulo_obs`, `obs1`, `obs2`, `obs3`, `idUsuario`) VALUES
-(1, 'ctz', 'DE ACUERDO A SUS REQUERIMIENTOS', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'OBSERVACIONES GENERALES', '#vctz', '', '', 1),
-(2, 'ndc', '', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'CONSIDERACIONES', '', '', '', 1),
-(3, 'ndd', 'NOTA DE DÉBITO', '', '', '', '', '', '', 'CONCEPTO', '', '', '', 1),
+(1, 'ctz', 'DE ACUERDO A SUS REQUERIMIENTOS', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'IMPORTANTE:', '#vctz', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
+(2, 'ndc', '', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', '.', '', '', '', 1),
+(3, 'ndd', 'NOTA DE DÉBITO', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', '', '', '', '', 1),
 (4, 'nde', '', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(5, 'fac', NULL, '', '', '', '', '', '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', '', '', 1),
+(5, 'fac', NULL, '', '', '', '', '', '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR SU FABRICANTE.', 1),
 (6, 'sctz', 'Agredecido de su pronta respuesta', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'mrangel@mgideas.net / mikeven@gmail.com', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
-(7, 'odc', 'De acuerdo a la cotización', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', 1),
-(8, 'ped', 'PEDIDOS', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'mrangel@mgideas.net / mikeven@gmail.com', 'TITULO PEDIDOS', 'PED1', 'PED2', 'PED3', 1);
+(7, 'odc', 'De acuerdo a la cotización', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', '', 'TRANSPORTE GRATIS', '', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gasto`
+-- Estructura de tabla para la tabla `gasto`
 --
 
 CREATE TABLE IF NOT EXISTS `gasto` (
-  `idGasto` int(11) NOT NULL AUTO_INCREMENT,
+  `idGasto` int(5) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` datetime NOT NULL,
   `fecha_pago` datetime NOT NULL,
-  `concepto` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
   `monto` float(10,2) NOT NULL,
   `monto_pagado` float(10,2) DEFAULT NULL,
-  `forma_pago` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `banco` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `beneficiario` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `forma_pago` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `banco` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idGasto`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `gasto`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nota`
+-- Estructura de tabla para la tabla `nota`
 --
 
 CREATE TABLE IF NOT EXISTS `nota` (
@@ -3326,6 +3356,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
   `fecha_emision` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_vencimiento` datetime DEFAULT NULL,
   `fecha_anulacion` datetime DEFAULT NULL,
   `tipo` varchar(15) DEFAULT NULL,
   `idFactura` int(2) DEFAULT NULL,
@@ -3346,29 +3377,33 @@ CREATE TABLE IF NOT EXISTS `nota` (
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idNota`),
   KEY `idUsuario` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `nota`
+-- Volcado de datos para la tabla `nota`
 --
 
-INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_anulacion`, `tipo`, `idFactura`, `estado`, `idVendedor`, `iva`, `SubTotal`, `ISV`, `Total`, `idPedido`, `concepto`, `tipo_concepto`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `idUsuario`) VALUES
-(1, 1, 141, '2017-04-20 00:00:00', '2017-04-20 17:01:52', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '85500.00', NULL, '95760', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(2, 2, 94, '2017-04-24 00:00:00', '2017-04-24 20:22:18', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '650000.00', NULL, '728000', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(3, 1, 49, '2017-04-24 00:00:00', '2017-04-24 20:34:48', NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, 0.12, '35000.00', NULL, '39200', NULL, '', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
-(4, 2, 49, '2017-04-24 00:00:00', '2017-04-24 20:36:12', NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, 0.12, '85000.00', NULL, '95200', NULL, 'Descripción MM', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
-(5, 1, 258, '2017-04-24 00:00:00', '2017-04-24 21:03:36', '2017-04-24 21:23:58', NULL, 'nota_debito', 1, 'pendiente', NULL, 0.12, '18500.00', NULL, '20720', NULL, 'Devolución por defectos', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', 1),
-(6, 3, 107, '2017-04-28 00:00:00', '2017-04-28 17:11:28', '2017-04-28 17:57:32', NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '305015.00', NULL, '341616.8', NULL, 'Omisión de factura', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(7, 4, 107, '2017-05-02 00:00:00', '2017-05-02 17:42:55', '2017-05-02 19:57:10', NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '274513.50', NULL, '307455.12', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(8, 3, 246, '2017-05-02 00:00:00', '2017-05-02 21:56:27', '2017-05-02 23:03:07', '2017-05-02 23:03:21', 'nota_credito', 6, 'anulada', NULL, 0.12, '9000.00', NULL, '10080', NULL, 'Defecto', 'Devolución de mercan', NULL, 'CONSIDERACIONES', '', '', '', 1),
-(9, 4, 27, '2017-05-08 00:00:00', '2017-05-08 19:19:33', '2017-05-08 19:19:54', NULL, 'nota_credito', 11, 'pendiente', NULL, 0.00, '16400.00', NULL, '16400', NULL, '', '', NULL, 'CONSIDERACIONES', '', '', '', 1),
-(10, 5, 143, '2017-06-16 00:00:00', '2017-06-16 17:04:39', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.12, '16800.00', NULL, '18816', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
-(11, 6, 247, '2017-06-16 00:00:00', '2017-06-16 17:19:17', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, 0.00, '78000.00', NULL, '78000', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1);
+INSERT INTO `nota` (`idNota`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_anulacion`, `tipo`, `idFactura`, `estado`, `idVendedor`, `iva`, `SubTotal`, `ISV`, `Total`, `idPedido`, `concepto`, `tipo_concepto`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `idUsuario`) VALUES
+(1, 1, 141, '2017-04-20 00:00:00', '2017-04-20 17:01:52', NULL, NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.12', '85500.00', NULL, '95760', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
+(2, 2, 94, '2017-04-24 00:00:00', '2017-04-24 20:22:18', NULL, NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.12', '650000.00', NULL, '728000', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
+(3, 1, 49, '2017-04-24 00:00:00', '2017-04-24 20:34:48', NULL, NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, '0.12', '35000.00', NULL, '39200', NULL, '', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
+(4, 2, 49, '2017-04-24 00:00:00', '2017-04-24 20:36:12', NULL, NULL, NULL, 'nota_credito', 2, 'pendiente', NULL, '0.12', '85000.00', NULL, '95200', NULL, 'Descripción MM', 'Ajuste global', NULL, 'CONSIDERACIONES', '', '', '', 1),
+(5, 1, 258, '2017-04-24 00:00:00', '2017-04-24 21:03:36', '2017-04-24 21:23:58', NULL, NULL, 'nota_debito', 1, 'pendiente', NULL, '0.12', '18500.00', NULL, '20720', NULL, 'Devolución por defectos', 'Ajuste global', NULL, 'CONCEPTO', '', '', '', 1),
+(6, 3, 107, '2017-04-28 00:00:00', '2017-04-28 17:11:28', '2017-04-28 17:57:32', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.12', '305015.00', NULL, '341616.8', NULL, 'Omisión de factura', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
+(7, 4, 107, '2017-05-02 00:00:00', '2017-05-02 17:42:55', '2017-05-02 19:57:10', NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.12', '274513.50', NULL, '307455.12', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
+(8, 3, 246, '2017-05-02 00:00:00', '2017-05-02 21:56:27', '2017-05-02 23:03:07', NULL, '2017-05-02 23:03:21', 'nota_credito', 6, 'anulada', NULL, '0.12', '9000.00', NULL, '10080', NULL, 'Defecto', 'Devolución de mercan', NULL, 'CONSIDERACIONES', '', '', '', 1),
+(9, 4, 27, '2017-05-08 00:00:00', '2017-05-08 19:19:33', '2017-05-08 19:19:54', NULL, NULL, 'nota_credito', 11, 'pendiente', NULL, '0.00', '16400.00', NULL, '16400', NULL, '', '', NULL, 'CONSIDERACIONES', '', '', '', 1),
+(10, 5, 111, '2017-05-27 00:00:00', '2017-05-27 21:10:30', NULL, NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.12', '91240.00', NULL, '102188.8', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
+(11, 5, 202, '2017-05-27 00:00:00', '2017-05-27 21:40:33', NULL, NULL, NULL, 'nota_credito', 15, 'pendiente', NULL, '0.12', '22321.43', NULL, '25000', NULL, 'POR DESCUENTO EN FACTURA POR PRONTO PAGO', 'Ajuste global', NULL, '.', '', '', '', 1),
+(12, 2, 202, '2017-05-27 00:00:00', '2017-05-27 21:46:19', '2017-05-27 21:53:19', NULL, '2017-05-27 21:56:52', 'nota_debito', 15, 'anulada', NULL, '0.12', '68136.00', NULL, '76312.32', NULL, 'MERCANCIA NO COBRADA', '', NULL, 'CONCEPTO', '', '', '', 1),
+(13, 3, 202, '2017-05-27 00:00:00', '2017-05-27 21:49:15', '2017-05-27 21:51:25', NULL, NULL, 'nota_debito', 15, 'pendiente', NULL, '0.12', '68136.00', NULL, '76312.32', NULL, 'MERCANCIA NO COBRADA', '', NULL, '', '', '', '', 1),
+(14, 4, 111, '2017-06-25 00:00:00', '2017-06-25 12:14:58', NULL, NULL, NULL, 'nota_debito', 13, 'pendiente', NULL, '0.12', '300000.00', NULL, '336000', NULL, 'CAMBIO EN PRECIO DE MERCANCIA', '', NULL, '', '', '', '', 1),
+(15, 6, 64, '2017-06-25 00:00:00', '2017-06-25 14:49:46', NULL, NULL, NULL, 'nota_entrega', NULL, 'pendiente', NULL, '0.00', '440400.00', NULL, '440400', NULL, '', '', NULL, 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orden_compra`
+-- Estructura de tabla para la tabla `orden_compra`
 --
 
 CREATE TABLE IF NOT EXISTS `orden_compra` (
@@ -3396,28 +3431,28 @@ CREATE TABLE IF NOT EXISTS `orden_compra` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
--- Dumping data for table `orden_compra`
+-- Volcado de datos para la tabla `orden_compra`
 --
 
 INSERT INTO `orden_compra` (`idOrden`, `numero`, `idProveedor`, `fecha_registro`, `fecha_emision`, `fecha_modificacion`, `iva`, `subtotal`, `total`, `estado`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `texto`, `documento`, `idUsuario`) VALUES
-(2, 2, 3, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '104882.40', 'pendiente', 'Datos de la orden de compra', 'CONDICIONES ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(3, 3, 1, NULL, '2017-02-03 00:00:00', NULL, 0.12, NULL, '60436.45', 'pendiente', 'Datos de la orden de compra', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(4, 4, 1, NULL, '2017-02-08 00:00:00', NULL, 0.12, NULL, '5125.96', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(5, 5, 4, NULL, '2017-02-19 00:00:00', '2017-03-27 16:06:52', 0.12, '205143.60', '229760.83', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(6, 6, 5, NULL, '2017-03-27 00:00:00', NULL, 0.12, NULL, '902974.41', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(7, 7, 3, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '63840', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(8, 8, 4, NULL, '2017-04-20 00:00:00', NULL, 0.12, NULL, '403200', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(9, 9, 5, NULL, '2017-04-28 00:00:00', NULL, 0.12, NULL, '392000', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(10, 10, 4, '2017-04-28 11:46:51', '2017-04-28 00:00:00', NULL, 0.12, NULL, '716800', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(11, 11, 4, '2017-04-28 12:00:37', '2017-04-28 00:00:00', NULL, 0.12, NULL, '161280', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(12, 12, 6, '2017-05-01 15:24:47', '2017-05-01 00:00:00', NULL, 0.12, NULL, '173376', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(13, 13, 5, '2017-05-02 10:21:10', '2017-05-02 00:00:00', '2017-05-02 14:13:50', 0.12, '181620.00', '203414.4', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
-(14, 14, 5, '2017-05-02 14:13:29', '2017-05-02 00:00:00', NULL, 0.12, NULL, '263159.5', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
+(2, 2, 3, NULL, '2017-02-03 00:00:00', NULL, '0.12', NULL, '104882.40', 'pendiente', 'Datos de la orden de compra', 'CONDICIONES ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(3, 3, 1, NULL, '2017-02-03 00:00:00', NULL, '0.12', NULL, '60436.45', 'pendiente', 'Datos de la orden de compra', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(4, 4, 1, NULL, '2017-02-08 00:00:00', NULL, '0.12', NULL, '5125.96', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(5, 5, 4, NULL, '2017-02-19 00:00:00', '2017-03-27 16:06:52', '0.12', '205143.60', '229760.83', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(6, 6, 5, NULL, '2017-03-27 00:00:00', NULL, '0.12', NULL, '902974.41', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(7, 7, 3, NULL, '2017-04-20 00:00:00', NULL, '0.12', NULL, '63840', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(8, 8, 4, NULL, '2017-04-20 00:00:00', NULL, '0.12', NULL, '403200', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(9, 9, 5, NULL, '2017-04-28 00:00:00', NULL, '0.12', NULL, '392000', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(10, 10, 4, '2017-04-28 11:46:51', '2017-04-28 00:00:00', NULL, '0.12', NULL, '716800', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(11, 11, 4, '2017-04-28 12:00:37', '2017-04-28 00:00:00', NULL, '0.12', NULL, '161280', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(12, 12, 6, '2017-05-01 15:24:47', '2017-05-01 00:00:00', NULL, '0.12', NULL, '173376', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(13, 13, 5, '2017-05-02 10:21:10', '2017-05-02 00:00:00', '2017-05-02 14:13:50', '0.12', '181620.00', '203414.4', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1),
+(14, 14, 5, '2017-05-02 14:13:29', '2017-05-02 00:00:00', NULL, '0.12', NULL, '263159.5', 'pendiente', 'De acuerdo a la cotización', 'ORDEN DE COMPRA', 'oc1', 'oc2', 'oc3', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedido`
+-- Estructura de tabla para la tabla `pedido`
 --
 
 CREATE TABLE IF NOT EXISTS `pedido` (
@@ -3462,181 +3497,181 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=171 ;
 
 --
--- Dumping data for table `pedido`
+-- Volcado de datos para la tabla `pedido`
 --
 
 INSERT INTO `pedido` (`numero`, `IdPedido2`, `Fecha`, `fecha_emision`, `TieneCotiz`, `IdCliente`, `IdCliente2`, `IdCotizacion2`, `IdCotizacion`, `AnalisisAd`, `IdCondicion`, `IdVendedor`, `IdZona`, `IdSucursal`, `iva`, `NoOrden`, `FechaEntrega`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `IdDescuento`, `IdRecargo`, `PoVDescto`, `PoVRecargo`, `Afecto`, `ISV`, `Total`, `Pedido`, `IdAlmacen`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `Paridad`, `idUsuario`) VALUES
-(1, 1, '06/03/2008', '2008-03-06', 'VERDADERO', 300092, 222, NULL, 1238, 1, 5, 2, 1, 1, 3.00, 0, '07/03/2008', '0', 0, 0, 0, 0, 0, 0, '0', '0', 0.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(3, 2, '18/04/2008', '2008-04-18', 'VERDADERO', 100070, 70, NULL, 1411, 1, 6, 1, 1, 1, 0.00, 0, '23/04/2008', '656,28', 0, 0, 0, 0, 0, 0, '656,28', '59,07', 715.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(4, 3, '18/04/2008', '2008-04-18', 'VERDADERO', 100070, 70, NULL, 1412, 1, 6, 1, 1, 1, 0.00, 0, '23/04/2008', '360,27', 0, 0, 0, 0, 0, 0, '360,27', '32,42', 392.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(5, 4, '24/04/2008', '2008-04-24', 'VERDADERO', 300010, 143, NULL, 1430, 1, 1, 1, 2, 1, 0.00, 0, '02/05/2008', '5034,99', 0, 0, 0, 0, 0, 0, '5034,99', '453,15', 5488.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(6, 5, '06/05/2008', '2008-05-06', 'VERDADERO', 300086, 216, NULL, 1435, 1, 1, 1, 1, 1, 0.00, 0, '14/05/2008', '4495,15', 0, 0, 0, 0, 0, 0, '4495,15', '404,56', 4899.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(7, 6, '06/05/2008', '2008-05-06', 'VERDADERO', 100106, 103, NULL, 1436, 1, 10, 1, 1, 1, 0.00, 0, '11/05/2008', '283,92', 0, 0, 0, 0, 0, 0, '283,92', '25,55', 309.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(8, 7, '14/05/2008', '2008-05-14', 'VERDADERO', 100098, 95, NULL, 1446, 1, 10, 1, 1, 1, 0.00, 0, '19/05/2008', '492,58', 0, 0, 0, 0, 0, 0, '492,58', '44,33', 536.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(9, 8, '14/05/2008', '2008-05-14', 'VERDADERO', 200019, 121, NULL, 1445, 1, 1, 1, 1, 1, 0.00, 0, '22/05/2008', '724,91', 0, 0, 0, 0, 0, 0, '724,91', '65,24', 790.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(11, 9, '19/05/2008', '2008-05-19', 'VERDADERO', 100030, 31, NULL, 1456, 1, 1, 1, 1, 1, 0.00, 0, '27/05/2008', '196,8', 0, 0, 0, 0, 0, 0, '0', '0', 196.00, 'FALSO', 1, '', NULL, NULL, NULL, NULL, 1, 1),
-(13, 10, '27/05/2008', '2008-05-27', 'VERDADERO', 300048, 178, NULL, 1480, 1, 5, 1, 1, 1, 0.00, 0, '28/05/2008', '1891,82', 0, 0, 0, 0, 0, 0, '1891,82', '170,26', 2062.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(14, 11, '27/05/2008', '2008-05-27', 'VERDADERO', 100008, 10, NULL, 1481, 1, 3, 1, 1, 1, 0.00, 0, '11/06/2008', '780,76', 0, 0, 0, 0, 0, 0, '780,76', '70,27', 851.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(15, 12, '27/05/2008', '2008-05-27', 'VERDADERO', 100008, 10, NULL, 1482, 1, 3, 1, 1, 1, 0.00, 0, '11/06/2008', '1267,6', 0, 0, 0, 0, 0, 0, '1267,6', '114,08', 1381.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(16, 13, '02/06/2008', '2008-06-02', 'VERDADERO', 300098, 228, NULL, 1487, 1, 10, 2, 1, 1, 3.00, 0, '07/06/2008', '1323,59', 0, 0, 0, 0, 0, 0, '1323,59', '119,12', 1442.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(17, 14, '30/05/2008', '2008-05-30', 'VERDADERO', 200007, 111, NULL, 1441, 1, 3, 1, 1, 1, 0.00, 0, '14/06/2008', '1134,25', 0, 0, 0, 0, 0, 0, '1134,25', '102,08', 1236.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(18, 15, '09/06/2008', '2008-06-09', 'VERDADERO', 200013, 115, NULL, 1498, 1, 3, 1, 1, 1, 0.00, 0, '24/06/2008', '1795,85', 0, 0, 0, 0, 0, 0, '1795,85', '161,63', 1957.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(19, 16, '25/06/2008', '2008-06-25', 'VERDADERO', 300124, 254, NULL, 1540, 1, 1, 1, 1, 1, 0.00, 0, '03/07/2008', '3076,03', 0, 0, 0, 0, 0, 0, '3076,03', '276,84', 3352.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(20, 17, '28/10/2009', '2009-10-28', 'VERDADERO', 200027, 129, NULL, 1585, 1, 5, 1, 1, 1, 0.00, 0, '29/10/2009', '1403,17', 0, 0, 0, 0, 0, 0, '1403,17', '168,38', 1571.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(21, 18, '11/11/2009', '2009-11-11', 'VERDADERO', 200007, 111, NULL, 1600, 1, 3, 1, 1, 1, 0.00, 0, '26/11/2009', '2562,64', 0, 0, 0, 0, 0, 0, '2562,64', '307,52', 2870.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(22, 19, '11/11/2009', '2009-11-11', 'VERDADERO', 200007, 111, NULL, 1599, 1, 3, 1, 1, 1, 0.00, 0, '26/11/2009', '10163,8', 0, 0, 0, 0, 0, 0, '10163,8', '1219,66', 11383.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(23, 20, '30/11/2009', '2009-11-30', 'VERDADERO', 100048, 49, NULL, 1630, 1, 10, 1, 1, 1, 0.00, 0, '05/12/2009', '19342,51', 0, 0, 0, 0, 0, 0, '19342,51', '2321,1', 21663.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(24, 21, '15/12/2009', '2009-12-15', 'VERDADERO', 100026, 27, NULL, 1641, 1, 1, 1, 1, 1, 0.00, 0, '23/12/2009', '7083,55', 0, 0, 0, 0, 0, 0, '7083,55', '850,03', 7933.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(25, 22, '13/01/2009', '2009-01-13', 'VERDADERO', 200028, 130, NULL, 1644, 1, 10, 1, 1, 1, 0.00, 0, '18/01/2009', '1503,99', 0, 0, 0, 0, 0, 0, '1503,99', '180,48', 1684.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(26, 23, '20/01/2009', '2009-01-20', 'VERDADERO', 100043, 44, NULL, 1656, 1, 10, 1, 2, 1, 0.00, 0, '25/01/2009', '1267,15', 0, 0, 0, 0, 0, 0, '1267,15', '152,06', 1419.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(27, 24, '20/01/2009', '2009-01-20', 'VERDADERO', 100043, 44, NULL, 1661, 1, 10, 1, 2, 1, 0.00, 0, '25/01/2009', '1509', 0, 0, 0, 0, 0, 0, '1509', '181,08', 1690.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(28, 25, '26/01/2009', '2009-01-26', 'VERDADERO', 100038, 39, NULL, 1667, 1, 10, 1, 1, 1, 0.00, 0, '31/01/2009', '5594,75', 0, 0, 0, 0, 0, 0, '5594,75', '671,37', 6266.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(29, 26, '27/01/2010', '2010-01-27', 'VERDADERO', 200027, 129, NULL, 1678, 1, 5, 1, 1, 1, 0.00, 0, '28/01/2010', '1594,81', 0, 0, 0, 0, 0, 0, '1594,81', '191,38', 1786.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(30, 27, '02/02/2010', '2010-02-02', 'VERDADERO', 3000011, 134, NULL, 1666, 1, 1, 1, 1, 1, 0.00, 0, '10/02/2010', '3348,29', 0, 0, 0, 0, 0, 0, '3348,29', '401,79', 3750.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(31, 28, '08/02/2010', '2010-02-08', 'VERDADERO', 100108, 105, NULL, 1703, 1, 10, 1, 1, 1, 0.00, 0, '13/02/2010', '1830,46', 0, 0, 0, 0, 0, 0, '1830,46', '219,66', 2050.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(32, 29, '08/02/2010', '2010-02-08', 'VERDADERO', 3000011, 134, NULL, 1702, 1, 1, 1, 1, 1, 0.00, 0, '16/02/2010', '187,2', 0, 0, 0, 0, 0, 0, '187,2', '22,46', 209.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(33, 30, '23/02/2010', '2010-02-23', 'VERDADERO', 3000011, 134, NULL, 1709, 1, 1, 1, 1, 1, 0.00, 0, '03/03/2010', '1656', 0, 0, 0, 0, 0, 0, '1656', '198,72', 1854.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(34, 31, '08/03/2010', '2010-03-08', 'VERDADERO', 200013, 115, NULL, 1743, 1, 1, 1, 1, 1, 0.00, 0, '16/03/2010', '2223', 0, 0, 0, 0, 0, 0, '2223', '266,76', 2489.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(35, 32, '09/03/2010', '2010-03-09', 'VERDADERO', 100019, 20, NULL, 1745, 1, 1, 1, 1, 1, 0.00, 0, '17/03/2010', '3602', 0, 0, 0, 0, 0, 0, '3602', '432,24', 4034.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(36, 33, '12/03/2010', '2010-03-12', 'VERDADERO', 100025, 26, NULL, 1749, 1, 10, 1, 1, 1, 0.00, 0, '17/03/2010', '1428,96', 0, 0, 0, 0, 0, 0, '1428,96', '171,48', 1600.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(37, 34, '17/03/2010', '2010-03-17', 'VERDADERO', 200028, 130, NULL, 1759, 1, 10, 1, 1, 1, 0.00, 0, '22/03/2010', '745', 0, 0, 0, 0, 0, 0, '745', '89,4', 834.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(38, 35, '17/03/2010', '2010-03-17', 'VERDADERO', 200028, 130, NULL, 1754, 1, 10, 1, 1, 1, 0.00, 0, '22/03/2010', '1758,65', 0, 0, 0, 0, 0, 0, '1758,65', '211,04', 1969.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(39, 36, '24/03/2010', '2010-03-24', 'VERDADERO', 200027, 129, NULL, 1766, 1, 8, 2, 1, 1, 3.00, 0, '01/04/2010', '1139,53', 0, 0, 0, 0, 0, 0, '1139,53', '136,74', 1276.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(40, 37, '24/03/2010', '2010-03-24', 'VERDADERO', 100026, 27, NULL, 1770, 1, 1, 1, 1, 1, 0.00, 0, '01/04/2010', '1844,8', 0, 0, 0, 0, 0, 0, '1844,8', '221,38', 2066.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(41, 38, '05/04/2010', '2010-04-05', 'VERDADERO', 100023, 24, NULL, 1762, 1, 1, 1, 1, 1, 0.00, 0, '13/04/2010', '655,75', 0, 0, 0, 0, 0, 0, '655,75', '78,69', 734.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(42, 39, '10/05/2010', '2010-05-10', 'VERDADERO', 100019, 20, NULL, 1825, 1, 1, 1, 1, 1, 0.00, 0, '18/05/2010', '5974', 0, 0, 0, 0, 0, 0, '5974', '716,88', 6690.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(43, 40, '10/05/2010', '2010-05-10', 'VERDADERO', 200007, 111, NULL, 1816, 1, 3, 1, 1, 1, 0.00, 0, '25/05/2010', '2040,15', 0, 0, 0, 0, 0, 0, '2040,15', '244,82', 2284.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(44, 41, '12/05/2010', '2010-05-12', 'VERDADERO', 100038, 39, NULL, 1822, 1, 8, 1, 1, 1, 0.00, 0, '20/05/2010', '2959,6', 0, 0, 0, 0, 0, 0, '2959,6', '355,15', 3314.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(45, 42, '20/05/2010', '2010-05-20', 'VERDADERO', 200027, 129, NULL, 1840, 1, 8, 2, 1, 1, 3.00, 0, '28/05/2010', '1086,02', 0, 0, 0, 0, 0, 0, '1086,02', '130,32', 1216.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(46, 43, '04/06/2010', '2010-06-04', 'VERDADERO', 300062, 192, NULL, 1867, 1, 10, 1, 1, 1, 0.00, 0, '09/06/2010', '4474,87', 0, 0, 0, 0, 0, 0, '4474,87', '536,98', 5011.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(47, 44, '08/06/2010', '2010-06-08', 'VERDADERO', 100024, 25, NULL, 1878, 1, 1, 1, 1, 1, 0.00, 0, '15/06/2010', '2134,6', 0, 0, 0, 0, 0, 0, '2134,6', '256,15', 2390.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(48, 45, '10/06/2010', '2010-06-10', 'VERDADERO', 200007, 111, NULL, 1875, 1, 3, 1, 1, 1, 0.00, 0, '25/06/2010', '5170,8', 0, 0, 0, 0, 0, 0, '5170,8', '620,5', 5791.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(49, 46, '10/06/2010', '2010-06-10', 'VERDADERO', 200007, 111, NULL, 1876, 1, 3, 1, 1, 1, 0.00, 0, '25/06/2010', '2991,02', 0, 0, 0, 0, 0, 0, '2991,02', '358,92', 3349.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(50, 47, '12/07/2010', '2010-07-12', 'VERDADERO', 300062, 192, NULL, 1894, 1, 10, 1, 1, 1, 0.00, 0, '17/07/2010', '3897,5', 0, 0, 0, 0, 0, 0, '3897,5', '467,7', 4365.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(52, 48, '12/07/2010', '2010-07-12', 'VERDADERO', 200027, 129, NULL, 1905, 1, 8, 2, 1, 1, 3.00, 0, '20/07/2010', '1524,43', 0, 0, 0, 0, 0, 0, '1524,43', '182,93', 1707.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(53, 49, '12/07/2010', '2010-07-12', 'VERDADERO', 300062, 192, NULL, 1895, 1, 10, 1, 1, 1, 0.00, 0, '17/07/2010', '946,13', 0, 0, 0, 0, 0, 0, '946,13', '113,54', 1059.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(54, 50, '14/07/2010', '2010-07-14', 'VERDADERO', 200007, 111, NULL, 1903, 1, 3, 1, 1, 1, 0.00, 0, '29/07/2010', '4079,74', 0, 0, 0, 0, 0, 0, '4079,74', '489,57', 4569.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(55, 51, '16/07/2010', '2010-07-16', 'VERDADERO', 100038, 39, NULL, 1925, 1, 8, 1, 1, 1, 0.00, 0, '24/07/2010', '5110,1', 0, 0, 0, 0, 0, 0, '5110,1', '613,21', 5723.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(56, 52, '26/07/2010', '2010-07-26', 'VERDADERO', 100025, 26, NULL, 1936, 1, 10, 1, 1, 1, 0.00, 0, '31/07/2010', '628,4', 0, 0, 0, 0, 0, 0, '628,4', '75,41', 703.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(57, 53, '06/08/2010', '2010-08-06', 'VERDADERO', 300124, 254, NULL, 1943, 1, 1, 1, 1, 1, 0.00, 0, '13/08/2010', '6520,5', 0, 0, 0, 0, 0, 0, '6520,5', '782,46', 7302.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(58, 54, '09/08/2010', '2010-08-09', 'VERDADERO', 200013, 115, NULL, 1950, 1, 1, 1, 1, 1, 0.00, 0, '16/08/2010', '2097,2', 0, 0, 0, 0, 0, 0, '2097,2', '251,66', 2348.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(59, 55, '12/08/2010', '2010-08-12', 'VERDADERO', 200007, 111, NULL, 1951, 1, 10, 1, 1, 1, 0.00, 0, '17/08/2010', '5121,3', 0, 0, 0, 0, 0, 0, '5121,3', '614,56', 5735.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(60, 56, '07/09/2010', '2010-09-07', 'VERDADERO', 300030, 160, NULL, 1965, 1, 1, 1, 1, 1, 0.00, 0, '14/09/2010', '5898,58', 0, 0, 0, 0, 0, 0, '5898,58', '707,83', 6606.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(61, 57, '10/09/2010', '2010-09-10', 'VERDADERO', 300124, 254, NULL, 1977, 1, 1, 1, 1, 1, 0.00, 0, '17/09/2010', '105', 0, 0, 0, 0, 0, 0, '105', '12,6', 117.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(62, 58, '10/09/2010', '2010-09-10', 'VERDADERO', 300124, 254, NULL, 1979, 1, 1, 1, 1, 1, 0.00, 0, '17/09/2010', '2695,06', 0, 0, 0, 0, 0, 0, '2695,06', '323,41', 3018.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(63, 59, '10/09/2010', '2010-09-10', 'VERDADERO', 100025, 26, NULL, 1983, 1, 10, 1, 1, 1, 0.00, 0, '15/09/2010', '1095', 0, 0, 0, 0, 0, 0, '1095', '131,4', 1226.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(64, 60, '13/09/2010', '2010-09-13', 'VERDADERO', 200007, 111, NULL, 1974, 1, 10, 1, 1, 1, 0.00, 0, '18/09/2010', '5278,7', 0, 0, 0, 0, 0, 0, '5278,7', '633,44', 5912.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(65, 61, '20/09/2010', '2010-09-20', 'VERDADERO', 100038, 39, NULL, 1987, 1, 8, 1, 1, 1, 0.00, 0, '28/09/2010', '1341,76', 0, 0, 0, 0, 0, 0, '1341,76', '161,01', 1502.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(66, 62, '28/09/2010', '2010-09-28', 'VERDADERO', 100048, 49, NULL, 2009, 1, 10, 1, 1, 1, 0.00, 0, '03/10/2010', '17528', 0, 0, 0, 0, 0, 0, '17528', '2103,36', 19631.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(67, 63, '05/10/2010', '2010-10-05', 'VERDADERO', 100023, 24, NULL, 1996, 1, 1, 1, 1, 1, 0.00, 0, '12/10/2010', '8148', 0, 0, 0, 0, 0, 0, '8148', '977,76', 9125.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(68, 64, '06/10/2010', '2010-10-06', 'VERDADERO', 200027, 129, NULL, 2017, 1, 8, 2, 1, 1, 3.00, 0, '14/10/2010', '3391,16', 0, 0, 0, 0, 0, 0, '3391,16', '406,94', 3798.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(69, 65, '18/10/2010', '2010-10-18', 'VERDADERO', 100026, 27, NULL, 2026, 1, 1, 1, 1, 1, 0.00, 0, '25/10/2010', '6041,55', 0, 0, 0, 0, 0, 0, '6041,55', '724,99', 6766.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(70, 66, '18/10/2010', '2010-10-18', 'VERDADERO', 100026, 27, NULL, 2028, 1, 1, 1, 1, 1, 0.00, 0, '25/10/2010', '1719,4', 0, 0, 0, 0, 0, 0, '1719,4', '206,33', 1925.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(71, 67, '19/10/2010', '2010-10-19', 'VERDADERO', 200028, 130, NULL, 2029, 1, 10, 1, 1, 1, 0.00, 0, '24/10/2010', '895,1', 0, 0, 0, 0, 0, 0, '895,1', '107,41', 1002.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(72, 68, '29/10/2010', '2010-10-29', 'VERDADERO', 300124, 254, NULL, 2040, 1, 1, 1, 1, 1, 0.00, 0, '05/11/2010', '1261', 0, 0, 0, 0, 0, 0, '1261', '151,32', 1412.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(73, 69, '17/11/2010', '2010-11-17', 'VERDADERO', 300132, 262, NULL, 2063, 1, 10, 1, 1, 1, 0.00, 0, '22/11/2010', '2220', 0, 0, 0, 0, 0, 0, '2220', '266,4', 2486.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(74, 70, '18/11/2010', '2010-11-18', 'VERDADERO', 200007, 111, NULL, 2057, 1, 10, 1, 1, 1, 0.00, 0, '23/11/2010', '27743', 0, 0, 0, 0, 0, 0, '27743', '3329,16', 31072.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(76, 71, '18/11/2010', '2010-11-18', 'VERDADERO', 200007, 111, NULL, 2055, 1, 10, 1, 1, 1, 0.00, 0, '23/11/2010', '4351,05', 0, 0, 0, 0, 0, 0, '4351,05', '522,13', 4873.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(77, 72, '25/11/2010', '2010-11-25', 'VERDADERO', 100048, 49, NULL, 2073, 1, 10, 1, 1, 1, 0.00, 0, '30/11/2010', '26661', 0, 0, 0, 0, 0, 0, '26661', '3199,32', 29860.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(78, 73, '03/12/2010', '2010-12-03', 'VERDADERO', 100043, 44, NULL, 2078, 1, 10, 1, 1, 1, 0.00, 0, '08/12/2010', '3308,2', 0, 0, 0, 0, 0, 0, '3308,2', '396,98', 3705.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(79, 74, '06/12/2010', '2010-12-06', 'VERDADERO', 3000011, 134, NULL, 2070, 1, 1, 1, 1, 1, 0.00, 0, '13/12/2010', '9720', 0, 0, 0, 0, 0, 0, '9720', '1166,4', 10886.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(80, 75, '09/12/2010', '2010-12-09', 'VERDADERO', 300124, 254, NULL, 2086, 1, 1, 1, 1, 1, 0.00, 0, '16/12/2010', '1918,08', 0, 0, 0, 0, 0, 0, '1918,08', '230,17', 2148.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(81, 76, '09/12/2010', '2010-12-09', 'VERDADERO', 100038, 39, NULL, 2076, 1, 8, 1, 1, 1, 0.00, 0, '17/12/2010', '766', 0, 0, 0, 0, 0, 0, '766', '91,92', 857.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(82, 77, '18/01/2011', '2011-01-18', 'VERDADERO', 200027, 129, NULL, 2090, 1, 8, 2, 1, 1, 3.00, 0, '26/01/2011', '1103,75', 0, 0, 0, 0, 0, 0, '1103,75', '132,45', 1236.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(84, 78, '24/01/2011', '2011-01-24', 'VERDADERO', 300062, 192, NULL, 2094, 1, 10, 1, 1, 1, 0.00, 0, '29/01/2011', '6103,16', 0, 0, 0, 0, 0, 0, '6103,16', '732,38', 6835.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(86, 79, '25/01/2011', '2011-01-25', 'VERDADERO', 300062, 192, NULL, 2093, 1, 10, 1, 1, 1, 0.00, 0, '30/01/2011', '5309,1', 0, 0, 0, 0, 0, 0, '5309,1', '637,09', 5946.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(87, 80, '25/01/2011', '2011-01-25', 'VERDADERO', 300030, 160, NULL, 2091, 1, 1, 1, 1, 1, 0.00, 0, '01/02/2011', '5665,75', 0, 0, 0, 0, 0, 0, '5665,75', '679,89', 6345.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(88, 81, '28/01/2011', '2011-01-28', 'VERDADERO', 300124, 254, NULL, 2085, 1, 1, 1, 1, 1, 0.00, 0, '04/02/2011', '1472', 0, 0, 0, 0, 0, 0, '1472', '176,64', 1648.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(89, 82, '04/02/2011', '2011-02-04', 'VERDADERO', 300124, 254, NULL, 2100, 1, 1, 1, 1, 1, 0.00, 0, '11/02/2011', '4420,04', 0, 0, 0, 0, 0, 0, '4420,04', '530,4', 4950.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(90, 83, '15/02/2011', '2011-02-15', 'VERDADERO', 100046, 47, NULL, 2120, 1, 1, 1, 1, 1, 0.00, 0, '22/02/2011', '5987,56', 0, 0, 0, 0, 0, 0, '5987,56', '718,51', 6706.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(91, 84, '24/02/2011', '2011-02-24', 'VERDADERO', 200022, 124, NULL, 2099, 1, 1, 1, 1, 1, 0.00, 0, '03/03/2011', '2603,9', 0, 0, 0, 0, 0, 0, '2603,9', '312,47', 2916.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(92, 85, '25/02/2011', '2011-02-25', 'VERDADERO', 200022, 124, NULL, 2098, 1, 1, 1, 1, 1, 0.00, 0, '04/03/2011', '7251,63', 0, 0, 0, 0, 0, 0, '7251,63', '870,2', 8121.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(93, 86, '04/03/2011', '2011-03-04', 'VERDADERO', 100038, 39, NULL, 2143, 1, 8, 1, 1, 1, 0.00, 0, '12/03/2011', '3758,8', 0, 0, 0, 0, 0, 0, '3758,8', '451,06', 4209.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(94, 87, '29/03/2011', '2011-03-29', 'VERDADERO', 100046, 47, NULL, 2132, 1, 1, 1, 1, 1, 0.00, 0, '05/04/2011', '820', 0, 0, 0, 0, 0, 0, '820', '98,4', 918.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(95, 88, '31/03/2011', '2011-03-31', 'VERDADERO', 300124, 254, NULL, 2157, 1, 1, 1, 1, 1, 0.00, 0, '07/04/2011', '2252,32', 0, 0, 0, 0, 0, 0, '2252,32', '270,28', 2522.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(96, 89, '08/04/2011', '2011-04-08', 'VERDADERO', 300030, 160, NULL, 2160, 1, 1, 1, 1, 1, 0.00, 0, '15/04/2011', '2549,54', 0, 0, 0, 0, 0, 0, '2549,54', '305,94', 2855.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(97, 90, '11/04/2011', '2011-04-11', 'VERDADERO', 200007, 111, NULL, 2162, 1, 10, 1, 1, 1, 0.00, 0, '16/04/2011', '4953', 0, 0, 0, 0, 0, 0, '4953', '594,36', 5547.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(98, 91, '12/04/2011', '2011-04-12', 'VERDADERO', 3000011, 134, NULL, 2161, 1, 1, 1, 1, 1, 0.00, 0, '19/04/2011', '5326,37', 0, 0, 0, 0, 0, 0, '5326,37', '639,16', 5965.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(99, 92, '02/05/2011', '2011-05-02', 'VERDADERO', 100038, 39, NULL, 2172, 1, 8, 1, 1, 1, 0.00, 0, '10/05/2011', '5323,45', 0, 0, 0, 0, 0, 0, '5323,45', '638,81', 5962.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(100, 93, '03/05/2011', '2011-05-03', 'VERDADERO', 100048, 49, NULL, 2174, 1, 10, 1, 1, 1, 0.00, 0, '08/05/2011', '7716,6', 0, 0, 0, 0, 0, 0, '7716,6', '925,99', 8642.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(101, 94, '09/05/2011', '2011-05-09', 'VERDADERO', 100046, 47, NULL, 2178, 1, 1, 1, 1, 1, 0.00, 0, '16/05/2011', '4257,06', 0, 0, 0, 0, 0, 0, '4257,06', '510,85', 4767.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(102, 95, '11/05/2011', '2011-05-11', 'VERDADERO', 200007, 111, NULL, 2177, 1, 10, 1, 1, 1, 0.00, 0, '16/05/2011', '6018,36', 0, 0, 0, 0, 0, 0, '6018,36', '722,2', 6740.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(103, 96, '19/05/2011', '2011-05-19', 'VERDADERO', 300138, 268, NULL, 2183, 1, 10, 1, 1, 1, 0.00, 0, '24/05/2011', '1294,41', 0, 0, 0, 0, 0, 0, '1294,41', '155,33', 1449.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(104, 97, '19/05/2011', '2011-05-19', 'VERDADERO', 300132, 262, NULL, 2185, 1, 10, 1, 1, 1, 0.00, 0, '24/05/2011', '1404,8', 0, 0, 0, 0, 0, 0, '1404,8', '168,58', 1573.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(105, 98, '23/05/2011', '2011-05-23', 'VERDADERO', 300124, 254, NULL, 2187, 1, 1, 1, 1, 1, 0.00, 0, '30/05/2011', '2934,61', 0, 0, 0, 0, 0, 0, '2934,61', '352,15', 3286.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(106, 99, '31/05/2011', '2011-05-31', 'VERDADERO', 200019, 121, NULL, 2196, 1, 1, 1, 1, 1, 0.00, 0, '07/06/2011', '5188,3', 0, 0, 0, 0, 0, 0, '5188,3', '622,6', 5810.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(107, 100, '13/06/2011', '2011-06-13', 'VERDADERO', 200007, 111, NULL, 2204, 1, 1, 1, 1, 1, 0.00, 0, '18/06/2011', '2388,97', 0, 0, 0, 0, 0, 0, '2388,97', '286,68', 2675.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(109, 101, '13/06/2011', '2011-06-13', 'VERDADERO', 300132, 262, NULL, 2210, 1, 10, 1, 1, 1, 0.00, 0, '18/06/2011', '2124', 0, 0, 0, 0, 0, 0, '2124', '254,88', 2378.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(110, 102, '13/06/2011', '2011-06-13', 'VERDADERO', 300079, 209, NULL, 2202, 1, 5, 1, 1, 1, 0.00, 0, '14/06/2011', '818,74', 0, 0, 0, 0, 0, 0, '818,74', '98,25', 916.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(111, 103, '15/06/2011', '2011-06-15', 'VERDADERO', 100048, 49, NULL, 2216, 1, 10, 1, 1, 1, 0.00, 0, '20/06/2011', '11484,19', 0, 0, 0, 0, 0, 0, '11484,19', '1378,1', 12862.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(112, 104, '27/06/2011', '2011-06-27', 'VERDADERO', 300086, 216, NULL, 2226, 1, 1, 1, 1, 1, 0.00, 0, '04/07/2011', '19651,27', 0, 0, 0, 0, 0, 0, '19651,27', '2358,15', 22009.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(113, 105, '29/06/2011', '2011-06-29', 'VERDADERO', 300121, 251, NULL, 2224, 1, 15, 1, 1, 1, 0.00, 0, '29/07/2011', '7118,47', 0, 0, 0, 0, 0, 0, '7118,47', '854,22', 7972.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(114, 106, '29/06/2011', '2011-06-29', 'VERDADERO', 300121, 251, NULL, 2225, 1, 15, 1, 1, 1, 0.00, 0, '29/07/2011', '17618,72', 0, 0, 0, 0, 0, 0, '17618,72', '2114,25', 19732.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(115, 107, '29/06/2011', '2011-06-29', 'VERDADERO', 200027, 129, NULL, 2235, 1, 8, 2, 1, 1, 3.00, 0, '07/07/2011', '2069,96', 0, 0, 0, 0, 0, 0, '2069,96', '248,4', 2318.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(116, 108, '29/06/2011', '2011-06-29', 'VERDADERO', 300138, 268, NULL, 2233, 1, 10, 1, 1, 1, 0.00, 0, '04/07/2011', '933,92', 0, 0, 0, 0, 0, 0, '933,92', '112,07', 1045.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(117, 109, '12/07/2011', '2011-07-12', 'VERDADERO', 100046, 47, NULL, 2206, 1, 1, 1, 1, 1, 0.00, 0, '19/07/2011', '10999,24', 0, 0, 0, 0, 0, 0, '10999,24', '1319,91', 12319.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(118, 110, '18/07/2011', '2011-07-18', 'VERDADERO', 100038, 39, NULL, 2250, 1, 8, 1, 1, 1, 0.00, 0, '26/07/2011', '2049', 0, 0, 0, 0, 0, 0, '2049', '245,88', 2294.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(119, 111, '22/07/2011', '2011-07-22', 'VERDADERO', 3000011, 134, NULL, 2252, 1, 1, 1, 1, 1, 0.00, 0, '29/07/2011', '1110', 0, 0, 0, 0, 0, 0, '1110', '133,2', 1243.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(120, 112, '25/07/2011', '2011-07-25', 'VERDADERO', 300124, 254, NULL, 2257, 1, 1, 1, 1, 1, 0.00, 0, '01/08/2011', '2224,01', 0, 0, 0, 0, 0, 0, '2224,01', '266,88', 2490.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(121, 113, '27/07/2011', '2011-07-27', 'VERDADERO', 100048, 49, NULL, 2263, 1, 10, 1, 1, 1, 0.00, 0, '27/07/2011', '14517,64', 0, 0, 0, 0, 0, 0, '14517,64', '1742,12', 16259.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(122, 114, '01/08/2011', '2011-08-01', 'VERDADERO', 200019, 121, NULL, 2254, 1, 1, 1, 1, 1, 0.00, 0, '08/08/2011', '6907,33', 0, 0, 0, 0, 0, 0, '6907,33', '828,88', 7736.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(123, 115, '02/08/2011', '2011-08-02', 'VERDADERO', 100061, 61, NULL, 2264, 1, 10, 1, 1, 1, 0.00, 0, '02/08/2011', '1656,5', 0, 0, 0, 0, 0, 0, '1656,5', '198,78', 1855.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(124, 116, '03/08/2011', '2011-08-03', 'VERDADERO', 200007, 111, NULL, 2246, 1, 10, 1, 1, 1, 0.00, 0, '03/08/2011', '1808,2', 0, 0, 0, 0, 0, 0, '1808,2', '216,98', 2025.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(125, 117, '09/08/2011', '2011-08-09', 'VERDADERO', 300138, 268, NULL, 2268, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '2664,58', 0, 0, 0, 0, 0, 0, '2664,58', '319,75', 2984.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(126, 118, '09/08/2011', '2011-08-09', 'VERDADERO', 200007, 111, NULL, 2268, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '10671,5', 0, 0, 0, 0, 0, 0, '10671,5', '1280,58', 11952.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(127, 119, '09/08/2011', '2011-08-09', 'VERDADERO', 200007, 111, NULL, 2267, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '7409,55', 0, 0, 0, 0, 0, 0, '7409,55', '889,15', 8298.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(128, 120, '11/08/2011', '2011-08-11', 'VERDADERO', 300059, 189, NULL, 2274, 1, 10, 1, 1, 1, 0.00, 0, '11/08/2011', '2428,52', 0, 0, 0, 0, 0, 0, '2428,52', '291,42', 2719.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(129, 121, '29/08/2011', '2011-08-29', 'VERDADERO', 300059, 189, NULL, 2275, 1, 10, 1, 1, 1, 0.00, 0, '29/08/2011', '814,25', 0, 0, 0, 0, 0, 0, '814,25', '97,71', 911.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(130, 122, '12/09/2011', '2011-09-12', 'VERDADERO', 200007, 111, NULL, 2278, 1, 10, 1, 1, 1, 0.00, 0, '12/09/2011', '7171,8', 0, 0, 0, 0, 0, 0, '7171,8', '860,62', 8032.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(131, 123, '12/09/2011', '2011-09-12', 'VERDADERO', 200007, 111, NULL, 2279, 1, 10, 1, 1, 1, 0.00, 0, '12/09/2011', '15438,16', 0, 0, 0, 0, 0, 0, '15438,16', '1852,58', 17290.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(132, 124, '14/09/2011', '2011-09-14', 'VERDADERO', 300030, 160, NULL, 2285, 1, 1, 1, 1, 1, 0.00, 0, '21/09/2011', '1620,13', 0, 0, 0, 0, 0, 0, '1620,13', '194,42', 1814.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(133, 125, '15/09/2011', '2011-09-15', 'VERDADERO', 100010, 12, NULL, 2282, 1, 1, 1, 1, 1, 0.00, 0, '22/09/2011', '809,99', 0, 0, 0, 0, 0, 0, '809,99', '97,2', 907.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(134, 126, '15/09/2011', '2011-09-15', 'VERDADERO', 300138, 268, NULL, 2293, 1, 10, 1, 1, 1, 0.00, 0, '15/09/2011', '915,91', 0, 0, 0, 0, 0, 0, '915,91', '109,91', 1025.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(135, 127, '23/09/2011', '2011-09-23', 'VERDADERO', 100048, 49, NULL, 2294, 1, 10, 1, 1, 1, 0.00, 0, '23/09/2011', '14950', 0, 0, 0, 0, 0, 0, '14950', '1794', 16744.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(136, 128, '04/10/2011', '2011-10-04', 'VERDADERO', 300124, 254, NULL, 2302, 1, 1, 1, 1, 1, 0.00, 0, '11/10/2011', '1975,02', 0, 0, 0, 0, 0, 0, '1975,02', '237', 2212.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(137, 129, '10/10/2011', '2011-10-10', 'VERDADERO', 200007, 111, NULL, 2304, 1, 10, 1, 1, 1, 0.00, 0, '10/10/2011', '4974,83', 0, 0, 0, 0, 0, 0, '4974,83', '596,98', 5571.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(138, 130, '10/10/2011', '2011-10-10', 'VERDADERO', 200007, 111, NULL, 2305, 1, 10, 1, 1, 1, 0.00, 0, '10/10/2011', '12301,6', 0, 0, 0, 0, 0, 0, '12301,6', '1476,19', 13777.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(139, 131, '11/10/2011', '2011-10-11', 'VERDADERO', 100038, 39, NULL, 2306, 1, 8, 1, 1, 1, 0.00, 0, '19/10/2011', '2295', 0, 0, 0, 0, 0, 0, '2295', '275,4', 2570.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(140, 132, '11/10/2011', '2011-10-11', 'VERDADERO', 300136, 266, NULL, 2303, 1, 12, 1, 1, 1, 0.00, 0, '26/10/2011', '1795,5', 0, 0, 0, 0, 0, 0, '1795,5', '215,46', 2010.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(141, 133, '11/10/2011', '2011-10-11', 'VERDADERO', 100010, 12, NULL, 2307, 1, 1, 1, 1, 1, 0.00, 0, '18/10/2011', '1850', 0, 0, 0, 0, 0, 0, '1850', '222', 2072.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(142, 134, '18/10/2011', '2011-10-18', 'VERDADERO', 100048, 49, NULL, 2308, 1, 10, 1, 1, 1, 0.00, 0, '18/10/2011', '13705', 0, 0, 0, 0, 0, 0, '13705', '1644,6', 15349.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(143, 135, '03/11/2011', '2011-11-03', 'VERDADERO', 300138, 268, NULL, 2316, 1, 10, 1, 1, 1, 0.00, 0, '03/11/2011', '4860,66', 0, 0, 0, 0, 0, 0, '4860,66', '583,28', 5443.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(144, 136, '28/11/2011', '2011-11-28', 'VERDADERO', 100048, 49, NULL, 2329, 1, 10, 1, 1, 1, 0.00, 0, '28/11/2011', '14110', 0, 0, 0, 0, 0, 0, '14110', '1693,2', 15803.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(145, 137, '29/11/2011', '2011-11-29', 'VERDADERO', 300136, 266, NULL, 2331, 1, 12, 1, 1, 1, 0.00, 0, '14/12/2011', '2890', 0, 0, 0, 0, 0, 0, '2890', '346,8', 3236.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(146, 138, '08/12/2011', '2011-12-08', 'VERDADERO', 100102, 99, NULL, 2336, 1, 10, 1, 1, 1, 0.00, 0, '08/12/2011', '8953,52', 0, 0, 0, 0, 0, 0, '8953,52', '1074,42', 10027.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(147, 139, '12/12/2011', '2011-12-12', 'VERDADERO', 300127, 257, NULL, 2337, 1, 12, 1, 1, 1, 0.00, 0, '27/12/2011', '3410,47', 0, 0, 0, 0, 0, 0, '3410,47', '409,26', 3819.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(148, 140, '13/12/2011', '2011-12-13', 'VERDADERO', 300124, 254, NULL, 2334, 1, 1, 1, 1, 1, 0.00, 0, '20/12/2011', '1987,35', 0, 0, 0, 0, 0, 0, '1987,35', '238,48', 2225.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(149, 141, '02/02/2012', '2012-02-02', 'VERDADERO', 100043, 44, NULL, 2351, 1, 10, 1, 1, 1, 0.00, 0, '02/02/2012', '2743', 0, 0, 0, 0, 0, 0, '2743', '329,16', 3072.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 0, 1),
-(150, 142, '14/02/2012', '2012-02-14', 'VERDADERO', 200013, 115, NULL, 2358, 1, 1, 1, 1, 1, 0.00, 0, '21/02/2012', '3217,68', 0, 0, 0, 0, 0, 0, '3217,68', '386,12', 3603.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(151, 143, '31/03/2012', '2012-03-31', 'VERDADERO', 100023, 24, NULL, 2364, 1, 1, 1, 1, 1, 0.00, 0, '07/04/2012', '4987,49', 0, 0, 0, 0, 0, 0, '4987,49', '598,5', 5585.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(152, 144, '12/09/2012', '2012-09-12', 'VERDADERO', 100061, 61, NULL, 2390, 1, 9, 1, 1, 1, 0.00, 0, '20/09/2012', '3174', 0, 0, 0, 0, 0, 0, '3174', '380,88', 3554.00, 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(153, 145, '05/10/2012', '2012-10-05', 'VERDADERO', 300124, 254, NULL, 2392, 1, 1, 1, 1, 1, 0.00, 0, '12/10/2012', '1082', 0, 0, 0, 0, 0, 0, '1082', '129,84', 1211.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
-(154, 146, '26/06/2013', '2013-06-26', 'VERDADERO', 100021, 22, NULL, 2400, 1, 5, 1, 1, 1, 0.00, 0, '27/06/2013', '3039', 0, 0, 0, 0, 0, 0, '3039', '364,68', 3403.00, 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 0, 1),
-(155, 148, NULL, '2016-08-17', NULL, NULL, 103, 1144, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 511402.92, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(159, 152, NULL, '2016-08-18', NULL, NULL, 103, 1144, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 511402.92, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(160, 153, NULL, '2016-08-22', NULL, NULL, 150, 1146, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1809921.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(161, 154, NULL, '2016-08-22', NULL, NULL, 150, 1146, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 940427.32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(162, 155, NULL, '2016-08-27', NULL, NULL, 22, 1155, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7981.96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(163, 156, NULL, '2016-09-13', NULL, NULL, 22, 1155, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7981.96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(164, 157, NULL, '2016-12-09', NULL, NULL, 317, 1157, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 252705.86, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(165, 158, NULL, '2017-02-02', NULL, NULL, 48, 1167, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 383415.20, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
-(166, 159, NULL, '2017-02-08', NULL, NULL, 150, 1169, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16330.27, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
-(167, 160, NULL, '2017-02-13', NULL, NULL, 49, 1173, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 38831.52, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
-(168, 161, NULL, '2017-02-19', NULL, NULL, 121, 1174, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 318203.20, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
-(169, 169, NULL, '2017-03-12', NULL, NULL, 106, 1192, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 87628.80, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
-(170, 170, NULL, '2017-03-12', NULL, NULL, 106, 1192, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 174993.64, NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1);
+(1, 1, '06/03/2008', '2008-03-06', 'VERDADERO', 300092, 222, NULL, 1238, 1, 5, 2, 1, 1, 3.00, 0, '07/03/2008', '0', 0, 0, 0, 0, 0, 0, '0', '0', '0.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(3, 2, '18/04/2008', '2008-04-18', 'VERDADERO', 100070, 70, NULL, 1411, 1, 6, 1, 1, 1, 0.00, 0, '23/04/2008', '656,28', 0, 0, 0, 0, 0, 0, '656,28', '59,07', '715.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(4, 3, '18/04/2008', '2008-04-18', 'VERDADERO', 100070, 70, NULL, 1412, 1, 6, 1, 1, 1, 0.00, 0, '23/04/2008', '360,27', 0, 0, 0, 0, 0, 0, '360,27', '32,42', '392.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(5, 4, '24/04/2008', '2008-04-24', 'VERDADERO', 300010, 143, NULL, 1430, 1, 1, 1, 2, 1, 0.00, 0, '02/05/2008', '5034,99', 0, 0, 0, 0, 0, 0, '5034,99', '453,15', '5488.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(6, 5, '06/05/2008', '2008-05-06', 'VERDADERO', 300086, 216, NULL, 1435, 1, 1, 1, 1, 1, 0.00, 0, '14/05/2008', '4495,15', 0, 0, 0, 0, 0, 0, '4495,15', '404,56', '4899.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(7, 6, '06/05/2008', '2008-05-06', 'VERDADERO', 100106, 103, NULL, 1436, 1, 10, 1, 1, 1, 0.00, 0, '11/05/2008', '283,92', 0, 0, 0, 0, 0, 0, '283,92', '25,55', '309.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(8, 7, '14/05/2008', '2008-05-14', 'VERDADERO', 100098, 95, NULL, 1446, 1, 10, 1, 1, 1, 0.00, 0, '19/05/2008', '492,58', 0, 0, 0, 0, 0, 0, '492,58', '44,33', '536.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(9, 8, '14/05/2008', '2008-05-14', 'VERDADERO', 200019, 121, NULL, 1445, 1, 1, 1, 1, 1, 0.00, 0, '22/05/2008', '724,91', 0, 0, 0, 0, 0, 0, '724,91', '65,24', '790.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(11, 9, '19/05/2008', '2008-05-19', 'VERDADERO', 100030, 31, NULL, 1456, 1, 1, 1, 1, 1, 0.00, 0, '27/05/2008', '196,8', 0, 0, 0, 0, 0, 0, '0', '0', '196.00', 'FALSO', 1, '', NULL, NULL, NULL, NULL, 1, 1),
+(13, 10, '27/05/2008', '2008-05-27', 'VERDADERO', 300048, 178, NULL, 1480, 1, 5, 1, 1, 1, 0.00, 0, '28/05/2008', '1891,82', 0, 0, 0, 0, 0, 0, '1891,82', '170,26', '2062.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(14, 11, '27/05/2008', '2008-05-27', 'VERDADERO', 100008, 10, NULL, 1481, 1, 3, 1, 1, 1, 0.00, 0, '11/06/2008', '780,76', 0, 0, 0, 0, 0, 0, '780,76', '70,27', '851.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(15, 12, '27/05/2008', '2008-05-27', 'VERDADERO', 100008, 10, NULL, 1482, 1, 3, 1, 1, 1, 0.00, 0, '11/06/2008', '1267,6', 0, 0, 0, 0, 0, 0, '1267,6', '114,08', '1381.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(16, 13, '02/06/2008', '2008-06-02', 'VERDADERO', 300098, 228, NULL, 1487, 1, 10, 2, 1, 1, 3.00, 0, '07/06/2008', '1323,59', 0, 0, 0, 0, 0, 0, '1323,59', '119,12', '1442.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(17, 14, '30/05/2008', '2008-05-30', 'VERDADERO', 200007, 111, NULL, 1441, 1, 3, 1, 1, 1, 0.00, 0, '14/06/2008', '1134,25', 0, 0, 0, 0, 0, 0, '1134,25', '102,08', '1236.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(18, 15, '09/06/2008', '2008-06-09', 'VERDADERO', 200013, 115, NULL, 1498, 1, 3, 1, 1, 1, 0.00, 0, '24/06/2008', '1795,85', 0, 0, 0, 0, 0, 0, '1795,85', '161,63', '1957.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(19, 16, '25/06/2008', '2008-06-25', 'VERDADERO', 300124, 254, NULL, 1540, 1, 1, 1, 1, 1, 0.00, 0, '03/07/2008', '3076,03', 0, 0, 0, 0, 0, 0, '3076,03', '276,84', '3352.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(20, 17, '28/10/2009', '2009-10-28', 'VERDADERO', 200027, 129, NULL, 1585, 1, 5, 1, 1, 1, 0.00, 0, '29/10/2009', '1403,17', 0, 0, 0, 0, 0, 0, '1403,17', '168,38', '1571.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(21, 18, '11/11/2009', '2009-11-11', 'VERDADERO', 200007, 111, NULL, 1600, 1, 3, 1, 1, 1, 0.00, 0, '26/11/2009', '2562,64', 0, 0, 0, 0, 0, 0, '2562,64', '307,52', '2870.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(22, 19, '11/11/2009', '2009-11-11', 'VERDADERO', 200007, 111, NULL, 1599, 1, 3, 1, 1, 1, 0.00, 0, '26/11/2009', '10163,8', 0, 0, 0, 0, 0, 0, '10163,8', '1219,66', '11383.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(23, 20, '30/11/2009', '2009-11-30', 'VERDADERO', 100048, 49, NULL, 1630, 1, 10, 1, 1, 1, 0.00, 0, '05/12/2009', '19342,51', 0, 0, 0, 0, 0, 0, '19342,51', '2321,1', '21663.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(24, 21, '15/12/2009', '2009-12-15', 'VERDADERO', 100026, 27, NULL, 1641, 1, 1, 1, 1, 1, 0.00, 0, '23/12/2009', '7083,55', 0, 0, 0, 0, 0, 0, '7083,55', '850,03', '7933.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(25, 22, '13/01/2009', '2009-01-13', 'VERDADERO', 200028, 130, NULL, 1644, 1, 10, 1, 1, 1, 0.00, 0, '18/01/2009', '1503,99', 0, 0, 0, 0, 0, 0, '1503,99', '180,48', '1684.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(26, 23, '20/01/2009', '2009-01-20', 'VERDADERO', 100043, 44, NULL, 1656, 1, 10, 1, 2, 1, 0.00, 0, '25/01/2009', '1267,15', 0, 0, 0, 0, 0, 0, '1267,15', '152,06', '1419.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(27, 24, '20/01/2009', '2009-01-20', 'VERDADERO', 100043, 44, NULL, 1661, 1, 10, 1, 2, 1, 0.00, 0, '25/01/2009', '1509', 0, 0, 0, 0, 0, 0, '1509', '181,08', '1690.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(28, 25, '26/01/2009', '2009-01-26', 'VERDADERO', 100038, 39, NULL, 1667, 1, 10, 1, 1, 1, 0.00, 0, '31/01/2009', '5594,75', 0, 0, 0, 0, 0, 0, '5594,75', '671,37', '6266.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(29, 26, '27/01/2010', '2010-01-27', 'VERDADERO', 200027, 129, NULL, 1678, 1, 5, 1, 1, 1, 0.00, 0, '28/01/2010', '1594,81', 0, 0, 0, 0, 0, 0, '1594,81', '191,38', '1786.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(30, 27, '02/02/2010', '2010-02-02', 'VERDADERO', 3000011, 134, NULL, 1666, 1, 1, 1, 1, 1, 0.00, 0, '10/02/2010', '3348,29', 0, 0, 0, 0, 0, 0, '3348,29', '401,79', '3750.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(31, 28, '08/02/2010', '2010-02-08', 'VERDADERO', 100108, 105, NULL, 1703, 1, 10, 1, 1, 1, 0.00, 0, '13/02/2010', '1830,46', 0, 0, 0, 0, 0, 0, '1830,46', '219,66', '2050.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(32, 29, '08/02/2010', '2010-02-08', 'VERDADERO', 3000011, 134, NULL, 1702, 1, 1, 1, 1, 1, 0.00, 0, '16/02/2010', '187,2', 0, 0, 0, 0, 0, 0, '187,2', '22,46', '209.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(33, 30, '23/02/2010', '2010-02-23', 'VERDADERO', 3000011, 134, NULL, 1709, 1, 1, 1, 1, 1, 0.00, 0, '03/03/2010', '1656', 0, 0, 0, 0, 0, 0, '1656', '198,72', '1854.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(34, 31, '08/03/2010', '2010-03-08', 'VERDADERO', 200013, 115, NULL, 1743, 1, 1, 1, 1, 1, 0.00, 0, '16/03/2010', '2223', 0, 0, 0, 0, 0, 0, '2223', '266,76', '2489.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(35, 32, '09/03/2010', '2010-03-09', 'VERDADERO', 100019, 20, NULL, 1745, 1, 1, 1, 1, 1, 0.00, 0, '17/03/2010', '3602', 0, 0, 0, 0, 0, 0, '3602', '432,24', '4034.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(36, 33, '12/03/2010', '2010-03-12', 'VERDADERO', 100025, 26, NULL, 1749, 1, 10, 1, 1, 1, 0.00, 0, '17/03/2010', '1428,96', 0, 0, 0, 0, 0, 0, '1428,96', '171,48', '1600.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(37, 34, '17/03/2010', '2010-03-17', 'VERDADERO', 200028, 130, NULL, 1759, 1, 10, 1, 1, 1, 0.00, 0, '22/03/2010', '745', 0, 0, 0, 0, 0, 0, '745', '89,4', '834.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(38, 35, '17/03/2010', '2010-03-17', 'VERDADERO', 200028, 130, NULL, 1754, 1, 10, 1, 1, 1, 0.00, 0, '22/03/2010', '1758,65', 0, 0, 0, 0, 0, 0, '1758,65', '211,04', '1969.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(39, 36, '24/03/2010', '2010-03-24', 'VERDADERO', 200027, 129, NULL, 1766, 1, 8, 2, 1, 1, 3.00, 0, '01/04/2010', '1139,53', 0, 0, 0, 0, 0, 0, '1139,53', '136,74', '1276.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(40, 37, '24/03/2010', '2010-03-24', 'VERDADERO', 100026, 27, NULL, 1770, 1, 1, 1, 1, 1, 0.00, 0, '01/04/2010', '1844,8', 0, 0, 0, 0, 0, 0, '1844,8', '221,38', '2066.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(41, 38, '05/04/2010', '2010-04-05', 'VERDADERO', 100023, 24, NULL, 1762, 1, 1, 1, 1, 1, 0.00, 0, '13/04/2010', '655,75', 0, 0, 0, 0, 0, 0, '655,75', '78,69', '734.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(42, 39, '10/05/2010', '2010-05-10', 'VERDADERO', 100019, 20, NULL, 1825, 1, 1, 1, 1, 1, 0.00, 0, '18/05/2010', '5974', 0, 0, 0, 0, 0, 0, '5974', '716,88', '6690.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(43, 40, '10/05/2010', '2010-05-10', 'VERDADERO', 200007, 111, NULL, 1816, 1, 3, 1, 1, 1, 0.00, 0, '25/05/2010', '2040,15', 0, 0, 0, 0, 0, 0, '2040,15', '244,82', '2284.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(44, 41, '12/05/2010', '2010-05-12', 'VERDADERO', 100038, 39, NULL, 1822, 1, 8, 1, 1, 1, 0.00, 0, '20/05/2010', '2959,6', 0, 0, 0, 0, 0, 0, '2959,6', '355,15', '3314.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(45, 42, '20/05/2010', '2010-05-20', 'VERDADERO', 200027, 129, NULL, 1840, 1, 8, 2, 1, 1, 3.00, 0, '28/05/2010', '1086,02', 0, 0, 0, 0, 0, 0, '1086,02', '130,32', '1216.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(46, 43, '04/06/2010', '2010-06-04', 'VERDADERO', 300062, 192, NULL, 1867, 1, 10, 1, 1, 1, 0.00, 0, '09/06/2010', '4474,87', 0, 0, 0, 0, 0, 0, '4474,87', '536,98', '5011.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(47, 44, '08/06/2010', '2010-06-08', 'VERDADERO', 100024, 25, NULL, 1878, 1, 1, 1, 1, 1, 0.00, 0, '15/06/2010', '2134,6', 0, 0, 0, 0, 0, 0, '2134,6', '256,15', '2390.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(48, 45, '10/06/2010', '2010-06-10', 'VERDADERO', 200007, 111, NULL, 1875, 1, 3, 1, 1, 1, 0.00, 0, '25/06/2010', '5170,8', 0, 0, 0, 0, 0, 0, '5170,8', '620,5', '5791.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(49, 46, '10/06/2010', '2010-06-10', 'VERDADERO', 200007, 111, NULL, 1876, 1, 3, 1, 1, 1, 0.00, 0, '25/06/2010', '2991,02', 0, 0, 0, 0, 0, 0, '2991,02', '358,92', '3349.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(50, 47, '12/07/2010', '2010-07-12', 'VERDADERO', 300062, 192, NULL, 1894, 1, 10, 1, 1, 1, 0.00, 0, '17/07/2010', '3897,5', 0, 0, 0, 0, 0, 0, '3897,5', '467,7', '4365.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(52, 48, '12/07/2010', '2010-07-12', 'VERDADERO', 200027, 129, NULL, 1905, 1, 8, 2, 1, 1, 3.00, 0, '20/07/2010', '1524,43', 0, 0, 0, 0, 0, 0, '1524,43', '182,93', '1707.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(53, 49, '12/07/2010', '2010-07-12', 'VERDADERO', 300062, 192, NULL, 1895, 1, 10, 1, 1, 1, 0.00, 0, '17/07/2010', '946,13', 0, 0, 0, 0, 0, 0, '946,13', '113,54', '1059.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(54, 50, '14/07/2010', '2010-07-14', 'VERDADERO', 200007, 111, NULL, 1903, 1, 3, 1, 1, 1, 0.00, 0, '29/07/2010', '4079,74', 0, 0, 0, 0, 0, 0, '4079,74', '489,57', '4569.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(55, 51, '16/07/2010', '2010-07-16', 'VERDADERO', 100038, 39, NULL, 1925, 1, 8, 1, 1, 1, 0.00, 0, '24/07/2010', '5110,1', 0, 0, 0, 0, 0, 0, '5110,1', '613,21', '5723.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(56, 52, '26/07/2010', '2010-07-26', 'VERDADERO', 100025, 26, NULL, 1936, 1, 10, 1, 1, 1, 0.00, 0, '31/07/2010', '628,4', 0, 0, 0, 0, 0, 0, '628,4', '75,41', '703.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(57, 53, '06/08/2010', '2010-08-06', 'VERDADERO', 300124, 254, NULL, 1943, 1, 1, 1, 1, 1, 0.00, 0, '13/08/2010', '6520,5', 0, 0, 0, 0, 0, 0, '6520,5', '782,46', '7302.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(58, 54, '09/08/2010', '2010-08-09', 'VERDADERO', 200013, 115, NULL, 1950, 1, 1, 1, 1, 1, 0.00, 0, '16/08/2010', '2097,2', 0, 0, 0, 0, 0, 0, '2097,2', '251,66', '2348.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(59, 55, '12/08/2010', '2010-08-12', 'VERDADERO', 200007, 111, NULL, 1951, 1, 10, 1, 1, 1, 0.00, 0, '17/08/2010', '5121,3', 0, 0, 0, 0, 0, 0, '5121,3', '614,56', '5735.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(60, 56, '07/09/2010', '2010-09-07', 'VERDADERO', 300030, 160, NULL, 1965, 1, 1, 1, 1, 1, 0.00, 0, '14/09/2010', '5898,58', 0, 0, 0, 0, 0, 0, '5898,58', '707,83', '6606.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(61, 57, '10/09/2010', '2010-09-10', 'VERDADERO', 300124, 254, NULL, 1977, 1, 1, 1, 1, 1, 0.00, 0, '17/09/2010', '105', 0, 0, 0, 0, 0, 0, '105', '12,6', '117.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(62, 58, '10/09/2010', '2010-09-10', 'VERDADERO', 300124, 254, NULL, 1979, 1, 1, 1, 1, 1, 0.00, 0, '17/09/2010', '2695,06', 0, 0, 0, 0, 0, 0, '2695,06', '323,41', '3018.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(63, 59, '10/09/2010', '2010-09-10', 'VERDADERO', 100025, 26, NULL, 1983, 1, 10, 1, 1, 1, 0.00, 0, '15/09/2010', '1095', 0, 0, 0, 0, 0, 0, '1095', '131,4', '1226.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(64, 60, '13/09/2010', '2010-09-13', 'VERDADERO', 200007, 111, NULL, 1974, 1, 10, 1, 1, 1, 0.00, 0, '18/09/2010', '5278,7', 0, 0, 0, 0, 0, 0, '5278,7', '633,44', '5912.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(65, 61, '20/09/2010', '2010-09-20', 'VERDADERO', 100038, 39, NULL, 1987, 1, 8, 1, 1, 1, 0.00, 0, '28/09/2010', '1341,76', 0, 0, 0, 0, 0, 0, '1341,76', '161,01', '1502.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(66, 62, '28/09/2010', '2010-09-28', 'VERDADERO', 100048, 49, NULL, 2009, 1, 10, 1, 1, 1, 0.00, 0, '03/10/2010', '17528', 0, 0, 0, 0, 0, 0, '17528', '2103,36', '19631.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(67, 63, '05/10/2010', '2010-10-05', 'VERDADERO', 100023, 24, NULL, 1996, 1, 1, 1, 1, 1, 0.00, 0, '12/10/2010', '8148', 0, 0, 0, 0, 0, 0, '8148', '977,76', '9125.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(68, 64, '06/10/2010', '2010-10-06', 'VERDADERO', 200027, 129, NULL, 2017, 1, 8, 2, 1, 1, 3.00, 0, '14/10/2010', '3391,16', 0, 0, 0, 0, 0, 0, '3391,16', '406,94', '3798.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(69, 65, '18/10/2010', '2010-10-18', 'VERDADERO', 100026, 27, NULL, 2026, 1, 1, 1, 1, 1, 0.00, 0, '25/10/2010', '6041,55', 0, 0, 0, 0, 0, 0, '6041,55', '724,99', '6766.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(70, 66, '18/10/2010', '2010-10-18', 'VERDADERO', 100026, 27, NULL, 2028, 1, 1, 1, 1, 1, 0.00, 0, '25/10/2010', '1719,4', 0, 0, 0, 0, 0, 0, '1719,4', '206,33', '1925.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(71, 67, '19/10/2010', '2010-10-19', 'VERDADERO', 200028, 130, NULL, 2029, 1, 10, 1, 1, 1, 0.00, 0, '24/10/2010', '895,1', 0, 0, 0, 0, 0, 0, '895,1', '107,41', '1002.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(72, 68, '29/10/2010', '2010-10-29', 'VERDADERO', 300124, 254, NULL, 2040, 1, 1, 1, 1, 1, 0.00, 0, '05/11/2010', '1261', 0, 0, 0, 0, 0, 0, '1261', '151,32', '1412.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(73, 69, '17/11/2010', '2010-11-17', 'VERDADERO', 300132, 262, NULL, 2063, 1, 10, 1, 1, 1, 0.00, 0, '22/11/2010', '2220', 0, 0, 0, 0, 0, 0, '2220', '266,4', '2486.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(74, 70, '18/11/2010', '2010-11-18', 'VERDADERO', 200007, 111, NULL, 2057, 1, 10, 1, 1, 1, 0.00, 0, '23/11/2010', '27743', 0, 0, 0, 0, 0, 0, '27743', '3329,16', '31072.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(76, 71, '18/11/2010', '2010-11-18', 'VERDADERO', 200007, 111, NULL, 2055, 1, 10, 1, 1, 1, 0.00, 0, '23/11/2010', '4351,05', 0, 0, 0, 0, 0, 0, '4351,05', '522,13', '4873.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(77, 72, '25/11/2010', '2010-11-25', 'VERDADERO', 100048, 49, NULL, 2073, 1, 10, 1, 1, 1, 0.00, 0, '30/11/2010', '26661', 0, 0, 0, 0, 0, 0, '26661', '3199,32', '29860.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(78, 73, '03/12/2010', '2010-12-03', 'VERDADERO', 100043, 44, NULL, 2078, 1, 10, 1, 1, 1, 0.00, 0, '08/12/2010', '3308,2', 0, 0, 0, 0, 0, 0, '3308,2', '396,98', '3705.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(79, 74, '06/12/2010', '2010-12-06', 'VERDADERO', 3000011, 134, NULL, 2070, 1, 1, 1, 1, 1, 0.00, 0, '13/12/2010', '9720', 0, 0, 0, 0, 0, 0, '9720', '1166,4', '10886.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(80, 75, '09/12/2010', '2010-12-09', 'VERDADERO', 300124, 254, NULL, 2086, 1, 1, 1, 1, 1, 0.00, 0, '16/12/2010', '1918,08', 0, 0, 0, 0, 0, 0, '1918,08', '230,17', '2148.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(81, 76, '09/12/2010', '2010-12-09', 'VERDADERO', 100038, 39, NULL, 2076, 1, 8, 1, 1, 1, 0.00, 0, '17/12/2010', '766', 0, 0, 0, 0, 0, 0, '766', '91,92', '857.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(82, 77, '18/01/2011', '2011-01-18', 'VERDADERO', 200027, 129, NULL, 2090, 1, 8, 2, 1, 1, 3.00, 0, '26/01/2011', '1103,75', 0, 0, 0, 0, 0, 0, '1103,75', '132,45', '1236.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(84, 78, '24/01/2011', '2011-01-24', 'VERDADERO', 300062, 192, NULL, 2094, 1, 10, 1, 1, 1, 0.00, 0, '29/01/2011', '6103,16', 0, 0, 0, 0, 0, 0, '6103,16', '732,38', '6835.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(86, 79, '25/01/2011', '2011-01-25', 'VERDADERO', 300062, 192, NULL, 2093, 1, 10, 1, 1, 1, 0.00, 0, '30/01/2011', '5309,1', 0, 0, 0, 0, 0, 0, '5309,1', '637,09', '5946.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(87, 80, '25/01/2011', '2011-01-25', 'VERDADERO', 300030, 160, NULL, 2091, 1, 1, 1, 1, 1, 0.00, 0, '01/02/2011', '5665,75', 0, 0, 0, 0, 0, 0, '5665,75', '679,89', '6345.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(88, 81, '28/01/2011', '2011-01-28', 'VERDADERO', 300124, 254, NULL, 2085, 1, 1, 1, 1, 1, 0.00, 0, '04/02/2011', '1472', 0, 0, 0, 0, 0, 0, '1472', '176,64', '1648.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(89, 82, '04/02/2011', '2011-02-04', 'VERDADERO', 300124, 254, NULL, 2100, 1, 1, 1, 1, 1, 0.00, 0, '11/02/2011', '4420,04', 0, 0, 0, 0, 0, 0, '4420,04', '530,4', '4950.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(90, 83, '15/02/2011', '2011-02-15', 'VERDADERO', 100046, 47, NULL, 2120, 1, 1, 1, 1, 1, 0.00, 0, '22/02/2011', '5987,56', 0, 0, 0, 0, 0, 0, '5987,56', '718,51', '6706.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(91, 84, '24/02/2011', '2011-02-24', 'VERDADERO', 200022, 124, NULL, 2099, 1, 1, 1, 1, 1, 0.00, 0, '03/03/2011', '2603,9', 0, 0, 0, 0, 0, 0, '2603,9', '312,47', '2916.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(92, 85, '25/02/2011', '2011-02-25', 'VERDADERO', 200022, 124, NULL, 2098, 1, 1, 1, 1, 1, 0.00, 0, '04/03/2011', '7251,63', 0, 0, 0, 0, 0, 0, '7251,63', '870,2', '8121.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(93, 86, '04/03/2011', '2011-03-04', 'VERDADERO', 100038, 39, NULL, 2143, 1, 8, 1, 1, 1, 0.00, 0, '12/03/2011', '3758,8', 0, 0, 0, 0, 0, 0, '3758,8', '451,06', '4209.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(94, 87, '29/03/2011', '2011-03-29', 'VERDADERO', 100046, 47, NULL, 2132, 1, 1, 1, 1, 1, 0.00, 0, '05/04/2011', '820', 0, 0, 0, 0, 0, 0, '820', '98,4', '918.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(95, 88, '31/03/2011', '2011-03-31', 'VERDADERO', 300124, 254, NULL, 2157, 1, 1, 1, 1, 1, 0.00, 0, '07/04/2011', '2252,32', 0, 0, 0, 0, 0, 0, '2252,32', '270,28', '2522.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(96, 89, '08/04/2011', '2011-04-08', 'VERDADERO', 300030, 160, NULL, 2160, 1, 1, 1, 1, 1, 0.00, 0, '15/04/2011', '2549,54', 0, 0, 0, 0, 0, 0, '2549,54', '305,94', '2855.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(97, 90, '11/04/2011', '2011-04-11', 'VERDADERO', 200007, 111, NULL, 2162, 1, 10, 1, 1, 1, 0.00, 0, '16/04/2011', '4953', 0, 0, 0, 0, 0, 0, '4953', '594,36', '5547.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(98, 91, '12/04/2011', '2011-04-12', 'VERDADERO', 3000011, 134, NULL, 2161, 1, 1, 1, 1, 1, 0.00, 0, '19/04/2011', '5326,37', 0, 0, 0, 0, 0, 0, '5326,37', '639,16', '5965.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(99, 92, '02/05/2011', '2011-05-02', 'VERDADERO', 100038, 39, NULL, 2172, 1, 8, 1, 1, 1, 0.00, 0, '10/05/2011', '5323,45', 0, 0, 0, 0, 0, 0, '5323,45', '638,81', '5962.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(100, 93, '03/05/2011', '2011-05-03', 'VERDADERO', 100048, 49, NULL, 2174, 1, 10, 1, 1, 1, 0.00, 0, '08/05/2011', '7716,6', 0, 0, 0, 0, 0, 0, '7716,6', '925,99', '8642.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(101, 94, '09/05/2011', '2011-05-09', 'VERDADERO', 100046, 47, NULL, 2178, 1, 1, 1, 1, 1, 0.00, 0, '16/05/2011', '4257,06', 0, 0, 0, 0, 0, 0, '4257,06', '510,85', '4767.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(102, 95, '11/05/2011', '2011-05-11', 'VERDADERO', 200007, 111, NULL, 2177, 1, 10, 1, 1, 1, 0.00, 0, '16/05/2011', '6018,36', 0, 0, 0, 0, 0, 0, '6018,36', '722,2', '6740.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(103, 96, '19/05/2011', '2011-05-19', 'VERDADERO', 300138, 268, NULL, 2183, 1, 10, 1, 1, 1, 0.00, 0, '24/05/2011', '1294,41', 0, 0, 0, 0, 0, 0, '1294,41', '155,33', '1449.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(104, 97, '19/05/2011', '2011-05-19', 'VERDADERO', 300132, 262, NULL, 2185, 1, 10, 1, 1, 1, 0.00, 0, '24/05/2011', '1404,8', 0, 0, 0, 0, 0, 0, '1404,8', '168,58', '1573.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(105, 98, '23/05/2011', '2011-05-23', 'VERDADERO', 300124, 254, NULL, 2187, 1, 1, 1, 1, 1, 0.00, 0, '30/05/2011', '2934,61', 0, 0, 0, 0, 0, 0, '2934,61', '352,15', '3286.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(106, 99, '31/05/2011', '2011-05-31', 'VERDADERO', 200019, 121, NULL, 2196, 1, 1, 1, 1, 1, 0.00, 0, '07/06/2011', '5188,3', 0, 0, 0, 0, 0, 0, '5188,3', '622,6', '5810.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(107, 100, '13/06/2011', '2011-06-13', 'VERDADERO', 200007, 111, NULL, 2204, 1, 1, 1, 1, 1, 0.00, 0, '18/06/2011', '2388,97', 0, 0, 0, 0, 0, 0, '2388,97', '286,68', '2675.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(109, 101, '13/06/2011', '2011-06-13', 'VERDADERO', 300132, 262, NULL, 2210, 1, 10, 1, 1, 1, 0.00, 0, '18/06/2011', '2124', 0, 0, 0, 0, 0, 0, '2124', '254,88', '2378.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(110, 102, '13/06/2011', '2011-06-13', 'VERDADERO', 300079, 209, NULL, 2202, 1, 5, 1, 1, 1, 0.00, 0, '14/06/2011', '818,74', 0, 0, 0, 0, 0, 0, '818,74', '98,25', '916.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(111, 103, '15/06/2011', '2011-06-15', 'VERDADERO', 100048, 49, NULL, 2216, 1, 10, 1, 1, 1, 0.00, 0, '20/06/2011', '11484,19', 0, 0, 0, 0, 0, 0, '11484,19', '1378,1', '12862.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(112, 104, '27/06/2011', '2011-06-27', 'VERDADERO', 300086, 216, NULL, 2226, 1, 1, 1, 1, 1, 0.00, 0, '04/07/2011', '19651,27', 0, 0, 0, 0, 0, 0, '19651,27', '2358,15', '22009.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(113, 105, '29/06/2011', '2011-06-29', 'VERDADERO', 300121, 251, NULL, 2224, 1, 15, 1, 1, 1, 0.00, 0, '29/07/2011', '7118,47', 0, 0, 0, 0, 0, 0, '7118,47', '854,22', '7972.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(114, 106, '29/06/2011', '2011-06-29', 'VERDADERO', 300121, 251, NULL, 2225, 1, 15, 1, 1, 1, 0.00, 0, '29/07/2011', '17618,72', 0, 0, 0, 0, 0, 0, '17618,72', '2114,25', '19732.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(115, 107, '29/06/2011', '2011-06-29', 'VERDADERO', 200027, 129, NULL, 2235, 1, 8, 2, 1, 1, 3.00, 0, '07/07/2011', '2069,96', 0, 0, 0, 0, 0, 0, '2069,96', '248,4', '2318.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(116, 108, '29/06/2011', '2011-06-29', 'VERDADERO', 300138, 268, NULL, 2233, 1, 10, 1, 1, 1, 0.00, 0, '04/07/2011', '933,92', 0, 0, 0, 0, 0, 0, '933,92', '112,07', '1045.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(117, 109, '12/07/2011', '2011-07-12', 'VERDADERO', 100046, 47, NULL, 2206, 1, 1, 1, 1, 1, 0.00, 0, '19/07/2011', '10999,24', 0, 0, 0, 0, 0, 0, '10999,24', '1319,91', '12319.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(118, 110, '18/07/2011', '2011-07-18', 'VERDADERO', 100038, 39, NULL, 2250, 1, 8, 1, 1, 1, 0.00, 0, '26/07/2011', '2049', 0, 0, 0, 0, 0, 0, '2049', '245,88', '2294.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(119, 111, '22/07/2011', '2011-07-22', 'VERDADERO', 3000011, 134, NULL, 2252, 1, 1, 1, 1, 1, 0.00, 0, '29/07/2011', '1110', 0, 0, 0, 0, 0, 0, '1110', '133,2', '1243.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(120, 112, '25/07/2011', '2011-07-25', 'VERDADERO', 300124, 254, NULL, 2257, 1, 1, 1, 1, 1, 0.00, 0, '01/08/2011', '2224,01', 0, 0, 0, 0, 0, 0, '2224,01', '266,88', '2490.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(121, 113, '27/07/2011', '2011-07-27', 'VERDADERO', 100048, 49, NULL, 2263, 1, 10, 1, 1, 1, 0.00, 0, '27/07/2011', '14517,64', 0, 0, 0, 0, 0, 0, '14517,64', '1742,12', '16259.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(122, 114, '01/08/2011', '2011-08-01', 'VERDADERO', 200019, 121, NULL, 2254, 1, 1, 1, 1, 1, 0.00, 0, '08/08/2011', '6907,33', 0, 0, 0, 0, 0, 0, '6907,33', '828,88', '7736.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(123, 115, '02/08/2011', '2011-08-02', 'VERDADERO', 100061, 61, NULL, 2264, 1, 10, 1, 1, 1, 0.00, 0, '02/08/2011', '1656,5', 0, 0, 0, 0, 0, 0, '1656,5', '198,78', '1855.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(124, 116, '03/08/2011', '2011-08-03', 'VERDADERO', 200007, 111, NULL, 2246, 1, 10, 1, 1, 1, 0.00, 0, '03/08/2011', '1808,2', 0, 0, 0, 0, 0, 0, '1808,2', '216,98', '2025.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(125, 117, '09/08/2011', '2011-08-09', 'VERDADERO', 300138, 268, NULL, 2268, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '2664,58', 0, 0, 0, 0, 0, 0, '2664,58', '319,75', '2984.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(126, 118, '09/08/2011', '2011-08-09', 'VERDADERO', 200007, 111, NULL, 2268, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '10671,5', 0, 0, 0, 0, 0, 0, '10671,5', '1280,58', '11952.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(127, 119, '09/08/2011', '2011-08-09', 'VERDADERO', 200007, 111, NULL, 2267, 1, 10, 1, 1, 1, 0.00, 0, '09/08/2011', '7409,55', 0, 0, 0, 0, 0, 0, '7409,55', '889,15', '8298.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(128, 120, '11/08/2011', '2011-08-11', 'VERDADERO', 300059, 189, NULL, 2274, 1, 10, 1, 1, 1, 0.00, 0, '11/08/2011', '2428,52', 0, 0, 0, 0, 0, 0, '2428,52', '291,42', '2719.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(129, 121, '29/08/2011', '2011-08-29', 'VERDADERO', 300059, 189, NULL, 2275, 1, 10, 1, 1, 1, 0.00, 0, '29/08/2011', '814,25', 0, 0, 0, 0, 0, 0, '814,25', '97,71', '911.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(130, 122, '12/09/2011', '2011-09-12', 'VERDADERO', 200007, 111, NULL, 2278, 1, 10, 1, 1, 1, 0.00, 0, '12/09/2011', '7171,8', 0, 0, 0, 0, 0, 0, '7171,8', '860,62', '8032.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(131, 123, '12/09/2011', '2011-09-12', 'VERDADERO', 200007, 111, NULL, 2279, 1, 10, 1, 1, 1, 0.00, 0, '12/09/2011', '15438,16', 0, 0, 0, 0, 0, 0, '15438,16', '1852,58', '17290.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(132, 124, '14/09/2011', '2011-09-14', 'VERDADERO', 300030, 160, NULL, 2285, 1, 1, 1, 1, 1, 0.00, 0, '21/09/2011', '1620,13', 0, 0, 0, 0, 0, 0, '1620,13', '194,42', '1814.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(133, 125, '15/09/2011', '2011-09-15', 'VERDADERO', 100010, 12, NULL, 2282, 1, 1, 1, 1, 1, 0.00, 0, '22/09/2011', '809,99', 0, 0, 0, 0, 0, 0, '809,99', '97,2', '907.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(134, 126, '15/09/2011', '2011-09-15', 'VERDADERO', 300138, 268, NULL, 2293, 1, 10, 1, 1, 1, 0.00, 0, '15/09/2011', '915,91', 0, 0, 0, 0, 0, 0, '915,91', '109,91', '1025.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(135, 127, '23/09/2011', '2011-09-23', 'VERDADERO', 100048, 49, NULL, 2294, 1, 10, 1, 1, 1, 0.00, 0, '23/09/2011', '14950', 0, 0, 0, 0, 0, 0, '14950', '1794', '16744.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(136, 128, '04/10/2011', '2011-10-04', 'VERDADERO', 300124, 254, NULL, 2302, 1, 1, 1, 1, 1, 0.00, 0, '11/10/2011', '1975,02', 0, 0, 0, 0, 0, 0, '1975,02', '237', '2212.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(137, 129, '10/10/2011', '2011-10-10', 'VERDADERO', 200007, 111, NULL, 2304, 1, 10, 1, 1, 1, 0.00, 0, '10/10/2011', '4974,83', 0, 0, 0, 0, 0, 0, '4974,83', '596,98', '5571.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(138, 130, '10/10/2011', '2011-10-10', 'VERDADERO', 200007, 111, NULL, 2305, 1, 10, 1, 1, 1, 0.00, 0, '10/10/2011', '12301,6', 0, 0, 0, 0, 0, 0, '12301,6', '1476,19', '13777.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(139, 131, '11/10/2011', '2011-10-11', 'VERDADERO', 100038, 39, NULL, 2306, 1, 8, 1, 1, 1, 0.00, 0, '19/10/2011', '2295', 0, 0, 0, 0, 0, 0, '2295', '275,4', '2570.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(140, 132, '11/10/2011', '2011-10-11', 'VERDADERO', 300136, 266, NULL, 2303, 1, 12, 1, 1, 1, 0.00, 0, '26/10/2011', '1795,5', 0, 0, 0, 0, 0, 0, '1795,5', '215,46', '2010.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(141, 133, '11/10/2011', '2011-10-11', 'VERDADERO', 100010, 12, NULL, 2307, 1, 1, 1, 1, 1, 0.00, 0, '18/10/2011', '1850', 0, 0, 0, 0, 0, 0, '1850', '222', '2072.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(142, 134, '18/10/2011', '2011-10-18', 'VERDADERO', 100048, 49, NULL, 2308, 1, 10, 1, 1, 1, 0.00, 0, '18/10/2011', '13705', 0, 0, 0, 0, 0, 0, '13705', '1644,6', '15349.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(143, 135, '03/11/2011', '2011-11-03', 'VERDADERO', 300138, 268, NULL, 2316, 1, 10, 1, 1, 1, 0.00, 0, '03/11/2011', '4860,66', 0, 0, 0, 0, 0, 0, '4860,66', '583,28', '5443.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(144, 136, '28/11/2011', '2011-11-28', 'VERDADERO', 100048, 49, NULL, 2329, 1, 10, 1, 1, 1, 0.00, 0, '28/11/2011', '14110', 0, 0, 0, 0, 0, 0, '14110', '1693,2', '15803.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(145, 137, '29/11/2011', '2011-11-29', 'VERDADERO', 300136, 266, NULL, 2331, 1, 12, 1, 1, 1, 0.00, 0, '14/12/2011', '2890', 0, 0, 0, 0, 0, 0, '2890', '346,8', '3236.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(146, 138, '08/12/2011', '2011-12-08', 'VERDADERO', 100102, 99, NULL, 2336, 1, 10, 1, 1, 1, 0.00, 0, '08/12/2011', '8953,52', 0, 0, 0, 0, 0, 0, '8953,52', '1074,42', '10027.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(147, 139, '12/12/2011', '2011-12-12', 'VERDADERO', 300127, 257, NULL, 2337, 1, 12, 1, 1, 1, 0.00, 0, '27/12/2011', '3410,47', 0, 0, 0, 0, 0, 0, '3410,47', '409,26', '3819.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(148, 140, '13/12/2011', '2011-12-13', 'VERDADERO', 300124, 254, NULL, 2334, 1, 1, 1, 1, 1, 0.00, 0, '20/12/2011', '1987,35', 0, 0, 0, 0, 0, 0, '1987,35', '238,48', '2225.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(149, 141, '02/02/2012', '2012-02-02', 'VERDADERO', 100043, 44, NULL, 2351, 1, 10, 1, 1, 1, 0.00, 0, '02/02/2012', '2743', 0, 0, 0, 0, 0, 0, '2743', '329,16', '3072.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 0, 1),
+(150, 142, '14/02/2012', '2012-02-14', 'VERDADERO', 200013, 115, NULL, 2358, 1, 1, 1, 1, 1, 0.00, 0, '21/02/2012', '3217,68', 0, 0, 0, 0, 0, 0, '3217,68', '386,12', '3603.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(151, 143, '31/03/2012', '2012-03-31', 'VERDADERO', 100023, 24, NULL, 2364, 1, 1, 1, 1, 1, 0.00, 0, '07/04/2012', '4987,49', 0, 0, 0, 0, 0, 0, '4987,49', '598,5', '5585.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(152, 144, '12/09/2012', '2012-09-12', 'VERDADERO', 100061, 61, NULL, 2390, 1, 9, 1, 1, 1, 0.00, 0, '20/09/2012', '3174', 0, 0, 0, 0, 0, 0, '3174', '380,88', '3554.00', 'VERDADERO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(153, 145, '05/10/2012', '2012-10-05', 'VERDADERO', 300124, 254, NULL, 2392, 1, 1, 1, 1, 1, 0.00, 0, '12/10/2012', '1082', 0, 0, 0, 0, 0, 0, '1082', '129,84', '1211.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 1, 1),
+(154, 146, '26/06/2013', '2013-06-26', 'VERDADERO', 100021, 22, NULL, 2400, 1, 5, 1, 1, 1, 0.00, 0, '27/06/2013', '3039', 0, 0, 0, 0, 0, 0, '3039', '364,68', '3403.00', 'FALSO', 1, '0', NULL, NULL, NULL, NULL, 0, 1),
+(155, 148, NULL, '2016-08-17', NULL, NULL, 103, 1144, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '511402.92', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(159, 152, NULL, '2016-08-18', NULL, NULL, 103, 1144, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '511402.92', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(160, 153, NULL, '2016-08-22', NULL, NULL, 150, 1146, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1809921.40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(161, 154, NULL, '2016-08-22', NULL, NULL, 150, 1146, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '940427.32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(162, 155, NULL, '2016-08-27', NULL, NULL, 22, 1155, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '7981.96', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(163, 156, NULL, '2016-09-13', NULL, NULL, 22, 1155, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '7981.96', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(164, 157, NULL, '2016-12-09', NULL, NULL, 317, 1157, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '252705.86', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(165, 158, NULL, '2017-02-02', NULL, NULL, 48, 1167, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '383415.20', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
+(166, 159, NULL, '2017-02-08', NULL, NULL, 150, 1169, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '16330.27', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
+(167, 160, NULL, '2017-02-13', NULL, NULL, 49, 1173, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '38831.52', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
+(168, 161, NULL, '2017-02-19', NULL, NULL, 121, 1174, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '318203.20', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
+(169, 169, NULL, '2017-03-12', NULL, NULL, 106, 1192, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '87628.80', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1),
+(170, 170, NULL, '2017-03-12', NULL, NULL, 106, 1192, NULL, NULL, NULL, NULL, NULL, NULL, 0.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '174993.64', NULL, NULL, 'PEDIDOS', 'TITULO PED', 'PED1', 'PED2', 'PED3', NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedor`
+-- Estructura de tabla para la tabla `proveedor`
 --
 
 CREATE TABLE IF NOT EXISTS `proveedor` (
   `idProveedor` int(7) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(51) NOT NULL,
   `rif` varchar(13) NOT NULL,
-  `Nit` int(11) DEFAULT NULL,
+  `nit` int(11) DEFAULT NULL,
   `Direccion1` varchar(101) DEFAULT NULL,
   `Direccion2` varchar(101) DEFAULT NULL,
   `Ciudad` varchar(30) DEFAULT NULL,
@@ -3649,53 +3684,50 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
   `Email` varchar(30) DEFAULT NULL,
   `NroPrecio` int(1) DEFAULT NULL,
   PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `proveedor`
+-- Volcado de datos para la tabla `proveedor`
 --
 
-INSERT INTO `proveedor` (`idProveedor`, `Nombre`, `rif`, `Nit`, `Direccion1`, `Direccion2`, `Ciudad`, `pcontacto`, `telefono1`, `telefono2`, `IdCondicion`, `IdVendedor`, `PagWeb`, `Email`, `NroPrecio`) VALUES
+INSERT INTO `proveedor` (`idProveedor`, `Nombre`, `rif`, `nit`, `Direccion1`, `Direccion2`, `Ciudad`, `pcontacto`, `telefono1`, `telefono2`, `IdCondicion`, `IdVendedor`, `PagWeb`, `Email`, `NroPrecio`) VALUES
 (1, 'MG Ideas', 'j-13646864-8', NULL, 'Calle los Chaguaramos, Edif Centro Denu', 'La Castellana', NULL, 'Marcel Mancera', '(0212)-952.95.20', '(0212)-622.12.14', NULL, NULL, NULL, 'mmancera@mgideas.net', NULL),
 (3, 'Bimbo, S.A.', 'J-56648549-9', NULL, '', NULL, NULL, 'Andrés Oseche', '', '', NULL, NULL, NULL, 'andresbimbo@bimbogroup.com', NULL),
 (4, 'Mundo Papel', 'J-30787201-2', NULL, 'Calle Sta. Teresa de Jesús entre Av. Blandín y Ávila', 'Chacao', NULL, 'Javier Gómez', '(0212)-952.95.99', '(0212)-952.95.98', NULL, NULL, NULL, 'jgomez@mundopapel2001.com', NULL),
 (5, 'CARACAS PAPER COMPANY, C.A.', 'J-00005325-1', NULL, 'Av. Aragua, Edif. CAPACO, Piso 1, Oficina y Planta Urb. Mendoza, Maracay, Edo. Aragua.', '', NULL, 'ROBERTO NOSTI', '(0243)-231.17.11', '(0212)-242.17.80', NULL, NULL, NULL, 'rnosti@capaco.com', NULL),
-(6, 'Namir, S.A.', 'J-25618981-8', NULL, 'Av Los Trellos entre calle 1 y calle 2', 'Las gradas, VillaBonita', NULL, 'Julio Hernández', '(0212)-622.31.31', '(0212)-622.31.33', NULL, NULL, NULL, 'ventasnamir@gmail.com', NULL);
+(6, 'Namir, S.A.', 'J-25618981-8', NULL, 'Av Los Trellos entre calle 1 y calle 2', 'Las gradas, VillaBonita', NULL, 'Julio Hernández', '(0212)-622.31.31', '(0212)-622.31.33', NULL, NULL, NULL, 'ventasnamir@gmail.com', NULL),
+(7, 'DISPAMACA, C.A.', 'J-30771508-1', NULL, 'AV. EL ALGODONAL, EDIF. GARICA, PISO 1, OFICINA 1, ', 'SECTOR CARPA', NULL, 'HENRY SAMUDIO', '(0212)-472.32.01', '(0212)-472.36.31', NULL, NULL, NULL, 'dispamaca039@gmail.com', NULL),
+(8, 'Mayorista', 'J-56648549-9', NULL, 'Av la Salle', 'Caracas', NULL, 'Julio C', '(0212)-656.52.62', '', NULL, NULL, NULL, 'grupomayor@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `retencion`
+-- Estructura de tabla para la tabla `retencion`
 --
 
 CREATE TABLE IF NOT EXISTS `retencion` (
   `idRetencion` int(5) NOT NULL AUTO_INCREMENT,
   `idCompra` int(5) NOT NULL,
-  `porcentaje` float(3,2) NOT NULL,
+  `porcentaje` float NOT NULL,
   `numero` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idRetencion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `retencion`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `unidad`
+-- Estructura de tabla para la tabla `unidad`
 --
 
 CREATE TABLE IF NOT EXISTS `unidad` (
   `idUnidad` int(6) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idUnidad`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `unidad`
+-- Volcado de datos para la tabla `unidad`
 --
 
 INSERT INTO `unidad` (`idUnidad`, `nombre`) VALUES
@@ -3704,12 +3736,13 @@ INSERT INTO `unidad` (`idUnidad`, `nombre`) VALUES
 (9, 'CAJ'),
 (5, 'UND'),
 (6, 'RES'),
-(7, 'BLT');
+(7, 'BLT'),
+(10, 'DOC');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
@@ -3730,17 +3763,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `nombre`, `empresa`, `subtitulo`, `rif`, `telefonos`, `email`, `vendedor`, `direccion1`, `direccion2`, `ultima_act_doc`) VALUES
 (1, 'admin', 'aba12345', 'Miguel', 'Insumos Informáticos R&G, C.A.', 'Suministro de Papelería y oficina', 'J-55989255-4', '02125456529 / 04266521524 / 04146589854', 'mrangel@mgideas.net / mikeven@gmail.com', 'Nidia', 'Av la Salle, Calle la Trinidad con cruce', 'Parroquia Verde y Azul', NULL),
-(2, 'ryg', '154', 'Dibo Rangel', 'R & G Consumibles, C.A.', 'Insumos de papeería y oficina', 'J-48595499-8', '', 'rygconsumibles@gmail.com', '', '', '', NULL);
+(2, 'ryg', '154', 'Dibo Rangel', 'R & G Consumibles, C.A.', 'Insumos de papelería y oficina', 'J-48595499-8', '', 'rygconsumibles@gmail.com', '', '', '', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `valores`
+-- Estructura de tabla para la tabla `valores`
 --
 
 CREATE TABLE IF NOT EXISTS `valores` (
@@ -3750,56 +3783,60 @@ CREATE TABLE IF NOT EXISTS `valores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `valores`
+-- Volcado de datos para la tabla `valores`
 --
 
 INSERT INTO `valores` (`nombre`, `valor`) VALUES
 ('iva', '12');
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `condicion`
+-- Filtros para la tabla `condicion`
 --
 ALTER TABLE `condicion`
   ADD CONSTRAINT `condicion_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `cotizacion`
+-- Filtros para la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `factura`
+-- Filtros para la tabla `factura`
 --
 ALTER TABLE `factura`
   ADD CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`idCotizacion`) REFERENCES `cotizacion` (`idCotizacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `formato`
+-- Filtros para la tabla `formato`
 --
 ALTER TABLE `formato`
   ADD CONSTRAINT `formato_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `nota`
+-- Filtros para la tabla `nota`
 --
 ALTER TABLE `nota`
   ADD CONSTRAINT `nota_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `orden_compra`
+-- Filtros para la tabla `orden_compra`
 --
 ALTER TABLE `orden_compra`
   ADD CONSTRAINT `orden_compra_ibfk_1` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idProveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orden_compra_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pedido`
+-- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
