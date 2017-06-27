@@ -19,7 +19,7 @@
 		$obs[0]["t"] = $fctz["titulo_obs"]; $obs[0]["v"] = $fctz["titulo_obs"];
 		return $obs;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerResumenObs( $frt ){
 		/* Retorna el bloque de información referente a las observaciones del formato del documento */
 		$obs = array();
@@ -31,30 +31,45 @@
 		$obs[0] = $frt["titulo_obs"];
 		return $obs;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function dataU( $frt_c, $usuario ){
+		//Retorna los datos iniciales para mostrar en el encabezado del formato de documentos
+		//Si no existe valores en el formato, se toman de la cuenta de usuario
+		for ( $i = 0; $i <= 5; $i++ ) { $datau[$i] = ""; }
+			
+		if( $frt_c["enc1"] == "" ) { 
+			if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"]; 
+		} 
+		else $datau[0] = $frt_c["enc1"]; 	//Nombre de empresa
 
-		if( $frt_c["enc1"] == "" ) { if( $usuario["empresa"] != "" ) $datau[0] = $usuario["empresa"]; } 
-			else $datau[0] = $frt_c["enc1"];
+	    if( $frt_c["enc2"] == "" ) { 
+	    	if( $usuario["subtitulo"] != "" ) $datau[1] = $usuario["subtitulo"]; 
+		} 
+	    else $datau[1] = $frt_c["enc2"];	//Subtítulo
 
-	    if( $frt_c["enc2"] == "" ) { if( $usuario["subtitulo"] != "" ) $datau[1] = $usuario["subtitulo"]; } 
-	    	else $datau[1] = $frt_c["enc2"];
+	    if( $frt_c["enc3"] == "" ) { 
+	    	if( $usuario["direccion1"] != "" ) $datau[2] = $usuario["direccion1"]; 
+	    } 
+	    else $datau[2] = $frt_c["enc3"];	//Línea de dirección 1
 
-	    if( $frt_c["enc3"] == "" ) { if( $usuario["direccion1"] != "" ) $datau[2] = $usuario["direccion1"]; } 
-	    	else $datau[2] = $frt_c["enc3"];
+	    if( $frt_c["enc4"] == "" ) { 
+	    	if( $usuario["direccion2"] != "" ) $datau[3] = $usuario["direccion2"]; 
+	    } 
+	    else $datau[3] = $frt_c["enc4"];	//Línea de dirección 2
 
-	    if( $frt_c["enc4"] == "" ) { if( $usuario["direccion2"] != "" ) $datau[3] = $usuario["direccion2"]; } 
-	    	else $datau[3] = $frt_c["enc4"];
+	    if( $frt_c["enc5"] == "" ) { 
+	    	if( $usuario["telefonos"] != "" ) $datau[4] = $usuario["telefonos"]; 
+	    } 
+	    else $datau[4] = $frt_c["enc5"];	//Teléfonos
 
-	    if( $frt_c["enc5"] == "" ) { if( $usuario["telefonos"] != "" ) $datau[4] = $usuario["telefonos"]; } 
-	    	else $datau[4] = $frt_c["enc5"];
-
-	    if( $frt_c["enc6"] == "" ) { if( $usuario["email"] != "" ) $datau[5] = $usuario["email"]; } 
-	    	else $datau[5] = $frt_c["enc6"];
+	    if( $frt_c["enc6"] == "" ) { 
+	    	if( $usuario["email"] != "" ) $datau[5] = $usuario["email"]; 
+	    } 
+	    else $datau[5] = $frt_c["enc6"];	//Email
 		
 		return $datau;
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function configDoc( $doc ){
 		/*Retorna el vector de parámetros */
 		$config["ctz"] = array( 'idcampo' => '#vctz', 'texto' => 'Validez cotización', 'data-param' => 'VCTZ' );
@@ -62,7 +77,7 @@
 		
 		return $config[$doc];
 	}
-	/*--------------------------------------------------------------------------------------------------------*/
+	/* ----------------------------------------------------------------------------------- */
 	function dataObs( $frt, $doc ){
 		/*	p: parametro para indicar si el campo es readonly o no
 			t: texto de la observación

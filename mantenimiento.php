@@ -68,6 +68,9 @@
     <script src="plugins/iCheck/icheck.min.js"></script>
 	  <script src="plugins/bootstrapvalidator-dist-0.5.3/dist/js/bootstrapValidator.min.js"></script>
 
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
+
     <script src="js/fn-sistema.js"></script>
     <style>
       .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }

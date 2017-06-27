@@ -11,8 +11,8 @@
 	include( "fn/fn-formato.php" );
 	checkSession( '' );
 	
-  	$nombre_usuario = $_SESSION["user"]["nombre"];
-  	for ( $i = 0; $i <= 5; $i++ ) { $datau[$i] = ""; }
+  $nombre_usuario = $_SESSION["user"]["nombre"];
+  	
 ?>
 <!DOCTYPE html>
 <html>
@@ -113,7 +113,7 @@
   <!-- Left side column. contains the logo and sidebar -->
   <?php 
     include("sub-scripts/nav/menu_ppal.php");
-    
+    /* $usuario:perfil.php */
     /* Data cotizaciones */
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $datau = dataU( $frt_c, $usuario ); 	// en: "fn/fn-formato.php"
