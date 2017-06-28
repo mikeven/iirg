@@ -126,7 +126,7 @@
   </header>
   <?php
     $fecha_actual = obtenerFechaHoy();
-
+    $lctabanco = obtenerListaCuentasBancarias( $dbh, $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("sub-scripts/nav/menu_ppal.php");?>
@@ -152,10 +152,10 @@
                 
                 <div class="box-body">
                   <div class="form-group">
-                    <select class="form-control" id="tnota">
-                      <option value="0" disabled selected class="nti">Tipo de registro</option>
-                      <option value="gasto" class="trg">Registro de gasto</option>
-                      <option value="pago" class="trg">Registro de pago</option>
+                    <select class="form-control" id="tgasto" name="tgasto">
+                      <option value="0" disabled selected class="tg">Tipo de registro</option>
+                      <option value="gasto" class="tg">Registro de gasto</option>
+                      <option value="pago" class="tg">Registro de pago</option>
                     </select>
                   </div><!-- /.form group -->
 
@@ -163,9 +163,9 @@
                       <div class="input-group date">
                           <div class="input-group-addon">
                               <i class="fa fa-calendar"></i> 
-                              <label for="datepicker" class="iconlab">Fecha emisión:</label>
+                              <label for="datepicker" class="iconlab">Fecha pago:</label>
                           </div>
-                          <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly value="<?php echo $fecha_actual; ?>">
+                          <input type="text" class="form-control" id="fpago" name="fecha_pago" required readonly value="<?php echo $fecha_actual; ?>">
                       </div>
                   </div><!-- /.form group -->
 
@@ -177,7 +177,7 @@
                     </div>
                   </div><!-- /.form group -->
 
-                  <div id="beneficiario" class="form-group">
+                  <div class="form-group">
                     <!--<label for="ncontrol">Beneficiario</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-user-circle-o"></i></div>
@@ -203,18 +203,36 @@
                   </div><!-- /.form group -->
 
                   <div class="form-group">
-                    <select class="form-control" id="fpago">
+                    <select class="form-control" id="forma_pago" name="forma_pago">
                       <option value="0" disabled selected class="ofp">Forma de pago</option>
                       <option value="EF" class="ofp">Efectivo</option>
                       <option value="TR" class="ofp">Transferencia</option>
                       <option value="CH" class="ofp">Cheque</option>
                     </select>
                   </div><!-- /.form group -->
-                    
+                  
+                  <div class="form-group">
+                    <select class="form-control" id="cbanco" name="cbanco">
+                      <option value="0" disabled selected class="ofp">Banco</option>
+                      <?php foreach( $lctabanco as $c ) { ?>
+                        <option value="<?php echo $c["dato2"]; ?>" class="ocb"><?php echo $c["dato2"]; ?></option>
+                      <?php } ?>
+                    </select>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <!--<label for="mbase">Num Operación</label>-->
+                      <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-wpforms"></i></div>
+                        <input type="text" class="form-control" id="noper" placeholder="N° Operación" 
+                        name="noper" required onkeypress="return isNumberKey(event)">
+                    </div>
+                  </div><!-- /.form group -->
+
                 </div><!-- /.box-body -->
 
               <div class="box-footer" align="center">
-                <button type="button" class="btn btn-primary original" id="bt_reg_compra">Guardar</button>
+                <button type="button" class="btn btn-primary original" id="bt_reg_gasto">Guardar</button>
                 <button type="button" class="btn btn-primary" id="bt_reg_art_modal" style="display:none;">Guardar</button>
               </div>
             </form>

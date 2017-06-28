@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2017 at 01:07 AM
+-- Generation Time: Jun 28, 2017 at 11:58 PM
 -- Server version: 5.1.43
 -- PHP Version: 5.3.2
 
@@ -2986,7 +2986,7 @@ CREATE TABLE IF NOT EXISTS `data_usuario` (
   `dato5` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idDato`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `data_usuario`
@@ -2998,7 +2998,8 @@ INSERT INTO `data_usuario` (`idDato`, `tipo`, `dato1`, `dato2`, `dato3`, `dato4`
 (3, '', 'Mercantil', 'www', NULL, NULL, NULL, 1),
 (4, '', 'Mercantil', 'sss', NULL, NULL, NULL, 1),
 (5, '', 'Mercantil', 'reee', NULL, NULL, NULL, 1),
-(6, '', 'Venezuela', '123', NULL, NULL, NULL, 1);
+(6, '', 'Venezuela', '123', NULL, NULL, NULL, 1),
+(7, 'bancario', 'BFC', 'Jurídica BFC', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -3366,6 +3367,8 @@ INSERT INTO `formato` (`idFormato`, `doc`, `entrada`, `enc1`, `enc2`, `enc3`, `e
 CREATE TABLE IF NOT EXISTS `gasto` (
   `idGasto` int(5) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `concepto` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` datetime NOT NULL,
   `fecha_pago` datetime NOT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
@@ -3374,14 +3377,19 @@ CREATE TABLE IF NOT EXISTS `gasto` (
   `beneficiario` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `forma_pago` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `banco` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `noperacion` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idGasto`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `gasto`
 --
 
+INSERT INTO `gasto` (`idGasto`, `tipo`, `estado`, `concepto`, `fecha_registro`, `fecha_pago`, `fecha_modificacion`, `monto`, `monto_pagado`, `beneficiario`, `forma_pago`, `banco`, `noperacion`, `idUsuario`) VALUES
+(1, 'gasto', 'creado', 'sssss', '2017-06-28 14:34:38', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '123151561651', 1),
+(2, 'gasto', 'creado', 'sssss', '2017-06-28 14:35:19', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '6562315614', 1),
+(3, 'gasto', 'creado', 'Pago electricidad', '2017-06-28 14:35:46', '2017-06-28 00:00:00', '2017-06-28 17:18:45', 2620.73, 1520.00, 'CORPOELEC', 'TR', 'Jurídica BFC', '12223258114', 1);
 
 -- --------------------------------------------------------
 

@@ -3,31 +3,30 @@
 	/* R&G - Funciones de g.s y pagos */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
-	function agregarg.( $dbh, $gasto, $idu ){
+	function agregarGasto( $dbh, $gasto, $idu ){
 		//Agrega un registro de compra
-		$fecha_emision = cambiaf_a_mysql( $gasto["fecha_emision"] );
-		$q = "insert into compra ( idProveedor, fecha_registro, fecha_emision, monto, iva, 
-		ncontrol, nfactura, idUsuario, estado ) values ( $gasto[idProveedor], NOW(), '$fecha_emision', 
-		$gasto[mbase], $gasto[iva], '$gasto[ncontrol]', '$gasto[nfactura]', $idu, 'creada' )";
+		$fpago = cambiaf_a_mysql( $gasto["fecha_pago"] );
+		$q = "insert into gasto ( tipo, concepto, fecha_registro, fecha_pago, monto, monto_pagado, 
+		beneficiario, forma_pago, banco, idUsuario ) values ( '$gasto[tgasto]', '$gasto[concepto]', 
+		NOW(), '$fpago', $gasto[monto], $gasto[mpagado], '$gasto[beneficiario]', '$gasto[forma_pago]', 
+		'$gasto[cbanco]', $idu )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerGastoPorId( $dbh, $id, $idu ){
-		//Devuelve registro de artículo dado el ID
-		$q = "Select g.idg. as idg., g.monto as mbase, g.iva as iva, 
-		date_format(g.fecha_emision,'%d/%m/%Y') as femision, g.estado as estado,  
-		date_format(g.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
-		g.ncontrol as ncontrol, g.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
-		from proveedor p, gasto g 
-		where g.idProveedor = p.idProveedor and gasti.idg. = $id and g.idUsuario = $idu";
+		//Devuelve registro de un registor de gasto dado el ID
+		$q = "Select idGasto, tipo, estado, concepto, monto, monto_pagado, concepto, beneficiario, 
+		banco, date_format(fecha_pago,'%d/%m/%Y') as fpago, noperacion,  
+		date_format(fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, forma_pago
+		from gasto where idGasto = $id and idUsuario = $idu";
 		
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		return $data;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerListag.s( $dbh, $idu ){
+	function obtenerListaGastos( $dbh, $idu ){
 		//Devuelve registro de artículo dado el ID
 		$lista_c = array();
 		$q = "select g.idg. as idg., g.monto as mbase, g.iva as iva, 
@@ -43,19 +42,21 @@
 		return $lista_c;	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function modificarCompra( $dbh, $gasto, $idu ){
-		//Modifica los datos de una compra
-		$q = "update compra set idProveedor = $gasto[idProveedor], fecha_modificacion = NOW(), 
-		monto = $gasto[mbase], iva = $gasto[iva], ncontrol = '$gasto[ncontrol]', nfactura = '$gasto[nfactura]'
-		where idg. = $gasto[idg.] and idUsuario = $idu";
+	function modificarGasto( $dbh, $gasto, $idu ){
+		//Modifica los datos de un registro de gasto
+		$fpago = cambiaf_a_mysql( $gasto["fecha_pago"] );
+		$q = "update gasto set tipo = '$gasto[tgasto]', concepto='$gasto[concepto]', fecha_modificacion = NOW(), 
+		fecha_pago = '$fpago', monto = $gasto[monto], monto_pagado = $gasto[mpagado], 
+		beneficiario = '$gasto[beneficiario]', forma_pago = '$gasto[forma_pago]', banco = '$gasto[cbanco]', 
+		noperacion = '$gasto[noper]' where idGasto = $gasto[idGasto] and idUsuario = $idu";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
-		return $gasto["idg."];		
+		return $gasto["idGasto"];		
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function eliminarCompra( $dbh, $idc, $estado, $idu ){
-		//Modifica el estado de una compra ('creada', 'eliminada')
-		$q = "update compra set estado = '$estado' where idg. = $idc and idUsuario = $idu";
+	function eliminarGasto( $dbh, $idg, $estado, $idu ){
+		//Modifica el estado de un gasto ('creado', 'eliminado')
+		$q = "update gasto set estado = '$estado' where idGasto = $idg and idUsuario = $idu";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();		
@@ -63,8 +64,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function mjeRespuestaEstado( $estado ){
 		$mje = array(
-			"eliminada" 		=> "Registro eliminado",
-			"creada"			=> "Registro recuperado"
+			"eliminado" 		=> "Registro eliminado",
+			"creado"			=> "Registro recuperado"
 		);
 		return $mje[$estado];
 	}
@@ -73,20 +74,20 @@
 	/* Solicitudes al servidor para procesar información de gastos */
 	/* ----------------------------------------------------------------------------------- */
 	
-	if( isset( $_POST["ncompra"] ) ){ //Registro o modificación de un gasto
+	if( isset( $_POST["rgasto"] ) ){ //Registro o modificación de un gasto
 		include( "bd.php" );
 		
 		$gasto = array();
-		parse_str( $_POST["ncompra"], $gasto );
-		if( $_POST["c_accion"] == "agregar" )
-			$idc = agregarGasto( $dbh, $gasto, $_POST["id_u"] );
-		if( $_POST["c_accion"] == "editar" )
-			$idc = modificarGasto( $dbh, $gasto, $_POST["id_u"] );
+		parse_str( $_POST["rgasto"], $gasto );
+		if( $_POST["g_accion"] == "agregar" )
+			$idg = agregarGasto( $dbh, $gasto, $_POST["id_u"] );
+		if( $_POST["g_accion"] == "editar" )
+			$idg = modificarGasto( $dbh, $gasto, $_POST["id_u"] );
 
-		if( ( $idc != 0 ) && ( $idc != "" ) ){
+		if( ( $idg != 0 ) && ( $idg != "" ) ){
 			$res["exito"] = 1;
 			$res["mje"] = "Gasto registrado";
-			$gasto["id"] = $idc;
+			$gasto["id"] = $idg;
 			$res["registro"] = $gasto;
 		}else{
 			$res["exito"] = 0;
@@ -96,15 +97,15 @@
 	}
 
 	/* ----------------------------------------------------------------------------------- */
-	if( isset( $_POST["ecompra"] ) ){
+	if( isset( $_POST["egasto"] ) ){
 		include( "bd.php" );
 		$idu = $_POST["id_u"];
-		$r = eliminarCompra( $dbh, $_POST["ecompra"], $_POST["edo"], $idu );
+		$r = eliminarGasto( $dbh, $_POST["egasto"], $_POST["edo"], $idu );
 		
 		if( ( $r != 0 ) ){
 			$res["exito"] = 1;
 			$res["mje"] = mjeRespuestaEstado( $_POST["edo"] );
-			$gasto["id"] = $_POST["ecompra"];
+			$gasto["id"] = $_POST["egasto"];
 			$res["registro"] = $gasto;
 		}else{
 			$res["exito"] = 0;

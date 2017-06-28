@@ -56,12 +56,12 @@ function strSerialForm( form, cont ){
 function guardarGasto( form, modo_respuesta, idhtml, accion ){
 	//Invocación a registrar compra
 	var url_data = "bd/data-gasto.php";
-	var compra = strSerialForm( $(form), form ); 
+	var gasto = strSerialForm( $(form), form ); 
 	var idu = $( '#idu_sesion' ).val();
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ ngasto: gasto, id_u: idu, c_accion: accion },
+        data:{ rgasto: gasto, id_u: idu, g_accion: accion },
         success: function( response ){
 			console.log(response);
 			res = jQuery.parseJSON(response);
@@ -72,7 +72,7 @@ function guardarGasto( form, modo_respuesta, idhtml, accion ){
 /* ----------------------------------------------------------------------------------- */
 function estadoGasto( id, estado, modo_respuesta, idhtml ){
 	//Invocación a registrar compra
-	var url_data = "bd/data-compra.php";
+	var url_data = "bd/data-gasto.php";
 	var idu = $( '#idu_sesion' ).val();
 	$.ajax({
         type:"POST", url:url_data, 
@@ -100,35 +100,45 @@ function valorExistente( html, clave, val, cres ){
 }
 /* ----------------------------------------------------------------------------------- */
 function checkGasto( mje_destino ){
-	//Validación de datos de artículo antes de registrarse
+	//Validación de datos de gasto antes de registrarse
 	var error = 0; var mje = "";
 	oRes = arrayMjes( mje_destino );
 	marcarCampo( $(".form-control"), 0 );
 	//$(oRes.idhtml).addClass("modal-danger");
 
-	if( $("#nproveedor").val() == '' ) {
-		error = 1; mje = "Debe indicar proveedor";
-		marcarCampo( $("#nproveedor"), error );
+	if( $("#tgasto").val() == 0 ) {
+		error = 1; mje = "Debe indicar tipo de gasto";
+		marcarCampo( $("#tgasto"), error );
 	}
 
-	if( $("#ncontrol").val() == '' ) {
-		error = 1; mje = "Debe escribir un número de control";
-		marcarCampo( $("#ncontrol"), error );
+	if( $("#concepto").val() == '' ) {
+		error = 1; mje = "Debe escribir un concepto";
+		marcarCampo( $("#concepto"), error );
 	}
 
-	if( $("#nfactura").val() == '' ) {
-		error = 1; mje = "Debe escribir un número de factura";
-		marcarCampo( $("#nfactura"), error );
+	if( $("#beneficiario").val() == '' ) {
+		error = 1; mje = "Debe escribir un beneficiario";
+		marcarCampo( $("#beneficiario"), error );
 	}
 
-	if( $("#mbase").val() == '' ) {
-		error = 1; mje = "Debe ingresar un monto base";
-		marcarCampo( $("#mbase"), error );
+	if( $("#monto").val() == '' ) {
+		error = 1; mje = "Debe ingresar un monto";
+		marcarCampo( $("#monto"), error );
 	}
 
-	if( $("#iva").val() == '' ) {
-		error = 1; mje = "Debe ingresar monto de IVA";
-		marcarCampo( $("#iva"), error );
+	if( $("#mpagado").val() == '' ) {
+		error = 1; mje = "Debe indicar el monto pagado";
+		marcarCampo( $("#mpagado"), error );
+	}
+
+	if( $("#forma_pago").val() == 0 ) {
+		error = 1; mje = "Debe indicar forma de pago";
+		marcarCampo( $("#forma_pago"), error );
+	}
+
+	if( $("#cbanco").val() == 0 ) {
+		error = 1; mje = "Debe indicar cuenta de banco";
+		marcarCampo( $("#cbanco"), error );
 	}
 
 	if( error == 1 ){
@@ -156,7 +166,7 @@ $( document ).ready(function() {
 
 	initValid();
 
-	$('#femision').datepicker({
+	$('#fpago').datepicker({
 		autoclose: true,
 		format:'dd/mm/yyyy',
 		language:'es',
@@ -172,22 +182,22 @@ $( document ).ready(function() {
     });
 	/*--------------------*/
 	$("#bt_reg_gasto").on( "click", function() {	// Agregar registro de compra
-		if( checkCompra('modal') == 0 )
-			guardarCompra( "#frm_ncompra", "redireccion", '', "agregar" );
+		if( checkGasto('modal') == 0 )
+			guardarGasto( "#frm_ngasto", "redireccion", '', "agregar" );
 		else
 			$("#enl_vmsj").click();	
 	});
 	/*--------------------*/
 	$("#bt_mod_gasto").on( "click", function() {	// Modificar registro de compra
-		if( checkCompra('modal') == 0 )
-			guardarCompra( "#frm_mcompra", "redireccion", '', "editar" );
+		if( checkGasto('modal') == 0 )
+			guardarGasto( "#frm_mgasto", "redireccion", '', "editar" );
 		else
 			$("#enl_vmsj").click();	
 	});
 	/*--------------------*/
 	$("#bt_edo_gasto").on( "click", function() {	// Eliminar/Recuperar registro de compra
 		$("#closeModal").click();
-		estadoCompra( $("#idCompra").val(), $("#edoaccion").val(), "ventana", '' );
+		estadoGasto( $("#idGasto").val(), $("#edoaccion").val(), "ventana", '' );
 		$(".btn_edo_accion").fadeOut("slow");
 		$("#ventana_mensaje").on("hidden.bs.modal", function () {
 		    location.reload();
