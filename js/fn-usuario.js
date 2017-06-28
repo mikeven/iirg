@@ -140,10 +140,16 @@ function modificarDatosUsuario( param ){
     });
 }
 /* --------------------------------------------------------- */
-function actualizarTablaCtasBancarias( data ){
-	var item_d = "<tr><th>" + data.banco + "</th><th>" + data.desc + "</th></tr>";
-	$( item_d ).appendTo( "#lbancos_usuario tbody").show("slow");
-	$( '#bdescripcion' ).val(""); $("#banco").val(0);
+function actualizarTablaCtasBancarias( a, data ){
+	if( a == '+' ){
+		var item_d = "<tr><th>" + data.banco + "</th><th>" + data.desc + "</th></tr>";
+		$( item_d ).appendTo( "#lbancos_usuario tbody").show("slow");
+		$( '#bdescripcion' ).val(""); $("#banco").val(0);
+	}else{
+		$( "#cb" + data ).hide('slow', function(){ 
+			$( this ).remove(); 
+		});
+	}
 }
 /* --------------------------------------------------------- */
 function agregarCuentaBancaria(){
@@ -159,7 +165,28 @@ function agregarCuentaBancaria(){
 			res = jQuery.parseJSON(response);
 			if( res.exito == '1' ){
 				console.log(response);
-				actualizarTablaCtasBancarias( res.registro );
+				actualizarTablaCtasBancarias( '+', res.registro );
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show(100);
+				$("#txerr").html(res.mje);
+			}
+        }
+    });
+}
+/* --------------------------------------------------------- */
+function elimRegCA( idc ){
+	//Invocación a eliminar registro de cuenta bancaria
+
+	$.ajax({
+        type:"POST",
+        url:"bd/data-usuario.php",
+        data:{ el_cuenta: idc },
+        success: function( response ){
+			res = jQuery.parseJSON(response);
+			if( res.exito == '1' ){
+				console.log(response);
+				actualizarTablaCtasBancarias( '-', idc );
 			}
 			if( res.exito == '0' ){
 				$("#mje_error").show(100);

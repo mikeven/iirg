@@ -195,18 +195,26 @@
 	/* ----------------------------------------------------------------------------------- */
 	function guardarCuentaBancaria( $dbh, $cuenta, $idu  ){
 		//Guarda un registro de cuenta bancaria
-		$q = "insert into data_usuario (dato1, dato2, idUsuario ) 
-		values ( '$cuenta[banco]', '$cuenta[desc]', $idu )";
+		$q = "insert into data_usuario (tipo, dato1, dato2, idUsuario ) 
+		values ( 'bancario','$cuenta[banco]', '$cuenta[desc]', $idu )";
 		//echo $q;
 		$data = mysql_query ( $q, $dbh );
 		
 		return mysql_insert_id();	
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function eliminarCuentaBancaria( $dbh, $idc ){
+		//Elimina un registro de cuenta bancaria
+		$q = "delete from data_usuario where idDato = $idc";
+		$data = mysql_query( $q, $dbh );
+		
+		return mysql_affected_rows();
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaCuentasBancarias( $dbh, $idu ){
 		//Devuelve la lista de cuentas bancarias asociadas a la cuenta de usuario
 		$cuentas = array();
-		$q = "select dato1, dato2 from data_usuario where tipo='bancario' and idUsuario = $idu";
+		$q = "select idDato, dato1, dato2 from data_usuario where tipo='bancario' and idUsuario = $idu";
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
 			$cuentas[] = $item;	
@@ -353,6 +361,26 @@
 		}
 		echo json_encode( $res );	
 	}
+	/* ----------------------------------------------------------------------------------- */
+	//Agregar cuenta bancaria (asinc)
+	if( isset( $_POST["el_cuenta"] ) ){
+		
+		include("bd.php");
+		$idc = $_POST["el_cuenta"];
+		$rsl = eliminarCuentaBancaria( $dbh, $idc );
+		
+		if( ( $rsl == 1 ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Cuenta eliminada";
+			$cuenta["id"] = $idc;
+			$res["registro"] = $cuenta;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al eliminar cuenta";
+		}
+		echo json_encode( $res );	
+	}
+
 	/* ----------------------------------------------------------------------------------- */
 
 ?>

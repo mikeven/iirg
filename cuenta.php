@@ -313,7 +313,7 @@
                       <!-- Bloque de respuesta del servidor -->
                       <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" 
                       class="hidden"></button>
-                      <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
+                      <?php include("sub-scripts/nav/mensaje_respuesta.php"); ?>
                       <!-- /.Bloque de respuesta del servidor -->
 
                     </form>
@@ -323,9 +323,17 @@
                     
                     <table id="lbancos_usuario" class="table table-bordered">
                       <tbody>
-                        <tr><th>Banco</th><th>Descrición</th></tr>
+                        <tr><th>Banco</th><th>Descrición</th><th></th></tr>
                         <?php foreach( $lctabanco as $c ) { ?>
-                          <tr><th><?php echo $c["dato1"] ?></th><th><?php echo $c["dato2"] ?></th></tr>
+                          <tr id="cb<?php echo $c["idDato"];?>">
+                            <th><?php echo $c["dato1"] ?></th>
+                            <th><?php echo $c["dato2"] ?></th>
+                            <th>
+                              <button type="button" class="btn btn-block btn-danger btn-xs ecb" 
+                              onclick="elimRegCA(<?php echo $c["idDato"];?>)">
+                              <i class="fa fa-times"></i></button>
+                            </th>
+                          </tr>
                         <?php } ?>
                       </tbody>
                     </table>
