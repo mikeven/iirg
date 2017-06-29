@@ -165,6 +165,7 @@ function iniciarVentanaConfirmacion( boton, titulo ){
 $( document ).ready(function() {
 
 	initValid();
+	$("#selcompra").hide();
 
 	$('#fpago').datepicker({
 		autoclose: true,
@@ -173,13 +174,24 @@ $( document ).ready(function() {
 		title:true
 	});
 	/*--------------------*/
-	$(".item_proveedor_lmodal").click( function(){
+	$(".item_compra_lmodal").click( function(){
 
-		$("#nproveedor").val( $(this).attr("data-label") );
-		$("#idProveedor").val( $(this).attr("data-idp") );
-		$("#nproveedor").css({'border-color' : '#ccc'});
-		$("#xmodalproveedor").click();
+		$("#ncompra").val( $(this).attr("data-label") );
+		$("#monto").val( $(this).attr("data-tmonto") );
+		$("#concepto").val( $(this).attr("data-concepto") );
+		$("#beneficiario").val( $(this).attr("data-beneficiario") );
+		$("#ncompra").css({'border-color' : '#ccc'});
+		$("#xmodalcompra").click();
     });
+
+	$("#tgasto").on( "change", function() {
+		if( $(this).val() == "pago" ){
+			$("#selcompra").show(300);
+		}else{
+			$("#selcompra").fadeOut(300);
+		}
+    });
+
 	/*--------------------*/
 	$("#bt_reg_gasto").on( "click", function() {	// Agregar registro de compra
 		if( checkGasto('modal') == 0 )

@@ -31,7 +31,7 @@
 		//Devuelve registro de artículo dado el ID
 		$lista_c = array();
 		$q = "select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, 
-		date_format(c.fecha_emision,'%d/%m/%Y') as femision, 
+		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal,
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
 		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'creada'";

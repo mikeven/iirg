@@ -159,6 +159,24 @@
                     </select>
                   </div><!-- /.form group -->
 
+                  <div id="selcompra" class="form-group">
+                     <div class="input-group">
+                        <div class="input-group-btn">
+                           <button type="button" class="btn btn-primary" data-toggle="modal" 
+                              data-target="#lista_compras">COMPRAS</button>
+                        </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control" id="ncompra" readonly name="compra" value="">
+                        <input type="hidden" class="form-control" id="idCompra" name="idCompra" value="">
+                     </div>
+                  </div>
+                  <!-- /.form group -->
+                  <!-- Modal -->
+                     <?php 
+                       include( "sub-scripts/tablas/tabla_compras_modal.php" );
+                     ?>
+                  <!-- /.Modal -->
+
                   <div class="form-group">
                       <div class="input-group date">
                           <div class="input-group-addon">

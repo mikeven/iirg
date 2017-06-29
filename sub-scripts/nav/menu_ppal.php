@@ -92,7 +92,7 @@
         
         <li class="header">REPORTES</li>
         <li class="treeview">
-          <a href="#">
+          <a href="reportes.php">
             <i class="fa fa-bar-chart"></i> <span>Reportes</span>
             <!--<i class="fa fa-angle-left pull-right"></i>-->
           </a>
