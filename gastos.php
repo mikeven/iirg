@@ -1,13 +1,14 @@
 <?php
 	/*
-	 * R&G - Registro de compras
+	 * R&G - Registro de gastos
 	 * 
 	 */
 	session_start();
 	ini_set( 'display_errors', 1 );
   include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
-	include( "bd/data-compra.php" );
+	include( "bd/data-gasto.php" );
+
 	checkSession( '' );
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Registro de compras</title>
+  <title>IIRG | Registro de gastos</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -109,11 +110,11 @@
               <!-- general form elements -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">LISTA DE COMPRAS REGISTRADAS</h3>
+                  <h3 class="box-title">LISTA DE GASTOS REGISTRADOS</h3>
                   <div class="icon-color"><i class="fa fa-shopping-cart fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	  <div class="box-body">
-                	<?php include( "sub-scripts/tablas/tabla_compras.php" )?>
+                	<?php include( "sub-scripts/tablas/tabla_gastos.php" );?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!--/.col (left) -->

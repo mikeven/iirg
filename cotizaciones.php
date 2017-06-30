@@ -1,6 +1,6 @@
 <?php
 	/*
-	 * R&G - Inicio de sesión
+	 * R&G - Registro de cotizaciones
 	 * 
 	 */
 	session_start();

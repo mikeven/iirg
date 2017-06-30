@@ -28,18 +28,17 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaGastos( $dbh, $idu ){
 		//Devuelve registro de artículo dado el ID
-		$lista_c = array();
-		$q = "select g.idg. as idg., g.monto as mbase, g.iva as iva, 
-		date_format(g.fecha_emision,'%d/%m/%Y') as femision, 
-		date_format(g.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
-		g.ncontrol as ncontrol, g.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
-		from proveedor p, g. g where g.idProveedor = p.idProveedor and g.idUsuario = $idu and estado = 'creada'";
+		$lista_g = array();
+		$q = "select idGasto, tipo, beneficiario, concepto, 
+		date_format(fecha_pago,'%d/%m/%Y') as fpago, 
+		date_format(fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
+		banco, monto, monto_pagado, forma_pago, noperacion from gasto where idUsuario = $idu";		
 		
 		$data = mysql_query( $q, $dbh );
-		while( $c = mysql_fetch_array( $data ) ){
-			$lista_c[] = $c;	
+		while( $g = mysql_fetch_array( $data ) ){
+			$lista_g[] = $g;	
 		}
-		return $lista_c;	
+		return $lista_g;	
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function modificarGasto( $dbh, $gasto, $idu ){
