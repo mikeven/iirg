@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/iCheck/all.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <!-- Select2 -->
@@ -47,13 +49,19 @@
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
+    <!-- date-range-picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <!-- DataTables -->
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- page script -->
-    <script src="js/fn-clientes.js"></script>
+    <script src="js/fn-reportes.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -125,24 +133,24 @@
                   <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body">
                       <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                          <a href="#!"><b>Relación de gastos</b> 
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="relacion_gastos" class="treporte"><b>Relación de gastos</b> 
                           <span class="pull-right"><i class="fa fa-cart-arrow-down"></i></span></a>
                         </li>
-                        <li class="list-group-item">
-                          <a href="#!"><b>Pago de facturas</b> 
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="pago_facturas" class="treporte"><b>Pago de facturas</b> 
                           <span class="pull-right"><i class="fa fa-reply"></i></span></a>
                         </li>
-                        <li class="list-group-item">
-                          <a href="#!"><b>Libro de Ventas</b> 
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="libro_ventas" class="treporte"><b>Libro de Ventas</b> 
                           <span class="pull-right"><i class="fa fa-book"></i></span></a>
                         </li>
-                        <li class="list-group-item">
-                          <a href="#!"><b>Libro de Compras</b> 
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="libro_compras" class="treporte"><b>Libro de Compras</b> 
                           <span class="pull-right"><i class="fa fa-book"></i></span></a>
                         </li>
-                        <li class="list-group-item">
-                          <a href="#!"><b>Facturas por cobrar</b> 
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="facturas_porcobrar" class="treporte"><b>Facturas por cobrar</b> 
                           <span class="pull-right"><i class="fa fa-clock-o"></i></span></a>
                         </li>
                       </ul>
@@ -177,50 +185,70 @@
         <!-- Panel exposición de reportes -->
         <div class="col-md-9">
           <div class="box">
+                
+            <div class="box-header">
+              <h3 class="box-title"><span id="titulo_reporte"></span></h3>
+            </div><!-- /.box-header -->
+            
+            <div class="box-body">
+              <div class="form-group">
+                <label>Rango de fecha:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control pull-right" id="frango">
+                  <span class="input-group-btn">
+                    <button id="bt_breporte" type="button" class="btn btn-primary btn-flat" data-r="">Buscar</button>
+                  </span>
+                </div><!-- /.input group -->
+              </div>
+
+            </div><!-- /.box-body -->
+
+          </div>
+          
+          <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Responsive Hover Table</h3>
                   
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                  <table class="table table-hover">
-                    <tbody><tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                  </tbody></table>
+                  <table id="tabla_reporte" class="table table-hover">
+                    <thead>
+                      
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>183</td>
+                        <td>John Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="label label-success">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>219</td>
+                        <td>Alexander Pierce</td>
+                        <td>11-7-2014</td>
+                        <td><span class="label label-warning">Pending</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>657</td>
+                        <td>Bob Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="label label-primary">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>175</td>
+                        <td>Mike Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="label label-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div><!-- /.box-body -->
-              </div>
+          </div>
+        
         </div>
         <!-- /.col -->
       </div>  

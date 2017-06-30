@@ -71,4 +71,15 @@
 #bloque_data_documento{ margin: 10px 3px 10px 10px !important; width: 21.7% !important; }
 .bdatadoc{ padding: 8px; }
 
-
+/*-------------------------------------------*/
+    /*  ---------  reportes.php  --------*/
+/*-------------------------------------------*/
+.selreporte{
+	padding: 10px !important;
+}
+.rseleccionado{ 
+	background: #3c8dbc !important;
+}
+.rseleccionado a{ 
+	color: #FFF !important;
+}
