@@ -7,7 +7,7 @@
   ini_set( 'display_errors', 1 );
   include( "bd/bd.php" );
   include( "bd/data-usuario.php" );
-  include( "bd/data-cotizacion.php" );
+  //include( "bd/data-cotizacion.php" );
   include( "fn/fn-documento.php" );
   checkSession( '' );
 ?>
@@ -201,49 +201,19 @@
                 </div><!-- /.input group -->
               </div>
 
-            </div><!-- /.box-body -->
+            </div> <!--/.box-body -->
 
           </div>
           
           <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Responsive Hover Table</h3>
-                  
-                </div><!-- /.box-header -->
+                <div class="box-header"><!--<h3 class="box-title">Resultados</h3>--></div>
                 <div class="box-body table-responsive no-padding">
                   <table id="tabla_reporte" class="table table-hover">
                     <thead>
                       
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>183</td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="label label-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>219</td>
-                        <td>Alexander Pierce</td>
-                        <td>11-7-2014</td>
-                        <td><span class="label label-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>657</td>
-                        <td>Bob Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="label label-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>175</td>
-                        <td>Mike Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="label label-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->

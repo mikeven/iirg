@@ -5,18 +5,6 @@
 	ini_set( 'display_errors', 1 );
 	/*--------------------------------------------------------------------------------------------------------*/
 	/*--------------------------------------------------------------------------------------------------------*/
-	function reporteEncabezado( $reporte ){
-		//Retorna los campos de encabezado de las tablas de reporte
-		$encabezados = array(
-			"relacion_gastos" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "MONTO", "BANCO", "F/P", "N°"),
-			"pago_facturas" => array (""),
-			"libro_ventas" => array (""),
-			"libro_compras" => array (""),
-			"facturas_porcobrar" => array ("")
-		);
-
-		return $encabezados[$reporte];
-	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerFechaHoy(){
 		//Retorna la fecha actual en el formato dd/mm/aaaa
@@ -30,7 +18,7 @@
 		date_format(fecha_pago,'%d/%m/%Y') as fpago, 
 		date_format(fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		banco, monto, monto_pagado, forma_pago, noperacion from gasto 
-		where ( fecha_pago BETWEEN '$fecha_i' AND '$fecha_f' ) and idUsuario = $idu";		
+		where ( fecha_pago BETWEEN '$fecha_i' AND '$fecha_f' ) and tipo='gasto' and idUsuario = $idu";		
 		
 		$data = mysql_query( $q, $dbh );
 		while( $g = mysql_fetch_array( $data ) ){
@@ -43,11 +31,15 @@
 	if( isset( $_POST["reporte"] ) ){ 
 		//Invocación a obtención de reporte
 		include( "bd.php" );
+		include( "../fn/fn-reportes.php" );
+
 		$idu = $_POST["id_u"];
 		$nombre_reporte = $_POST["reporte"];	
-		if( $nombre_reporte == "relacion_gastos" ){
-			$reporte["data"] = obtenerReporteRelacionGastos( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+		if( $nombre_reporte == "relacion_gastos" ){			
+			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
 			$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );
+			$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );
+			$reporte["totales"] = totalesReporte( $nombre_reporte, $reporte_data );
 			echo json_encode( $reporte );
 		}
 	}

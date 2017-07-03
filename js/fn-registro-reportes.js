@@ -18,64 +18,23 @@ function reiniciarTabla(){
 	$( '#tabla_reporte tbody' ).html("");		
 }
 /* ----------------------------------------------------------------------------------- */
-function agregarEncabezados( tencabezado, encabezado ){
-	//Retorna los encabezados de la tabla del reporte
-	$.each( encabezado, function( key, value ) {
-	  tencabezado += "<td align='center'>" + value + "</td>";
-	});	tencabezado += "</tr>";
-	return tencabezado;
-}
-/* ----------------------------------------------------------------------------------- */
-function agregarFilasReporte( filas, registros ){
-	//Retorna las filas con los registros del reporte
-	$.each( registros, function( arreglo, fila ) {
-	  filas += "<tr class='fila_tab_rep'>";	
-	  $.each( fila, function( campo, valor ) {
-	  	filas += "<td align='center'>" + valor + "</td>";
-	  }); filas += "</tr>";
-	});
-	return filas;
-}
-/* ----------------------------------------------------------------------------------- */
-function agregarFilaVacia( encabezado ){
-	//Agrega una fila vacía para separar los registros de la totalización
-	var fila = "<tr>";
-	$.each( encabezado, function() { fila += "<td>&nbsp;</td>"; });
-	fila += "</tr>";
-	return fila;
-}
-/* ----------------------------------------------------------------------------------- */
-function agregarFilaTotales( encabezado, totales ){
-	//Ingresa los totales en las columnas correspondientes del reporte
-	var fila = "<tr>"; 
-	var col = "<td></td>"; 
-	$.each( encabezado, function( ntitulo, titulo ) {
-		$.each( totales, function( vector, total ) {
-			if( titulo == total.posicion )
-				fila += "<td align='center'><b>" + total.total + "</b></td>";
-			else
-				fila += col;
-		});
-	}); fila += "</tr>";
-
-	return fila;
-}
-/* ----------------------------------------------------------------------------------- */
 function enviarDataReporte( data_reporte ){
 	var encabezado = data_reporte.encabezado;
-	var registros = data_reporte.registros;
-	var totales = data_reporte.totales;
+	var registros = data_reporte.data;
 	var tencabezado = "<tr class='enc_tab_rep'>";
-	var filas = "";
+	var tfila = "<tr class='fila_tab_rep'>";
 	reiniciarTabla();
-	tencabezado += agregarEncabezados( tencabezado, encabezado );
+
+	$.each( encabezado, function( key, value ) {
+	  tencabezado += "<td>" + value + "</td>";
+	});	tencabezado += "</tr>";
 	
-	filas += agregarFilasReporte( filas, registros );
-	filas += agregarFilaVacia( encabezado );
-	filas += agregarFilaTotales( encabezado, totales );
+	$.each( registros ) {
+	  tfila += "<td>" + value + "</td>";
+	}); tfila += "</tr>";
 
 	$( '#tabla_reporte thead' ).append( tencabezado ).show('slow');
-	$( '#tabla_reporte tbody' ).append( filas ).show('slow');
+	$( '#tabla_reporte tbody' ).append( tfila ).show('slow');
 }
 /* ----------------------------------------------------------------------------------- */
 function obtenerReporte( r, fini, ffin ){
@@ -86,7 +45,7 @@ function obtenerReporte( r, fini, ffin ){
         url:url_data,
         data:{ reporte: r, f_ini: fini, f_fin: ffin, id_u:idu },
         	success: function( response ){
-			console.log(response);
+			//console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarDataReporte( res );
         }
