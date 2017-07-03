@@ -11,84 +11,14 @@
   
   checkSession( '' );
   
-  if( isset( $_GET["tipo_documento"] ) && ( isset( $_GET["id"] ) ) ){
-    $id = $_GET["id"];
-    $tdd = $_GET["tipo_documento"]; 
-    $ftdd = $tdd; $tipo_n = "";
-
-    if( $tdd == "ctz" ){
-      $documento = obtenerCotizacionPorId( $dbh, $id );
-      $tdocumento = "Cotización";
-    }
-    if( $tdd == "sctz" ){
-      $documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
-      $tdocumento = "Solicitud de Cotización";
-    }      
-    if( $tdd == "odc" ){
-      $documento = obtenerOrdenCompraPorId( $dbh, $id );
-      $tdocumento = "Orden de compra";
-    }
-    if( $tdd == "fac" ){
-      $documento = obtenerFacturaPorId( $dbh, $id );
-      $tdocumento = "Factura";
-    }
-    if( $tdd == "nota" ){
-
-      $tipo_n = obtenerTipoNotaPorId( $dbh, $id );
-      $documento = obtenerNotaPorId( $dbh, $id, $tipo_n );
-      $encabezado = $documento["encabezado"];
-      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" ); //data-nota.php
-
-      $t_concepto = $encabezado["tipo_concepto"];
-      $c_concepto = $encabezado["concepto"];
-      $detalle_d = $documento["detalle"];
-
-      $tdocumento = etiquetaNota( $tipo_n, "etiqueta" ); //data-nota.php
-      $ftdd = docBD( $tipo_n );                          //data-formato.php
-      
-      if ( $tipo_n != "nota_entrega" ){
-        $factura_nota = obtenerFacturaPorId( $dbh, $encabezado["idfactura"] );
-        $nfact_nota = $factura_nota["encabezado"]["nro"];  
-      }
-
-      if( $t_concepto != "Ajuste global" )
-          $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
-        else
-          $totales = obtenerTotalesFijos( $encabezado );
-    }
-    
-    $encabezado = $documento["encabezado"];
-    $detalle_d = $documento["detalle"];
-    
-    for( $iobs = 1; $iobs <= 3; $iobs++ ){ 
-      $obs[$iobs] = $encabezado["obs$iobs"]; 
-    }
-    $eiva = $encabezado["iva"] * 100;
-    
-    if( $tdd != "nota" ) //Los totales se calculan para todos los documentos excepto las notas
-        $totales = obtenerTotales( $detalle_d, $encabezado["iva"] );
-  }
-  else{
-
-  }
-  
   if( isset( $_GET["idu"] ) ){
     $idusuario = $_GET["idu"];
   }
   /*========================================================*/
-  function tieneEncabezado( $tdd, $tn ){
-    //Determina si un documento lleva el encabezado configurado en el formato
-    $tiene = true;
+  
+  
 
-    if( $tdd == "fac" ) 
-        $tiene = false;
-    if( ( $tdd == "nota" ) && ( $tn != "nota_entrega" ) ) 
-      $tiene = false;
-
-    return $tiene;
-  }
   /*========================================================*/
-  $tencabezado = tieneEncabezado( $tdd, $tipo_n );
 ?>
 <!DOCTYPE html>
 <html>
@@ -172,98 +102,15 @@
     $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $idusuario );
   ?>
 <body onload="window.print();">
-<div class="wrapper">
-  <!-- Main content -->
-  <section class="invoice">
-    <!-- info row -->
-          
-          <?php if( $tencabezado ) { ?>
-            <div class="row" id="membrete">
-                <div class="col-sm-2"></div><!-- /.col -->
-                <div class="col-sm-8" align="center">
-                  
-                  <div id="lin1"> <?php echo $frt["enc1"]; ?> </div>
-                  <div id="lin2"> <?php echo $frt["enc2"]; ?> </div>
-                  <div id="lin3" class="membrete3"> <?php echo $frt["enc3"]; ?> </div>
-                  <div id="lin4" class="membrete3"> <?php echo $frt["enc4"]; ?> </div>
-                  <div id="lin5" class="membrete3"> <?php echo $frt["enc5"]; ?> </div>
-                  <div id="lin6" class="membrete3"> <?php echo $frt["enc6"]; ?> </div>
+  <div class="wrapper">
+    <!-- Main content -->
+    <section class="invoice">
 
-                </div>
-                <div class="col-sm-2"></div><!-- /.col -->
-            </div><!-- /.row -->
-          <?php } ?>
 
-          <div class="row" id="encabezado">
-              <div class="col-sm-6 invoice-col" id="dcliente">
-                  <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
-                  <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
-                  <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
-                  <div id="dc_rif"><?php echo $encabezado["rif"]?></div>
-                  <?php if( ( $tdd == "nota" ) || ( $tdd == "nota" ) ) { ?>
-                    <div id="dc_telf">
-                      <?php echo $encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
-                    </div>  
-                  <?php } ?>  
-              </div><!-- /.col -->
-              
-              <div id="dmed" class="col-sm-2 invoice-col"> </div><!-- /.col -->
-              
-              <!-- Datos documento -->
-              <?php include("sub-scripts/impresion/datos_documento.php");?>
-              <!-- /.Datos documento -->
-              
-          </div><!-- /.row -->
-          
-          <!-- Texto introductorio -->
-          <div class="row">
-            <div class="col-xs-12" id="texto_introductorio">
-              <p class="tentrada"><?php echo $encabezado["intro"]; ?></p>
-            </div> 
-          </div><!-- /.Texto introductorio -->
 
-          <!-- Table row -->
-          <div class="row" id="detalle_doc">
-            <div class="col-xs-12 table-responsive">
-              <table id="tabla_detalle_doc" class="table">
-                <thead>
-                  <tr>
-                    <th align="center">Descripción</th>
-                    <th align="center">Cant</th>
-                    <th align="center">UND</th>
-                    <th align="center">Precio Unitario</th>
-                    <th align="center">Total BsF.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan="5" align="left" class=""><div id="bordeado_doble"></div></td>
-                  </tr>
-                  <?php foreach( $detalle_d as $item ) { ?>
-                  <tr>
-                    <td class="tit_tdf_i" align="left"><?php echo $item["descripcion"];?></td>
-                    <td class="tit_tdf" align="center"><?php echo $item["cantidad"];?></td>
-                    <td class="tit_tdf" align="center"><?php echo $item["und"];?></td>
-                    <td class="tit_tdf" align="right">
-                      <?php echo number_format( $item["punit"], 2, ",", "." );?>
-                    </td>
-                    <td class="tit_tdf" align="right">
-                      <?php echo number_format( $item["ptotal"], 2, ",", "." );?>
-                    </td>
-                  </tr>
-                  <?php } //end: foreach ?>
-                </tbody>
-              </table>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-          <!-- Pie de documento -->
-          <?php include("sub-scripts/impresion/pie.php");?>
-          <!-- /.Pie de documento -->
-
-  </section>
-  <!-- /.content -->
-</div>
+    </section>
+    <!-- /.content -->
+  </div>
 <!-- ./wrapper -->
 </body>
 </html>

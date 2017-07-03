@@ -6,7 +6,7 @@
 		//Retorna los campos de encabezado de las tablas de reporte
 		$encabezados = array(
 			"relacion_gastos" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO"),
-			"pago_facturas" => array (""),
+			"pago_facturas" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO", "MONTO PAGADO"),
 			"libro_ventas" => array (""),
 			"libro_compras" => array (""),
 			"facturas_porcobrar" => array ("")
@@ -21,7 +21,10 @@
 			"relacion_gastos" => array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
 										 $r["banco"], $r["forma_pago"], $r["noperacion"],
 										number_format( $r["monto"], 2, ",", "." ) ),
-			"pago_facturas" => array (""),
+			"pago_facturas" => array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
+										 $r["banco"], $r["forma_pago"], $r["noperacion"],
+										number_format( $r["monto"], 2, ",", "." ), 
+										number_format( $r["monto_pagado"], 2, ",", "." ) ),
 			"libro_ventas" => array (""),
 			"libro_compras" => array (""),
 			"facturas_porcobrar" => array ("")
@@ -42,7 +45,7 @@
 		$utotales = array();
 		$vtotales = array(
 			"relacion_gastos" => array ( "MONTO*monto" ),
-			"pago_facturas" => array (""),
+			"pago_facturas" => array ("MONTO*monto", "MONTO PAGADO*monto_pagado"),
 			"libro_ventas" => array (""),
 			"libro_compras" => array (""),
 			"facturas_porcobrar" => array ("")

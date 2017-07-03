@@ -48,20 +48,25 @@ function agregarFilaVacia( encabezado ){
 function agregarFilaTotales( encabezado, totales ){
 	//Ingresa los totales en las columnas correspondientes del reporte
 	var fila = "<tr>"; 
-	var col = "<td></td>"; 
+	var col = "<td></td>";
+	var coincide_titulo = false;
+	
 	$.each( encabezado, function( ntitulo, titulo ) {
-		$.each( totales, function( vector, total ) {
-			if( titulo == total.posicion )
-				fila += "<td align='center'><b>" + total.total + "</b></td>";
-			else
-				fila += col;
+		coincide_titulo = false;
+		$.each( totales, function( vector, valor ) {
+			if( titulo == valor.posicion ){
+				fila += "<td align='center'><b>" + valor.total + "</b></td>";
+				coincide_titulo = true;
+			}
 		});
+		if ( coincide_titulo == false ) fila += col;
 	}); fila += "</tr>";
 
 	return fila;
 }
 /* ----------------------------------------------------------------------------------- */
 function enviarDataReporte( data_reporte ){
+	//Recibe los datos del reporte y los imprime en la tabla de resultados
 	var encabezado = data_reporte.encabezado;
 	var registros = data_reporte.registros;
 	var totales = data_reporte.totales;
@@ -81,20 +86,27 @@ function enviarDataReporte( data_reporte ){
 function obtenerReporte( r, fini, ffin ){
 	var idu = $( '#idu_sesion' ).val();
 	var url_data = "bd/data-reportes.php";
+	var tg = "";
+	if( r == "relacion_gastos" ) tg = "gasto";
+	if( r == "pago_facturas" ) tg = "pago";
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ reporte: r, f_ini: fini, f_fin: ffin, id_u:idu },
-        	success: function( response ){
-			console.log(response);
+        data:{ reporte: r, tipo:tg, f_ini: fini, f_fin: ffin, id_u:idu },
+        beforeSend: function () {
+			$("#impresion_reporte").hide();	
+		},
+        success: function( response ){
+			//console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarDataReporte( res );
+			$("#impresion_reporte").fadeIn("slow");
         }
     });
 }
 /* =================================================================================== */
 $( document ).ready(function() {
-	
+	$("#impresion_reporte").hide();
 	//Date range picker
     $('#frango').daterangepicker({
 		"format": "DD/MM/YYYY",

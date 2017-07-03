@@ -194,7 +194,7 @@
               <div class="form-group">
                 <label>Rango de fecha:</label>
                 <div class="input-group">
-                  <input type="text" class="form-control pull-right" id="frango">
+                  <input type="text" class="form-control pull-right" id="frango" readonly="true">
                   <span class="input-group-btn">
                     <button id="bt_breporte" type="button" class="btn btn-primary btn-flat" data-r="">Buscar</button>
                   </span>
@@ -206,17 +206,23 @@
           </div>
           
           <div class="box">
-                <div class="box-header"><!--<h3 class="box-title">Resultados</h3>--></div>
-                <div class="box-body table-responsive no-padding">
-                  <table id="tabla_reporte" class="table table-hover">
-                    <thead>
-                      
-                    </thead>
-                    <tbody>
-                      
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
+            <div class="box-header"><!--<h3 class="box-title">Resultados</h3>--></div>
+            <div class="box-body table-responsive no-padding">
+              <table id="tabla_reporte" class="table table-hover">
+                <thead>
+                  
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+            </div><!-- /.box-body -->
+
+            <div id="impresion_reporte">
+              <a href="impresion-reporte.php?" class="btn btn-app" target="_blank">
+                <i class="fa fa-print fa-2x"></i> Imprimir
+              </a>
+            </div>
           </div>
         
         </div>
