@@ -97,7 +97,7 @@ function obtenerReporte( r, fini, ffin ){
 			$("#impresion_reporte").hide();	
 		},
         success: function( response ){
-			//console.log(response);
+			console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarDataReporte( res );
 			$("#impresion_reporte").fadeIn("slow");

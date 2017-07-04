@@ -7,9 +7,9 @@
 		$encabezados = array(
 			"relacion_gastos" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO"),
 			"pago_facturas" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO", "MONTO PAGADO"),
-			"libro_ventas" => array (""),
-			"libro_compras" => array (""),
-			"facturas_porcobrar" => array ("")
+			"libro_ventas" => array ("FECHA", "CLIENTE", "RIF", "N° FACT", "CONTROL", "EXCENTAS", "", "MONTO", "IVA", "RET"),
+			"libro_compras" => array ("FECHA", "PROVEEDOR", "RIF", "N° FACT", "CONTROL", "MONTO", "IVA", "TOTAL"),
+			"facturas_porcobrar" => array ("N° FACT", "FECHA EMISION", "FECHA VENC", "CLIENTE", "MONTO", "IVA", "RET", "TOTAL")
 		);
 
 		return $encabezados[$reporte];
@@ -17,20 +17,31 @@
 	/* ----------------------------------------------------------------------------------- */
 	function filaRegistros( $nreporte, $r ){
 		//Retorna un registro de reporte bajo el esquema de encabezado de tabla
-		$filas = array(
-			"relacion_gastos" => array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
-										 $r["banco"], $r["forma_pago"], $r["noperacion"],
-										number_format( $r["monto"], 2, ",", "." ) ),
-			"pago_facturas" => array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
-										 $r["banco"], $r["forma_pago"], $r["noperacion"],
-										number_format( $r["monto"], 2, ",", "." ), 
-										number_format( $r["monto_pagado"], 2, ",", "." ) ),
-			"libro_ventas" => array (""),
-			"libro_compras" => array (""),
-			"facturas_porcobrar" => array ("")
-		);
+		if( $nreporte == "relacion_gastos" )
+			$freporte = array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
+								$r["banco"], $r["forma_pago"], $r["noperacion"],
+								number_format( $r["monto"], 2, ",", "." ) );
+		
+		if( $nreporte == "pago_facturas" ) 
+			$freporte = array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
+								$r["banco"], $r["forma_pago"], $r["noperacion"],
+								number_format( $r["monto"], 2, ",", "." ), 
+								number_format( $r["monto_pagado"], 2, ",", "." ) );
+		
+		if( $nreporte == "libro_ventas" )	
+			$freporte = array ("");
 
-		return $filas[$nreporte];
+		if( $nreporte == "libro_compras" )
+			$freporte = array ( $r["femision"], $r["proveedor"], $r["rif"], $r["nfactura"], 
+									   $r["ncontrol"], number_format( $r["mbase"], 2, ",", "." ),
+									   number_format( $r["miva"], 2, ",", "." ), 
+									   number_format( $r["mtotal"], 2, ",", "." ));
+		
+		if( $nreporte == "facturas_porcobrar" ) 
+			$freporte = array ("");
+		
+
+		return $freporte;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPosicionEncabezado( $nreporte, $titulo ){
@@ -47,7 +58,7 @@
 			"relacion_gastos" => array ( "MONTO*monto" ),
 			"pago_facturas" => array ("MONTO*monto", "MONTO PAGADO*monto_pagado"),
 			"libro_ventas" => array (""),
-			"libro_compras" => array (""),
+			"libro_compras" => array ("MONTO*mbase", "IVA*miva", "TOTAL*mtotal"),
 			"facturas_porcobrar" => array ("")
 		);
 

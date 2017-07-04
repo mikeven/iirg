@@ -44,6 +44,24 @@
 		return $lista_f;
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerReporteCompras( $dbh, $fecha_i, $fecha_f, $idu ){
+		//Devuelve registro de artículo dado el ID
+		$lista_c = array();
+		$q = "select c.idCompra as idcompra, c.monto as mbase, (c.monto * c.iva/100) as miva, 
+		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal,
+		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
+		c.ncontrol as ncontrol, c.nfactura as nfactura, p.rif as rif, p.Nombre as proveedor 
+		from proveedor p, compra c where ( c.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
+		c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'creada'";
+		
+		$data = mysql_query( $q, $dbh );
+		while( $c = mysql_fetch_array( $data ) ){
+			$lista_c[] = $c;	
+		}
+		return $lista_c;	
+	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
 	/* ----------------------------------------------------------------------------------------------------- */
 	if( isset( $_POST["reporte"] ) ){ 
 		//Invocación a obtención de reporte
@@ -58,6 +76,8 @@
 			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["tipo"], $_POST["f_ini"], $_POST["f_fin"], $idu );
 		if( $nombre_reporte == "libro_ventas" )		
 			$reporte_data = obtenerReporteLibroVentas( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+		if( $nombre_reporte == "libro_compras" )		
+			$reporte_data = obtenerReporteCompras( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
 
 		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );
 		$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );
