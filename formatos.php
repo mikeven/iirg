@@ -133,10 +133,6 @@
     $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
     $ocobs = obtenerResumenObs( $frt_oc );
 
-    /* Data orden de compra */
-    $frt_p = obtenerFormatoPorUsuarioDocumento( $dbh, "ped", $usuario["idUsuario"] );
-    $pobs = obtenerResumenObs( $frt_p );
-
     /* Data Nota de crédito */
     $frt_nc = obtenerFormatoPorUsuarioDocumento( $dbh, "ndc", $usuario["idUsuario"] );
     $ncobs = obtenerResumenObs( $frt_nc );

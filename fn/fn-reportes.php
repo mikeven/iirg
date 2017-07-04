@@ -2,6 +2,27 @@
 	/* R&G - Funciones de reportes */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
+	
+	function tituloReporte( $nreporte ){
+		
+		$titulos = array(
+			"relacion_gastos" => "INFORME DE GASTOS",
+			"pago_facturas" => "INFORME DE PAGO DE FACTURAS",
+			"libro_ventas" => "INFORME DE PAGO DE FACTURAS",
+			"libro_compras" => "LIBRO DE COMPRA",
+			"facturas_porcobrar" => "FACTURAS POR COBRAR"
+		);
+
+		return $titulos[$nreporte];	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function cambiarFormatoFecha( $dbh, $fecha ){
+		$q = "select date_format('$fecha','%d/%m/%Y') as fecha";
+		$data = mysql_fetch_array( mysql_query( $q, $dbh ) );
+		
+		return $data["fecha"];
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function reporteEncabezado( $reporte ){
 		//Retorna los campos de encabezado de las tablas de reporte
 		$encabezados = array(

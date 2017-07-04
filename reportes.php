@@ -1,6 +1,6 @@
 <?php
   /*
-   * R&G - Inicio de sesión
+   * R&G - Reportes
    * 
    */
   session_start();
@@ -16,7 +16,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IIRG | Listado de Cotizaciones</title>
+  <title>IIRG | Reportes</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -207,6 +207,7 @@
           
           <div class="box">
             <div class="box-header"><!--<h3 class="box-title">Resultados</h3>--></div>
+            
             <div class="box-body table-responsive no-padding">
               <table id="tabla_reporte" class="table table-hover">
                 <thead>
@@ -219,10 +220,11 @@
             </div><!-- /.box-body -->
 
             <div id="impresion_reporte">
-              <a href="impresion-reporte.php?" class="btn btn-app" target="_blank">
+              <a id="eimpresion" href="" class="btn btn-app" target="_blank">
                 <i class="fa fa-print fa-2x"></i> Imprimir
               </a>
             </div>
+
           </div>
         
         </div>

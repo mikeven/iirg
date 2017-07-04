@@ -1,6 +1,6 @@
 // JavaScript Document
 /*
-* fn-documento.js
+* fn-reportes.js
 *
 */
 /* ----------------------------------------------------------------------------------- */	
@@ -83,12 +83,13 @@ function enviarDataReporte( data_reporte ){
 	$( '#tabla_reporte tbody' ).append( filas ).show('slow');
 }
 /* ----------------------------------------------------------------------------------- */
-function obtenerReporte( r, fini, ffin ){
+function obtenerReporte( r, fini, ffin, p ){
 	var idu = $( '#idu_sesion' ).val();
 	var url_data = "bd/data-reportes.php";
 	var tg = "";
 	if( r == "relacion_gastos" ) tg = "gasto";
 	if( r == "pago_facturas" ) tg = "pago";
+
 	$.ajax({
         type:"POST",
         url:url_data,
@@ -100,9 +101,20 @@ function obtenerReporte( r, fini, ffin ){
 			console.log(response);
 			res = jQuery.parseJSON(response);
 			enviarDataReporte( res );
-			$("#impresion_reporte").fadeIn("slow");
+			if( p == "rep" )
+				$("#impresion_reporte").fadeIn("slow");
+			if( p == "imp" )
+				window.print();
         }
     });
+}
+/* ----------------------------------------------------------------------------------- */
+function r(){
+
+	var fecha_ini = $("#fini").val();
+	var fecha_fin = $("#ffin").val();
+	var reporte =  	$("#idr").val();
+	obtenerReporte( reporte, fecha_ini, fecha_fin, "imp" );
 }
 /* =================================================================================== */
 $( document ).ready(function() {
@@ -138,14 +150,19 @@ $( document ).ready(function() {
 
     $(".treporte").on( "click", function(){
 		$("#titulo_reporte").html( $(this).html() );
-		$("#bt_breporte").attr("data-r", $(this).attr("id") );
+		$("#bt_breporte").attr("data-r", $(this).attr("id") );		
     });
 
     $("#bt_breporte").on( "click", function(){
 		var fecha_ini = $('#frango').data('daterangepicker').startDate.format('YYYY-MM-DD');
 		var fecha_fin = $('#frango').data('daterangepicker').endDate.format('YYYY-MM-DD');
 		var reporte = $(this).attr("data-r");
-		obtenerReporte( reporte, fecha_ini, fecha_fin );
+		var idu = $( '#idu_sesion' ).val();
+
+		$("#eimpresion").attr("href", "impresion-reporte.php?idr=" + reporte + "&f1=" 
+			+ fecha_ini + "&f2=" + fecha_fin + "idu=" + idu );
+
+		obtenerReporte( reporte, fecha_ini, fecha_fin, "rep" );
     });
 
     /* ---------------------------------------------------------------------------- */
