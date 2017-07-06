@@ -34,7 +34,7 @@
 
 			"pago_facturas" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO", "MONTO PAGADO"),
 			
-			"libro_ventas" => array ("FECHA", "CLIENTE", "RIF", "N° FACT", "CONTROL", "EXCENTAS", "", "MONTO", "IVA", "RET"),
+			"libro_ventas" => array ("FECHA", "CLIENTE", "RIF", "N° FACT", "CONTROL", "MONTO", "IVA", "RET"),
 			"libro_compras" => array ("FECHA", "PROVEEDOR", "RIF", "N° FACT", "CONTROL", "MONTO", "IVA", "TOTAL"),
 			
 			"facturas_porcobrar" => array ("N° FACT", "FECHA EMISION", "FECHA VENC", "CLIENTE", "MONTO", "IVA", "RET", "TOTAL")
@@ -64,7 +64,10 @@
 								number_format( $r["monto_pagado"], 2, ",", "." ) );
 		
 		if( $nreporte == "libro_ventas" )	
-			$freporte = array ("");
+			$freporte = array ($r["femision"], $r["cliente"], $r["rif"], $r["numero"], "", 
+									   number_format( $r["monto"], 2, ",", "." ),
+									   number_format( $r["miva"], 2, ",", "." ), 
+									   number_format( $r["mretencion"], 2, ",", "." ));
 
 		if( $nreporte == "libro_compras" )
 			$freporte = array ( $r["femision"], $r["proveedor"], $r["rif"], $r["nfactura"], 
@@ -96,7 +99,7 @@
 			"relacion_gastos" => array ( "MONTO*monto" ),
 			"relacion_proveedores" => array ( "RETENCIÓN*mretencion" ),
 			"pago_facturas" => array ("MONTO*monto", "MONTO PAGADO*monto_pagado"),
-			"libro_ventas" => array (""),
+			"libro_ventas" => array ("MONTO*monto", "IVA*miva", "RET*mretencion"),
 			"libro_compras" => array ("MONTO*mbase", "IVA*miva", "TOTAL*mtotal"),
 			"facturas_porcobrar" => array ("MONTO*mtotal")
 		);

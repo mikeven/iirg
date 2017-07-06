@@ -28,24 +28,40 @@
 		return $lista_g;
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-	function obtenerReporteVentas( $dbh, $tipo, $fecha_i, $fecha_f, $idu ){
-		//Retorna la fecha actual en el formato dd/mm/aaaa
+	function ajustarValoresLV( $lista_r ){
+		$lista = array();
+		foreach ( $lista_r as $r ) {
+			if( $r["estado"] == "anulada" ){
+				$r["cliente"] = "ANULADA";
+				$r["rif"] = "";
+				$r["monto"] = 0.00;
+				$r["miva"] = 0.00;
+				$r["mretencion"] = 0.00;			
+			}
+			$lista[] = $r;	
+		}
+		return $lista;
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerReporteLibroVentas( $dbh, $fecha_i, $fecha_f, $pret, $idu ){
+		//
 		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
-		C.idCliente as idc, C.Nombre as cliente, F.valor_condicion as vcondicion, 
-		date_format(F.fecha_emision,'%d/%m/%Y') as Fecha, F.total as Total 
-		From factura F, cliente C where ( fecha_pago BETWEEN '$fecha_i' AND '$fecha_f' ) 
-		and F.IdCliente = C.idCliente and idUsuario = $idu and estado = 'pagada' order by F.fecha_emision asc";
-		
+		C.idCliente as idc, C.Nombre as cliente, C.rif as rif, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as femision, ($pret * (F.SubTotal * F.iva)) AS mretencion,  
+		F.SubTotal as monto, ((F.SubTotal * F.iva)) as miva, F.Total as mtotal 
+		From factura F, cliente C where ( F.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) 
+		and F.IdCliente = C.idCliente and idUsuario = $idu order by F.fecha_emision asc";
+		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		while( $f = mysql_fetch_array( $data ) ){
 			$lista_f[] = $f;	
 		}
-		return $lista_f;
+		return ajustarValoresLV( $lista_f );
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerReporteCompras( $dbh, $fecha_i, $fecha_f, $idu ){
-		//Devuelve registro de artículo dado el ID
+		//
 		$lista_c = array();
 		$q = "select c.idCompra as idcompra, c.monto as mbase, (c.monto * c.iva/100) as miva, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal,
@@ -62,7 +78,7 @@
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerReporteRelacionProveedores( $dbh, $fecha_i, $fecha_f, $idu ){
-		//Devuelve registro de artículo dado el ID
+		//
 		$lista_c = array();
 		$q = "select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, ((c.monto * c.iva/100)) as miva, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal, 
@@ -81,7 +97,7 @@
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	function obtenerReporteFacturasPorCobrar( $dbh, $fecha_i, $fecha_f, $idu ){
-		//Devuelve registro de artículo dado el ID
+		//
 		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
 		C.idCliente as idc, C.Nombre as cliente, C.rif as rif, F.valor_condicion as vcondicion, 
@@ -103,6 +119,7 @@
 	if( isset( $_POST["reporte"] ) ){ 
 		//Invocación a obtención de reporte
 		include( "bd.php" );
+		include( "data-sistema.php" );
 		include( "../fn/fn-reportes.php" );
 
 		$idu = $_POST["id_u"];
@@ -120,7 +137,7 @@
 			$_POST["f_fin"], $idu );
 		
 		if( $nombre_reporte == "libro_ventas" )		
-			$reporte_data = obtenerReporteLibroVentas( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+			$reporte_data = obtenerReporteLibroVentas( $dbh, $_POST["f_ini"], $_POST["f_fin"], $sisval_ret, $idu );
 		
 		if( $nombre_reporte == "libro_compras" )		
 			$reporte_data = obtenerReporteCompras( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
@@ -128,7 +145,7 @@
 		if( $nombre_reporte == "facturas_porcobrar" )		
 			$reporte_data = obtenerReporteFacturasPorCobrar( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
 
-
+		//print_r($reporte_data);
 		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );
 		$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );
 		$reporte["totales"] = totalesReporte( $nombre_reporte, $reporte_data );
