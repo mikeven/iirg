@@ -135,23 +135,28 @@
                       <ul class="list-group list-group-unbordered">
                         <li class="list-group-item selreporte">
                           <a href="#!" id="relacion_gastos" class="treporte"><b>Relación de gastos</b> 
-                          <span class="pull-right"><i class="fa fa-cart-arrow-down"></i></span></a>
+                          <span class="pull-right"></span></a>
+                        </li>
+                        <li class="list-group-item selreporte">
+                          <a href="#!" id="relacion_proveedores" class="treporte">
+                          <b>Relación de proveedores con retención</b> 
+                          <span class="pull-right"></span></a>
                         </li>
                         <li class="list-group-item selreporte">
                           <a href="#!" id="pago_facturas" class="treporte"><b>Pago de facturas</b> 
-                          <span class="pull-right"><i class="fa fa-reply"></i></span></a>
+                          <span class="pull-right"></span></a>
                         </li>
                         <li class="list-group-item selreporte">
                           <a href="#!" id="libro_ventas" class="treporte"><b>Libro de Ventas</b> 
-                          <span class="pull-right"><i class="fa fa-book"></i></span></a>
+                          <span class="pull-right"></span></a>
                         </li>
                         <li class="list-group-item selreporte">
                           <a href="#!" id="libro_compras" class="treporte"><b>Libro de Compras</b> 
-                          <span class="pull-right"><i class="fa fa-book"></i></span></a>
+                          <span class="pull-right"></span></a>
                         </li>
                         <li class="list-group-item selreporte">
                           <a href="#!" id="facturas_porcobrar" class="treporte"><b>Facturas por cobrar</b> 
-                          <span class="pull-right"><i class="fa fa-clock-o"></i></span></a>
+                          <span class="pull-right"></span></a>
                         </li>
                       </ul>
                     </div>
@@ -220,7 +225,7 @@
             </div><!-- /.box-body -->
 
             <div id="impresion_reporte">
-              <a id="eimpresion" href="" class="btn btn-app" target="_blank">
+              <a id="eimpresion" href="" class="btn btn-app" target="blank">
                 <i class="fa fa-print fa-2x"></i> Imprimir
               </a>
             </div>

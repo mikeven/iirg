@@ -12,7 +12,8 @@
 	include( "fn/fn-formato.php" );
 	checkSession( '' );
 	
-  $iva = $sisval_iva * 100;  
+  $iva = $sisval_iva * 100;
+  $ret = $sisval_ret * 100;  
 ?>
 <!DOCTYPE html>
 <html>
@@ -131,7 +132,7 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <div class="box box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">Ajustes</h3>
@@ -145,16 +146,19 @@
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                           <li class="active"><a href="#tab1" data-toggle="tab">Porcentaje del IVA</a></li>
-                          <li><a href="#tab2" data-toggle="tab">Condiciones de cotización</a></li>
-                          <li><a href="#tab3" data-toggle="tab">Condiciones de facturación</a></li>
+                          <li><a href="#tab2" data-toggle="tab">Porcentaje retención</a></li>
+                          <li><a href="#tab3" data-toggle="tab">Condiciones de cotización</a></li>
+                          <li><a href="#tab4" data-toggle="tab">Condiciones de facturación</a></li>
                         </ul>                        
                         
                         <div class="tab-content">
                           
                           <div class="tab-pane active" id="tab1">                            
                             <div class="form-group">
+                              <label for="iva">Porcentaje Impuesto Valor Agregado</label>
                               <div class="input-group" style="width:50%;">
-                                <input type="text" class="form-control" id="iva_valor" name="iva" value="<?php echo $iva; ?>">
+                                <input type="text" class="form-control" id="iva_valor" name="iva" 
+                                value="<?php echo $iva; ?>">
                                 <span class="input-group-addon"><span id="ivares">%</span></span>
                               </div>
                             </div><!-- /.form group -->
@@ -162,8 +166,22 @@
                               <button type="submit" class="btn btn-primary" id="bt_act_iva">Guardar</button>
                             </div>                          
                           </div><!-- /.tab-pane -->
+
+                          <div class="tab-pane" id="tab2">                            
+                            <div class="form-group">
+                              <label for="iva">Porcentaje de retención de empresa como proveedor</label>
+                              <div class="input-group" style="width:50%;">
+                                <input type="text" class="form-control" id="ret_valor" name="ret" 
+                                value="<?php echo $ret; ?>">
+                                <span class="input-group-addon"><span id="retpje">%</span></span>
+                              </div>
+                            </div><!-- /.form group -->
+                            <div class="box-footer" align="center" style="width:50%;">
+                              <button type="submit" class="btn btn-primary" id="bt_act_ret">Guardar</button>
+                            </div>                          
+                          </div><!-- /.tab-pane -->
                           
-                          <div class="tab-pane" id="tab2">
+                          <div class="tab-pane" id="tab3">
                             <div id="agregar_condicion_ctz">
                               <form role="form" id="frm_condiciones_ctz" name="frm_condiciones">
                                 
@@ -226,7 +244,7 @@
                               
                           </div><!-- /.tab-pane -->
                           
-                          <div class="tab-pane" id="tab3">
+                          <div class="tab-pane" id="tab4">
                             <div id="agregar_condicion_fac">
                               <form role="form" id="frm_condiciones_fac" name="frm_condiciones">
                                 <label for="diasfac">Agregar condición de facturación</label>

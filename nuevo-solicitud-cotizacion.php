@@ -29,7 +29,7 @@
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
   }
   else
-    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
+    { $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; }
 ?>
 <!DOCTYPE html>
 <html>

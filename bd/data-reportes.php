@@ -60,6 +60,43 @@
 		}
 		return $lista_c;	
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerReporteRelacionProveedores( $dbh, $fecha_i, $fecha_f, $idu ){
+		//Devuelve registro de artículo dado el ID
+		$lista_c = array();
+		$q = "select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, ((c.monto * c.iva/100)) as miva, 
+		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal, 
+		((c.iva*c.monto/100)*c.retencion) as mretencion, 
+		date_format(.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, c.num_retencion as nret,  
+		c.ncontrol as ncontrol, c.nfactura as nfactura, p.rif as rif, p.Nombre as proveedor 
+		from proveedor p, compra c 
+		where ( c.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
+		c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'pagada'";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		while( $c = mysql_fetch_array( $data ) ){
+			$lista_c[] = $c;	
+		}
+		return $lista_c;	
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	function obtenerReporteFacturasPorCobrar( $dbh, $fecha_i, $fecha_f, $idu ){
+		//Devuelve registro de artículo dado el ID
+		$lista_f = array();
+		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		C.idCliente as idc, C.Nombre as cliente, C.rif as rif, F.valor_condicion as vcondicion, 
+		date_format(F.fecha_emision,'%d/%m/%Y') as femision,  
+		date_format(F.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
+		((F.total / (1+F.iva) ) ) as monto, ((F.SubTotal * F.iva)) as miva, F.total as mtotal 
+		From factura F, cliente C where ( F.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
+		F.IdCliente = C.idCliente and idUsuario = $idu and estado='pendiente' order by F.fecha_emision asc";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		while( $f = mysql_fetch_array( $data ) ){
+			$lista_f[] = $f;	
+		}
+		return $lista_f;	
+	}
 
 	/*-------------------------------------------------------------------------------------------------------*/
 	/* ----------------------------------------------------------------------------------------------------- */
@@ -70,14 +107,27 @@
 
 		$idu = $_POST["id_u"];
 		$nombre_reporte = $_POST["reporte"];	
+		
 		if( $nombre_reporte == "relacion_gastos" )		
-			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["tipo"], $_POST["f_ini"], $_POST["f_fin"], $idu );
+			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["tipo"], $_POST["f_ini"], 
+			$_POST["f_fin"], $idu );
+		
+		if( $nombre_reporte == "relacion_proveedores" )		
+			$reporte_data = obtenerReporteRelacionProveedores( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+		
 		if( $nombre_reporte == "pago_facturas" )		
-			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["tipo"], $_POST["f_ini"], $_POST["f_fin"], $idu );
+			$reporte_data = obtenerReporteRelacionGastos( $dbh, $_POST["tipo"], $_POST["f_ini"], 
+			$_POST["f_fin"], $idu );
+		
 		if( $nombre_reporte == "libro_ventas" )		
 			$reporte_data = obtenerReporteLibroVentas( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+		
 		if( $nombre_reporte == "libro_compras" )		
 			$reporte_data = obtenerReporteCompras( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+
+		if( $nombre_reporte == "facturas_porcobrar" )		
+			$reporte_data = obtenerReporteFacturasPorCobrar( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+
 
 		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );
 		$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );

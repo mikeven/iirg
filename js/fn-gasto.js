@@ -178,6 +178,7 @@ $( document ).ready(function() {
 
 		$("#ncompra").val( $(this).attr("data-label") );
 		$("#monto").val( $(this).attr("data-tmonto") );
+		$("#bt_umpag").attr( "data-m", $(this).attr("data-tmonto") );
 		$("#concepto").val( $(this).attr("data-concepto") );
 		$("#beneficiario").val( $(this).attr("data-beneficiario") );
 		$("#ncompra").css({'border-color' : '#ccc'});
@@ -205,6 +206,10 @@ $( document ).ready(function() {
 			guardarGasto( "#frm_mgasto", "redireccion", '', "editar" );
 		else
 			$("#enl_vmsj").click();	
+	});
+
+	$("#bt_umpag").on( "click", function() {	// Modificar registro de compra
+		$("#mpagado").val( $(this).attr("data-m") );	
 	});
 	/*--------------------*/
 	$("#bt_edo_gasto").on( "click", function() {	// Eliminar/Recuperar registro de compra

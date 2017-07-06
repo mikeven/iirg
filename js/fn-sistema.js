@@ -43,6 +43,26 @@ function actualizarValorIVA( iva ){
 	});	
 }
 /* ----------------------------------------------------------------------------------- */
+function actualizarValorRetencion( ret ){
+	var icon_ok = "<i class='fa fa-check-square-o'></i>";
+	$.ajax({
+		type:"POST",
+		url:"bd/data-sistema.php",
+		data:{ act_ret : ret },
+		beforeSend: function () {
+		},
+		success: function( response ){
+			console.log(response);
+			if( response != -1 ){
+			    $("#retpje").fadeOut("slow", function(){
+			        $("#retpje").html( icon_ok );
+			       	$("#retpje").fadeIn( 300 );	
+			    });
+			}
+		}
+	});	
+}
+/* ----------------------------------------------------------------------------------- */
 function checkCondicion( vcond ){
 	//Validación de formulario de condiciones previo a su registro
 	var error = 0;
@@ -181,7 +201,10 @@ $( document ).ready(function() {
 		var iva = $("#iva_valor").val();
 		actualizarValorIVA( iva );
     });
-
+	/* ------------------------------------------------------------------------------- */
+    $("#bt_act_ret").on( "click", function(){
+		actualizarValorRetencion( $("#ret_valor").val() );
+    });
 	/* ------------------------------------------------------------------------------- */
 	$(".chkupdt").hide();
     $(".chkupdt_e").hide();

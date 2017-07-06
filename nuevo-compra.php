@@ -6,12 +6,14 @@
 	session_start();
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
+  include( "bd/data-sistema.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-compra.php" );
   include( "bd/data-documento.php" );
   include( "bd/data-proveedor.php" );
   
 	checkSession( '' );
+  $iva = $sisval_iva; $eiva = $iva * 100;
 ?>
 <!DOCTYPE html>
 <html>
@@ -183,7 +185,7 @@
                   </div><!-- /.form group -->
                   
                   <div class="form-group">
-                    <!--<label for="ncontrol">Email address</label>-->
+                    <!--<label for="ncontrol">N° Control</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
                         <input type="text" class="form-control" id="ncontrol" placeholder="N° Control" name="ncontrol" required>
@@ -191,10 +193,18 @@
                   </div><!-- /.form group -->
                   
                   <div class="form-group">
-                    <!--<label for="nfactura">Email address</label>-->
+                    <!--<label for="nfactura">N° Factura</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
                         <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required>
+                    </div>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <!--<label for="nfactura">N° Retención</label>-->
+                      <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                        <input type="text" class="form-control" id="nret" placeholder="N° Retención" name="nret">
                     </div>
                   </div><!-- /.form group -->
 
@@ -215,8 +225,15 @@
                         <div class="input-group-addon">
                           <i class="fa fa-percent"></i>                          
                         </div>
-                        <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)">
+                        <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)" value="<?php echo $eiva;?>">
                     </div>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <select class="form-control" id="retencion" name="retencion">
+                      <option value="0.75" class="ori" selected>Retención 75%</option>
+                      <option value="1" class="ori">Retención 100%</option>
+                    </select>
                   </div><!-- /.form group -->
                     
                 </div><!-- /.box-body -->
@@ -231,7 +248,7 @@
 
           <!-- Bloque de respuesta del servidor -->
             <button type="button" id="enl_vmsj" data-toggle="modal" 
-            data-target="#ventana_mensaje" class="_hidden"></button>
+            data-target="#ventana_mensaje" class="hidden"></button>
             <?php include("sub-scripts/nav/mensaje_respuesta.php");?>
           <!-- /.Bloque de respuesta del servidor -->
         </div><!--/.col (left) -->        

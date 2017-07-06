@@ -217,6 +217,10 @@
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-check-circle-o"></i></div>
                         <input type="text" class="form-control" id="mpagado" placeholder="Monto pagado" name="mpagado" required onkeypress="return isNumberKey(event)">
+                        <span class="input-group-btn">
+                          <button id="bt_umpag" type="button" class="btn btn-primary btn-flat" 
+                          data-m="">Monto de compra</button>
+                        </span>
                     </div>
                   </div><!-- /.form group -->
 

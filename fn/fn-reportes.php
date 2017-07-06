@@ -7,6 +7,7 @@
 		
 		$titulos = array(
 			"relacion_gastos" => "INFORME DE GASTOS",
+			"relacion_proveedores" => "RELACIÓN DE PROVEEDORES CON RETENCIÓN",
 			"pago_facturas" => "INFORME DE PAGO DE FACTURAS",
 			"libro_ventas" => "INFORME DE PAGO DE FACTURAS",
 			"libro_compras" => "LIBRO DE COMPRA",
@@ -27,9 +28,15 @@
 		//Retorna los campos de encabezado de las tablas de reporte
 		$encabezados = array(
 			"relacion_gastos" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO"),
+			
+			"relacion_proveedores" => array ("FECHA", "PROVEEDOR", "RIF", "N° FACT", "CONTROL", "N° RET", 
+			"BASE IMPON", "IVA", "TOTAL", "RETENCIÓN"),
+
 			"pago_facturas" => array ("FECHA", "CONCEPTO", "BENEFICIARIO", "BANCO", "F.PAGO", "NRO", "MONTO", "MONTO PAGADO"),
+			
 			"libro_ventas" => array ("FECHA", "CLIENTE", "RIF", "N° FACT", "CONTROL", "EXCENTAS", "", "MONTO", "IVA", "RET"),
 			"libro_compras" => array ("FECHA", "PROVEEDOR", "RIF", "N° FACT", "CONTROL", "MONTO", "IVA", "TOTAL"),
+			
 			"facturas_porcobrar" => array ("N° FACT", "FECHA EMISION", "FECHA VENC", "CLIENTE", "MONTO", "IVA", "RET", "TOTAL")
 		);
 
@@ -42,6 +49,13 @@
 			$freporte = array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
 								$r["banco"], $r["forma_pago"], $r["noperacion"],
 								number_format( $r["monto"], 2, ",", "." ) );
+
+		if( $nreporte == "relacion_proveedores" )
+			$freporte = array ( $r["femision"], $r["proveedor"], $r["rif"], $r["nfactura"], 
+				$r["ncontrol"], $r["nret"], number_format( $r["mbase"], 2, ",", "." ), 
+				number_format( $r["miva"], 2, ",", "." ), 
+				number_format( $r["mtotal"], 2, ",", "." ),
+				number_format( $r["mretencion"], 2, ",", "." ) );
 		
 		if( $nreporte == "pago_facturas" ) 
 			$freporte = array ( $r["fpago"], $r["concepto"], $r["beneficiario"], 
@@ -56,10 +70,13 @@
 			$freporte = array ( $r["femision"], $r["proveedor"], $r["rif"], $r["nfactura"], 
 									   $r["ncontrol"], number_format( $r["mbase"], 2, ",", "." ),
 									   number_format( $r["miva"], 2, ",", "." ), 
-									   number_format( $r["mtotal"], 2, ",", "." ));
+									   number_format( $r["mtotal"], 2, ",", "." ) );
 		
 		if( $nreporte == "facturas_porcobrar" ) 
-			$freporte = array ("");
+			$freporte = array ( $r["numero"], $r["femision"], $r["fvencimiento"], $r["cliente"], 
+									   number_format( $r["monto"], 2, ",", "." ),
+									   number_format( $r["miva"], 2, ",", "." ), 
+									   number_format( $r["mtotal"], 2, ",", "." ) );
 		
 
 		return $freporte;
@@ -77,10 +94,11 @@
 		$utotales = array();
 		$vtotales = array(
 			"relacion_gastos" => array ( "MONTO*monto" ),
+			"relacion_proveedores" => array ( "RETENCIÓN*mretencion" ),
 			"pago_facturas" => array ("MONTO*monto", "MONTO PAGADO*monto_pagado"),
 			"libro_ventas" => array (""),
 			"libro_compras" => array ("MONTO*mbase", "IVA*miva", "TOTAL*mtotal"),
-			"facturas_porcobrar" => array ("")
+			"facturas_porcobrar" => array ("MONTO*mtotal")
 		);
 
 		foreach ( $vtotales[$nreporte] as $total ) {
@@ -115,7 +133,8 @@
 			$total = 0; $vt["posicion"] = $u["posicion"];
 			foreach ( $reporte_data as $r ) {
 				$total += $r[ $u["campo"] ]; 
-			}   $vt["total"] = number_format( $total, 2, ",", "." );
+			}   
+			$vt["total"] = number_format( $total, 2, ",", "." );
 			$vtotales[] = $vt;	
 		}
 		

@@ -65,53 +65,22 @@
   <script src="js/fn-reportes.js"></script>
   
   <style>
-    .table-imp-det th{
-      text-align:center !important;
-      border: 1px solid #ddd;
-    }
 
     #encabezado{
       margin: 40px 0;
-    }
-
-    #titulo_reporte{
       font-size: 24px;
     }
 
-    #detalle_doc{
-      width: 100%;
+    #titulo_reporte{
+      margin: 20px 0;
+      font-size: 24px;
     }
-
-    .table > tbody > tr > td, table > tbody > tr > th{
-      line-height: 0.7 !important;
-    }
-
-    .table>thead>tr>th{
-      border: 0 !important;
-    }
-
-    #tabla_detalle_doc>tbody>tr>td{
-      border: 0; 
-    }
-
-    #tabla_detalle_doc>tbody{
-      padding: 12px 0 0 0; 
-    }
-
-    #bordeado_doble{
-      height: 5px;
-      border-top: 1px dashed #000;
-      border-bottom: 1px dashed #000; 
-    }
-
-    #dcliente{ width: 50% }
-    #dmed{ width: 1%; }
-    #ddocumento_der{ width: 35%; }
 
     .tobsdoc{font-size: 16px; }
     .uline{ text-decoration: underline; }
 
   </style>
+
 </head>
   
 <body onload="r()">
@@ -124,28 +93,19 @@
       <input id="idu_sesion" type="hidden" value="<?php echo $idu; ?>">
         
         <div class="row" id="encabezado">
-          <div class="col-sm-1"></div><!-- /.col -->
-          <div class="col-sm-10" align="center">
-            
+          <div class="col-sm-12" align="left">
             <div id="lin1"> <?php echo $usuario["empresa"]; ?> </div>
-            <div id="lin2" class="membrete3"> <?php echo $usuario["subtitulo"]; ?> </div>
             <div id="lin3"> <?php echo $usuario["rif"]; ?> </div>
-            <div id="lin4" class="membrete3"> <?php echo $usuario["direccion1"]." ".$usuario["direccion2"]; ?> </div>
-            <div id="lin5" class="membrete3"> <?php echo $usuario["telefonos"]; ?> </div>
-            <div id="lin6" class="membrete3"> <?php echo $usuario["email"]; ?> </div>
-
           </div>
-          <div class="col-sm-1"></div><!-- /.col -->
 
         </div><!-- /.row -->
         
         <div class="row" id="titulo_reporte" align="center">
-          <span><?php echo tituloReporte( $idr )." ".$ff1." - ".$ff2; ?></span>
+          <span class="uline"><?php echo tituloReporte( $idr )." ".$ff1." - ".$ff2; ?></span>
         </div>
 
         <div class="row" id="membrete">
-          <div class="col-sm-2"></div><!-- /.col -->
-          <div class="col-sm-8" align="center">
+          <div class="col-sm-12" align="center">
             
             <table id="tabla_reporte" class="table table-hover">
               <thead>
@@ -157,7 +117,6 @@
             </table>
 
           </div>
-          <div class="col-sm-2"></div><!-- /.col -->
           
         </div><!-- /.row -->
 

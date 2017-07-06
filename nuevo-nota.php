@@ -58,7 +58,7 @@
     $eiva = $iva * 100;
   }
   else
-    { $iva = 0.12; $eiva = $iva * 100; $nitems = 0; }
+    { $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; }
 
   if( isset( $_GET["t"] ) ){
       $tn = $_GET["t"];

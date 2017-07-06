@@ -201,11 +201,22 @@
                         </div>
                         <div><span class="tx1">
                           <i class="fa fa-file-text-o"></i>&nbsp;
-                          Monto Base: <?php echo number_format( $compra["mbase"], 2, ",", "." );?></span>
+                          Número de retención: <?php echo $compra["nret"];?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-file-text-o"></i>&nbsp;
+                          Monto base: <?php echo number_format( $compra["mbase"], 2, ",", "." );?></span>
                         </div>
                         <div><span class="tx1">
                           <i class="fa fa-percent"></i>&nbsp;
-                          IVA: <?php echo $compra["iva"];?></span>
+                          IVA: <?php echo $compra["iva"]; ?>
+                          </span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-percent"></i>&nbsp;
+                          Retención IVA: <?php echo "(".number_format( $compra["pret"], 0, ",", "." )."%)"." ".
+                          number_format( $compra["retencion"], 2, ",", "." ); ?>
+                          </span>
                         </div>
                         <?php if( $compra["estado"] == "eliminada" ) { ?>
                           <hr>
@@ -274,7 +285,7 @@
                               </div><!-- /.form group -->
                               
                               <div class="form-group">
-                                <!--<label for="ncontrol">N° Control</label>-->
+                                <label for="ncontrol">N° Control</label>
                                   <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
                                     <input type="text" class="form-control" id="ncontrol" placeholder="N° Control" name="ncontrol" required value="<?php echo $compra["ncontrol"]; ?>">
@@ -282,7 +293,7 @@
                               </div><!-- /.form group -->
                               
                               <div class="form-group">
-                                <!--<label for="nfactura">N° Factura</label>-->
+                                <label for="nfactura">N° Factura</label>
                                   <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
                                     <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required value="<?php echo $compra["nfactura"]; ?>">
@@ -290,25 +301,43 @@
                               </div><!-- /.form group -->
 
                               <div class="form-group">
-                                <!--<label for="mbase">Monto Base</label>-->
-                                  <div class="input-group">
-                                    <div class="input-group-addon">                                  
-                                      <label for="datepicker" class="iconlab">BsF</label>
-                                    </div>
-                                    <input type="text" class="form-control" id="mbase" placeholder="Monto Base" name="mbase" required onkeypress="return isNumberKey(event)" 
-                                    value="<?php echo number_format( $compra["mbase"], 2, ".", "" ); ?>">
+                                <label for="nfactura">N° Retención</label>
+                                <div class="input-group">
+                                  <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                  <input type="text" class="form-control" id="nret" placeholder="N° Retención" 
+                                    name="nret" value="<?php echo $compra["nret"]; ?>">
+                                </div>
+                              </div><!-- /.form group -->
+
+                              <div class="form-group">
+                                <label for="mbase">Monto base</label>
+                                <div class="input-group">
+                                  <div class="input-group-addon">                                  
+                                    <label for="datepicker" class="iconlab">BsF</label>
                                   </div>
+                                  <input type="text" class="form-control" id="mbase" placeholder="Monto Base" name="mbase" required onkeypress="return isNumberKey(event)" 
+                                  value="<?php echo number_format( $compra["mbase"], 2, ".", "" ); ?>">
+                                </div>
                               </div><!-- /.form group -->  
                               
                               <div class="form-group">
-                                <!--<label for="iva">IVA</label>-->
-                                  <div class="input-group">
-                                    <div class="input-group-addon">
-                                      <i class="fa fa-percent"></i>                          
-                                    </div>
-                                    <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)" 
-                                    value="<?php echo $compra["iva"]; ?>">
+                                <label for="iva">IVA</label>
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-percent"></i>                          
+                                  </div>
+                                  <input type="text" class="form-control" id="iva" placeholder="IVA" name="iva" required onkeypress="return isNumberKey(event)" 
+                                  value="<?php echo $compra["iva"]; ?>">
                                 </div>
+                              </div><!-- /.form group -->
+
+                              <div class="form-group">
+                                <select class="form-control" id="retencion" name="retencion">
+                                  <option value="0.75" class="ori" 
+                                  <?php echo selop( 0.75, $compra["vret"] );?>>Retención 75%</option>
+                                  <option value="1" class="ori" 
+                                  <?php echo selop( 1, $compra["vret"] );?>>Retención 100%</option>
+                                </select>
                               </div><!-- /.form group -->
                                 
                             </div><!-- /.box-body -->
