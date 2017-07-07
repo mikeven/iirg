@@ -109,12 +109,12 @@
 		
 		$q = "insert into factura ( numero, orden_compra, estado, $pidc IdCliente, fecha_emision, 
 		fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
-		observaciones3, valor_condicion, condicion, iva, Total, fecha_registro, idUsuario ) 
+		observaciones3, valor_condicion, condicion, iva, Subtotal, Total, fecha_registro, idUsuario ) 
 		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado',
 		$vidc $encabezado->idcliente, '$fecha_emision', '$encabezado->fvencimiento', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 		'$encabezado->obs3', $encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, 
-		$encabezado->total, NOW(), $idu )";
+		$encabezado->subtotal, $encabezado->total, NOW(), $idu )";
 		$data = mysql_query( $q, $dbh );
 
 		//echo $q;

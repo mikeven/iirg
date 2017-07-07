@@ -9,7 +9,7 @@
 		$q = "insert into gasto ( tipo, concepto, fecha_registro, fecha_pago, monto, monto_pagado, 
 		beneficiario, forma_pago, banco, noperacion, idUsuario ) values ( '$gasto[tgasto]', '$gasto[concepto]', 
 		NOW(), '$fpago', $gasto[monto], $gasto[mpagado], '$gasto[beneficiario]', '$gasto[forma_pago]', 
-		'$gasto[cbanco]', '$gasto[noperacion]', $idu )";
+		'$gasto[cbanco]', '$gasto[noper]', $idu )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		

@@ -83,7 +83,7 @@
 		$q = "select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, ((c.monto * c.iva/100)) as miva, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal, 
 		((c.iva*c.monto/100)*c.retencion) as mretencion, 
-		date_format(.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, c.num_retencion as nret,  
+		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, c.num_retencion as nret,  
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.rif as rif, p.Nombre as proveedor 
 		from proveedor p, compra c 
 		where ( c.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
@@ -96,16 +96,17 @@
 		return $lista_c;	
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-	function obtenerReporteFacturasPorCobrar( $dbh, $fecha_i, $fecha_f, $idu ){
+	function obtenerReporteFacturasPorCobrar( $dbh, $fecha_i, $fecha_f, $pret, $idu ){
 		//
 		$lista_f = array();
 		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
 		C.idCliente as idc, C.Nombre as cliente, C.rif as rif, F.valor_condicion as vcondicion, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as femision,  
 		date_format(F.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
-		((F.total / (1+F.iva) ) ) as monto, ((F.SubTotal * F.iva)) as miva, F.total as mtotal 
-		From factura F, cliente C where ( F.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
-		F.IdCliente = C.idCliente and idUsuario = $idu and estado='pendiente' order by F.fecha_emision asc";
+		($pret * (F.SubTotal * F.iva)) AS mretencion, F.SubTotal as monto, ((F.SubTotal * F.iva)) as miva, 
+		F.total as mtotal From factura F, cliente C 
+		where ( F.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and F.IdCliente = C.idCliente 
+		and idUsuario = $idu and estado='pendiente' order by F.fecha_emision asc";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		while( $f = mysql_fetch_array( $data ) ){
@@ -143,7 +144,8 @@
 			$reporte_data = obtenerReporteCompras( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
 
 		if( $nombre_reporte == "facturas_porcobrar" )		
-			$reporte_data = obtenerReporteFacturasPorCobrar( $dbh, $_POST["f_ini"], $_POST["f_fin"], $idu );
+			$reporte_data = obtenerReporteFacturasPorCobrar( $dbh, $_POST["f_ini"], $_POST["f_fin"], 
+			$sisval_ret, $idu );
 
 		//print_r($reporte_data);
 		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );

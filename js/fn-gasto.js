@@ -194,14 +194,14 @@ $( document ).ready(function() {
     });
 
 	/*--------------------*/
-	$("#bt_reg_gasto").on( "click", function() {	// Agregar registro de compra
+	$("#bt_reg_gasto").on( "click", function() {	// Agregar registro de gasto
 		if( checkGasto('modal') == 0 )
 			guardarGasto( "#frm_ngasto", "redireccion", '', "agregar" );
 		else
 			$("#enl_vmsj").click();	
 	});
 	/*--------------------*/
-	$("#bt_mod_gasto").on( "click", function() {	// Modificar registro de compra
+	$("#bt_mod_gasto").on( "click", function() {	// Modificar registro de gasto
 		if( checkGasto('modal') == 0 )
 			guardarGasto( "#frm_mgasto", "redireccion", '', "editar" );
 		else
