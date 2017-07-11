@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-07-2017 a las 06:43:50
+-- Tiempo de generación: 11-07-2017 a las 13:29:48
 -- Versión del servidor: 5.6.15-log
 -- Versión de PHP: 5.4.24
 
@@ -2653,7 +2653,7 @@ INSERT INTO `cliente` (`idCliente`, `nombre`, `rif`, `pcontacto`, `nit`, `direcc
 (108, 'LIBRERIA SAVE, C.A.', 'J-000000000', 'SR. FRANCISCO HURTADO', NULL, NULL, 'MATURIN A STA BARBARA EDF. SAVE Nº 39', 'CARACAS', '0212-860.43.40', '0212-860.19.86', '10', NULL, NULL),
 (109, 'DISTRIBUIDORA Y ALMACENADORA DIALCA, C.A.', 'J-00165549-2', 'MILAGROS OSPINO', NULL, NULL, 'CALLE REAL DE CHAPELLIN, EDF. BEHRENS, LA FLORIDA.', 'CARACAS', '0212-3628540/3627437', '0212-3628666', '3', NULL, NULL),
 (110, 'FULLER INTERAMERICANA, C.A.', 'J-00041735-0', 'SRTA. HARDY RAMOS', 50106594, NULL, 'AV. LAS ACACIAS, EDIF. ATLANTIDA, PISO 2, OF 2-1, URB. SABANA GRANDE', 'CARACAS', '0212-7822222', '0212-7934898', '13', NULL, NULL),
-(111, 'LABORATORIO BEHRENS, C.A.', 'J-00003407-9', 'SR. LAURENCE IBARRAS', NULL, NULL, 'CALLE REAL DE CHAPELLIN, EDIF. BEHRENS, LA FLORIDA', 'CARACAS', '0212-703.8239/8250', '0212-731.5207', '10', NULL, 'imatos@labbehrens.com'),
+(111, 'LABORATORIO BEHRENS, C.A.', 'J-00003407-9', 'SRTA. INGRID CANCHICA', NULL, '', 'CALLE REAL DE CHAPELLIN, EDIF. BEHRENS, LA FLORIDA', 'CARACAS', '(0212)-703.82.39', '(0212)-731.52.07', '', NULL, 'imatos@labbehrens.com'),
 (112, 'INDUSTRIAS CORAMODIO, C.A.', 'J-00300166-0', 'LIC. EDUARDO CORREA', NULL, NULL, 'CALLE 8, SECTOR SUR, EDIF. RODAMO, LA URBINA.', 'CARACAS', '0212-243.5854 EXT107', '0212-243.7117', '1', NULL, NULL),
 (113, 'INST. UNIV. DE TECN. DR. FEDERICO RIVERO PALACIOS', 'G-200000732', 'SRTA. ROSBELI', NULL, NULL, 'CARRETERA PANAMERICANA, KM 8, DIRECCION LOS TEQUES', 'CARACAS', '0212-6812467', '0212-6812467', '10', NULL, NULL),
 (114, 'FOSFORERA SURAMERICANA, C.A.', 'J-00069936-4', 'SRTA. YARITZA CASTILLO', NULL, NULL, 'CTRA. SAN PEDRO DE LOS ALTOS, KM. 3, EDF. S/E PISO P.B., LOCAL P.B.,', 'URB. INDUSTRIAL SAN IGNACIO', '0212-715.5519/5529', '2632495', '1', NULL, NULL),
@@ -2853,17 +2853,19 @@ CREATE TABLE IF NOT EXISTS `compra` (
   `monto` float(12,2) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCompra`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
 INSERT INTO `compra` (`idCompra`, `idProveedor`, `estado`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `ncontrol`, `num_retencion`, `retencion`, `iva`, `nfactura`, `monto`, `idUsuario`) VALUES
-(1, 4, 'creada', '2017-06-25 00:00:00', '2017-06-25 22:17:13', NULL, '652100', '521', 0.75, 12, '9562', 95636.35, 1),
-(2, 5, 'creada', '2017-06-27 00:00:00', '2017-06-27 14:26:30', '2017-07-05 01:29:42', '100892', '155', 0.75, 12, '10200', 325630.25, 1),
-(3, 7, 'pagada', '2017-07-04 00:00:00', '2017-07-04 23:09:38', '2017-07-05 00:33:24', '652202', '982', 0.75, 12, '3201', 1125650.25, 1),
-(4, 6, 'creada', '2017-07-05 00:00:00', '2017-07-05 22:57:03', NULL, '9570', '875', 0.75, 12, '10021', 985615.75, 1);
+(1, 4, 'pagada', '2017-06-25 00:00:00', '2017-06-25 22:17:13', NULL, '652100', '521', 0.75, 12, '9562', 95636.35, 1),
+(2, 5, 'pagada', '2017-06-27 00:00:00', '2017-06-27 14:26:30', '2017-07-05 01:29:42', '100892', '155', 0.75, 12, '10200', 325630.25, 1),
+(3, 7, 'creada', '2017-07-04 00:00:00', '2017-07-04 23:09:38', '2017-07-05 00:33:24', '652202', '982', 0.75, 12, '3201', 1125650.25, 1),
+(4, 6, 'pagada', '2017-07-05 00:00:00', '2017-07-05 22:57:03', NULL, '9570', '875', 0.75, 12, '10021', 985615.75, 1),
+(5, 4, 'pagada', '2017-07-06 00:00:00', '2017-07-09 17:48:16', '2017-07-09 19:20:29', '00-05878', '458', 0.75, 12, '78954', 4875474.00, 1),
+(6, 5, 'pagada', '2017-07-06 00:00:00', '2017-07-09 18:10:48', '2017-07-09 19:21:03', '00-05285', '459', 0.75, 12, '45685', 852000.00, 1);
 
 -- --------------------------------------------------------
 
@@ -2973,7 +2975,7 @@ INSERT INTO `cotizacion` (`idCotizacion`, `numero`, `Fecha`, `fecha_emision`, `f
 (16, 12, NULL, '2017-05-27', '2017-05-27 20:46:37', NULL, '2017-05-30 00:00:00', '2017-05-28 12:58:10', NULL, NULL, NULL, 247, NULL, NULL, NULL, NULL, NULL, 'YUDITH ZANELLA - JEFE COMPRAS', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 3, '3 días', NULL, '2859360.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 3 días', 'LA EXISTENCIA PUEDE VARIAR', '', 1),
 (17, 13, NULL, '2017-06-25', '2017-06-25 12:54:10', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, NULL, 214, NULL, NULL, NULL, NULL, NULL, 'SRTA. LUISANA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'vencida', 1, '1 día', NULL, '1148000.00', 'DE ACUERDO A SUS REQUERIMIENTOS', 'OBSERVACIONES GENERALES', 'Validez: 1 día', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
 (18, 14, NULL, '2017-06-25', '2017-06-25 12:57:34', '2017-06-25 14:42:32', '2017-06-28 00:00:00', NULL, NULL, '2017-06-25 14:42:58', NULL, 216, NULL, NULL, NULL, NULL, NULL, 'SRA NANCY CHACON', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 3, '3 días', NULL, '1273624.80', 'DE ACUERDO A SUS REQUERIMIENTOS', 'IMPORTANTE:', 'Validez: 3 días', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
-(19, 15, NULL, '2017-06-25', '2017-06-25 13:32:37', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 13:43:05', NULL, 111, NULL, NULL, NULL, NULL, NULL, '', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 1, '1 día', NULL, '753090.24', 'DE ACUERDO A SUS REQUERIMIENTOS', 'IMPORTANTE:', 'Validez: 1 día', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1);
+(19, 15, NULL, '2017-06-25', '2017-06-25 13:32:37', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 13:43:05', NULL, 111, NULL, NULL, NULL, NULL, NULL, 'SRTA. INGRID CANCHICA', NULL, 0.12, 'cotizacion', NULL, NULL, NULL, 'aprobada', 1, '1 día', NULL, '753090.24', 'DE ACUERDO A SUS REQUERIMIENTOS', 'IMPORTANTE:', 'Validez: 1 día', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1);
 
 -- --------------------------------------------------------
 
@@ -2991,7 +2993,7 @@ CREATE TABLE IF NOT EXISTS `data_usuario` (
   `dato5` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idDato`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=21 ;
 
 --
 -- Volcado de datos para la tabla `data_usuario`
@@ -3005,7 +3007,8 @@ INSERT INTO `data_usuario` (`idDato`, `tipo`, `dato1`, `dato2`, `dato3`, `dato4`
 (5, '', 'Mercantil', 'reee', NULL, NULL, NULL, 1),
 (6, '', 'Venezuela', '123', NULL, NULL, NULL, 1),
 (7, 'bancario', 'BFC', 'Jurídica BFC', NULL, NULL, NULL, 1),
-(8, 'bancario', 'Exterior', 'Jurídica Exterior', NULL, NULL, NULL, 1);
+(8, 'bancario', 'Exterior', 'Jurídica Exterior', NULL, NULL, NULL, 1),
+(10, 'bancario', 'BFC', 'Personal ', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -3090,7 +3093,7 @@ CREATE TABLE IF NOT EXISTS `detallefactura` (
   `IdItem` int(1) DEFAULT NULL,
   `TotalIVA` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`IdDetalle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
 
 --
 -- Volcado de datos para la tabla `detallefactura`
@@ -3134,7 +3137,12 @@ INSERT INTO `detallefactura` (`IdDetalle`, `IdFactura`, `Item`, `IdArticulo`, `c
 (59, 19, NULL, 187, NULL, 'UND', 'CARP. COLGANTE ACCO T/CARTA X 25', 5, '45677.00', 0.00, NULL, 228385.00, NULL, NULL),
 (60, 19, NULL, 632, NULL, 'UND', 'MARCADORES GRUESOS MAKETTE VERDE', 10, '15678.00', 0.00, NULL, 156780.00, NULL, NULL),
 (61, 19, NULL, 79, NULL, 'UND', 'BANDEJAS ACRILICAS 3 NIVELES', 3, '24000.00', 0.00, NULL, 72000.00, NULL, NULL),
-(62, 20, NULL, 112, NULL, 'UND', 'BLOCK DE RECIBO', 20, '6700.00', 0.00, NULL, 134000.00, NULL, NULL);
+(62, 20, NULL, 112, NULL, 'UND', 'BLOCK DE RECIBO', 20, '6700.00', 0.00, NULL, 134000.00, NULL, NULL),
+(63, 21, NULL, 104, NULL, 'UND', 'BLOCK DE RAYA T/CARTA', 30, '2500.00', 0.00, NULL, 75000.00, NULL, NULL),
+(64, 22, NULL, 131, NULL, 'UND', 'BOLIGRAFOS DE OFICINA ROJO', 45, '3200.75', 0.00, NULL, 144033.75, NULL, NULL),
+(65, 22, NULL, 140, NULL, 'UND', 'BOLIGRAFOS DE OFICINA AZUL', 45, '3500.00', 0.00, NULL, 157500.00, NULL, NULL),
+(66, 23, NULL, 73, NULL, 'UND', 'ACETATOS', 5, '5685.00', 0.00, NULL, 28425.00, NULL, NULL),
+(67, 23, NULL, 732, NULL, 'UND', 'PAPEL P/FOTOC. T/CARTA', 50, '38956.00', 0.00, NULL, 1947800.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3295,33 +3303,36 @@ CREATE TABLE IF NOT EXISTS `factura` (
   PRIMARY KEY (`idFactura`),
   KEY `idUsuario` (`idUsuario`),
   KEY `IdCotizacion` (`idCotizacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `factura`
 --
 
 INSERT INTO `factura` (`idFactura`, `numero`, `idCliente`, `fecha_emision`, `fecha_registro`, `fecha_modificacion`, `fecha_vencimiento`, `fecha_venc_sist`, `fecha_pago`, `fecha_anulacion`, `idCotizacion`, `orden_compra`, `estado`, `valor_condicion`, `condicion`, `idVendedor`, `iva`, `SubTotal`, `TotalDescto`, `TotalRecargo`, `Total`, `TipoDoc`, `introduccion`, `Observaciones`, `Observaciones1`, `Observaciones2`, `Observaciones3`, `idUsuario`) VALUES
-(1, 1, 258, '2017-04-18 00:00:00', '2017-04-18 18:12:15', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8520', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '65520.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(2, 2, 49, '2017-04-18 00:00:00', '2017-04-18 18:15:48', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8530', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '263200.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(3, 3, 143, '2017-04-20 00:00:00', '2017-04-20 16:40:40', NULL, '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, '9562', 'vencida', 15, '15 días', NULL, '0.12', NULL, NULL, NULL, '43680.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, 'N/A', 'vencida', 3, '3 días', NULL, '0.12', NULL, NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(1, 1, 258, '2017-04-18 00:00:00', '2017-04-18 18:12:15', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8520', 'vencida', 15, '15 días', NULL, '0.12', '58500', NULL, NULL, '65520.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(2, 2, 49, '2017-04-18 00:00:00', '2017-04-18 18:15:48', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '8530', 'vencida', 15, '15 días', NULL, '0.12', '235000', NULL, NULL, '263200.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(3, 3, 143, '2017-04-20 00:00:00', '2017-04-20 16:40:40', NULL, '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, NULL, '9562', 'vencida', 15, '15 días', NULL, '0.12', '39000', NULL, NULL, '43680.00', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(4, 4, 111, '2017-04-27 00:00:00', '2017-04-27 18:21:08', NULL, '2017-04-30 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, 'N/A', 'vencida', 3, '3 días', NULL, '0.12', '235000', NULL, NULL, '263200', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
 (5, 5, 111, '2017-04-28 00:00:00', '2017-04-28 14:48:07', '2017-04-28 15:23:51', '2017-04-29 00:00:00', '2017-05-01 12:26:44', NULL, NULL, 8, '9521', 'vencida', 1, 'CONTADO', NULL, '0.12', '362116.86', NULL, NULL, '405570.88', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(6, 6, 246, '2017-05-02 00:00:00', '2017-05-02 14:24:16', '2017-05-02 14:39:08', '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, 14, '9520', 'vencida', 3, '3 días', NULL, '0.12', '22000.00', NULL, NULL, '24640', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(7, 7, 246, '2017-05-02 00:00:00', '2017-05-02 14:42:25', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '6231', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '56000', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(8, 8, 246, '2017-05-02 00:00:00', '2017-05-02 14:55:24', '2017-05-02 15:22:33', '2017-05-17 00:00:00', NULL, NULL, '2017-05-02 15:24:45', 14, '9216', 'anulada', 15, '15 días', NULL, '0.12', '44000.00', NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(9, 9, 246, '2017-05-02 00:00:00', '2017-05-02 15:34:52', NULL, '2017-05-05 00:00:00', NULL, '2017-05-02 15:34:57', NULL, 14, '9254', 'pagada', 3, '3 días', NULL, '0.12', NULL, NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(10, 10, 246, '2017-05-06 00:00:00', '2017-05-06 02:29:51', NULL, '2017-05-07 00:00:00', '2017-05-07 20:05:06', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '74007.36', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(11, 11, 27, '2017-05-08 00:00:00', '2017-05-08 19:18:28', NULL, '2017-05-09 00:00:00', '2017-05-09 21:03:58', NULL, NULL, 15, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.00', NULL, NULL, NULL, '98400', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(12, 12, 247, '2017-05-08 00:00:00', '2017-05-08 22:08:49', '2017-05-08 22:31:52', '2017-05-11 00:00:00', '2017-05-11 09:38:20', NULL, NULL, NULL, '9562', 'vencida', 3, '3 días', NULL, '0.12', '524160.00', NULL, NULL, '587059.2', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(13, 13, 111, '2017-05-27 00:00:00', '2017-05-27 19:30:51', '2017-05-27 19:33:24', '2017-05-28 00:00:00', '2017-05-28 10:27:43', NULL, NULL, NULL, '4500045', 'vencida', 1, 'CONTADO', NULL, '0.12', '686000.00', NULL, NULL, '768320', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
-(14, 14, 266, '2017-05-27 00:00:00', '2017-05-27 19:47:43', NULL, '2017-05-28 00:00:00', NULL, NULL, '2017-05-27 19:49:46', NULL, 'N/A', 'anulada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '21660800', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: INSUMOS IN', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', '', 1),
-(15, 15, 202, '2017-05-27 00:00:00', '2017-05-27 19:57:42', NULL, '2017-05-28 00:00:00', NULL, '2017-05-27 20:03:36', NULL, NULL, '1234', 'pagada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '702329.6', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
-(16, 16, 246, '2017-06-25 00:00:00', '2017-06-25 12:03:38', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '79122.4', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
-(17, 17, 258, '2017-06-25 00:00:00', '2017-06-25 12:32:34', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 12:33:18', NULL, '165', 'anulada', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '6565.44', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
-(18, 18, 111, '2017-06-25 00:00:00', '2017-06-25 13:43:29', '2017-06-25 13:44:41', '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 19, '45000002545', 'vencida', 1, 'CONTADO', NULL, '0.12', '672402.00', NULL, NULL, '753090.24', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
-(19, 19, 216, '2017-06-25 00:00:00', '2017-06-25 14:43:20', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 18, '1425', 'vencida', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '1273624.8', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
-(20, 20, 169, '2017-07-05 00:00:00', '2017-07-06 00:27:15', NULL, '2017-07-05 00:00:00', NULL, NULL, NULL, NULL, '6520', 'pendiente', 1, 'CONTADO', NULL, '0.12', NULL, NULL, NULL, '150080', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1);
+(6, 6, 246, '2017-05-02 00:00:00', '2017-05-02 14:24:16', '2017-05-02 14:39:08', '2017-05-05 00:00:00', '2017-05-06 02:17:38', NULL, NULL, 14, '9520', 'vencida', 3, '3 días', NULL, '0.12', '22000', NULL, NULL, '24640', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(7, 7, 246, '2017-05-02 00:00:00', '2017-05-02 14:42:25', NULL, '2017-05-03 00:00:00', '2017-05-03 20:50:33', NULL, NULL, NULL, '6231', 'vencida', 1, 'CONTADO', NULL, '0.12', '50000', NULL, NULL, '56000', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(8, 8, 246, '2017-05-02 00:00:00', '2017-05-02 14:55:24', '2017-05-02 15:22:33', '2017-05-17 00:00:00', NULL, NULL, '2017-05-02 15:24:45', 14, '9216', 'anulada', 15, '15 días', NULL, '0.12', '44000', NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(9, 9, 246, '2017-05-02 00:00:00', '2017-05-02 15:34:52', NULL, '2017-05-05 00:00:00', NULL, '2017-05-02 15:34:57', NULL, 14, '9254', 'pagada', 3, '3 días', NULL, '0.12', '44000', NULL, NULL, '49280', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(10, 10, 246, '2017-05-06 00:00:00', '2017-05-06 02:29:51', NULL, '2017-05-07 00:00:00', '2017-05-07 20:05:06', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', '66078', NULL, NULL, '74007.36', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(11, 11, 27, '2017-05-08 00:00:00', '2017-05-08 19:18:28', NULL, '2017-05-09 00:00:00', '2017-05-09 21:03:58', NULL, NULL, 15, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', '87857.143', NULL, NULL, '98400', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(12, 12, 247, '2017-05-08 00:00:00', '2017-05-08 22:08:49', '2017-05-08 22:31:52', '2017-05-11 00:00:00', '2017-05-11 09:38:20', NULL, NULL, NULL, '9562', 'vencida', 3, '3 días', NULL, '0.12', '524160', NULL, NULL, '587059.2', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(13, 13, 111, '2017-05-27 00:00:00', '2017-05-27 19:30:51', '2017-05-27 19:33:24', '2017-05-28 00:00:00', '2017-05-28 10:27:43', NULL, NULL, NULL, '4500045', 'vencida', 1, 'CONTADO', NULL, '0.12', '686000', NULL, NULL, '768320', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE:', 'FAC 2', 'FAC 3', 1),
+(14, 14, 266, '2017-05-27 00:00:00', '2017-05-27 19:47:43', NULL, '2017-05-28 00:00:00', NULL, NULL, '2017-05-27 19:49:46', NULL, 'N/A', 'anulada', 1, 'CONTADO', NULL, '0.12', '19340000', NULL, NULL, '21660800', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: INSUMOS IN', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', '', 1),
+(15, 15, 202, '2017-05-27 00:00:00', '2017-05-27 19:57:42', NULL, '2017-05-28 00:00:00', NULL, '2017-05-27 20:03:36', NULL, NULL, '1234', 'pagada', 1, 'CONTADO', NULL, '0.12', '627080', NULL, NULL, '702329.6', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(16, 16, 246, '2017-06-25 00:00:00', '2017-06-25 12:03:38', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 14, 'N/A', 'vencida', 1, 'CONTADO', NULL, '0.12', '70645', NULL, NULL, '79122.4', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(17, 17, 258, '2017-06-25 00:00:00', '2017-06-25 12:32:34', NULL, '2017-06-26 00:00:00', NULL, NULL, '2017-06-25 12:33:18', NULL, '165', 'anulada', 1, 'CONTADO', NULL, '0.12', '5862', NULL, NULL, '6565.44', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(18, 18, 111, '2017-06-25 00:00:00', '2017-06-25 13:43:29', '2017-06-25 13:44:41', '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 19, '45000002545', 'vencida', 1, 'CONTADO', NULL, '0.12', '672402', NULL, NULL, '753090.24', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(19, 19, 216, '2017-06-25 00:00:00', '2017-06-25 14:43:20', NULL, '2017-06-26 00:00:00', '2017-06-26 23:10:25', NULL, NULL, 18, '1425', 'vencida', 1, 'CONTADO', NULL, '0.12', '1137165', NULL, NULL, '1273624.8', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(20, 20, 169, '2017-07-05 00:00:00', '2017-07-06 00:27:15', NULL, '2017-07-05 00:00:00', '2017-07-06 21:33:01', NULL, NULL, NULL, '6520', 'vencida', 1, 'CONTADO', NULL, '0.12', '134000', NULL, NULL, '150080', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(21, 21, 28, '2017-07-06 00:00:00', '2017-07-06 22:55:20', NULL, '2017-07-06 00:00:00', '2017-07-09 16:52:00', NULL, NULL, NULL, '6521', 'vencida', 1, 'CONTADO', NULL, '0.12', '75000', NULL, NULL, '84000', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(22, 22, 245, '2017-07-06 00:00:00', '2017-07-06 23:05:34', NULL, '2017-07-06 00:00:00', '2017-07-09 16:52:00', '2017-07-09 18:37:30', NULL, NULL, '8521', 'pagada', 1, 'CONTADO', NULL, '0.12', '301533.75', NULL, NULL, '337717.8', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1),
+(23, 23, 258, '2017-07-09 00:00:00', '2017-07-09 18:31:55', NULL, '2017-07-28 00:00:00', NULL, NULL, NULL, NULL, 'N/A', 'pendiente', 15, '15 días', NULL, '0.12', '1976225.0', NULL, NULL, '2213372', NULL, '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR ', 1);
 
 -- --------------------------------------------------------
 
@@ -3354,8 +3365,8 @@ CREATE TABLE IF NOT EXISTS `formato` (
 
 INSERT INTO `formato` (`idFormato`, `doc`, `entrada`, `enc1`, `enc2`, `enc3`, `enc4`, `enc5`, `enc6`, `titulo_obs`, `obs1`, `obs2`, `obs3`, `idUsuario`) VALUES
 (1, 'ctz', 'DE ACUERDO A SUS REQUERIMIENTOS', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'IMPORTANTE:', '#vctz', 'PRECIOS SUJETOS A CAMBIOS.', 'MEFCANCIA SUJET A DISPONIBILIDAD.', 1),
-(2, 'ndc', '', 'INSUMOS INFORMÁTICOS R&G, C.A', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', '.', '', '', '', 1),
-(3, 'ndd', 'NOTA DE DÉBITO', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', '', '', '', '', 1),
+(2, 'ndc', '', '', '', '', '', '', '', '.', '', '', '', 1),
+(3, 'ndd', 'NOTA DE DÉBITO', '', '', '', '', '', '', '', '', '', '', 1),
 (4, 'nde', '', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía, RIF.: J-30771508-1', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'email: insumos_rg@cantv.net    /   rginsumosinformaticos@gmail.com', 'RECIBIDO CONFORME', '', '', '_____________________________________________', 1),
 (5, 'fac', NULL, '', '', '', '', '', '', 'IMPORTANTE', 'EMITIR CHEQUE NO ENDOSABLE A NOMBRE DE: ', 'INSUMOS INFORMATICOS R&G, C.A.', 'LA GARANTIA DE LOS CONSUMIBLES, SERA CUBIERTA POR SU FABRICANTE.', 1),
 (6, 'sctz', 'Agredecido de su pronta respuesta', 'INSUMOS INFORMÁTICOS R&G, C.A.', 'Suministros para Computación y Papelería', 'Calle Este 16, Sordo a Peláez, Residencias Sorpe, PB, local 1', 'Parroquia Sta Rosalía', 'Teléfonos (0212) 5456529 / 3955955 / Telefax: 5424137 Cel: 04166244269', 'mrangel@mgideas.net / mikeven@gmail.com', 'INFORMACIÓN DE INTERÉS', 'SC1', 'SC2', 'SC3', 1),
@@ -3372,6 +3383,7 @@ CREATE TABLE IF NOT EXISTS `gasto` (
   `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `concepto` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `idCompra` int(5) DEFAULT NULL,
   `fecha_registro` datetime NOT NULL,
   `fecha_pago` datetime NOT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
@@ -3383,16 +3395,23 @@ CREATE TABLE IF NOT EXISTS `gasto` (
   `noperacion` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idGasto`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=17 ;
 
 --
 -- Volcado de datos para la tabla `gasto`
 --
 
-INSERT INTO `gasto` (`idGasto`, `tipo`, `estado`, `concepto`, `fecha_registro`, `fecha_pago`, `fecha_modificacion`, `monto`, `monto_pagado`, `beneficiario`, `forma_pago`, `banco`, `noperacion`, `idUsuario`) VALUES
-(1, 'gasto', 'creado', 'sssss', '2017-06-28 14:34:38', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '123151561651', 1),
-(2, 'gasto', 'creado', 'sssss', '2017-06-28 14:35:19', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '6562315614', 1),
-(3, 'gasto', 'creado', 'Pago electricidad', '2017-06-28 14:35:46', '2017-06-28 00:00:00', '2017-06-28 17:18:45', 2620.73, 1520.00, 'CORPOELEC', 'TR', 'Jurídica BFC', '12223258114', 1);
+INSERT INTO `gasto` (`idGasto`, `tipo`, `estado`, `concepto`, `idCompra`, `fecha_registro`, `fecha_pago`, `fecha_modificacion`, `monto`, `monto_pagado`, `beneficiario`, `forma_pago`, `banco`, `noperacion`, `idUsuario`) VALUES
+(1, 'gasto', 'eliminado', 'sssss', NULL, '2017-06-28 14:34:38', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '123151561651', 1),
+(2, 'gasto', 'creado', 'sssss', NULL, '2017-06-28 14:35:19', '2017-06-28 00:00:00', NULL, 2323232.00, 2323232.00, 'sssss', 'TR', 'Jurídica BFC', '6562315614', 1),
+(3, 'gasto', 'creado', 'Pago electricidad', NULL, '2017-06-28 14:35:46', '2017-06-28 00:00:00', '2017-07-09 22:18:42', 2620.73, 1520.00, 'CORPOELEC', 'TR', 'Jurídica BFC', '1332252115', 1),
+(8, 'pago', 'pagada', 'PAGO FACT N° 78954', 5, '2017-07-09 17:56:42', '2017-07-09 00:00:00', NULL, 5460531.00, 5460531.00, 'Mundo Papel', 'TR', 'Jurídica BFC', '3545', 1),
+(7, 'pago', 'pagada', 'PAGO FACT N° 10021', 4, '2017-07-06 23:26:47', '2017-07-06 00:00:00', NULL, 1103889.62, 1103889.62, 'Namir, S.A.', 'TR', 'Jurídica BFC', '1294946189', 1),
+(9, 'gasto', 'creado', 'PAGO MES JUNIO', NULL, '2017-07-09 18:43:13', '2017-07-09 00:00:00', NULL, 8252.00, 8252.00, 'IVSS', 'TR', 'Jurídica BFC', '2556', 1),
+(14, 'pago', 'pagada', 'PAGO FACT N° 9562', 1, '2017-07-09 19:15:55', '2017-07-09 00:00:00', NULL, 107112.71, 106102.00, 'Mundo Papel', 'EF', '', '', 1),
+(13, 'pago', 'pagada', 'PAGO FACT N° 10200', 2, '2017-07-09 19:00:59', '2017-07-09 00:00:00', NULL, 364705.88, 324522.00, 'CARACAS PAPER COMPANY, C.A.', 'TR', 'Jurídica BFC', '2563', 1),
+(12, 'gasto', 'creado', 'PAGO MES DE JUNIO', NULL, '2017-07-09 18:45:34', '2017-07-09 00:00:00', NULL, 812.00, 812.00, 'FAOV', 'TR', 'Jurídica BFC', '2556', 1),
+(16, 'pago', 'pagada', 'PAGO FACT N° 45685', 6, '2017-07-09 23:18:09', '2017-07-09 00:00:00', NULL, 954240.00, 877560.00, 'CARACAS PAPER COMPANY, C.A.', 'TR', 'Jurídica BFC', '251965', 1);
 
 -- --------------------------------------------------------
 
@@ -3818,7 +3837,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `nombre`, `empresa`, `subtitulo`, `rif`, `telefonos`, `email`, `vendedor`, `direccion1`, `direccion2`, `ultima_act_doc`) VALUES
-(1, 'admin', 'aba12345', 'Miguel', 'Insumos Informáticos R&G, C.A.', 'Suministro de Papelería y oficina', 'J-55989255-4', '02125456529 / 04266521524 / 04146589854', 'mrangel@mgideas.net / mikeven@gmail.com', 'Nidia', 'Av la Salle, Calle la Trinidad con cruce', 'Parroquia Verde y Azul', NULL),
+(1, 'admin', 'aba12345', 'Miguel', 'Insumos Informáticos R&G, C.A.', 'Suministro de Papelería y oficina', 'J-30771508-1', '0212-542.4137 / 545-6529 / 0426-6244269 ', 'rginsumosinformaticos@gmail.com  / insumos_rg@cantv.net', 'Nidia Gil', 'Calle Este 16, Sordo a Pelaéz, Res. Sorpe, Piso 12, Apto. 122.', 'Parroquia Santa Rosalía', NULL),
 (2, 'ryg', '154', 'Dibo Rangel', 'R & G Consumibles, C.A.', 'Insumos de papelería y oficina', 'J-48595499-8', '', 'rygconsumibles@gmail.com', '', '', '', NULL);
 
 -- --------------------------------------------------------

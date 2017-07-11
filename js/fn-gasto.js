@@ -136,11 +136,6 @@ function checkGasto( mje_destino ){
 		marcarCampo( $("#forma_pago"), error );
 	}
 
-	if( $("#cbanco").val() == 0 ) {
-		error = 1; mje = "Debe indicar cuenta de banco";
-		marcarCampo( $("#cbanco"), error );
-	}
-
 	if( error == 1 ){
 		//Asignar ventana de mensaje como mensaje de error
 		$(oRes.mensaje).html( mje );		
@@ -178,6 +173,8 @@ $( document ).ready(function() {
 
 		$("#ncompra").val( $(this).attr("data-label") );
 		$("#monto").val( $(this).attr("data-tmonto") );
+		$("#mpagado").val( $(this).attr("data-mpagado") );
+		$("#idCompra").val( $(this).attr("data-idcompra") );
 		$("#bt_umpag").attr( "data-m", $(this).attr("data-tmonto") );
 		$("#concepto").val( $(this).attr("data-concepto") );
 		$("#beneficiario").val( $(this).attr("data-beneficiario") );
@@ -188,8 +185,10 @@ $( document ).ready(function() {
 	$("#tgasto").on( "change", function() {
 		if( $(this).val() == "pago" ){
 			$("#selcompra").show(300);
+			$("#bloc_mpagado").fadeIn(300);
 		}else{
 			$("#selcompra").fadeOut(300);
+			$("#bloc_mpagado").fadeOut(300);
 		}
     });
 

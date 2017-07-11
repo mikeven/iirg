@@ -20,6 +20,7 @@ function reiniciarTabla(){
 /* ----------------------------------------------------------------------------------- */
 function agregarEncabezados( tencabezado, encabezado ){
 	//Retorna los encabezados de la tabla del reporte
+	tencabezado += "<tr class='enc_tab_rep'>";
 	$.each( encabezado, function( key, value ) {
 	  tencabezado += "<td align='center'>" + value + "</td>";
 	});	tencabezado += "</tr>";
@@ -35,6 +36,15 @@ function agregarFilasReporte( filas, registros ){
 	  }); filas += "</tr>";
 	});
 	return filas;
+}
+/* ----------------------------------------------------------------------------------- */
+function agregarFilaSeperacion( encabezado ){
+	//Agrega una fila para separar los encabezados
+	var cc = 0;
+	var fila = "<tr>";
+	$.each( encabezado, function() { cc++; });
+	fila += "<td colspan='" + cc + "'><div id='bordeado_doble'></div></td></tr>";
+	return fila;
 }
 /* ----------------------------------------------------------------------------------- */
 function agregarFilaVacia( encabezado ){
@@ -70,10 +80,11 @@ function enviarDataReporte( data_reporte ){
 	var encabezado = data_reporte.encabezado;
 	var registros = data_reporte.registros;
 	var totales = data_reporte.totales;
-	var tencabezado = "<tr class='enc_tab_rep'>";
+	var tencabezado = "";
 	var filas = "";
 	reiniciarTabla();
 	tencabezado += agregarEncabezados( tencabezado, encabezado );
+	//tencabezado += agregarFilaSeperacion( encabezado );
 	
 	filas += agregarFilasReporte( filas, registros );
 	filas += agregarFilaVacia( encabezado );

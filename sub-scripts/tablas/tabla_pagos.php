@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$gastos = obtenerListaGastos( $dbh, "gasto", $idu );
+	$gastos = obtenerListaGastos( $dbh, "pago", $idu );
 ?>
 <table id="lcompras" class="table table-bordered table-striped">
     <thead>

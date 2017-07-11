@@ -1,7 +1,7 @@
 <?php 
 	/*
 	*/
-	$compras = obtenerListaCompras( $dbh, $idu );
+	$compras = obtenerListaComprasNoPagadas( $dbh, $idu );
 ?>
 <div class="modal fade" id="lista_compras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width:60%;">
@@ -25,7 +25,9 @@
                     <div class="item_compra_lmodal" data-label="<?php echo $c["proveedor"]." "."( $c[femision] )";?>" 
                       data-tmonto="<?php echo number_format( $c["mtotal"], 2, ".", "" ); ?>"  
                       data-concepto="<?php echo "PAGO FACT N° ".$c["nfactura"]; ?>" 
-                      data-beneficiario="<?php echo $c["proveedor"]; ?>">
+                      data-beneficiario="<?php echo $c["proveedor"]; ?>"
+                      data-mpagado="<?php echo number_format( $c["mpagado"], 2, ".", "" ); ?>"
+                      data-idcompra="<?php echo $c["idcompra"]; ?>">
                        <a href="#!"><?php echo $c["proveedor"];?></a>
                     </div>
                   </td>

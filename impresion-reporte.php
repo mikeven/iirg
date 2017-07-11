@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
   <!-- jQuery 2.1.4 -->
   <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>

@@ -258,15 +258,6 @@
                           <input id="idGasto" name="idGasto" type="hidden" value="<?php echo $gasto["idGasto"];?>">
                             
                           <div class="box-body">
-                            <div class="form-group">
-                              <select class="form-control" id="tgasto" name="tgasto">
-                                <option value="0" disabled selected class="tg">Tipo de registro</option>
-                                <option value="gasto" class="tg" 
-                                <?php echo selop( "gasto", $gasto["tipo"] );?>>Registro de gasto</option>
-                                <option value="pago" class="tg" 
-                                <?php echo selop( "pago", $gasto["tipo"] );?>>Registro de pago</option>
-                              </select>
-                            </div><!-- /.form group -->
 
                             <div class="form-group">
                                 <div class="input-group date">

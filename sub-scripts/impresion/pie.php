@@ -11,7 +11,7 @@
         <div class="tobsdoc"><?php echo $encabezado["obs0"]; ?></div>
       <?php } ?>  
       <div><?php echo $obs[1]; ?></div>
-      <div><?php if( $obs[2] != "" ) echo $obs[2]; else echo "<br>";?></div>
+      <div><?php if( $obs[2] != "" ) echo $obs[2]; else echo "<br><br>";?></div>
       <div><?php echo $obs[3]; ?></div>  
   </div>
   <!-- /.Bloque de observaciones -->

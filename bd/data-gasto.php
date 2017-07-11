@@ -26,13 +26,14 @@
 		return $data;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerListaGastos( $dbh, $idu ){
+	function obtenerListaGastos( $dbh, $tipo, $idu ){
 		//Devuelve registro de artículo dado el ID
 		$lista_g = array();
 		$q = "select idGasto, tipo, beneficiario, concepto, 
 		date_format(fecha_pago,'%d/%m/%Y') as fpago, 
 		date_format(fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
-		banco, monto, monto_pagado, forma_pago, noperacion from gasto where idUsuario = $idu";		
+		banco, monto, monto_pagado, forma_pago, noperacion 
+		from gasto where tipo='$tipo' and idUsuario = $idu";		
 		
 		$data = mysql_query( $q, $dbh );
 		while( $g = mysql_fetch_array( $data ) ){
@@ -61,6 +62,14 @@
 		return mysql_affected_rows();		
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function pagarCompra( $dbh, $idc, $estado, $idu ){
+		//Modifica el estado de una compra ('creada', 'eliminada')
+		$q = "update compra set estado = '$estado' where idCompra = $idc and idUsuario = $idu";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
+		return mysql_affected_rows();		
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function mjeRespuestaEstado( $estado ){
 		$mje = array(
 			"eliminado" 		=> "Registro eliminado",
@@ -78,8 +87,10 @@
 		
 		$gasto = array();
 		parse_str( $_POST["rgasto"], $gasto );
-		if( $_POST["g_accion"] == "agregar" )
+		if( $_POST["g_accion"] == "agregar" ){
 			$idg = agregarGasto( $dbh, $gasto, $_POST["id_u"] );
+			pagarCompra( $dbh, $gasto["idCompra"], "pagada", $_POST["id_u"] );
+		}
 		if( $_POST["g_accion"] == "editar" )
 			$idg = modificarGasto( $dbh, $gasto, $_POST["id_u"] );
 

@@ -86,7 +86,8 @@
             <li><a href="compras.php"><i class="fa fa-list-alt"></i>Consultar compras</a></li>
             <li><a href="nuevo-compra.php"><i class="fa fa-plus"></i>Registrar compra</a></li>
             <li><a href="gastos.php"><i class="fa fa-list-alt"></i>Consultar gastos</a></li>
-            <li><a href="nuevo-gasto.php"><i class="fa fa-plus"></i>Registrar gasto</a></li>
+            <li><a href="pagos.php"><i class="fa fa-list-alt"></i>Consultar pagos</a></li>
+            <li><a href="nuevo-gasto.php"><i class="fa fa-plus"></i>Registrar gasto/pago</a></li>
           </ul>
         </li>
         

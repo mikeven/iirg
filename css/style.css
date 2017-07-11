@@ -83,3 +83,7 @@
 .rseleccionado a{ 
 	color: #FFF !important;
 }
+
+.enc_tab_rep{
+	border-bottom: 3px solid #ccc;
+}

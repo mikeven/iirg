@@ -54,7 +54,8 @@
 		n.concepto as concepto, n.introduccion as intro, n.Observaciones as obs0, 
 		n.Observaciones1 as obs1, n.Observaciones2 as obs2, n.Observaciones3 as obs3, 
 		c.Nombre as nombre, c.Rif as rif, c.direccion1 as dir1, c.direccion2 as dir2, 
-		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email FROM nota n, cliente c $tabla 
+		c.telefono1 as tlf1, c.telefono2 as tlf2, c.Email as email, c.pcontacto as pcontacto 
+		FROM nota n, cliente c $tabla 
 		WHERE n.idNota = $idn and n.idCliente = c.idCliente $cond";
 
 		//echo $q;

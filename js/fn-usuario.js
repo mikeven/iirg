@@ -140,9 +140,17 @@ function modificarDatosUsuario( param ){
     });
 }
 /* --------------------------------------------------------- */
+function obtenerFilaTablaCtasBancarias( data ){
+	var fila = "<tr id='cb"+data.id+"'><th>" + data.banco + "</th><th>" + data.desc + "</th>"+
+	"<th><button type='button' class='btn btn-block btn-danger btn-xs ecb' onclick='elimRegCA(" + data.id + ")'>"
+    + "<i class='fa fa-times'></i></button></th></tr>";
+
+    return fila;
+}
+/* --------------------------------------------------------- */
 function actualizarTablaCtasBancarias( a, data ){
 	if( a == '+' ){
-		var item_d = "<tr><th>" + data.banco + "</th><th>" + data.desc + "</th></tr>";
+		var item_d = obtenerFilaTablaCtasBancarias( data );
 		$( item_d ).appendTo( "#lbancos_usuario tbody").show("slow");
 		$( '#bdescripcion' ).val(""); $("#banco").val(0);
 	}else{

@@ -95,6 +95,7 @@
   }
   /*========================================================*/
   $tencabezado = tieneEncabezado( $tdd, $tipo_n );
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -172,6 +173,10 @@
     .tobsdoc{font-size: 16px; }
     .uline{ text-decoration: underline; }
 
+    .enc_ai{ text-align: left; }
+    .enc_ac{ text-align: center; }
+    .enc_ad{ text-align: right; }
+
   </style>
 </head>
   <?php 
@@ -183,23 +188,21 @@
   <section class="invoice">
     <!-- info row -->
           
-          <?php if( $tencabezado ) { ?>
-            <div class="row" id="membrete">
-                <div class="col-sm-2"></div><!-- /.col -->
-                <div class="col-sm-8" align="center">
-                  
-                  <div id="lin1"> <?php echo $frt["enc1"]; ?> </div>
-                  <div id="lin2"> <?php echo $frt["enc2"]; ?> </div>
-                  <div id="lin3" class="membrete3"> <?php echo $frt["enc3"]; ?> </div>
-                  <div id="lin4" class="membrete3"> <?php echo $frt["enc4"]; ?> </div>
-                  <div id="lin5" class="membrete3"> <?php echo $frt["enc5"]; ?> </div>
-                  <div id="lin6" class="membrete3"> <?php echo $frt["enc6"]; ?> </div>
+          <div class="row" id="membrete">
+            <div class="col-sm-2"></div><!-- /.col -->
+            <div class="col-sm-8" align="center">
+              
+              <div id="lin1"> <?php echo $frt["enc1"]; ?> </div>
+              <div id="lin2"> <?php echo $frt["enc2"]; ?> </div>
+              <div id="lin3" class="membrete3"> <?php echo $frt["enc3"]; ?> </div>
+              <div id="lin4" class="membrete3"> <?php echo $frt["enc4"]; ?> </div>
+              <div id="lin5" class="membrete3"> <?php echo $frt["enc5"]; ?> </div>
+              <div id="lin6" class="membrete3"> <?php echo $frt["enc6"]; ?> </div>
 
-                </div>
-                <div class="col-sm-2"></div><!-- /.col -->
-            </div><!-- /.row -->
-          <?php } ?>
-
+            </div>
+            <div class="col-sm-2"></div><!-- /.col -->
+          </div><!-- /.row -->
+          
           <div class="row" id="encabezado">
               <div class="col-sm-6 invoice-col" id="dcliente">
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
@@ -210,6 +213,9 @@
                     <div id="dc_telf">
                       <?php echo $encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
                     </div>  
+                  <?php } ?>
+                  <?php if( ( $tdd == "ctz" ) || ( $tdd == "nota" && $tipo_n == "nota_entrega" ) ) { ?>
+                    <div id="dc_pcontacto"> Attn <?php echo $encabezado["pcontacto"]?></div>
                   <?php } ?>  
               </div><!-- /.col -->
               
@@ -234,11 +240,11 @@
               <table id="tabla_detalle_doc" class="table">
                 <thead>
                   <tr>
-                    <th align="center">Descripción</th>
-                    <th align="center">Cant</th>
-                    <th align="center">UND</th>
-                    <th align="center">Precio Unitario</th>
-                    <th align="center">Total BsF.</th>
+                    <th class="enc_ai">Descripción</th>
+                    <th class="enc_ac">Cant</th>
+                    <th class="enc_ac">UND</th>
+                    <th class="enc_ad">Precio Unitario</th>
+                    <th class="enc_ad">Total BsF.</th>
                   </tr>
                 </thead>
                 <tbody>

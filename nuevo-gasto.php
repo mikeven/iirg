@@ -212,15 +212,11 @@
                     </div>
                   </div><!-- /.form group -->  
                   
-                  <div class="form-group">
+                  <div id="bloc_mpagado" class="form-group">
                     <!--<label for="mbase">Monto pagado</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-check-circle-o"></i></div>
                         <input type="text" class="form-control" id="mpagado" placeholder="Monto pagado" name="mpagado" required onkeypress="return isNumberKey(event)">
-                        <span class="input-group-btn">
-                          <button id="bt_umpag" type="button" class="btn btn-primary btn-flat" 
-                          data-m="">Monto de compra</button>
-                        </span>
                     </div>
                   </div><!-- /.form group -->
 
@@ -230,6 +226,8 @@
                       <option value="EF" class="ofp">Efectivo</option>
                       <option value="TR" class="ofp">Transferencia</option>
                       <option value="CH" class="ofp">Cheque</option>
+                      <option value="TD" class="ofp">Tarjeta débito</option>
+                      <option value="TC" class="ofp">Tarjeta crédito</option>
                     </select>
                   </div><!-- /.form group -->
                   

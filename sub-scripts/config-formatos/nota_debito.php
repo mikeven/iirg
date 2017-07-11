@@ -26,12 +26,12 @@
           <div class="tab-pane active" id="tab_nd1">
           
             <div class="tcontab"><b>Datos de encabezado</b></div>
-            <div><?php echo $frt_nd["enc1"]; ?></div>
-            <div><?php echo $frt_nd["enc2"]; ?></div>
-            <div><?php echo $frt_nd["enc3"]; ?></div>
-            <div><?php echo $frt_nd["enc4"]; ?></div>
-            <div><?php echo $frt_nd["enc5"]; ?></div>
-            <div><?php echo $frt_nd["enc6"]; ?></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
             <hr>
             <div class="tcontab"><b>Texto introductorio</b></div>
             <div><?php echo $frt_nd["entrada"]; ?></div>
@@ -49,54 +49,7 @@
             <form role="form" id="frm_mencabeznd" method="post">
               <input name="mod_enc_notd" type="hidden" value="1">
               <div class="box-body">
-                <input name="idUsuario" type="hidden" id="idUsuario" value="<?php echo $usuario["idUsuario"];?>">
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l1" value="<?php echo $datau[0]; ?>">
-                    <span class="input-group-addon">L1</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l2" value="<?php echo $datau[1]; ?>">
-                    <span class="input-group-addon">L2</span>
-                  </div>                                        
-                </div><!-- /.form group -->
-
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l3" value="<?php echo $datau[2]; ?>">
-                    <span class="input-group-addon">L3</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l4" value="<?php echo $datau[3]; ?>">
-                    <span class="input-group-addon">L4</span>
-                  </div>                                        
-                </div><!-- /.form group -->
-                <div class="form-group">
-                  <!--<label for="obs1">obs1</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l5" value="<?php echo $datau[4]; ?>">
-                    <span class="input-group-addon">L5</span>
-                  </div>
-                </div><!-- /.form group -->
-                
-                <div class="form-group">
-                  <!--<label for="obs2">obs2</label>-->
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="l6" value="<?php echo $datau[5]; ?>">
-                    <span class="input-group-addon">L6</span>
-                  </div>                                        
-                </div><!-- /.form group -->
-                <div id="cres_nd"></div> 
+              
               </div><!-- /.box-body -->
 
               <div class="box-footer" align="center">
