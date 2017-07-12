@@ -121,6 +121,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <style>
+    body{
+    	font-size: 14px !important;
+    }
+
     .table-imp-det th{
       text-align:center !important;
       border: 1px solid #ddd;
@@ -129,7 +133,7 @@
     #encabezado{
       margin: 20px 0;
       <?php if( !$tencabezado ) { ?>
-        margin: 14% 0 20px 0;  
+        margin: 15% 0 20px 0;  
       <?php } ?>
     }
 
@@ -137,15 +141,21 @@
       width: 100%;
       position: fixed;
       bottom: 0;
-      margin-bottom: 4%;
+      margin-bottom: 8%;
+      font-size: 12px !important;
     }
 
-    #detalle_doc{
-      width: 100%;
+    #tabla_detalle_doc>tbody{
+    	font-size: 12px !important;
+      /*width: 100%;*/
     }
-
+	
+	#ddocumento_der table>tbody>tr>td{
+      border: 0; 
+    }
+    
     .table>tbody>tr>td, table>tbody>tr>th{
-      line-height: 0.7 !important;
+      line-height: 0.3 !important;
     }
 
     .table>thead>tr>th{
@@ -161,7 +171,7 @@
     }
 
     #bordeado_doble{
-      height: 5px;
+      height: 3px;
       border-top: 1px dashed #000;
       border-bottom: 1px dashed #000; 
     }
@@ -176,6 +186,10 @@
     .enc_ai{ text-align: left; }
     .enc_ac{ text-align: center; }
     .enc_ad{ text-align: right; }
+
+    #totalizacion{
+    	padding-right: 0px !important;
+    }
 
   </style>
 </head>
@@ -208,7 +222,7 @@
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
                   <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
-                  <div id="dc_rif"><?php echo $encabezado["rif"]?></div>
+                  <div id="dc_rif"><?php echo "Rif ".$encabezado["rif"]?></div>
                   <?php if( ( $tdd == "nota" ) || ( $tdd == "nota" ) ) { ?>
                     <div id="dc_telf">
                       <?php echo $encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
@@ -240,11 +254,11 @@
               <table id="tabla_detalle_doc" class="table">
                 <thead>
                   <tr>
-                    <th class="enc_ai">Descripción</th>
-                    <th class="enc_ac">Cant</th>
-                    <th class="enc_ac">UND</th>
-                    <th class="enc_ad">Precio Unitario</th>
-                    <th class="enc_ad">Total BsF.</th>
+                    <th class="enc_ac" width="55%">DESCRIPCIÓN</th>
+                    <th class="enc_ac" width="10%">CANT</th>
+                    <th class="enc_ac" width="10%">UND</th>
+                    <th class="enc_ad" width="10%">PRECIO <br>UNITARIO</th>
+                    <th class="enc_ad" width="15%">TOTAL BSF.</th>
                   </tr>
                 </thead>
                 <tbody>

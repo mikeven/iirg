@@ -1,6 +1,6 @@
 <div class="col-sm-4 col-xs-push-1 invoice-col" id="ddocumento_der">          
   
-  <table width="100%" border="0">
+  <table width="100%" border="0" class="table">
     <tr>
       <td width="70%">
         <div id="doc_numero_et">

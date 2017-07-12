@@ -1,7 +1,7 @@
 <div id="pie_documento" class="row pie_documento">
 
   <!-- Bloque de observaciones -->
-  <div class="col-xs-6">
+  <div class="col-xs-8">
     <?php if( $tdd == "nota" ) { ?>
       <div class="tconcepto"><?php echo $c_concepto; ?> </div>
     <?php } ?>  
@@ -17,7 +17,7 @@
   <!-- /.Bloque de observaciones -->
 
   <!-- Totalización -->
-  <div class="col-xs-6">
+  <div id="totalizacion" class="col-xs-4">
     <div class="table-responsive" style="float:right;">
       <table class="table">
         <tr>
