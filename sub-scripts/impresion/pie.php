@@ -30,10 +30,10 @@
           <td class="tit_tdf_d" align="right">
           <?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
         </tr>
-        <tr>
+        <tr class="destacado2">
           <th>Total:</th>
           <td class="tit_tdf_d" align="right">
-          <?php echo number_format( $totales["total"], 2, ",", "." ); ?></td>
+          <b><?php echo number_format( $totales["total"], 2, ",", "." ); ?></td></b>
         </tr>
       </table>
     </div>

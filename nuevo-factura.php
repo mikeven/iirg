@@ -221,7 +221,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                       <div class="input-group-addon">
-                                        <i class="fa fa-slack"></i> 
+                                         
                                         <label for="oc" class="iconlab">O/C:</label>
                                       </div>
                                       <input type="text" class="form-control" id="fordc" name="orden_compra">
@@ -255,12 +255,14 @@
                               <div class="col-md-3">
                                   <div class="form-group">
                                       <div class="input-group date">
-                                          <div class="input-group-addon">
-                                              <!-- <i class="fa fa-slack"></i> --> 
-                                              <label for="datepicker" class="iconlab">N°:</label>
+                                          <div><b>
+                                            <span class="iconlab"># Fact: 
+                                            <?php echo $num_nvofactura; ?></span></b>
                                           </div>
-                                          <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
-                                          value="<?php echo $num_nvofactura; ?>">
+                                          <div><b>
+                                            <span class="iconlab"># Control:</span></b>
+                                          </div>
+                                          <input type="hidden" class="form-control" id="ndocumento" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
                                       </div>
                                   </div><!-- /.form group -->
                               </div>

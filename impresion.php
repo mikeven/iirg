@@ -32,7 +32,7 @@
     }      
     if( $tdd == "odc" ){
       $documento = obtenerOrdenCompraPorId( $dbh, $id );
-      $tdocumento = "Orden de compra";
+      $tdocumento = "Ord. de compra";
     }
     if( $tdd == "fac" ){
       $documento = obtenerFacturaPorId( $dbh, $id );
@@ -133,7 +133,7 @@
     #encabezado{
       margin: 20px 0;
       <?php if( !$tencabezado ) { ?>
-        margin: 15% 0 20px 0;  
+        margin: 15% 0 10px 0;  
       <?php } ?>
     }
 
@@ -145,17 +145,28 @@
       font-size: 12px !important;
     }
 
+    #tabla_detalle_doc{
+      width: 100% !important;
+    }
+
     #tabla_detalle_doc>tbody{
     	font-size: 12px !important;
       /*width: 100%;*/
     }
 	
-	#ddocumento_der table>tbody>tr>td{
+    #ddocumento_der table>tbody>tr>td{
       border: 0; 
     }
+    <?php if( $tdd == "fac" ) { ?>
+      .destacado{ font-size: 18px; }
+    <?php } ?>
+    
+    .destacado2{ font-size: 13px; }
     
     .table>tbody>tr>td, table>tbody>tr>th{
-      line-height: 0.3 !important;
+      <?php if( $tdd == "fac" ) { ?>
+        line-height: 0.3 !important;
+      <?php } ?>
     }
 
     .table>thead>tr>th{
@@ -166,12 +177,17 @@
       border: 0; 
     }
 
+    #tabla_detalle_doc>thead{
+      vertical-align: bottom; 
+    }
+
     #tabla_detalle_doc>tbody{
-      padding: 12px 0 0 0; 
+      padding: 0px 0 0 0; 
     }
 
     #bordeado_doble{
-      height: 3px;
+      height: 5px;
+      margin: 6px 0;
       border-top: 1px dashed #000;
       border-bottom: 1px dashed #000; 
     }
@@ -223,12 +239,12 @@
                   <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
                   <div id="dc_rif"><?php echo "Rif ".$encabezado["rif"]?></div>
-                  <?php if( ( $tdd == "nota" ) || ( $tdd == "nota" ) ) { ?>
+                  <?php if( ( $tdd == "nota" ) || ( $tdd == "fac" ) ) { ?>
                     <div id="dc_telf">
-                      <?php echo $encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
+                      <?php echo "Telf.: ".$encabezado["tlf1"]." - ".$encabezado["tlf2"]?>
                     </div>  
                   <?php } ?>
-                  <?php if( ( $tdd == "ctz" ) || ( $tdd == "nota" && $tipo_n == "nota_entrega" ) ) { ?>
+                  <?php if( $tdd == "ctz" ) { ?>
                     <div id="dc_pcontacto"> Attn <?php echo $encabezado["pcontacto"]?></div>
                   <?php } ?>  
               </div><!-- /.col -->
@@ -251,7 +267,7 @@
           <!-- Table row -->
           <div class="row" id="detalle_doc">
             <div class="col-xs-12 table-responsive">
-              <table id="tabla_detalle_doc" class="table">
+              <table id="tabla_detalle_doc" class="table_x">
                 <thead>
                   <tr>
                     <th class="enc_ac" width="55%">DESCRIPCIÓN</th>
@@ -263,7 +279,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan="5" align="left" class=""><div id="bordeado_doble"></div></td>
+                    <td colspan="5" align="left" class="divisor"><div id="bordeado_doble"></div></td>
                   </tr>
                   <?php foreach( $detalle_d as $item ) { ?>
                   <tr>

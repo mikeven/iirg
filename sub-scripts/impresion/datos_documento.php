@@ -1,15 +1,15 @@
 <div class="col-sm-4 col-xs-push-1 invoice-col" id="ddocumento_der">          
   
   <table width="100%" border="0" class="table">
-    <tr>
+    <tr class="destacado">
       <td width="70%">
         <div id="doc_numero_et">
-          <?php echo "N° de ".$tdocumento.":";?>
+          <b><?php echo "N° de ".$tdocumento.":";?></b>
         </div>
       </td>
-      <td width="30%">
+      <td width="30%" style="vertical-align:bottom;">
         <div id="doc_numero_val">
-          <?php echo $encabezado["nro"]; ?>
+          <b><?php echo $encabezado["nro"]; ?></b>
         </div>
       </td>
     </tr>
