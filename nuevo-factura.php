@@ -164,6 +164,7 @@
   <?php
     $fecha_actual = obtenerFechaHoy();
     $num_nvofactura = obtenerProximoNumeroFactura( $dbh, $usuario["idUsuario"] );
+    $ctrl_nvofactura = obtenerProximoNumeroControlFactura( $dbh, $usuario["idUsuario"] );
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );
     $cond_defecto = obtenerCondicionDefecto( $dbh, "factura", $usuario["idUsuario"] ); 
@@ -260,9 +261,13 @@
                                             <?php echo $num_nvofactura; ?></span></b>
                                           </div>
                                           <div><b>
-                                            <span class="iconlab"># Control:</span></b>
+                                            <span class="iconlab"># Control:
+                                            <?php echo $ctrl_nvofactura; ?></span></b>
                                           </div>
-                                          <input type="hidden" class="form-control" id="ndocumento" name="numero" required readonly value="<?php echo $num_nvofactura; ?>">
+                                          <input type="hidden" id="ndocumento" name="numero" 
+                                          value="<?php echo $num_nvofactura; ?>">
+                                          <input type="hidden" id="ncontrol" name="control" 
+                                          value="<?php echo $ctrl_nvofactura; ?>">
                                       </div>
                                   </div><!-- /.form group -->
                               </div>

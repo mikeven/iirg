@@ -5,22 +5,22 @@
 	/* ----------------------------------------------------------------------------------- */
 	function agregarProveedor( $p, $dbh ){
 		$q = "insert into proveedor (Nombre, Rif, Email, pcontacto, telefono1, telefono2, Direccion1, Direccion2 ) 
-		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[tel1]', '$p[tel2]', '$p[direccion1]', '$p[direccion2]' )";
+		values ( '$p[nombre]', '$p[rif]', '$p[email]', '$p[pcontacto]', '$p[telefono1]', '$p[telefono2]', '$p[direccion1]', '$p[direccion2]' )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function modificarProveedor( $p, $dbh ){
+	function modificarProveedor( $dbh, $p ){
 		
 		$resp["cambio"] = "exito";
 		$q = "update proveedor set Nombre = '$p[nombre]', Rif = '$p[rif]', Email = '$p[email]', 
-		pcontacto = '$p[pcontacto]', telefono1 = '$p[tel1]', telefono2 = '$p[tel2]', 
-		Direccion1 = '$p[direccion1]', Direccion2 = '$p[direccion2]' where idProveedor = $p[id]";
+		pcontacto = '$p[pcontacto]', telefono1 = '$p[telefono1]', telefono2 = '$p[telefono2]', 
+		Direccion1 = '$p[direccion1]', Direccion2 = '$p[direccion2]' where idProveedor = $p[idProveedor]";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 
-		$resp["id"] = $p["id"];
+		$resp["id"] = $p["idProveedor"];
 		if( mysql_affected_rows() != 1 )
 			$resp["cambio"] = "";
 		
@@ -72,27 +72,44 @@
 		return $existente;	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	if( isset( $_POST["reg_proveedor"] ) || isset( $_POST["mod_proveedor"] ) ){
+	if( isset( $_POST["reg_proveedor"] ) ){
 		include("bd.php");
-		$p["nombre"] = $_POST["nombre"];
-		$p["rif"] = $_POST["rif"];
-		$p["email"] = $_POST["email"];
-		$p["pcontacto"] = $_POST["pcontacto"];
-		$p["direccion1"] = $_POST["direccion1"];
-		$p["direccion2"] = $_POST["direccion2"];
-		$p["tel1"] = $_POST["telefono1"];
-		$p["tel2"] = $_POST["telefono2"];
+
+		$proveedor = array();
+		parse_str( $_POST["nproveedor"], $proveedor );
+		//print_r( $proveedor );
 		
-		if( isset( $_POST["reg_proveedor"] )){
-			$idr = agregarProveedor( $p, $dbh );
+		$idr = agregarProveedor( $proveedor, $dbh );
+		if( ( $idr != 0 ) && ( $idr != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Proveedor registrado";
+			$proveedor["id"] = $idr;
+			$res["registro"] = $proveedor;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar proveedor";
 		}
-		if( isset( $_POST["mod_proveedor"] )){
-			$p["id"] = $_POST["idProveedor"];
-			$res = modificarProveedor( $p, $dbh );
-			$idr = $res["id"]."&res=$res[cambio]";
+
+		echo json_encode( $res );	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	if( isset( $_POST["mproveedor"] ) ){
+		
+		include("bd.php");
+		parse_str( $_POST["mproveedor"], $proveedor );
+	
+		$idr = modificarProveedor( $dbh, $proveedor );
+	
+		if( ( $idr != 0 ) && ( $idr != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Proveedor actualizado con éxito";
+			$proveedor["id"] = $proveedor["idProveedor"];
+			$res["registro"] = $proveedor;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al modificar proveedor";
 		}
-		//echo $idr;
-		echo "<script>window.location.href='../ficha_proveedor.php?p=$idr'</script>";	
+		echo json_encode( $res );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_POST["existe_rif"] ) ){

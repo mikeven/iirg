@@ -27,6 +27,13 @@
 		return $data["num"] + 1;
 	}
 	/* ------------------------------------------------------------------------------- */
+	function obtenerProximoNumeroControlFactura( $dbh, $idu ){
+		//Retorna el número correspondiente al próximo registro de factura a guardar
+		$q = "select MAX(control) as ctrl from factura where idUsuario = $idu";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
+		return $data["ctrl"] + 1;
+	}
+	/* ------------------------------------------------------------------------------- */
 	function tieneNotaAsociada( $dbh, $id ){
 		//Determina si un nota (crédito/débito) está asociada a una factura dado su id  
 		$asociada = false;
@@ -107,10 +114,10 @@
 		if( $encabezado->idcotizacion == "" ) { $pidc = ""; $vidc = ""; } 
 		else{ $pidc="idCotizacion,"; $vidc = $encabezado->idcotizacion.","; }
 		
-		$q = "insert into factura ( numero, orden_compra, estado, $pidc IdCliente, fecha_emision, 
+		$q = "insert into factura ( numero, control, orden_compra, estado, $pidc IdCliente, fecha_emision, 
 		fecha_vencimiento, introduccion, observaciones, observaciones1, observaciones2, 
 		observaciones3, valor_condicion, condicion, iva, Subtotal, Total, fecha_registro, idUsuario ) 
-		values ( $encabezado->numero, '$encabezado->noc', '$encabezado->estado',
+		values ( $encabezado->numero, $encabezado->ncontrol, '$encabezado->noc', '$encabezado->estado',
 		$vidc $encabezado->idcliente, '$fecha_emision', '$encabezado->fvencimiento', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
 		'$encabezado->obs3', $encabezado->vcondicion, '$encabezado->ncondicion', $encabezado->iva, 

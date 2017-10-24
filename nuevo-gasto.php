@@ -21,7 +21,7 @@
     <title>IIRG | Registro de gastos y pagos</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.5 -->
+    <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -105,7 +105,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Mensajes: style can be found in dropdown.less-->
-          <?php include("sub-scripts/nav/mensajes.php");?>
+          <?php include("sub-scripts/nav/mensajes.php"); ?>
           <!-- Mensajes-->
           <!-- Notificaciones: style can be found in dropdown.less -->
           <?php include("sub-scripts/nav/notificaciones.php");?>

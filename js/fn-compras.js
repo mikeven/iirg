@@ -31,7 +31,7 @@ function initValid(){
 	            validators: { notEmpty: { message: 'Debe indicar nro de control' } }
 	        }
 	    },
-		        callback: function () {
+		callback: function () {
 	    	alert("OK");
 	    }
 	});

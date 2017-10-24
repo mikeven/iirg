@@ -45,6 +45,7 @@ function obtenerVectorEncabezado(){
 	//Retorna un objeto con los datos de encabezado de una factura
 	encabezado = obtenerEncabezadoBase();
 	
+	encabezado.ncontrol = $( '#ncontrol' ).val();
 	encabezado.noc = $( '#fordc' ).val();
 	encabezado.idcotizacion = $( '#idCotizacion' ).val();
 	encabezado.idcliente = $( '#idCliente' ).val();

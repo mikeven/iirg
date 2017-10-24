@@ -84,7 +84,8 @@
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.rif as rif, p.Nombre as proveedor 
 		from proveedor p, compra c where ( c.fecha_emision BETWEEN '$fecha_i' AND '$fecha_f' ) and 
-		c.idProveedor = p.idProveedor and c.idUsuario = $idu and ( estado = 'creada' or estado = 'pagada' )";
+		c.idProveedor = p.idProveedor and c.idUsuario = $idu and ( estado = 'creada' or estado = 'pagada' ) 
+		order by c.fecha_emision asc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){

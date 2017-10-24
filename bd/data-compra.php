@@ -38,7 +38,7 @@
 		( (( c.monto * c.iva/100 ) + c.monto ) - ((c.iva*c.monto/100)*c.retencion) ) as mpagado,  
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
 		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and 
-		estado <> 'eliminada'";
+		estado <> 'eliminada' order by c.fecha_emision desc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){
@@ -55,7 +55,8 @@
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		( (( c.monto * c.iva/100 ) + c.monto ) - ((c.iva*c.monto/100)*c.retencion) ) as mpagado,  
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
-		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'creada'";
+		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'creada' 
+		order by c.fecha_emision asc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){
@@ -66,8 +67,10 @@
 	/* ----------------------------------------------------------------------------------- */
 	function modificarCompra( $dbh, $compra, $idu ){
 		//Modifica los datos de una compra
+		$fecha_emision = cambiaf_a_mysql( $compra["fecha_emision"] );
 		$q = "update compra set idProveedor = $compra[idProveedor], fecha_modificacion = NOW(), 
-		monto = $compra[mbase], iva = $compra[iva], ncontrol = '$compra[ncontrol]', nfactura = '$compra[nfactura]', 
+		monto = $compra[mbase], iva = $compra[iva], ncontrol = '$compra[ncontrol]', 
+		nfactura = '$compra[nfactura]', fecha_emision = '$fecha_emision',
 		num_retencion = '$compra[nret]', retencion = $compra[retencion]
 		where idCompra = $compra[idCompra] and idUsuario = $idu";
 		//echo $q;

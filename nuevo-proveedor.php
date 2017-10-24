@@ -39,8 +39,9 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" 
+    href="plugins/bootstrapvalidator-dist-0.5.3/dist/css/bootstrapValidator.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -72,33 +73,7 @@
     		$(".ctel").inputmask({mask: "(9999)-999.99.99"});
       });
     </script>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            $('#frm_nproveedor').bootstrapValidator({
-                message: 'Revise el contenido del campo',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                  email: {
-                        validators: { notEmpty: { message: 'Debe indicar un email' },
-						            emailAddress: { message: 'Debe especificar un email válido' } }
-                    },
-					        nombre: {
-                        validators: { notEmpty: { message: 'Debe indicar nombre' } }
-                    },
-					        rif: {
-                        validators: { notEmpty: { message: 'Debe indicar RIF' } }
-                  }
-                },
-			           callback: function () {
-              	   alert("OK");
-                  }
-          });
-        });
-    </script>
+    
     <script src="js/fn-proveedores.js"></script>
     <script src="js/fn-ui.js"></script>
 </head>
@@ -160,7 +135,7 @@
                   <div class="icon-color"><i class="fa fa-truck fa-2x"></i></div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="frm_nproveedor" name="form_agregar_proveedor" action="" method="post">
+                <form role="form" id="frm_nproveedor" name="form_agregar_proveedor" method="post">
 					          <input name="reg_proveedor" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
@@ -223,7 +198,7 @@
                   </div><!-- /.box-body -->
 
                   <div class="box-footer" align="center">
-                    <button type="button" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="bt_reg_proveedor">Guardar</button>
                   </div>
 
                   <!-- Bloque de respuesta del servidor -->

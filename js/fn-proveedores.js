@@ -24,14 +24,24 @@ function reg_proveedor( frm_nproveedor ){
 	$.ajax({
         type:"POST",
         url:url_data,
-        data:{ form: frm_nproveedor.serialize(), reg_proveedor:1 },
+        data:{ nproveedor: frm_nproveedor.serialize(), reg_proveedor:1 },
         success: function( response ){
-			//alert(response);
-			/*if( response == 1 ){
-				window.location = "main.php";
-			}
-			else 
-				$("#response").html( error_m );*/
+			res = jQuery.parseJSON(response);
+			enviarRespuestaServidor( res, "redireccion", '', "ficha_proveedor.php?p=" );
+        }
+    });
+}
+/* --------------------------------------------------------- */
+function mod_proveedor( form ){
+	url_data = "bd/data-proveedor.php";
+	$.ajax({
+        type:"POST",
+        url:url_data,
+        data:{ mproveedor: form.serialize() },
+        success: function( response ){
+			console.log(response);
+			res = jQuery.parseJSON(response);
+			enviarRespuestaServidor( res, "redireccion", '', "ficha_proveedor.php?p=" );
         }
     });
 }
@@ -39,7 +49,7 @@ function reg_proveedor( frm_nproveedor ){
 function checkProveedor( mje_destino ){
 	//Validación de datos de proveedor antes de registrarse
 	var error = 0; var mje = "";
-	oRes = arrayMjes( mje_destino );
+	oRes = arrayMjes( mje_destino );	//fn-ui.js
 	//$(oRes.idhtml).addClass("modal-danger");
 
 	if( $("#err_rif").val() == 1 ) {
@@ -60,7 +70,54 @@ function checkProveedor( mje_destino ){
 	return error;
 }
 /* --------------------------------------------------------- */
+function bt_reg_proveedor(){
+	if( checkProveedor('modal') == 0 )
+		reg_proveedor( $("#frm_nproveedor") );
+	else
+		$("#enl_vmsj").click();
+}
+/* --------------------------------------------------------- */
+function bt_mod_proveedor(){
+	//if( checkProveedor('modal') == 0 )
+	mod_proveedor( $("#frm_mproveedor") );
+	/*else
+		$("#enl_vmsj").click();*/
+}
+/* --------------------------------------------------------- */
 $(document).ready(function(){
+
+	$('#frm_nproveedor').bootstrapValidator({
+        message: 'Revise el contenido del campo',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            email: {
+                validators: { 
+                	notEmpty: { message: 'Debe indicar un email' },
+					emailAddress: { message: 'Debe especificar un email válido' } }
+                },
+			nombre: {
+                validators: { notEmpty: { message: 'Debe indicar nombre' } }
+            },
+			rif: {
+                validators: { notEmpty: { message: 'Debe indicar RIF' } }
+            }
+        },
+		callback: function () {
+    		alert("OK-CALLBACK");
+        }
+    }).on('submit', function (e) {
+	  	if ( e.isDefaultPrevented() ) {  } 
+		else {
+	    	bt_reg_proveedor();
+	    	return false;
+		}
+	});
+
+    
 
 	$(".bdir").attr("maxlength", 46);
 
@@ -71,10 +128,4 @@ $(document).ready(function(){
 		valorExistente( $(this), clave, valor, cres );
 	});
 
-	$("#bt_reg_proveedor").on( "click", function() {
-		if( checkProveedor('modal') == 0 )
-			reg_proveedor( $("#frm_nproveedor"), "redireccion", '' );
-		else
-			$("#enl_vmsj").click();	
-	});
 });

@@ -93,25 +93,30 @@
                 fields: {
                     email: {
                         validators: { notEmpty: { message: 'Debe indicar un email' },
-						emailAddress: { message: 'Debe especificar un email válido' } }
+						            emailAddress: { message: 'Debe especificar un email válido' } }
                     },
-					nombre: {
+					          nombre: {
                         validators: { notEmpty: { message: 'Debe indicar nombre' } }
                     },
-					rif: {
+					          rif: {
                         validators: { notEmpty: { message: 'Debe indicar RIF' } }
                     }
                 },
-				callback: function () {
+				        callback: function () {
                 	alert("OK");
                 }
+            }).on('submit', function (e) {
+              if ( e.isDefaultPrevented() ) {} 
+              else {
+                bt_mod_proveedor();
+                return false;
+              }
             });
         });
-		
-		
     </script>
     
     <script src="js/fn-proveedores.js"></script>
+    <script src="js/fn-ui.js"></script>
     <style>
       .iconlab{ line-height: 0; }
     </style>
@@ -172,7 +177,7 @@
           <div id="ficha_proveedor" class="box box-primary">
             
             <div class="box-header with-border">
-              <h3 class="box-title">DATOS DE CLIENTE</h3>
+              <h3 class="box-title">DATOS DE PROVEEDOR</h3>
               <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
             </div><!-- /.box-header -->           
             
@@ -208,7 +213,7 @@
                 </div><!-- /.tab-pane -->
                 
                 <div class="tab-pane" id="tab_2">
-                  <form role="form" id="frm_mproveedor" name="form_modificar_proveedor" method="post" action="bd/data-proveedor.php">
+                  <form role="form" id="frm_mproveedor" name="form_modificar_proveedor" method="post">
                     <input name="idProveedor" type="hidden" value="<?php echo $proveedor["idProveedor"];?>">
                     <input name="mod_proveedor" type="hidden" value="1">
                     <div class="box-body">
