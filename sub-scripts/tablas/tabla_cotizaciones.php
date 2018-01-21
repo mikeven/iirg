@@ -1,8 +1,7 @@
 <?php 
 	/*
 	*/
-	$tipo = "";
-	if( isset( $_GET["t"] ) ) $tipo = $_GET["t"];
+	
 	
 	if( $tipo == "solicitud" )
 		$cotizaciones = obtenerSolicitudesCotizaciones( $dbh, $usuario["idUsuario"] );
@@ -36,8 +35,9 @@
                 <?php echo number_format( $c["Total"], 2, ",", "." );  ?>
               </td>
             <?php } ?>
-            <td align="center">
+            <td align="left">
               <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+              &nbsp;&nbsp;<?php echo $c["estado"]; ?>
             </td>
         </tr>
         <?php } ?>

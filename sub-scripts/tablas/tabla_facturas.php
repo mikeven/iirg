@@ -17,8 +17,9 @@
             <td> <a href="documento.php?tipo_documento=fac&id=<?php echo $f["id"]; ?>">
             <?php echo $f["cliente"]; ?></a> </td>
             <td> <?php echo number_format( $f["Total"], 2, ",", "." ); ?> </td>
-            <td align="center">
+            <td align="left">
               <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+              &nbsp;&nbsp;<?php echo $f["estado"]; ?>
             </td>
         </tr>
         <?php } ?>

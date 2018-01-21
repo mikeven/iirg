@@ -210,14 +210,6 @@
                         <div class="input-group-addon"><i class="fa fa-circle-o"></i></div>
                         <input type="text" class="form-control" id="monto" placeholder="Monto" name="monto" required onkeypress="return isNumberKey(event)">
                     </div>
-                  </div><!-- /.form group -->  
-                  
-                  <div id="bloc_mpagado" class="form-group">
-                    <!--<label for="mbase">Monto pagado</label>-->
-                      <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-check-circle-o"></i></div>
-                        <input type="text" class="form-control" id="mpagado" placeholder="Monto pagado" name="mpagado" required onkeypress="return isNumberKey(event)">
-                    </div>
                   </div><!-- /.form group -->
 
                   <div class="form-group">
@@ -235,7 +227,7 @@
                     <select class="form-control" id="cbanco" name="cbanco">
                       <option value="0" disabled selected class="ofp">Banco</option>
                       <?php foreach( $lctabanco as $c ) { ?>
-                        <option value="<?php echo $c["dato2"]; ?>" class="ocb"><?php echo $c["dato2"]; ?></option>
+                        <option class="ocb" value="<?php echo $c["dato2"]; ?>"><?php echo $c["dato2"]; ?></option>
                       <?php } ?>
                     </select>
                   </div><!-- /.form group -->

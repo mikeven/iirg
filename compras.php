@@ -110,10 +110,13 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">LISTA DE COMPRAS REGISTRADAS</h3>
+                  <a class="btn btn-app" href="nuevo-compra.php">
+                    <i class="fa fa-plus"></i> Nuevo
+                  </a>
                   <div class="icon-color"><i class="fa fa-shopping-cart fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	  <div class="box-body">
-                	<?php include( "sub-scripts/tablas/tabla_compras.php" )?>
+                	<?php include( "sub-scripts/tablas/tabla_compras.php" ) ?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!--/.col (left) -->

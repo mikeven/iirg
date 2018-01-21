@@ -6,10 +6,10 @@
 	function agregarGasto( $dbh, $gasto, $idu ){
 		//Agrega un registro de compra
 		$fpago = cambiaf_a_mysql( $gasto["fecha_pago"] );
-		$q = "insert into gasto ( tipo, concepto, fecha_registro, fecha_pago, monto, monto_pagado, 
-		beneficiario, forma_pago, banco, noperacion, idUsuario ) values ( '$gasto[tgasto]', '$gasto[concepto]', 
-		NOW(), '$fpago', $gasto[monto], $gasto[mpagado], '$gasto[beneficiario]', '$gasto[forma_pago]', 
-		'$gasto[cbanco]', '$gasto[noper]', $idu )";
+		$q = "insert into gasto ( tipo, concepto, fecha_registro, fecha_pago, monto, beneficiario, 
+		forma_pago, banco, noperacion, idCompra, idUsuario ) values ( '$gasto[tgasto]', '$gasto[concepto]', 
+		NOW(), '$fpago', $gasto[monto], '$gasto[beneficiario]', '$gasto[forma_pago]', 
+		'$gasto[cbanco]', '$gasto[noper]', $gasto[idCompra], $idu )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q;
 		return mysql_insert_id();		
@@ -33,7 +33,7 @@
 		date_format(fecha_pago,'%d/%m/%Y') as fpago, 
 		date_format(fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		banco, monto, monto_pagado, forma_pago, noperacion 
-		from gasto where tipo='$tipo' and idUsuario = $idu";		
+		from gasto where tipo='$tipo' and idUsuario = $idu order by fecha_pago desc";		
 		
 		$data = mysql_query( $q, $dbh );
 		while( $g = mysql_fetch_array( $data ) ){

@@ -21,11 +21,11 @@
 	
   if( isset( $_GET["idc"] ) ){  
     //Obtención de datos para realizar factura desde una cotización
-    
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] ); //data-cotizacion.php
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
+    $iva2 = $sisval_iva2; $eiva2 = $iva2 * 100;
   }
   
   if ( isset( $_GET["idref"] ) ){
@@ -42,10 +42,11 @@
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
   }
-  else
-  { 
-    $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; 
+  else  { 
+    $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0;
+    $iva2 = $sisval_iva2; $eiva2 = $iva2 * 100;
   }
+
 
 ?>
 <!DOCTYPE html>
@@ -86,6 +87,7 @@
 		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
 		.iconlab{ line-height: 0; }
 		.form-group { margin-bottom: 5px; }
+    .slo{width: 75%;}
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -292,7 +294,10 @@
                                             <select name="validez" id="vcondicion" class="form-control">
                                                 <option value="0" disabled>Validez</option>
                                                 <?php foreach ( $condiciones as $c ) { 
-                                                  echo opCondicion( $encabezado, $c );    // bd/data-forms.php
+                                                  if( isset( $encabezado ) )
+                                                    echo opCondicion( $encabezado, $c );    // bd/data-forms.php
+                                                  else
+                                                    echo opCondicion( NULL, $c );           // bd/data-forms.php
                                                 }?>                                                
                                             </select>
                                             <input id="condicion_defecto" type="hidden" value="<?php echo $cond_defecto["valor"]; ?>" 
@@ -422,7 +427,13 @@
                                               <tr>
                                                 <th width="65%"></th>
                                                 <th width="15%">
-                                                IVA <span id="labiva">(<?php echo $eiva; ?>%)</span>
+                                                  <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                    <option value="0.00">0.00 %</option>
+                                                    <option value="<?php echo $iva;?>" selected>
+                                                      <?php echo $eiva;?> %
+                                                    </option>
+                                                    <option value="<?php echo $iva2;?>"><?php echo $eiva2;?> %</option>
+                                                  </select>
                                                 </th>
                                                 <th width="15%">
                                                 	<div id="impuesto" class="totalizacion">

@@ -29,10 +29,12 @@ function agregarEncabezados( tencabezado, encabezado ){
 /* ----------------------------------------------------------------------------------- */
 function agregarFilasReporte( filas, registros ){
 	//Retorna las filas con los registros del reporte
+	al = "center";
 	$.each( registros, function( arreglo, fila ) {
 	  filas += "<tr class='fila_tab_rep'>";	
 	  $.each( fila, function( campo, valor ) {
-	  	filas += "<td align='center'>" + valor + "</td>";
+	  	//if( campo == 2 ) al = "left"; else al = "center";
+	  	filas += "<td align='" + al + "'>" + valor + "</td>";
 	  }); filas += "</tr>";
 	});
 	return filas;
@@ -148,7 +150,7 @@ $( document ).ready(function() {
         	"monthNames": [
 	            "Enero", "Febrero", "Marzo", "Abril",
 	            "Mayo", "Junio", "Julio", "Agosto", 
-	            "Septiembre", "Octubre", "Noviembre", "Deciembre"
+	            "Septiembre", "Octubre", "Noviembre", "Diciembre"
         	]
         }
 	});

@@ -33,6 +33,7 @@
                         <td><?php echo number_format( $c["Total"], 2, ",", "." ); ?></td>
                         <td align="center">
                           <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+                          &nbsp;&nbsp;<?php echo $c["estado"]; ?>
                         </td>
                     </tr>
                     <?php } ?>

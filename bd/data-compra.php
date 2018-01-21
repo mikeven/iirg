@@ -55,8 +55,8 @@
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		( (( c.monto * c.iva/100 ) + c.monto ) - ((c.iva*c.monto/100)*c.retencion) ) as mpagado,  
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
-		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and estado = 'creada' 
-		order by c.fecha_emision asc";
+		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu 
+		and estado = 'creada' order by c.fecha_emision asc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $c = mysql_fetch_array( $data ) ){

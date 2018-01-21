@@ -100,7 +100,7 @@ function guardarFactura(){
 	if( idcliente != "" && total != "" && total != 0.00 ){
 		
 		fencabezado = obtenerVectorEncabezado();
-		fdetalle = obtenerVectorDetalle(); 	// fn-documento.js
+		fdetalle = obtenerVectorDetalle(); 		// fn-documento.js
 		//console.log(fdetalle);
 		$.ajax({
 			type:"POST",

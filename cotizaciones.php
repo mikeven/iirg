@@ -10,6 +10,15 @@
 	include( "bd/data-cotizacion.php" );
   include( "fn/fn-documento.php" );
 	checkSession( '' );
+
+  $tipo = "";
+  if( isset( $_GET["t"] ) ) $tipo = $_GET["t"];
+  $th3 = "REGISTRO DE COTIZACIONES"; 
+  $urln = "nuevo-solicitud-cotizacion.php";
+  if( $tipo == "solicitud" ){
+    $th3 = "REGISTRO DE SOLICITUD DE COTIZACIONES"; 
+    $urln = "nuevo-solicitud-cotizacion.php";
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -109,7 +118,10 @@
               <!-- general form elements -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">REGISTRO DE COTIZACIONES</h3>
+                  <h3 class="box-title"><?php echo $th3; ?></h3>
+                  <a class="btn btn-app" href="<?php echo $urln; ?>">
+                    <i class="fa fa-plus"></i> Nuevo
+                  </a>
                   <div class="icon-color"><i class="fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	  <div class="box-body">

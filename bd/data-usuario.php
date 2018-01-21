@@ -203,12 +203,21 @@
 		return mysql_insert_id();	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function eliminarCuentaBancaria( $dbh, $idc ){
-		//Elimina un registro de cuenta bancaria
+	function eliminarDatoUsuario( $dbh, $idc ){
+		//Elimina un registro de cuenta bancaria/vendedor
 		$q = "delete from data_usuario where idDato = $idc";
 		$data = mysql_query( $q, $dbh );
 		
 		return mysql_affected_rows();
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function guardarVendedor( $dbh, $nombre, $idu ){
+		//Agrega un registro de nuevo vendedor
+		$q = "insert into data_usuario ( tipo, dato1, idUsuario ) values ( 'vendedor','$nombre', $idu )";
+		//echo $q;
+		$data = mysql_query ( $q, $dbh );
+		
+		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaCuentasBancarias( $dbh, $idu ){
@@ -220,6 +229,17 @@
 			$cuentas[] = $item;	
 		}
 		return $cuentas;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerListaVendedores( $dbh, $idu ){
+		//Devuelve la lista de vendedores asociados a la cuenta de usuario
+		$vendedores = array();
+		$q = "select idDato, dato1 from data_usuario where tipo='vendedor' and idUsuario = $idu";
+		$data = mysql_query( $q, $dbh );
+		while( $item = mysql_fetch_array( $data ) ){
+			$vendedores[] = $item;	
+		}
+		return $vendedores;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
@@ -362,12 +382,12 @@
 		echo json_encode( $res );	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	//Agregar cuenta bancaria (asinc)
+	//Eliminar cuenta bancaria (asinc)
 	if( isset( $_POST["el_cuenta"] ) ){
 		
 		include("bd.php");
 		$idc = $_POST["el_cuenta"];
-		$rsl = eliminarCuentaBancaria( $dbh, $idc );
+		$rsl = eliminarDatoUsuario( $dbh, $idc );
 		
 		if( ( $rsl == 1 ) ){
 			$res["exito"] = 1;
@@ -382,5 +402,44 @@
 	}
 
 	/* ----------------------------------------------------------------------------------- */
+	//Agregar vendedor (asinc)
+	if( isset( $_POST["nvendedor"] ) ){
+		
+		include("bd.php");
+		$vendedor["nombre"] = $_POST["nvendedor"];
+		
+		$idv = guardarVendedor( $dbh, $vendedor["nombre"], $_POST["id_u"] );
+		
+		if( ( $idv != 0 ) && ( $idv != "" ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Vendedor registrado";
+			$vendedor["id"] = $idv;
+			$res["registro"] = $vendedor;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al registrar vendedor";
+		}
+		echo json_encode( $res );	
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	//Eliminar vendedor (asinc)
+	if( isset( $_POST["el_vendedor"] ) ){
+		
+		include("bd.php");
+		$idv = $_POST["el_vendedor"];
+		$rsl = eliminarDatoUsuario( $dbh, $idv );
+		
+		if( ( $rsl == 1 ) ){
+			$res["exito"] = 1;
+			$res["mje"] = "Vendedor eliminado";
+			$cuenta["id"] = $idv;
+			//$res["registro"] = $cuenta;
+		}else{
+			$res["exito"] = 0;
+			$res["mje"] = "Error al eliminar vendedor";
+		}
+		echo json_encode( $res );	
+	}
 
 ?>

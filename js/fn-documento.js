@@ -59,7 +59,7 @@ function obtenerEncabezadoBase(){
 }
 /* ----------------------------------------------------------------------------------- */
 function obtenerVectorDetalle(){
-	//Retorna un arreglo con los elementos de detalle del documento
+	//Retorna un arreglo con los elementos de detalle del documento en formato JSON
 	var detalle = new Array();
 	var renglon = new Object();
 	
@@ -227,6 +227,7 @@ function checkExcento( condicion ){
 		if( condicion == "excento" ){
 			$("#iva").val(0.00);
 			$("#labiva").html("(0%)");
+			$("#sviva").val("0.00");
 		}else{
 			$iva_orig = $("#iva_orig").val();
 			$("#iva").val( $iva_orig );
@@ -318,6 +319,13 @@ $( document ).ready(function() {
 		}
     });
     /* ---------------------------------------------------------------------------- */
+    //Selección de valor de IVA
+    $("#sviva").on( "change", function(){
+		var valor = $(this).val();
+		$("#iva").val(valor);
+		calcularTotales();
+    });
+
 });
 /* -------------------------------------------------------------------------------- */
 

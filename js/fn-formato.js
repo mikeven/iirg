@@ -30,8 +30,9 @@ function reg_formato( documento, frm, param ){
         url:url_data,
         data:{ form: dataform( frm, param ), doc:documento, s:param },
         success: function( response ){
+            
 			res = jQuery.parseJSON(response);
-			//$("#waitconfirm").html(response);
+			
 			if( res.exito == '1' ){
 				$("#tx-vmsj").html( res.mje );
 				$("#ventana_mensaje").addClass("modal-success");				
@@ -48,7 +49,7 @@ function reg_formato( documento, frm, param ){
 $( document ).ready(function() {
     
 	$(".alert").hide();
-    $(".dataobs").attr("maxlength", 50);
+    $(".dataobs").attr("maxlength", 90);
     
 	/* --------------------------------------------------------------------------- */ 
 	/* Validaciones: cotizaciones */ 

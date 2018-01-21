@@ -13,6 +13,16 @@
 		return $e_documento[$etiqueta];
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function urlParamDoc( $dbh, $nombre, $id ){
+		//Retorna el parámetro para la url de un documento: ej: nota&tn=nota_credito 
+		$etiqueta = tipoDocEtiqueta( $nombre );
+		if( $etiqueta == "nota" ){
+			$tn = obtenerTipoNotaPorId( $dbh, $id );
+			$etiqueta .= "&tn=$tn";
+		}
+		return $etiqueta; 
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function arrRespuesta( $doc, $ndoc ){
 		
 		$params_documento = array(
@@ -65,6 +75,9 @@
 
 		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "fac" ) && ( $accion == "marcar_pagada" ) ) 
 			$admite = true;
+
+		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "ctz" ) && ( $accion == "aprobar" ) ) 
+			$admite = true;	
 		
 		//Orden de compra y solicitudes de cotización: no permite ninguna acción
 		if( ( $doc == "odc" ) || ( $doc == "sctz") ) $admite = false;
@@ -88,15 +101,19 @@
 		//Determina si un documento es modificable
 		$modificable = true;
 		
-		if ( $encabezado["estado"] != "pendiente" ) $modificable = false;
+		if ( $tdd == "ctz" ) {
+			//if ( $encabezado["estado"] == "aprobada" ) $modificable = false;
+		}
+
 		if ( $tdd == "fac" ) {
 			if( tieneNotaAsociada( $dbh, $id ) ) $modificable = false;
+			if ( $encabezado["estado"] == "pagada" ) $modificable = false;
 		}
 		return $modificable;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function enlaceAccion( $documento, $id_doc, $accion, $p ){
-	/* Retorna el enlace para modificar/copiar un documento de acuerdo al tipo indicado */
+		//Retorna el enlace para modificar/copiar un documento de acuerdo al tipo indicado
 		$ndoc = array(
 			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
 			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"
@@ -107,7 +124,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function enlaceCopia( $documento, $id_doc ){
-	/* Retorna el enlace para copiar un documento de acuerdo al tipo de documento indicado */
+		//Retorna el enlace para copiar un documento de acuerdo al tipo de documento indicado */
 		$ndoc = array(
 			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
 			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"

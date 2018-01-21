@@ -207,10 +207,7 @@
                           <i class="fa fa-circle-o"></i>&nbsp;
                           Monto total: <?php echo number_format( $gasto["monto"], 2, ",", "." );?></span>
                         </div>
-                        <div><span class="tx1">
-                          <i class="fa fa-check-circle-o"></i>&nbsp;
-                          Monto Pagado: <?php echo number_format( $gasto["monto_pagado"], 2, ",", "." );?></span>
-                        </div>
+                        
                         <div><span class="tx1">
                           <i class="fa fa-clone"></i>&nbsp;
                           Forma de pago: <?php echo $gasto["forma_pago"];?></span>
@@ -298,16 +295,6 @@
                               </div>
                             </div><!-- /.form group -->  
                             
-                            <div class="form-group">
-                              <!--<label for="mbase">Monto pagado</label>-->
-                                <div class="input-group">
-                                  <div class="input-group-addon"><i class="fa fa-check-circle-o"></i></div>
-                                  <input type="text" class="form-control" id="mpagado" placeholder="Monto pagado" 
-                                  name="mpagado" required onkeypress="return isNumberKey(event)" 
-                                  value="<?php echo number_format( $gasto["monto_pagado"], 2, ".", "" ); ?>">
-                              </div>
-                            </div><!-- /.form group -->
-
                             <div class="form-group">
                               <select class="form-control" id="forma_pago" name="forma_pago">
                                 <option value="0" disabled selected class="ofp">Forma de pago</option>

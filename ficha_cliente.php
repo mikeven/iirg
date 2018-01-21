@@ -8,6 +8,8 @@
 	include( "bd/bd.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-cliente.php" );
+  include( "bd/data-nota.php" );
+
   include( "fn/fn-documento.php" );
 	checkSession( '' );
 	if( isset( $_GET["c"] ) ){

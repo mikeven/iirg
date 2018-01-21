@@ -116,6 +116,24 @@ function initValid(){
 		}
 	});
 
+	$('#frn_vendedor').bootstrapValidator({
+		message: 'Revise el contenido del campo',
+		feedbackIcons: {
+		    valid: 'glyphicon glyphicon-ok',
+		    invalid: 'glyphicon glyphicon-remove',
+		    validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {
+		    nombre: {
+		        validators: { notEmpty: { message: 'Debe indicar nombre' } }
+		    }
+		},
+		onSuccess: function(e, data) {
+		  e.preventDefault();
+		  alert("live");
+		}
+	});
+
 }
 /* --------------------------------------------------------- */
 function modificarDatosUsuario( param ){
@@ -141,8 +159,16 @@ function modificarDatosUsuario( param ){
 }
 /* --------------------------------------------------------- */
 function obtenerFilaTablaCtasBancarias( data ){
-	var fila = "<tr id='cb"+data.id+"'><th>" + data.banco + "</th><th>" + data.desc + "</th>"+
+	var fila = "<tr id='cb" + data.id + "'><th>" + data.banco + "</th><th>" + data.desc + "</th>"+
 	"<th><button type='button' class='btn btn-block btn-danger btn-xs ecb' onclick='elimRegCA(" + data.id + ")'>"
+    + "<i class='fa fa-times'></i></button></th></tr>";
+
+    return fila;
+}
+/* --------------------------------------------------------- */
+function obtenerFilaTablaVendedores( data ){
+	var fila = "<tr id='rv" + data.id + "'><th>" + data.nombre + "</th>"+
+	"<th><button type='button' class='btn btn-block btn-danger btn-xs ecb' onclick='elimRegVend(" + data.id + ")'>"
     + "<i class='fa fa-times'></i></button></th></tr>";
 
     return fila;
@@ -155,6 +181,18 @@ function actualizarTablaCtasBancarias( a, data ){
 		$( '#bdescripcion' ).val(""); $("#banco").val(0);
 	}else{
 		$( "#cb" + data ).hide('slow', function(){ 
+			$( this ).remove(); 
+		});
+	}
+}
+/* --------------------------------------------------------- */
+function actualizarTablaVendedores( a, data ){
+	if( a == '+' ){
+		var item_d = obtenerFilaTablaVendedores( data );
+		$( item_d ).appendTo( "#lvendedores tbody").show("slow");
+		//$( '#bdescripcion' ).val("");
+	}else{
+		$( "#rv" + data ).hide('slow', function(){ 
 			$( this ).remove(); 
 		});
 	}
@@ -194,7 +232,52 @@ function elimRegCA( idc ){
 			res = jQuery.parseJSON(response);
 			if( res.exito == '1' ){
 				console.log(response);
-				actualizarTablaCtasBancarias( '-', idc );
+				$("#cb" + idc ).hide(100);
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show(100);
+				$("#txerr").html(res.mje);
+			}
+        }
+    });
+}
+/* --------------------------------------------------------- */
+function elimRegVend( idv ){
+	//Invocación a eliminar registro de vendedor
+
+	$.ajax({
+        type:"POST",
+        url:"bd/data-usuario.php",
+        data:{ el_vendedor: idv },
+        success: function( response ){
+        	console.log(response);
+			res = jQuery.parseJSON(response);
+			if( res.exito == '1' ){
+				console.log(response);
+				$("#rv" + idv ).hide(100);
+			}
+			if( res.exito == '0' ){
+				$("#mje_error").show(100);
+				$("#txerr").html(res.mje);
+			}
+        }
+    });
+}
+/* --------------------------------------------------------- */
+function agregarVendedor(){
+	var idu = $( '#idu_sesion' ).val();
+	var vendedor = $( '#vnombre' ).val(); 
+
+	$.ajax({
+        type:"POST",
+        url:"bd/data-usuario.php",
+        data:{ nvendedor: vendedor, id_u: idu },
+        success: function( response ){
+        	console.log(response);
+			res = jQuery.parseJSON(response);
+			if( res.exito == '1' ){
+				actualizarTablaVendedores( '+', res.registro );
+				$("#vnombre").val("");
 			}
 			if( res.exito == '0' ){
 				$("#mje_error").show(100);
@@ -224,12 +307,40 @@ function checkCuentaBancaria(){
 	return error;	
 }
 /* --------------------------------------------------------- */
+function checkVendedor(){
+	//Validación de formulario de vendedor previo a su registro
+	var error = 0; 
+	
+	if( $("#vnombre").val() == "" ){
+		//Nombre no indicado
+		$("#tx-vmsj").html( "Debe indicar un nombre" );
+		$("#vnombre").css({'border-color' : '#dd4b39'});	
+		error = 1;
+	}
+
+	if( error == 1 ){
+		//Asignar ventana de mensaje como mensaje de error
+		$("#ventana_mensaje").addClass("modal-danger");
+		$("#tit_vmsj").html( "Error" );
+	}
+	
+	return error;	
+}
+/* --------------------------------------------------------- */
 
 $( document ).ready(function() {
     $("#bt_ag_ctab").on( "click", function(){
 		$("#closeModal").click();
 		if( checkCuentaBancaria() == 0 )
 			agregarCuentaBancaria();
+		else
+			$("#enl_vmsj").click();
+    });
+
+    $("#bt_ag_vend").on( "click", function(){
+		$("#closeModal").click();
+		if( checkVendedor() == 0 )
+			agregarVendedor();
 		else
 			$("#enl_vmsj").click();
     });

@@ -16,14 +16,16 @@
         <?php 
           foreach( $operaciones as $o ){ 
             $ie = iconoEstado( $o["estado"] );
-            $lnk = "";
+            $purl = urlParamDoc( $dbh, $o["documento"], $o["id"] );
+            $lnk = "documento.php?tipo_documento=$purl&id=$o[id]";
         ?>  
         <tr>
-            <td> <?php echo $o["documento"]. " Nro. ".$o["numero"];  ?></td>
-            <td> <?php echo $o["femision"]; ?></td>
+            <td><a href="<?php echo $lnk; ?>"><?php echo $o["documento"]. " Nro. ".$o["numero"];  ?></a></td>
+            <td><?php echo $o["femision"]; ?></td>
             <td align="right"> <?php echo number_format( $o["total"], 2, ",", "." ); ?></td>
             <td align="center">
               <i class="fa fa-2x <?php echo $ie["icono"]." ".$ie["color"]; ?>"></i>
+              <?php echo $o["estado"]; ?>
             </td>
         </tr>
         <?php } ?>

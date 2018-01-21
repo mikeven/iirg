@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>Fecha pago</th><th>Concepto</th><th>Beneficiario</th>
-        <th>Monto total</th><th>Monto Pagado</th><th>Operación</th>
+        <th>Monto</th><th>Operación</th>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +19,6 @@
             </td>
             <td> <?php echo $g["beneficiario"]; ?></td>
             <td> <?php echo number_format( $g["monto"], 2, ",", "." ); ?></td>
-            <td> <?php echo number_format( $g["monto_pagado"], 2, ",", "." ); ?></td>
             <td> <?php echo "(".$g["forma_pago"].") ".$g["banco"]." #".$g["noperacion"]; ?></td>
         </tr>
         <?php } ?>
@@ -27,7 +26,7 @@
     <tfoot>
       <tr>
         <th>Fecha pago</th><th>Concepto</th><th>Beneficiario</th>
-        <th>Monto total</th><th>Monto Pagado</th><th>Operación</th>
+        <th>Monto<th>Operación</th>
       </tr>
     </tfoot>
 </table>

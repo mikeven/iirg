@@ -11,6 +11,15 @@
 		return $reg["valor"] / 100;
 	}
 
+	function obtenerValorIva2( $dbh ){
+		//Retorna el valor del iva
+		$lista = array();
+		$q = "select * from valores where nombre = 'iva2'";
+		$reg = mysql_fetch_array( mysql_query( $q, $dbh ) );
+
+		return $reg["valor"] / 100;
+	}
+
 	function obtenerValorRetencion( $dbh ){
 		//Retorna el valor del porcentaje de retención como empresa proveedor
 		$lista = array();
@@ -21,10 +30,13 @@
 	}
 
 	/* ----------------------------------------------------------------------------------- */
-	function actualizarValorIVA( $dbh, $iva ){
+	function actualizarValorIVA( $dbh, $iva, $iva2 ){
 		//Edita el valor del IVA
 		$q = "update valores set valor = $iva WHERE nombre = 'iva'";
+		$q2 = "update valores set valor = $iva2 WHERE nombre = 'iva2'";
 		$data = mysql_query( $q, $dbh );
+		$data = mysql_query( $q2, $dbh );
+
 		return mysql_affected_rows();
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -46,7 +58,7 @@
 	//Modificar valor del IVA
 	if( isset( $_POST["act_iva"] ) ){		
 		include( "bd.php" );
-		echo actualizarValorIVA( $dbh, $_POST["act_iva"] );			
+		echo actualizarValorIVA( $dbh, $_POST["act_iva"], $_POST["act_iva2"] );			
 	}
 	//Modificar valor de retención
 	if( isset( $_POST["act_ret"] ) ){		
@@ -56,6 +68,8 @@
 
 	/* ----------------------------------------------------------------------------------- */
 	$sisval_iva = obtenerValorIva( $dbh );
+	$sisval_iva2 = obtenerValorIva2( $dbh );
 	$sisval_ret = obtenerValorRetencion( $dbh );
+
 	/* ----------------------------------------------------------------------------------- */
 ?>

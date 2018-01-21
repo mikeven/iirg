@@ -12,6 +12,7 @@
   $usuario = obtenerUsuarioPorId( $_SESSION["user"]["idUsuario"], $dbh );
   $lbancos = obtenerListaBancos();
   $lctabanco = obtenerListaCuentasBancarias( $dbh,  $_SESSION["user"]["idUsuario"] );
+  $vendedores = obtenerListaVendedores( $dbh,  $_SESSION["user"]["idUsuario"] );
   $nombre_usuario = $usuario["nombre"];
   $title = $usuario["empresa"];
   if( $usuario["empresa"] == "" ) $title = $nombre_usuario;
@@ -164,6 +165,7 @@
                   <li class="active"><a href="#dcuenta" data-toggle="tab">Datos de cuenta</a></li>
                   <li><a href="#dempresa" data-toggle="tab">Modificar datos de empresa</a></li>
                   <li><a href="#dbancos" data-toggle="tab">Cuentas bancarias</a></li>
+                  <li><a href="#dvendedores" data-toggle="tab">Vendedores</a></li>
                   <li><a href="#dusuario" data-toggle="tab">Modificar datos de usuario</a></li>
                   <li><a href="#dpassw" data-toggle="tab">Modificar contraseña</a></li>
                 </ul>
@@ -181,7 +183,7 @@
                     <div><b><i class="fa fa-registered"></i> RIF: </b><span class="tx1"> <?php echo $usuario["rif"];?></span></div>
                     <div><b><i class="fa fa-phone-square"></i> Teléfonos: </b><span class="tx1"> <?php echo $usuario["telefonos"];?></span></div>
                     <div><b><i class="fa fa-at"></i> Emails: </b><span class="tx1"> <?php echo $usuario["email"];?></span></div>
-                    <div><b><i class="fa fa-briefcase"></i> Vendedor: </b><span class="tx1"> <?php echo $usuario["vendedor"];?></span></div>
+                    <div><b><i class="fa fa-briefcase"></i> Vendedores: </b><span class="tx1"> <?php echo $usuario["vendedor"];?></span></div>
                   </div><!-- /.tab-pane -->
                   <!-- ................................................................................... -->
                   <div class="tab-pane" id="dempresa">
@@ -196,7 +198,7 @@
                                 <i class="fa fa-industry"></i>
                                 <label for="nombre" class="iconlab">Empresa:</label>
                               </div>
-                              <input type="text" class="form-control" id="cnombre" name="empresa" 
+                              <input type="text" class="form-control" id="cnombreempresa" name="empresa" 
                               required value="<?php echo $usuario["empresa"];?>">
                             </div>
                         </div><!-- /.form group -->
@@ -207,7 +209,7 @@
                                 <i class="fa fa-black-tie"></i>
                                 <label for="nombre" class="iconlab">Subtítulo:</label>
                               </div>
-                              <input type="text" class="form-control" id="cnombre" name="subtitulo" 
+                              <input type="text" class="form-control" id="csubtitulo" name="subtitulo" 
                               required value="<?php echo $usuario["subtitulo"];?>">
                             </div>
                         </div><!-- /.form group -->
@@ -226,7 +228,7 @@
                                 <i class="fa fa-map-marker"></i>
                                 <label for="email" class="iconlab">Dirección -1-</label>
                               </div>
-                              <input id="cemail" type="text" class="form-control" name="direccion1" 
+                              <input id="dirempresa1" type="text" class="form-control" name="direccion1" 
                               value="<?php echo $usuario["direccion1"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
@@ -236,7 +238,7 @@
                                 <i class="fa fa-map-marker"></i>
                                 <label for="email" class="iconlab">Dirección -2-</label>
                               </div>
-                              <input id="cemail" type="text" class="form-control" name="direccion2" 
+                              <input id="dirempresa2" type="text" class="form-control" name="direccion2" 
                               value="<?php echo $usuario["direccion2"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
@@ -259,16 +261,6 @@
                                 <label for="dir" class="iconlab">Email</label>
                               </div>
                               <input id="cdir1" type="text" class="form-control" name="email" value="<?php echo $usuario["email"];?>">
-                            </div><!-- /.input group -->
-                          </div><!-- /.form group -->
-
-                          <div class="form-group">
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-briefcase"></i>
-                                <label for="vendedor" class="iconlab">Vendedor</label>
-                              </div>
-                              <input id="clvend" type="text" class="form-control" name="vendedor" value="<?php echo $usuario["vendedor"];?>">
                             </div><!-- /.input group -->
                           </div><!-- /.form group -->
                           
@@ -310,12 +302,6 @@
                         <button type="button" class="btn btn-primary act_du" id="bt_ag_ctab">Guardar</button>
                       </div>
 
-                      <!-- Bloque de respuesta del servidor -->
-                      <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" 
-                      class="hidden"></button>
-                      <?php include("sub-scripts/nav/mensaje_respuesta.php"); ?>
-                      <!-- /.Bloque de respuesta del servidor -->
-
                     </form>
                     <hr>
                     <dt>Lista de cuentas registradas</dt>
@@ -331,6 +317,50 @@
                             <th>
                               <button type="button" class="btn btn-block btn-danger btn-xs ecb" 
                               onclick="elimRegCA(<?php echo $c["idDato"];?>)">
+                              <i class="fa fa-times"></i></button>
+                            </th>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+
+                  </div><!-- /.tab-pane -->
+                  <!-- ................................................................................... -->
+                  <div class="tab-pane width-usuario" id="dvendedores">
+                    <form role="form" id="frn_vendedor" name="form_agregar_banco">
+                      <input name="idUsuario" type="hidden" value="<?php echo $usuario["idUsuario"];?>">
+                      <div class="box-body">
+                        <dt>Agregar vendedor</dt>
+                        <hr>
+                        <div class="form-group">
+                          <!--<label for="subtitulo">Subtítulo</label>-->
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-briefcase"></i> </div>
+                              <input type="text" class="form-control" id="vnombre" name="nombre" 
+                              required placeholder="Nombre" value="">
+                            </div>
+                        </div><!-- /.form group -->
+                          
+                      </div><!-- /.box-body -->
+    
+                      <div class="box-footer" align="center">
+                        <button type="button" class="btn btn-primary act_du" id="bt_ag_vend">Guardar</button>
+                      </div>
+
+                    </form>
+                    <hr>
+                    <dt>Vendedores registrados</dt>
+                    <hr>
+                    
+                    <table id="lvendedores" class="table table-bordered">
+                      <tbody>
+                        
+                        <?php foreach( $vendedores as $v ) { ?>
+                          <tr id="rv<?php echo $v["idDato"];?>">
+                            <th><?php echo $v["dato1"] ?></th>
+                            <th>
+                              <button type="button" class="btn btn-block btn-danger btn-xs ecb" 
+                              onclick="elimRegVend(<?php echo $v["idDato"];?>)">
                               <i class="fa fa-times"></i></button>
                             </th>
                           </tr>
@@ -417,6 +447,11 @@
                 </div><!-- /.tab-content -->
 
               </div><!-- /.nav-tabs-custom -->
+              <!-- Bloque de respuesta del servidor -->
+              <button type="button" id="enl_vmsj" data-toggle="modal" data-target="#ventana_mensaje" 
+              class="hidden"></button>
+              <?php include("sub-scripts/nav/mensaje_respuesta.php"); ?>
+              <!-- /.Bloque de respuesta del servidor -->
             
             </div><!-- /.box-body -->
 

@@ -29,7 +29,7 @@ function enviarDataReporte( data_reporte ){
 	  tencabezado += "<td>" + value + "</td>";
 	});	tencabezado += "</tr>";
 	
-	$.each( registros ) {
+	$.each( registros ){
 	  tfila += "<td>" + value + "</td>";
 	}); tfila += "</tr>";
 
@@ -72,7 +72,7 @@ $( document ).ready(function() {
         	"monthNames": [
 	            "Enero", "Febrero", "Marzo", "Abril",
 	            "Mayo", "Junio", "Julio", "Agosto", 
-	            "Septiembre", "Octubre", "Noviembre", "Deciembre"
+	            "Septiembre", "Octubre", "Noviembre", "Diciembre"
         	]
         }
 	});

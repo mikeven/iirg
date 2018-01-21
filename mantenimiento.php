@@ -13,6 +13,7 @@
 	checkSession( '' );
 	
   $iva = $sisval_iva * 100;
+  $iva2 = $sisval_iva2 * 100;
   $ret = $sisval_ret * 100;  
 ?>
 <!DOCTYPE html>
@@ -154,14 +155,25 @@
                         <div class="tab-content">
                           
                           <div class="tab-pane active" id="tab1">                            
+                            
                             <div class="form-group">
                               <label for="iva">Porcentaje Impuesto Valor Agregado</label>
                               <div class="input-group" style="width:50%;">
                                 <input type="text" class="form-control" id="iva_valor" name="iva" 
                                 value="<?php echo $iva; ?>">
-                                <span class="input-group-addon"><span id="ivares">%</span></span>
+                                <span class="input-group-addon"><span id="iva_s">%</span></span>
                               </div>
                             </div><!-- /.form group -->
+                            
+                            <div class="form-group">
+                              <label for="iva2">Porcentaje Impuesto Valor Agregado secundario</label>
+                              <div class="input-group" style="width:50%;">
+                                <input type="text" class="form-control" id="iva_valor_2" name="iva2" 
+                                value="<?php echo $iva2; ?>">
+                                <span class="input-group-addon"><span id="iva_s2">%</span></span>
+                              </div>
+                            </div><!-- /.form group -->
+
                             <div class="box-footer" align="center" style="width:50%;">
                               <button type="submit" class="btn btn-primary" id="bt_act_iva">Guardar</button>
                             </div>                          

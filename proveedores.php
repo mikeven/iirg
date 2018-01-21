@@ -136,6 +136,9 @@
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">DIRECTORIO DE PROVEEDORES</h3>
+                  <a class="btn btn-app" href="nuevo-proveedor.php">
+                    <i class="fa fa-plus"></i> Nuevo
+                  </a>
                   <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	<div class="box-body">

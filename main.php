@@ -138,7 +138,7 @@
                   <!-- tools box -->
                   <div class="pull-right box-tools">
                     <!-- button with a dropdown -->
-                    <div class="btn-group">
+                    <div class="btn-group hidden">
                       <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bars"></i></button>
                       <ul class="dropdown-menu pull-right" role="menu">
@@ -148,7 +148,8 @@
                         <li><a href="#">View calendar</a></li>
                       </ul>
                     </div>
-                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse">
+                      <i class="fa fa-minus"></i>
                     </button>
                     <!-- <button type="button" class="btn btn-default btn-sm" 
                     data-widget="remove"><i class="fa fa-times"></i> </button> -->

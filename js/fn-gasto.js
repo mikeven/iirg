@@ -15,23 +15,26 @@ function initValid(){
 	        validating: 'glyphicon glyphicon-refresh'
 	    },
 	    fields: {
-	        mbase: {
+	        monto: {
 	            validators: { 
 	              notEmpty: { message: 'Debe indicar monto' }, 
 	              regexp: { regexp: /^[0-9]+(\.[0-9]{1,2})?$/,    message: 'Formato inválido de monto'} 
 	            }
 	        },
-	        iva: {
-	            validators: { notEmpty: { message: 'Debe indicar IVA' } }
+	        concepto: {
+	            validators: { notEmpty: { message: 'Debe indicar concepto' } }
 	        },
-			          nfactura: {
+	        beneficiario: {
+	            validators: { notEmpty: { message: 'Debe indicar beneficiario' } }
+	        },
+			nfactura: {
 	            validators: { notEmpty: { message: 'Debe indicar nro de factura' } }
 	        },
 	        ncontrol: {
 	            validators: { notEmpty: { message: 'Debe indicar nro de control' } }
 	        }
 	    },
-		        callback: function () {
+		    callback: function () {
 	    	alert("OK");
 	    }
 	});
@@ -126,11 +129,6 @@ function checkGasto( mje_destino ){
 		marcarCampo( $("#monto"), error );
 	}
 
-	if( $("#mpagado").val() == '' ) {
-		error = 1; mje = "Debe indicar el monto pagado";
-		marcarCampo( $("#mpagado"), error );
-	}
-
 	if( $("#forma_pago").val() == 0 ) {
 		error = 1; mje = "Debe indicar forma de pago";
 		marcarCampo( $("#forma_pago"), error );
@@ -173,7 +171,7 @@ $( document ).ready(function() {
 
 		$("#ncompra").val( $(this).attr("data-label") );
 		$("#monto").val( $(this).attr("data-tmonto") );
-		$("#mpagado").val( $(this).attr("data-mpagado") );
+		//$("#mpagado").val( $(this).attr("data-mpagado") );
 		$("#idCompra").val( $(this).attr("data-idcompra") );
 		$("#bt_umpag").attr( "data-m", $(this).attr("data-tmonto") );
 		$("#concepto").val( $(this).attr("data-concepto") );
@@ -185,10 +183,10 @@ $( document ).ready(function() {
 	$("#tgasto").on( "change", function() {
 		if( $(this).val() == "pago" ){
 			$("#selcompra").show(300);
-			$("#bloc_mpagado").fadeIn(300);
+			//$("#bloc_mpagado").fadeIn(300);
 		}else{
 			$("#selcompra").fadeOut(300);
-			$("#bloc_mpagado").fadeOut(300);
+			//$("#bloc_mpagado").fadeOut(300);
 		}
     });
 

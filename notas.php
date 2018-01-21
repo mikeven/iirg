@@ -111,6 +111,9 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">LISTA DE NOTAS</h3>
+                  <a class="btn btn-app" href="nuevo-nota.php">
+                    <i class="fa fa-plus"></i> Nuevo
+                  </a>
                   <div class="icon-color"><i class="fa fa-file-text-o fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	  <div class="box-body">

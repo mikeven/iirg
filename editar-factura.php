@@ -6,6 +6,7 @@
 	session_start();
 	ini_set( 'display_errors', 1 );
 	include( "bd/bd.php" );
+  include( "bd/data-sistema.php" );
 	include( "bd/data-usuario.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-cliente.php" );
@@ -34,6 +35,8 @@
   }
   else{  
   }
+  $v_iva = $sisval_iva; $ev_iva = $v_iva * 100;
+  $v_iva2 = $sisval_iva2; $ev_iva2 = $v_iva2 * 100;
 	
 ?>
 <!DOCTYPE html>
@@ -397,7 +400,14 @@
                                               </tr>
                                               <tr>
                                                   <th width="65%"></th>
-                                                  <th width="15%">IVA (<?php echo $eiva; ?>%)</th>
+                                                  <th width="15%">
+                                                    <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                      <option value="<?php echo $v_iva;?>" 
+                                                      <?php echo selop( $iva, $v_iva );?>><?php echo $ev_iva;?> %</option>
+                                                      <option value="<?php echo $v_iva2;?>" 
+                                                      <?php echo selop( $iva, $v_iva2 );?>><?php echo $ev_iva2;?> %</option>
+                                                    </select>
+                                                  </th>
                                                   <th width="15%">
                                                   	<div id="impuesto" class="totalizacion">
                                                       	<div class="input-group">

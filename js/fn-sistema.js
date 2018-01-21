@@ -23,12 +23,12 @@ function ventanaMensaje( exito, mensaje, enlace ){
 	$("#enl_vmsj").click();
 }
 /* ----------------------------------------------------------------------------------- */
-function actualizarValorIVA( iva ){
+function actualizarValorIVA( iva, iva2 ){
 	var icon_ok = "<i class='fa fa-check-square-o'></i>";
 	$.ajax({
 		type:"POST",
 		url:"bd/data-sistema.php",
-		data:{ act_iva : iva },
+		data:{ act_iva : iva, act_iva2 : iva2 },
 		beforeSend: function () {
 		},
 		success: function( response ){
@@ -199,7 +199,8 @@ $( document ).ready(function() {
 	/* ------------------------------------------------------------------------------- */
 	$("#bt_act_iva").on( "click", function(){
 		var iva = $("#iva_valor").val();
-		actualizarValorIVA( iva );
+		var iva2 = $("#iva_valor_2").val();
+		actualizarValorIVA( iva, iva2 );
     });
 	/* ------------------------------------------------------------------------------- */
     $("#bt_act_ret").on( "click", function(){

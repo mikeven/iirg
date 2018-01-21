@@ -111,7 +111,7 @@ function guardarCotizacion(){
 /* --------------------------------------------------------- */
 function editarCotizacion(){
 	cencabezado = obtenerVectorEncabezado();
-	cdetalle = obtenerVectorDetalle();
+	cdetalle = obtenerVectorDetalle();			//fn-documento.js
 	
 	$.ajax({
 		type:"POST",

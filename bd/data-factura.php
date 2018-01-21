@@ -82,9 +82,10 @@
 	/* ------------------------------------------------------------------------------- */
 	function guardarItemDetalleF( $dbh, $idf, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
-		$ptotal = $item->dcant * $item->dpunit;
-		$q = "insert into detallefactura ( IdFactura, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, PrecioTotal  ) 
-		values ( $idf, $item->idart, '$item->nart', $item->dcant, '$item->dund', $item->dpunit, $ptotal )";
+		//$ptotal = $item->dcant * $item->dpunit;
+		$q = "insert into detallefactura ( IdFactura, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, 
+		PrecioTotal  ) values ( $idf, $item->idart, '$item->nart', $item->dcant, '$item->dund', 
+		$item->dpunit, $item->dptotal )";
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 
@@ -138,7 +139,8 @@
 				condicion = '$encabezado->ncondicion',
 				orden_compra = '$encabezado->noc', 
 				fecha_vencimiento = '$encabezado->fvencimiento', 
-				SubTotal = $encabezado->subtotal, 
+				SubTotal = $encabezado->subtotal,
+				iva = $encabezado->iva, 
 				Total = $encabezado->total, 
 				fecha_modificacion = NOW() 
 			WHERE idFactura = $encabezado->idr and idUsuario = $idu";

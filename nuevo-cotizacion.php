@@ -31,8 +31,10 @@
     $eiva = $iva * 100;
     $totales = obtenerTotales( $detalle, $encabezado["iva"] ); //data-documento.php
   }
-  else
-    { $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0; }
+  else  { 
+    $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0;
+    $iva2 = $sisval_iva2; $eiva2 = $iva2 * 100;
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -254,7 +256,23 @@
                                         </div><!-- /.form group -->	
                                     </div>
                                 </div><!-- /.3era fila -->
-                            
+
+                                <div class="row"><!-- 4ta fila -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-briefcase"></i> 
+                                                    <label for="datepicker" class="iconlab">Vendedor:</label>
+                                                </div>
+                                                <select name="vendedor" id="nvendedor" class="form-control">
+                                                    <option value="0" disabled selected>Vendedor 1</option>
+                                                </select>
+                                            </div>
+                                        </div><!-- /.form group -->
+                                    </div>
+                                    
+                                </div><!-- /.3era fila -->
                             </div><!--/.columna izquierda-->
                             
                             <div class="col-md-6">
@@ -343,9 +361,10 @@
                                                       if( isset( $detalle ) ) {
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
+                                                          //bd/data-documento.php
                                                           echo mostrarItemDocumento( $item, $ni );
-                                                      }
-                                                    }?>
+                                                        }
+                                                      }?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -372,7 +391,13 @@
                                             <tr>
                                                 <th width="65%"></th>
                                                 <th width="15%">
-                                                IVA <span id="labiva">(<?php echo $eiva; ?>%)</span>
+                                                  <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                    <option value="0.00">0.00 %</option>
+                                                    <option value="<?php echo $iva;?>" selected>
+                                                      <?php echo $eiva;?> %
+                                                    </option>
+                                                    <option value="<?php echo $iva2;?>"><?php echo $eiva2;?> %</option>
+                                                  </select>
                                                 </th>
                                                 <th width="15%">
                                                 	<div id="cimpuesto" class="totalizacion">
