@@ -98,11 +98,7 @@
             <!--<i class="fa fa-angle-left pull-right"></i>-->
           </a>
         </li>
-        <li>
-          <a href="pages/calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendario</span>
-          </a>
-        </li>
+        
         <li class="header">CONFIGURACIÓN</li>
         <li class="treeview">
           <a href="mantenimiento.php">

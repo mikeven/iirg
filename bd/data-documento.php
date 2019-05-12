@@ -47,10 +47,13 @@
 	function mostrarItemDocumento( $ditem, $i ){
 		//Muestra un renglón con el ítem de detalle del documento cargado por parámetro
 		//nuevo-factura.php, nuevo-nota.php, editar-cotizacion.php, editar-factura.php 
-		
+		$vcomision = "0.00";
+		if( isset($ditem["comision"]) ) 
+			$vcomision = $ditem["comision"];
+
 		$renglon = "<tr id='it$i'><th>$ditem[descripcion]<input id='idarticulo_$i' 
 		name='idart' type='hidden' value='$ditem[ida]' data-nitem='$i'>
-		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'></th>
+		 <input id='ndarticulo_$i' name='nart' type='hidden' value='$ditem[descripcion]' data-nitem='$i'><input id='vcom_$i' name='comision' type='hidden' value='$vcomision' data-nitem='$i'></th>
 		 <th><div class='input-group input-space'>
 		 <input id='idq_$i' name='dcant' type='text' class='form-control itemtotal_detalle input-sm' value='$ditem[cantidad]' 
 		 data-nitem='$i' onkeypress='return isIntegerKey(event)' onkeyup='actItemD( this )'></div>
@@ -117,10 +120,11 @@
 		foreach ( $detalle as $d ) {
 			$subtotal += ( $d["punit"] * $d["cantidad"] );	
 		}
-
+		
 		$totales["subtotal"] = number_format( $subtotal, 2, ".", "" ); 
 		$totales["iva"] = number_format( $subtotal * $pcge, 2, ".", "" );
 		$totales["total"] = number_format( $subtotal + ($subtotal * $pcge), 2, ".", "" );
+		$totales["total_s"] = number_format( $totales["total"]/100000, 2, ".", "" );
 		
 		return $totales;
 	}
@@ -136,6 +140,16 @@
 		$totales["total"] = number_format( $stotal + ($stotal * $iva), 2, ".", "" );
 		
 		return $totales;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerTotalComisionVenta( $detalle ){
+		//Retorna la suma de los valores de comisión de venta de una factura/cotización
+		$comision = 0;
+		foreach ( $detalle as $d ) {
+			$comision += ( $d["cantidad"] * $d["comision"] );	
+		}
+
+		return $comision;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function cambiarEstadoDocumento( $link, $id, $tabla, $estado ){
@@ -187,7 +201,7 @@
 			$fecha_emision = $doc["Fecha"];
 			$dias_validos = $doc["vcondicion"];
 			$fecha_valida = obtenerFechaFutura( cambiaf_a_mysql( $fecha_emision ), $dias_validos );
-			//echo $nombre." FEM:".$fecha_emision." D:".$dias_validos." FVAL: ".$fecha_valida." HOY:".$hoy."<br>";
+			
 			if( $hoy >= $fecha_valida ){
 				//echo "CAMBIAR ESTADO<br>";
 				cambiarEstadoDocumento( $dbh, $doc["id"], $nombre, "vencida" );

@@ -3,15 +3,45 @@
 	/* R&G - Funciones de compras */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
+	
+	function obtenerProximoNumeroRetencion( $dbh, $idu ){
+		//Retorna el número correspondiente al próximo registro de compra(control retención)
+		$q = "select MAX(control_ret) as nret from compra where idUsuario = $idu 
+		and estado <> 'eliminada'";
+		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) ); 
+		return $data["nret"] + 1;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function generarNumeroRetencion( $num ){
+		//Devuelve los últimos 8 dígitos del núm de comprobante de retención
+		$nr = "";
+		$stn_l = strlen((string)$num);
+		for( $i = 0; $i < 8-$stn_l; $i++ )
+			$nr .= "0";
+
+		return $nr.$num;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerNumeroComprobanteRetencion( $nret, $fecha ){
+		//Retorna el número de comprobante de retención de acuerdo al número y fecha
+		$data_f = explode( '/', $fecha );
+		$nr = generarNumeroRetencion( $nret );
+		$nc = $data_f[2].$data_f[1].$nr; 
+		
+		return$nc;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function agregarCompra( $dbh, $compra, $idu ){
 		//Agrega un registro de compra
 		$fecha_emision = cambiaf_a_mysql( $compra["fecha_emision"] );
-		$q = "insert into compra ( idProveedor, fecha_registro, fecha_emision, monto, iva, retencion,  
-		ncontrol, nfactura, num_retencion, idUsuario, estado ) 
+		$q = "insert into compra ( idProveedor, fecha_registro, fecha_emision, monto, 
+		iva, retencion, ncontrol, nfactura, control_ret, num_retencion, idUsuario, estado ) 
 		values ( $compra[idProveedor], NOW(), '$fecha_emision', $compra[mbase], $compra[iva], 
-		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', '$compra[nret]', $idu, 'creada' )";
+		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', $compra[nret], 
+		'$compra[ncomprobante]', $idu, 'creada' )";
+		
 		$data = mysql_query( $q, $dbh );
-		//echo $q;
+		
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -21,8 +51,8 @@
 		((c.iva*c.monto/100)*c.retencion) as retencion, (c.retencion*100) as pret,  
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.estado as estado,  
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, c.num_retencion as nret, 
-		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
-		from proveedor p, compra c 
+		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor,
+		p.rif as rif_p, p.Direccion1 as dir1, p.Direccion2 as dir2 from proveedor p, compra c 
 		where c.idProveedor = p.idProveedor and c.idCompra = $id and c.idUsuario = $idu";
 		
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
@@ -36,7 +66,8 @@
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal,
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		( (( c.monto * c.iva/100 ) + c.monto ) - ((c.iva*c.monto/100)*c.retencion) ) as mpagado,  
-		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor 
+		c.ncontrol as ncontrol, c.nfactura as nfactura, c.num_retencion as nretencion, 
+		p.idProveedor as idp, p.Nombre as proveedor 
 		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idUsuario = $idu and 
 		estado <> 'eliminada' order by c.fecha_emision desc";
 		
@@ -114,8 +145,11 @@
 		
 		$compra = array();
 		parse_str( $_POST["ncompra"], $compra );
-		if( $_POST["c_accion"] == "agregar" )
+		if( $_POST["c_accion"] == "agregar" ){
+			$compra["ncomprobante"] = obtenerNumeroComprobanteRetencion( $compra["nret"], 
+				$compra["fecha_emision"] );
 			$idc = agregarCompra( $dbh, $compra, $_POST["id_u"] );
+		}
 		if( $_POST["c_accion"] == "editar" )
 			$idc = modificarCompra( $dbh, $compra, $_POST["id_u"] );
 

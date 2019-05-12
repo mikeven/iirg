@@ -48,9 +48,9 @@
 	function obtenerDetalleCotizacion( $dbh, $idc ){
 		//Retorna una lista con el detalle de una cotización
 		$detalle = array();
-		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, 
-		Cantidad as cantidad, PrecioUnit as punit, PrecioTotal as ptotal, und FROM detallecotizacion 
-		WHERE idCotizacion = $idc";
+		$q = "select IdMovimiento as idd, IdArticulo as ida, Descripcion as descripcion, und,  
+		Cantidad as cantidad, PrecioUnit as punit, PrecioTotal as ptotal, Comision as comision  
+		FROM detallecotizacion WHERE idCotizacion = $idc";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
@@ -101,12 +101,11 @@
 	function guardarItemDetalle( $dbh, $idc, $item ){
 		//Guarda el registro individual de un ítem del detalle de cotización
 		//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
-		//$ptotal = $item->dptotal;
 		$q = "insert into detallecotizacion ( idCotizacion, IdArticulo, Descripcion, Cantidad, und, 
-		PrecioUnit, PrecioTotal ) values ( $idc, $item->idart, '$item->nart', $item->dcant, 
-		'$item->dund', $item->dpunit, $item->dptotal )";
+		PrecioUnit, PrecioTotal, Comision ) values ( $idc, $item->idart, '$item->nart', $item->dcant, 
+		'$item->dund', $item->dpunit, $item->dptotal, $item->comision )";
+		//echo $q."\n";
 		$data = mysql_query( $q, $dbh );
-		//echo $q."<br>";
 		return mysql_insert_id();
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -216,7 +215,7 @@
 		$encabezado = json_decode( $_POST["encabezado"] );
 		$detalle = json_decode( $_POST["detalle"] );
 		$r_edit = editarCotizacion( $dbh, $encabezado, $encabezado->idu );
-		
+
 		if( $r_edit != -1 ){
 			
 			eliminarDetalleDocumento( $dbh, "detallecotizacion", "idCotizacion", $encabezado->idr );

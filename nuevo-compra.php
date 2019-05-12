@@ -40,7 +40,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 	  <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -128,7 +128,7 @@
   </header>
   <?php
     $fecha_actual = obtenerFechaHoy();
-
+    $nret = obtenerProximoNumeroRetencion( $dbh, $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("sub-scripts/nav/menu_ppal.php");?>
@@ -203,7 +203,7 @@
                     <!--<label for="nfactura">N° Retención</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                        <input type="text" class="form-control" id="nret" placeholder="N° Retención" name="nret">
+                        <input type="text" class="form-control" id="nret" placeholder="N° Retención" name="nret" value="<?php echo $nret; ?>">
                     </div>
                   </div><!-- /.form group -->
 
@@ -212,7 +212,7 @@
                       <div class="input-group">
                         <div class="input-group-addon">
                           
-                          <label for="datepicker" class="iconlab">BsF</label>
+                          <label for="datepicker" class="iconlab">Bs</label>
                         </div>
                         <input type="text" class="form-control" id="mbase" placeholder="Monto Base" name="mbase" required onkeypress="return isNumberKey(event)">
                     </div>
@@ -230,7 +230,7 @@
 
                   <div class="form-group">
                     <select class="form-control" id="retencion" name="retencion">
-                      <option value="0.75" class="ori" selected>Retención 75%</option>
+                      <option value="0.75" class="ori">Retención 75%</option>
                       <option value="1" class="ori">Retención 100%</option>
                     </select>
                   </div><!-- /.form group -->

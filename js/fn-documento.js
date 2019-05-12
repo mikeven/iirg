@@ -92,7 +92,7 @@ function hacerCampoItemOculto(  id, nombre, valor, nitem ){
 	return campo;
 }
 /* ----------------------------------------------------------------------------------- */
-function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
+function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot, vcomis ){
 	//Agrega un renglón de ítem al bloque de detalle de documento nuevo
 	var tabla = "#tdetalle";
 	qant = hacerCampoItem( nitem, qant, "idq_" + nitem, "dcant", "onkeypress='return isIntegerKey(event)' onKeyUp='actItemD( this )'" );
@@ -109,11 +109,12 @@ function agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot ){
 	
 	idart = hacerCampoItemOculto( "idarticulo_" + nitem, "idart", idart, nitem );
 	nart = hacerCampoItemOculto( "ndarticulo_" + nitem, "nart", art, nitem );
+	comision = hacerCampoItemOculto( "vcom_" + nitem, "comision", vcomis, nitem );
 
 	id_bot_elim = "it" + nitem; $("#cont_item").val( nitem );
 	
 	var item_d = "<tr style='display: none;' id='"+ id_bot_elim + "' class='itemdocumento'><th>" +
-				art + idart + nart + "</th><th>" +
+				art + idart + nart + comision + "</th><th>" +
 				qant + "</th><th>" +
 				und + "</th><th>" +
 				punit + "</th><th>" +
@@ -151,6 +152,9 @@ function resetItemsDocumento(){
 	else 
 		$("#punit").val( "" );
 	$("#ptotal").val( 0.00 );
+
+	$("#icomision").val( parseFloat(0.00) );
+	$(".calc_pvp").val( "" );
 }
 /* ----------------------------------------------------------------------------------- */
 function elimItemDetalle( fila ){
@@ -223,7 +227,10 @@ function initDoc(){
 /* ----------------------------------------------------------------------------------- */
 function checkExcento( condicion ){
 	//Verifica la condición de cliente excento para asignar valor al IVA: 0
-	if( $("#tipofte").val() != "nota_entrega" ){
+
+	if( ( $("#tipofte").length > 0 && $("#tipofte").val() != "nota_entrega" ) 
+		|| $("#tipofte").length == 0 ){
+		
 		if( condicion == "excento" ){
 			$("#iva").val(0.00);
 			$("#labiva").html("(0%)");
@@ -232,6 +239,7 @@ function checkExcento( condicion ){
 			$iva_orig = $("#iva_orig").val();
 			$("#iva").val( $iva_orig );
 			$("#labiva").html( "(" + $iva_orig * 100 + "%)" );
+			$("#sviva").val( $iva_orig );
 		}
 	}
 	calcularTotales();
@@ -292,7 +300,7 @@ $( document ).ready(function() {
 		$("#xmodalarticulo").click();
     });
 	
-	$(".itemtotal").on( "blur keyup", function(){
+	$(".itemtotal").on( "blur keyup change", function(){
 		//Actualización y asignación de precio total (cant x punit) en la sección agregar ítems
 		var cant = $("#cantidad").val(); 
 		var punit = $("#punit").val();
@@ -306,11 +314,12 @@ $( document ).ready(function() {
 		var punit = parseFloat( $("#punit").val() ).toFixed( 2 );		
 		var qant = $("#cantidad").val(); 	var ptot = $("#ptotal").val();		
 		var nitem = $("#cont_item").val(); 	var und = $("#und_art").val();
+		var vcomis = $("#icomision").val();
 		nitem++;	
 		
 		if( checkItemForm( idart, punit, qant ) == 1 ){	
 			if( limiteItemsPermitido() )
-				agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot );
+				agregarItemDocumento( nitem, idart, art, qant, und, punit, ptot, vcomis );
 			else{
 				$("#ventana_mensaje").addClass("modal-danger");
 				$("#tit_vmsj").html( "No se permiten agregar más ítems" );

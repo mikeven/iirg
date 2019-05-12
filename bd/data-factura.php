@@ -48,8 +48,10 @@
 	function obtenerDetalleFactura( $dbh, $idf ){
 		// Obtiene los ítems del detalle de una factura
 		$detalle = array();
-		$q = "select IdDetalle as idd, IdArticulo as ida, Descripcion as descripcion, Cantidad as cantidad, 
-		PrecioUnit as punit, PrecioTotal as ptotal, und from detallefactura where IdFactura = $idf";
+		$q = "select IdDetalle as idd, IdArticulo as ida, Descripcion as descripcion, 
+		Cantidad as cantidad, und, PrecioUnit as punit, 
+		PrecioTotal as ptotal, Comision as comision 
+		from detallefactura where IdFactura = $idf";
 		
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
@@ -60,8 +62,9 @@
 	/* ------------------------------------------------------------------------------- */
 	function obtenerFacturaPorId( $dbh, $idf ){
 		//Retorna el registro de factura y sus ítems de detalle dado su id
-		$q = "select f.numero as nro, f.IdFactura as idf, f.estado as estado, f.IdCliente as idcliente, 
-		f.idCotizacion as idc, DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
+		$q = "select f.numero as nro, f.control as ctrl, f.IdFactura as idf, f.estado as estado, 
+		f.IdCliente as idcliente, f.idCotizacion as idc, 
+		DATE_FORMAT(f.fecha_emision,'%d/%m/%Y') as femision, 
 		DATE_FORMAT(f.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, 
 		DATE_FORMAT(f.fecha_pago,'%d/%m/%Y %h:%i %p') as fpago, 
 		DATE_FORMAT(f.fecha_anulacion,'%d/%m/%Y %h:%i %p') as fanulacion, 
@@ -83,9 +86,10 @@
 	function guardarItemDetalleF( $dbh, $idf, $item ){
 		//Guarda el registro individual de un ítem del detalle de pedido
 		//$ptotal = $item->dcant * $item->dpunit;
-		$q = "insert into detallefactura ( IdFactura, IdArticulo, Descripcion, Cantidad, und, PrecioUnit, 
-		PrecioTotal  ) values ( $idf, $item->idart, '$item->nart', $item->dcant, '$item->dund', 
-		$item->dpunit, $item->dptotal )";
+		$q = "insert into detallefactura ( IdFactura, IdArticulo, Descripcion, 
+		Cantidad, und, PrecioUnit, PrecioTotal, Comision  ) values ( $idf, $item->idart, 
+		'$item->nart', $item->dcant, '$item->dund', $item->dpunit, $item->dptotal, $item->comision )";
+
 		$data = mysql_query( $q, $dbh );
 		//echo $q."<br>";
 
@@ -200,6 +204,7 @@
 		$encabezado->fvencimiento = agregarFechaVencimiento( $dbh, $encabezado, "factura" ); //data-documento.php
 		$encabezado->tipo = "factura";
 		$detalle = json_decode( $_POST["detalle"] );
+		
 		$r_edit = editarFactura( $dbh, $encabezado, $encabezado->idu );
 		
 		if( $r_edit != -1 ){

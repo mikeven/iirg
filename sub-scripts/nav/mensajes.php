@@ -1,4 +1,4 @@
-<li class="dropdown messages-menu">
+<li class="dropdown messages-menu hidden">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
   <i class="fa fa-envelope-o"></i>
   <span class="label label-success">3</span>

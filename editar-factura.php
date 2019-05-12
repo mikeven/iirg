@@ -32,8 +32,14 @@
       $ctz_asoc   = obtenerCotizacionPorId( $dbh, $encabezado["idc"] );
       $ctz_encab  = $ctz_asoc["encabezado"];
     }
+    
   }
   else{  
+  }
+  $fac_obs = false;
+  if( isset( $encabezado["obs0"] ) && isset( $encabezado["obs1"]) 
+     && isset( $encabezado["obs2"] ) && isset( $encabezado["obs3"] ) ){
+      $fac_obs = true;
   }
   $v_iva = $sisval_iva; $ev_iva = $v_iva * 100;
   $v_iva2 = $sisval_iva2; $ev_iva2 = $v_iva2 * 100;
@@ -50,9 +56,9 @@
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
     <!-- Datepicker -->
     <link rel="stylesheet" type="text/css" href="plugins/datepicker/datepicker3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -62,7 +68,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -77,6 +83,7 @@
 		.tit_tdf_i{ text-align: left; } .tit_tdf{ text-align: center; } .tit_tdf_d{ text-align: right; }
 		.iconlab{ line-height: 0; }
 		.form-group { margin-bottom: 5px; }
+    #enl_vmsj{ display: none; }
     </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -154,6 +161,7 @@
   <?php
     $condiciones = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );
     $id_cond_defecto = obtenerIdCondicion( $dbh, "factura", "CONTADO" );
+
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("sub-scripts/nav/menu_ppal.php");?>
@@ -162,7 +170,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <?php include("sub-scripts/nav/contenido-cabecera.php");?>
+    <?php include("sub-scripts/nav/contenido-cabecera.php"); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -222,7 +230,7 @@
                                 <div class="input-group">
                                   <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary blq_bdoc" data-toggle="modal" 
-                                    data-target="#lista_clientes" <?php if( isset( $ctz_encab ) ) echo "disabled";?>>CLIENTE</button>
+                                    data-target="#lista_clientes" <?php if( isset( $ctz_encab ) ) //echo "disabled";?>>CLIENTE</button>
                                   </div>
                                   <!-- /btn-group -->
                                   <input type="text" class="form-control" id="ncliente" readonly name="nombre_cliente" 
@@ -325,6 +333,7 @@
                                                   <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
+                                              <input type="hidden" id="icomision" value="0.00">
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                     
@@ -402,6 +411,9 @@
                                                   <th width="65%"></th>
                                                   <th width="15%">
                                                     <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                      <option value="0.00" 
+                                                      <?php echo selop( $iva, "0.00" );?>>
+                                                      <?php echo "0.00";?> %</option>
                                                       <option value="<?php echo $v_iva;?>" 
                                                       <?php echo selop( $iva, $v_iva );?>><?php echo $ev_iva;?> %</option>
                                                       <option value="<?php echo $v_iva2;?>" 
@@ -414,6 +426,7 @@
                                                           	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                       		<input type="text" class="form-control itemtotaldocumento totalizacion" 
                                                               id="v_iva" value="<?php if(isset( $factura )) echo $totales["iva"]?>" readonly>
+                                                          <input id="iva_orig" type="hidden" value="<?php echo $iva;?>">
                                                   		</div>
                                                   	</div></th>
                                                   <th width="5%"></th>
@@ -434,14 +447,14 @@
                                           </tbody>
                                       </table>			
                                   </div>
-                                  
+                                  <?php if( $fac_obs ){ ?>
                                   <div id="observaciones">
                                     <div class="titobs"><?php echo $encabezado["obs0"];?></div>
                                     <div class="obsctz"><?php echo $encabezado["obs1"];?></div>
                                     <div class="obsctz"><?php echo $encabezado["obs2"];?></div>
                                     <div class="obsctz"><?php echo $encabezado["obs3"];?></div>
                                   </div>
-
+                                  <?php } ?>
                               </div><!--/.col-md-8-->
                           	
                           </div><!-- /.pie_factura -->

@@ -29,9 +29,9 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
     <!-- daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -43,7 +43,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
@@ -172,7 +172,7 @@
                 <div class="inner">
                   <h3>
                     <?php //ff(); ?>
-                    <?php echo "Bsf ".$factdia["total"]." (".$factdia["nregs"].")"; ?>               
+                    <?php echo "BsS ".$factdia["total"]." (".$factdia["nregs"].")"; ?>               
                   </h3>
                   <p>Facturación del día</p>
                 </div>
@@ -265,7 +265,7 @@
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3><?php echo "Bsf ".$factmes["total"]." (".$factmes["nregs"].")"; ?></h3>
+                  <h3><?php echo "BsS ".$factmes["total"]." (".$factmes["nregs"].")"; ?></h3>
                   <p>Facturación del mes</p>
                 </div>
                 <div class="icon">

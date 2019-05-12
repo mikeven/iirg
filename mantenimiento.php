@@ -14,7 +14,8 @@
 	
   $iva = $sisval_iva * 100;
   $iva2 = $sisval_iva2 * 100;
-  $ret = $sisval_ret * 100;  
+  $ret = $sisval_ret * 100;
+  $idb = $sisval_db * 100; 
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,9 +28,9 @@
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
     <!-- daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -41,7 +42,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
 
@@ -76,7 +77,7 @@
     <script src="js/fn-sistema.js"></script>
     <style>
       .iconlab{ line-height: 0; } .tcontab{ color:#3c8dbc; }
-      .chkupdt, #ivares{ color: green; font-size:17px; } .chkupdt_e{ color: red; font-size:17px; }
+      .chkupdt, #db_s, .ivares{ color: green; font-size:17px; } .chkupdt_e{ color: red; font-size:17px; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -133,7 +134,7 @@
     <!-- Main content -->
     <section class="content">
     	<div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="box box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">Ajustes</h3>
@@ -147,9 +148,10 @@
                       <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                           <li class="active"><a href="#tab1" data-toggle="tab">Porcentaje del IVA</a></li>
-                          <li><a href="#tab2" data-toggle="tab">Porcentaje retención</a></li>
-                          <li><a href="#tab3" data-toggle="tab">Condiciones de cotización</a></li>
-                          <li><a href="#tab4" data-toggle="tab">Condiciones de facturación</a></li>
+                          <li><a href="#tab2" data-toggle="tab">Porcentaje del IGTF (Débito Bancario)</a></li>
+                          <li><a href="#tab3" data-toggle="tab">Porcentaje retención</a></li>
+                          <li><a href="#tab4" data-toggle="tab">Condiciones de cotización</a></li>
+                          <li><a href="#tab5" data-toggle="tab">Condiciones de facturación</a></li>
                         </ul>                        
                         
                         <div class="tab-content">
@@ -161,7 +163,9 @@
                               <div class="input-group" style="width:50%;">
                                 <input type="text" class="form-control" id="iva_valor" name="iva" 
                                 value="<?php echo $iva; ?>">
-                                <span class="input-group-addon"><span id="iva_s">%</span></span>
+                                <span class="input-group-addon">
+                                  <span id="iva_s" class="ivares">%</span>
+                                </span>
                               </div>
                             </div><!-- /.form group -->
                             
@@ -170,7 +174,9 @@
                               <div class="input-group" style="width:50%;">
                                 <input type="text" class="form-control" id="iva_valor_2" name="iva2" 
                                 value="<?php echo $iva2; ?>">
-                                <span class="input-group-addon"><span id="iva_s2">%</span></span>
+                                <span class="input-group-addon">
+                                  <span id="iva_s2" class="ivares">%</span>
+                                </span>
                               </div>
                             </div><!-- /.form group -->
 
@@ -180,6 +186,23 @@
                           </div><!-- /.tab-pane -->
 
                           <div class="tab-pane" id="tab2">                            
+                            
+                            <div class="form-group">
+                              <label for="iva">Porcentaje Impuesto Grandes Transferencias Financieras (Débito Bancario)</label>
+                              <div class="input-group" style="width:50%;">
+                                <input type="text" class="form-control" id="db_valor" name="db" value="<?php echo $idb; ?>">
+                                <span class="input-group-addon"><span id="db_s">%</span></span>
+                              </div>
+                            </div><!-- /.form group -->
+                          
+
+                            <div class="box-footer" align="center" style="width:50%;">
+                              <button type="submit" class="btn btn-primary" 
+                              id="bt_act_db">Guardar</button>
+                            </div>                          
+                          </div><!-- /.tab-pane -->
+
+                          <div class="tab-pane" id="tab3">                            
                             <div class="form-group">
                               <label for="iva">Porcentaje de retención de empresa como proveedor</label>
                               <div class="input-group" style="width:50%;">
@@ -193,7 +216,7 @@
                             </div>                          
                           </div><!-- /.tab-pane -->
                           
-                          <div class="tab-pane" id="tab3">
+                          <div class="tab-pane" id="tab4">
                             <div id="agregar_condicion_ctz">
                               <form role="form" id="frm_condiciones_ctz" name="frm_condiciones">
                                 
@@ -256,7 +279,7 @@
                               
                           </div><!-- /.tab-pane -->
                           
-                          <div class="tab-pane" id="tab4">
+                          <div class="tab-pane" id="tab5">
                             <div id="agregar_condicion_fac">
                               <form role="form" id="frm_condiciones_fac" name="frm_condiciones">
                                 <label for="diasfac">Agregar condición de facturación</label>

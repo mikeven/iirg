@@ -73,11 +73,12 @@
 		//Solo se actualizan los documentos con estado 'pendiente'
 		if( $encabezado["estado"] != "pendiente" ) $admite = false;
 
-		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "fac" ) && ( $accion == "marcar_pagada" ) ) 
-			$admite = true;
+		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "fac" ) 
+			&& ( $accion == "marcar_pagada" || $accion == "anular" ) ) 
+			$admite = true; //Pagar facturas vencidas
 
 		if( ( $encabezado["estado"] == "vencida" ) && ( $doc == "ctz" ) && ( $accion == "aprobar" ) ) 
-			$admite = true;	
+			$admite = true;	//Aprobar cotizaciones vencidas	
 		
 		//Orden de compra y solicitudes de cotización: no permite ninguna acción
 		if( ( $doc == "odc" ) || ( $doc == "sctz") ) $admite = false;
@@ -172,6 +173,7 @@
 			$encabezado = $documento["encabezado"];;
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Cotización"; $ftdd = $tdd; $filedoc = "cotizacion";
+			$total_comision = obtenerTotalComisionVenta( $detalle_d ); //bd/data-documento.php	
 	    }
 
 	    if( $tdd == "sctz" ){	//Solicitud de Cotización
@@ -199,7 +201,8 @@
 			$documento = obtenerFacturaPorId( $dbh, $id );
 			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
-			$tdocumento = "Factura"; $ftdd = $tdd; $filedoc = "factura";		
+			$tdocumento = "Factura"; $ftdd = $tdd; $filedoc = "factura";
+			$total_comision = obtenerTotalComisionVenta( $detalle_d ); //bd/data-documento.php	
 	    }
 	    if( $tdd == "nota" ){	//Nota
 			$tipo_n = $_GET["tn"];

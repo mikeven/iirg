@@ -40,9 +40,10 @@
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
+    <!--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
     <!-- Datepicker -->
     <link rel="stylesheet" type="text/css" href="plugins/datepicker/datepicker3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -52,7 +53,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -164,7 +165,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">EDITAR COTIZACIÓN</h3>                  
                   <div class="icon-color nuevo-reg-icono">
-                    <a href="#!"><i class="fa fa-copy fa-2x"></i></a>
+                    <a href="#!"><i class="fa fa-edit fa-2x"></i></a>
                   </div>
                   <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
                 </div><!-- /.box-header -->
@@ -192,7 +193,7 @@
                               	<?php include( "sub-scripts/tablas/tabla_clientes_modal.php" ); ?>
                               <!-- /.Modal -->
                               <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-8">
                                   <div class="form-group">
                                       <div class="input-group date">
                                           <div class="input-group-addon">
@@ -205,7 +206,7 @@
                                   </div><!-- /.form group -->
                               </div>
                               
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                   <div class="form-group">
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
                                         <div class="input-group">
@@ -230,7 +231,9 @@
                                           <div class="input-group date">
                                               <div class="input-group-addon">
                                                   <i class="fa fa-slack"></i> 
-                                                  <label for="datepicker" class="iconlab">N°:</label>
+                                                  <label for="datepicker" class="iconlab">
+                                                    
+                                                  </label>
                                               </div>
                                               <input type="text" class="form-control" id="ndocumento" name="numero" required readonly 
                                               value="<?php echo $encabezado["nro"]; ?>">
@@ -293,6 +296,7 @@
                                                   <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
+                                              <input type="hidden" id="icomision" value="0.00">
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                     
@@ -325,7 +329,7 @@
                                     
                                     <div class="box box-primary">	
                                         <div class="box-body">
-                                        	<input id="cont_item" name="contadoritems" type="hidden" value="0">
+                                        	<input id="cont_item" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
                                             <table class="table table-condensed" id="tdetalle">
                                                 <tbody>
                                                     <tr>
@@ -375,6 +379,7 @@
                                                         	<input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
                                                     		<input type="text" class="form-control itemtotaldocumento totalizacion" 
                                                         id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
+                                                        <input id="iva_orig" type="hidden" value="<?php echo $iva;?>">
                                                 		</div>
                                                 	</div></th>
                                                 <th width="5%"></th>
@@ -451,8 +456,8 @@
 
 </div>
 <!-- ./wrapper -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js'></script>
-<script src="js/velocity-setup.js"></script>
+  <script src='js/velocity/velocity.min.js'></script>
+  <script src='js/velocity/velocity.ui.min.js'></script>
+  <script src="js/velocity-setup.js"></script>
 </body>
 </html>

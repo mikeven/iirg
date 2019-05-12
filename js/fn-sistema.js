@@ -34,9 +34,28 @@ function actualizarValorIVA( iva, iva2 ){
 		success: function( response ){
 			console.log(response);
 			if( response != -1 ){
-			    $("#ivares").fadeOut("slow", function(){
-			        $("#ivares").html( icon_ok );
-			       	$("#ivares").fadeIn( 300 );	
+			    $(".ivares").fadeOut("slow", function(){
+			        $(".ivares").html( icon_ok );
+			       	$(".ivares").fadeIn( 300 );	
+			    });
+			}
+		}
+	});	
+}
+/* ----------------------------------------------------------------------------------- */
+function actualizarValorDB( db ){
+	var icon_ok = "<i class='fa fa-check-square-o'></i>";
+	$.ajax({
+		type:"POST",
+		url:"bd/data-sistema.php",
+		data:{ act_db : db },
+		beforeSend: function () { },
+		success: function( response ){
+			console.log(response);
+			if( response != -1 ){
+			    $("#db_s").fadeOut("slow", function(){
+			        $("#db_s").html( icon_ok );
+			       	$("#db_s").fadeIn( 300 );	
 			    });
 			}
 		}
@@ -162,8 +181,7 @@ function eliminarCondicion( idcond, fila ){
 		type:"POST",
 		url:"bd/data-documento.php",
 		data:{ elim_condicion: idcond },
-		beforeSend: function () {			
-
+		beforeSend: function () { 
 		},
 		success: function( response ){
 			if( response > 0 )
@@ -201,6 +219,11 @@ $( document ).ready(function() {
 		var iva = $("#iva_valor").val();
 		var iva2 = $("#iva_valor_2").val();
 		actualizarValorIVA( iva, iva2 );
+    });
+	/* ------------------------------------------------------------------------------- */
+    $("#bt_act_db").on( "click", function(){
+		var db = $("#db_valor").val();		
+		actualizarValorDB( db );
     });
 	/* ------------------------------------------------------------------------------- */
     $("#bt_act_ret").on( "click", function(){

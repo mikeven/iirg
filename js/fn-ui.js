@@ -12,7 +12,7 @@ function obtenerEnlaceDocumentoCreado( documento, frt ){
 	var enl = "documento.php?tipo_documento=" + frt.param + "&id=" + documento.idr;
 	var ico = "<i class='fa fa-file-text fa-2x'></i>";
 
-	var e_enl = "<a href='" + enl + "' class='btn btn-app' target='_blank'>" + 
+	var e_enl = "<a href='" + enl + "' class='btn btn-app'>" + 
 	ico + frt.etiqueta + " #" + documento.numero + "</a>";
 
 	return e_enl;

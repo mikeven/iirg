@@ -100,7 +100,7 @@ function guardarCotizacion(){
 			$("#bt_reg_cotizacion").fadeOut( 200 );
 		},
 		success: function( response ){
-			//console.log(response);
+			console.log(response);
 			res = jQuery.parseJSON(response);
 			var enlace = obtenerEnlaceDocumentoCreado( res.documento, res.documento.frm_r );
 			ventanaMensaje( res.exito, res.mje, enlace );
@@ -145,7 +145,7 @@ function checkItemFormSolicitud( idart, qant ){
 /* ================================================================================= */
 $( document ).ready(function() {
 	
-	var cant = "";
+	var cant = "";	
 
 	/* --------------------------------------------------------- */
 	/* Adición de ítems a los detalles de la solicitud de cotización */
@@ -195,6 +195,11 @@ $( document ).ready(function() {
 			$("#enl_vmsj").click();
     });    
     /* =============================================================================== */
+
+    /* Cálculo de precio venta */
+    $(".calc_pvp").on( "keyup", function(){
+		$("#r_db").val();
+    });
 });
 /* ----------------------------------------------------------------------------------- */
 

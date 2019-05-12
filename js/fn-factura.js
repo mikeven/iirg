@@ -123,7 +123,7 @@ function guardarFactura(){
 /* ----------------------------------------------------------------------------------- */
 function editarFactura(){
 	fencabezado = obtenerVectorEncabezado();
-	fdetalle = obtenerVectorDetalle();
+	fdetalle = obtenerVectorDetalle();			// fn-documento.js
 	
 	$.ajax({
 		type:"POST",

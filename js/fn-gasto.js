@@ -186,6 +186,7 @@ $( document ).ready(function() {
 			//$("#bloc_mpagado").fadeIn(300);
 		}else{
 			$("#selcompra").fadeOut(300);
+			$("#idCompra").val( 'NULL' );
 			//$("#bloc_mpagado").fadeOut(300);
 		}
     });

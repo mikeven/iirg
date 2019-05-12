@@ -24,7 +24,7 @@ function reg_cliente( frm_cliente ){
 /* --------------------------------------------------------- */
 $(document).ready(function(){
 	
-	$(".bdir").attr("maxlength", 46);
+	$(".bdir").attr("maxlength", 58);
 
 	$("#bt_reg_cliente").click(function(e){ 
 		var frm = $("#frm_ncliente");

@@ -14,6 +14,7 @@
 	checkSession( '' );
 	
   if( isset( $_GET["id"] ) ){
+    $id_c = $_GET["id"];
     $compra = obtenerCompraPorId( $dbh, $_GET["id"], $_SESSION["user"]["idUsuario"] );
 	}
 ?>
@@ -42,7 +43,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -224,6 +225,11 @@
                           </div>
                         <?php } ?>
                         <hr>
+
+                        <a class="btn btn-app" 
+                           href="impresion-retencion.php?idr=<?php echo $id_c;?>">
+                          <i class="fa fa-print"></i> Imprimir comprobante retención
+                        </a>
                         
                         <?php if( $compra["estado"] == "creada" ) { ?>
                         <div class="box-footer" align="right">
@@ -304,8 +310,8 @@
                                 <label for="nfactura">N° Retención</label>
                                 <div class="input-group">
                                   <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                                  <input type="text" class="form-control" id="nret" placeholder="N° Retención" 
-                                    name="nret" value="<?php echo $compra["nret"]; ?>">
+                                  <input type="text" class="form-control" id="nret" 
+                                  placeholder="N° Retención" name="nret" value="<?php echo $compra["nret"]; ?>" readonly>
                                 </div>
                               </div><!-- /.form group -->
 

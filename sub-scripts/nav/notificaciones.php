@@ -1,4 +1,4 @@
-<li class="dropdown notifications-menu">
+<li class="dropdown notifications-menu hidden">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
   <i class="fa fa-bell-o"></i>
   <span class="label label-warning">9</span>

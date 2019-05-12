@@ -64,7 +64,7 @@
 								number_format( $r["monto"], 2, ",", "." ));
 		
 		if( $nreporte == "libro_ventas" )	
-			$freporte = array ($r["femision"], $r["cliente"], $r["rif"], $r["numero"], "", 
+			$freporte = array ($r["femision"], $r["cliente"], $r["rif"], $r["numero"], $r["control"], 
 									   number_format( $r["monto"], 2, ",", "." ),
 									   number_format( $r["miva"], 2, ",", "." ), 
 									   number_format( $r["mretencion"], 2, ",", "." ));

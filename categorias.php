@@ -24,9 +24,9 @@
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
     <!-- daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -38,7 +38,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -223,7 +223,7 @@
                       <tbody>
                           <?php $ni = 0;
                             foreach( $categorias as $ctg ){ $ni++; ?>
-                              <tr id="ru<?php echo $ni; ?>">
+                              <tr id="ca<?php echo $ni; ?>">
                                 <th width="20%" class="tit_tdf_i">
                                   <div class="input-group input-space">
                                     <input type="text" class="form-control lncat" id="<?php echo $ctg["idCategoria"]; ?>" 
@@ -241,7 +241,7 @@
                                   <i class="fa fa-times chkupdt_e" id="chkce<?php echo $ctg["idCategoria"]; ?>"></i>
                                 </th>
                                 <th width="7%" class="tit_tdf_d">
-                                  <button type="button" class="btn btn-block btn-danger euv" data-idu="<?php echo $ni; ?>">
+                                  <button type="button" class="btn btn-block btn-danger erc" data-idu="<?php echo $ni; ?>">
                                     <i class='fa fa-times'></i>
                                   </button>
                                 </th>
@@ -295,7 +295,7 @@
                       <tbody>
                           <?php $ni = 0;
                             foreach( $unidades as $u ){ $ni++; ?>
-                              <tr id="ru<?php echo $ni; ?>">
+                              <tr id="ru<?php echo $u["idUnidad"]; ?>">
                                 <th width="90%" class="tit_tdf_i">
                                   <div class="input-group input-space98">
                                     <input type="text" class="form-control lnund" maxlength="4" id="<?php echo $u["idUnidad"]; ?>" 
@@ -307,7 +307,7 @@
                                   <i class="fa fa-times chkupdt_e" id="chkue<?php echo $u["idUnidad"]; ?>"></i>
                                 </th>
                                 <th width="7%" class="tit_tdf_d">
-                                  <button type="button" class="btn btn-block btn-danger euv" data-idu="<?php echo $ni; ?>">
+                                  <button type="button" class="btn btn-block btn-danger euv" data-idu="<?php echo $u["idUnidad"]; ?>">
                                     <i class='fa fa-times'></i>
                                   </button>
                                 </th>

@@ -60,9 +60,9 @@
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
     <!-- Datepicker -->
     <link rel="stylesheet" type="text/css" href="plugins/datepicker/datepicker3.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -72,7 +72,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -350,6 +350,7 @@
                                                   <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
+                                              <input type="hidden" id="icomision" value="0.00">
                                           </div><!-- /.form group -->
                                       </div><!-- /.col -->
                                     
@@ -399,6 +400,7 @@
                                                         $ni = 0; 
                                                         foreach( $detalle as $item ){ $ni++;
                                                           echo mostrarItemDocumento( $item, $ni );
+                                                          //mostrarItemDocumento( $item, $ni ): bd/data-documento.php
                                                       }
                                                     }?>
                                                 </tbody>

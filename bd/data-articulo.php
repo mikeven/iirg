@@ -10,7 +10,7 @@
 		values ( '$articulo[codigo]', '$articulo[descripcion]', '$articulo[presentacion]', 
 		$articulo[categoria] )";
 		$data = mysql_query( $q, $dbh );
-		//echo $q;
+		
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -28,7 +28,6 @@
 		$q = "insert into categoria ( nombre, descripcion ) values ( '$categoria[nombre]', '$categoria[descripcion]' )";
 		$data = mysql_query( $q, $dbh );
 		
-		//return $q;
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -36,7 +35,6 @@
 		$q = "insert into unidad ( nombre ) values ( '$nombre' )";
 		$data = mysql_query( $q, $dbh );
 		
-		//return $q;
 		return mysql_insert_id();		
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -66,20 +64,17 @@
 	/* ----------------------------------------------------------------------------------- */
 	function actualizarCategoria( $dbh, $id, $campo, $valor ){
 		$q = "update categoria set $campo = '$valor' where iDcategoria = $id";
-		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function actualizarUnidad( $dbh, $id, $nombre ){
 		$q = "update unidad set nombre = '$nombre' where idUnidad = $id";
-		//echo $q;
 		$data = mysql_query( $q, $dbh );	
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function eliminarUnidad( $dbh, $id ){
 		$q = "delete from unidad where idUnidad = $id";
 		//$data = mysql_query( $q, $dbh );
-		return $id;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerCategoriasArticulos( $dbh ){
@@ -192,7 +187,7 @@
 
 	if( isset( $_POST["elim_und"] ) ){
 		include( "bd.php" );		
-		return eliminarUnidad( $dbh, $_POST["idreg"] );
+		eliminarUnidad( $dbh, $_POST["idreg"] );
 	}
 
 	if( isset( $_POST["existe"] ) ){

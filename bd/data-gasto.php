@@ -45,9 +45,9 @@
 	function modificarGasto( $dbh, $gasto, $idu ){
 		//Modifica los datos de un registro de gasto
 		$fpago = cambiaf_a_mysql( $gasto["fecha_pago"] );
-		$q = "update gasto set tipo = '$gasto[tgasto]', concepto='$gasto[concepto]', fecha_modificacion = NOW(), 
-		fecha_pago = '$fpago', monto = $gasto[monto], monto_pagado = $gasto[mpagado], 
-		beneficiario = '$gasto[beneficiario]', forma_pago = '$gasto[forma_pago]', banco = '$gasto[cbanco]', 
+		$q = "update gasto set concepto='$gasto[concepto]', fecha_modificacion = NOW(), 
+		fecha_pago = '$fpago', monto = $gasto[monto], beneficiario = '$gasto[beneficiario]', 
+		forma_pago = '$gasto[forma_pago]', banco = '$gasto[cbanco]', 
 		noperacion = '$gasto[noper]' where idGasto = $gasto[idGasto] and idUsuario = $idu";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
@@ -82,7 +82,8 @@
 	/* Solicitudes al servidor para procesar información de gastos */
 	/* ----------------------------------------------------------------------------------- */
 	
-	if( isset( $_POST["rgasto"] ) ){ //Registro o modificación de un gasto
+	if( isset( $_POST["rgasto"] ) ){ 
+	//Registro o modificación de un gasto
 		include( "bd.php" );
 		
 		$gasto = array();
@@ -103,6 +104,7 @@
 			$res["exito"] = 0;
 			$res["mje"] = "Error al registrar gasto";
 		}
+		
 		echo json_encode( $res );
 	}
 

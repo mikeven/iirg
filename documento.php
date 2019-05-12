@@ -31,11 +31,12 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionicons.css">
+    <!--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of download
 
@@ -192,7 +193,7 @@
                       <th class="tit_tdf">Cant</th>
                       <th class="tit_tdf">UND</th>
                       <th class="tit_tdf">Precio Unitario</th>
-                      <th class="tit_tdf">Total Bsf</th>
+                      <th class="tit_tdf">Total BsS</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -274,9 +275,24 @@
               <?php echo $encabezado["estado"]; ?>
             </div>
           </h2>
+          <div id="nro_ctrol_fac" class="bdatadoc">
+            <?php if( $tdd == "fac" )
+              echo "Nro control: ".$encabezado["ctrl"]; //fn-documento.php 
+            ?>
+          </div>
           <div id="bloque_fechas" class="bdatadoc">
             <?php echo fechasDocumento( $encabezado ); //fn-documento.php ?>
           </div>
+          
+          <?php if( $tdd == "fac" || $tdd == "ctz" ) { ?>
+            <div id="comision_venta" class="bdatadoc">
+              <div class='fechas_doc'> Comisión de venta sugerida: </div>
+              <div class='fechas_doc'>
+                <?php echo number_format( $total_comision, 2, ",", "." ); ?>
+              </div>
+            </div>          
+          <?php } ?>
+
           <div id="bloque_opciones_rapidas" class="bdatadoc">
               <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
                 <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 

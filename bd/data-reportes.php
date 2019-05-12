@@ -61,7 +61,7 @@
 	function obtenerReporteLibroVentas( $dbh, $fecha_i, $fecha_f, $pret, $idu ){
 		//
 		$lista_f = array();
-		$q = "Select F.IdFactura as id, F.numero as numero, F.estado as estado, 
+		$q = "Select F.IdFactura as id, F.numero as numero, F.control as control, F.estado as estado, 
 		C.idCliente as idc, C.Nombre as cliente, C.rif as rif, F.valor_condicion as vcondicion, 
 		date_format(F.fecha_emision,'%d/%m/%Y') as femision, ($pret * (F.SubTotal * F.iva)) AS mretencion,  
 		F.SubTotal as monto, ((F.SubTotal * F.iva)) as miva, F.Total as mtotal 
@@ -162,9 +162,9 @@
 			$sisval_ret, $idu );
 
 		//print_r($reporte_data);
-		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );
-		$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );
-		$reporte["totales"] = totalesReporte( $nombre_reporte, $reporte_data );
+		$reporte["encabezado"] = reporteEncabezado( $nombre_reporte );				//fn-reportes.php
+		$reporte["registros"] = reporteRegistros( $nombre_reporte, $reporte_data );	//fn-reportes.php
+		$reporte["totales"] = totalesReporte( $nombre_reporte, $reporte_data );		//fn-reportes.php
 		echo json_encode( $reporte );
 	}
 	/* ----------------------------------------------------------------------------------------------------- */

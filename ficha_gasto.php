@@ -44,7 +44,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -304,6 +304,8 @@
                                 <?php echo selop( "TR", $gasto["forma_pago"] );?>>Transferencia</option>
                                 <option value="CH" class="ofp" 
                                 <?php echo selop( "CH", $gasto["forma_pago"] );?>>Cheque</option>
+                                <option value="TD" class="ofp" 
+                                <?php echo selop( "TD", $gasto["forma_pago"] );?>>Tarjeta de débito</option>
                               </select>
                             </div><!-- /.form group -->
                             

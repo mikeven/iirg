@@ -8,6 +8,7 @@
   include( "bd/bd.php" );
   include( "bd/data-usuario.php" );
   include( "bd/data-formato.php" );
+  include( "bd/data-sistema.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
   include( "bd/data-documento.php" );
@@ -25,6 +26,7 @@
     if( $tdd == "ctz" ){
       $documento = obtenerCotizacionPorId( $dbh, $id );
       $tdocumento = "Cotización";
+
     }
     if( $tdd == "sctz" ){
       $documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
@@ -112,7 +114,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -143,6 +145,10 @@
       bottom: 0;
       margin-bottom: 8%;
       font-size: 12px !important;
+    }
+
+    #totalizacion table>tbody>tr>th{
+      padding: 4px !important;
     }
 
     #tabla_detalle_doc{
@@ -192,7 +198,7 @@
       border-bottom: 1px dashed #000; 
     }
 
-    #dcliente{ width: 50% }
+    #dcliente{ width: 55% }
     #dmed{ width: 1%; }
     #ddocumento_der{ width: 35%; }
 
@@ -234,7 +240,7 @@
           </div><!-- /.row -->
           
           <div class="row" id="encabezado">
-              <div class="col-sm-6 invoice-col" id="dcliente">
+              <div class="col-sm-8 invoice-col" id="dcliente">
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
                   <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>
@@ -273,8 +279,10 @@
                     <th class="enc_ac" width="55%">DESCRIPCIÓN</th>
                     <th class="enc_ac" width="10%">CANT</th>
                     <th class="enc_ac" width="10%">UND</th>
-                    <th class="enc_ad" width="10%">PRECIO <br>UNITARIO</th>
-                    <th class="enc_ad" width="15%">TOTAL BSF.</th>
+                    <?php if( $tipo_n != "nota_entrega" ){ ?>
+                      <th class="enc_ad" width="10%">PRECIO <br>UNITARIO</th>
+                      <th class="enc_ad" width="15%">TOTAL BsS</th>
+                    <?php } ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -286,12 +294,14 @@
                     <td class="tit_tdf_i" align="left"><?php echo $item["descripcion"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["cantidad"];?></td>
                     <td class="tit_tdf" align="center"><?php echo $item["und"];?></td>
+                    <?php if( $tipo_n != "nota_entrega" ){ ?>
                     <td class="tit_tdf" align="right">
                       <?php echo number_format( $item["punit"], 2, ",", "." );?>
                     </td>
                     <td class="tit_tdf" align="right">
                       <?php echo number_format( $item["ptotal"], 2, ",", "." );?>
                     </td>
+                    <?php } ?>
                   </tr>
                   <?php } //end: foreach ?>
                 </tbody>

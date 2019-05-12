@@ -1,7 +1,10 @@
+<?php 
+	$fecha = obtenerFechaActual();
+	$f = $fecha['f1']['fecha']; 
+?>
 <footer class="main-footer">
 	<div class="pull-right hidden-xs">
-		<b>Version</b> 2.3.2
+		<b>Caracas</b> <?php echo $f;?>
 	</div>
-	<strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-reserved.
+	<strong>R&G Facturación</a></strong> 
 </footer>

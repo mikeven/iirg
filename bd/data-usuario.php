@@ -234,7 +234,8 @@
 	function obtenerListaVendedores( $dbh, $idu ){
 		//Devuelve la lista de vendedores asociados a la cuenta de usuario
 		$vendedores = array();
-		$q = "select idDato, dato1 from data_usuario where tipo='vendedor' and idUsuario = $idu";
+		$q = "select idDato, dato1 as nombre from data_usuario 
+				where tipo='vendedor' and idUsuario = $idu";
 		$data = mysql_query( $q, $dbh );
 		while( $item = mysql_fetch_array( $data ) ){
 			$vendedores[] = $item;	

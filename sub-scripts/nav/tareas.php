@@ -1,4 +1,4 @@
-<li class="dropdown tasks-menu">
+<li class="dropdown tasks-menu hidden">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
   <i class="fa fa-flag-o"></i>
   <span class="label label-danger">7</span>

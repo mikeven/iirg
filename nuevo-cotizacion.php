@@ -24,7 +24,8 @@
     $cotizacion = obtenerCotizacionPorId( $dbh, $id_do );
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
-  }    
+    $nitems = count( $detalle );
+  }   
   
   if( isset( $encabezado ) ){
     $iva = $encabezado["iva"];
@@ -34,7 +35,9 @@
   else  { 
     $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0;
     $iva2 = $sisval_iva2; $eiva2 = $iva2 * 100;
+    unset( $encabezado );
   }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,7 +60,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -104,8 +107,36 @@
     </script>
     <script src="js/fn-documento.js"></script>
     <script src="js/fn-cotizacion.js"></script>
+    <script src="js/fn-calculo-precio.js"></script>
     <script src="js/fn-articulos.js"></script>
     <script src="js/fn-ui.js"></script>
+
+    <style>
+      #estudio-precio{
+        color: #f39c12;
+      }
+      #estudio-precio:hover{
+        cursor: pointer; font-size:16px; 
+      }
+
+      #r_pv:hover{ cursor: pointer; }
+
+      #r_pgegan{ color: #13c929; }
+
+      #r_ganancia{ color: #3c8dbc; }
+
+      #r_pv{ color: #b135ff; }
+
+      #r_pvar{ color: #f60734; }
+
+      #calculopvp, .calc_pvp{
+        font-size: 20px;
+      }
+
+      #tabla_calculo_pv_comision{
+        margin-top: 25px;
+      }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -150,7 +181,9 @@
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "cotizacion", $usuario["idUsuario"] );
     $cond_defecto = obtenerCondicionDefecto( $dbh, "cotizacion", $usuario["idUsuario"] );
-    $obs = obtenerFormatoObservacionesCtz( $frt_c, $cond_defecto["nombre"] );          //fn-formato.php
+    $lvendedores = obtenerListaVendedores( $dbh, $usuario["idUsuario"] );
+    $obs = obtenerFormatoObservacionesCtz( $frt_c, $cond_defecto["nombre"] );  //fn-formato.php
+
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("sub-scripts/nav/menu_ppal.php");?>
@@ -199,7 +232,7 @@
                                 	<?php include( "sub-scripts/tablas/tabla_clientes_modal.php" ); ?>
                                 <!-- /.Modal -->
                                 <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
@@ -211,7 +244,7 @@
                                         </div>
                                     </div><!-- /.form group -->
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <!--<label for="fcondpago" class="">Validez:</label>-->
                                         <div class="input-group">
@@ -237,7 +270,7 @@
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-slack"></i> 
-                                                    <label for="datepicker" class="iconlab">N°:</label>
+                                                    <label for="datepicker" class="iconlab"></label>
                                                 </div>
                                                 <input type="text" class="form-control" 
                                                 id="ndocumento" name="numero" required readonly value="<?php echo $num_nvacotiz; ?>">
@@ -251,7 +284,8 @@
                                                     <i class="fa fa-user"></i> 
                                                     <label for="persona_contacto" class="iconlab">P. Contacto:</label>
                                                 </div>
-                                                <input type="text" class="form-control" id="cpcontacto" name="pcontacto" required value="">
+                                              <input type="text" class="form-control" id="cpcontacto" name="pcontacto" 
+                                              value="<?php if( isset( $encabezado['pcontacto'] ) ) { echo $encabezado['pcontacto'];  } ?>">
                                             </div><!-- /.input group -->
                                         </div><!-- /.form group -->	
                                     </div>
@@ -266,7 +300,11 @@
                                                     <label for="datepicker" class="iconlab">Vendedor:</label>
                                                 </div>
                                                 <select name="vendedor" id="nvendedor" class="form-control">
-                                                    <option value="0" disabled selected>Vendedor 1</option>
+                                                  <?php foreach ( $lvendedores as $v ) { ?>
+                                                    <option value="<?php echo $v["nombre"] ?>" selected>
+                                                      <?php echo $v["nombre"] ?>
+                                                    </option>
+                                                  <?php } ?>
                                                 </select>
                                             </div>
                                         </div><!-- /.form group -->
@@ -310,11 +348,19 @@
                                       	<div class="form-group">
                                               <!--<label for="punit" class="">Precio unitario:</label>-->
                                               <div class="input-group">
-                                                  <div class="input-group-addon"><i class="fa fa-tag"></i></div>
+                                                  <div id="estudio-precio" class="input-group-addon" data-toggle="modal" 
+                                          data-target="#calculopvp">
+                                                    <i class="fa fa-tag"></i>
+                                                  </div>
                                                   <input type="text" class="form-control itemtotal" id="punit" name="punit" 
                                                   placeholder="P.Unit" onkeypress="return isNumberKey(event)">
                                               </div>
+                                          <input type="hidden" id="icomision" value="0.00">
                                           </div><!-- /.form group -->
+                                          <!-- Modal -->
+                                            <?php 
+                                            include( "sub-scripts/forms/calculopvp.php" ); ?>
+                                          <!-- /.Modal -->
                                       </div><!-- /.col -->
                                     
                                       <div class="col-md-6">
@@ -346,7 +392,7 @@
                                     
                                     <div class="box box-primary">	
                                         <div class="box-body">
-                                        	<input id="cont_item" name="contadoritems" type="hidden" value="0">
+                                        	<input id="cont_item" name="contadoritems" type="hidden" value="<?php echo $nitems?>">
                                             <table class="table table-condensed" id="tdetalle">
                                                 <tbody>
                                                     <tr>
@@ -377,7 +423,7 @@
                                         <tbody>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">SubTotal</th>
+                                                <th width="15%">SubTotal BsS</th>
                                                 <th width="15%">
                                                 	<div id="csub_total" class="totalizacion">
                                                     	<div class="input-group">
@@ -413,7 +459,7 @@
                                             </tr>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">Total</th>
+                                                <th width="15%">Total BsS</th>
                                                 <th width="15%">
                                                 	<div id="ctz_total" class="totalizacion">
                                                     	<div class="input-group">

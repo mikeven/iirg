@@ -6,7 +6,8 @@
 <table id="lcompras" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Fecha</th><th>Proveedor</th><th>N° Factura</th><th>Monto Base</th><th>IVA</th>
+        <th>Fecha</th><th>Proveedor</th><th>N° Retención</th>
+        <th>N° Factura</th><th>Monto Base</th><th>IVA</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
             <td> <a href="ficha_compra.php?id=<?php echo $c["idcompra"]; ?>">
               <?php echo $c["proveedor"]; ?></a> 
             </td>
+            <td> <?php echo $c["nretencion"];?></td>
             <td> <?php echo $c["nfactura"];?></td>
             <td> <?php echo number_format( $c["mbase"], 2, ",", "." ); ?></td>
             <td> <?php echo number_format( $c["iva"], 2, ",", "." ); ?></td>
