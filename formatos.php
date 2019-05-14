@@ -1,6 +1,6 @@
 <?php
 	/*
-	* IIRG - Ficha de datos de cliente
+	* IIRG - Formatos de documentos
 	* 
 	*/
 	session_start();
@@ -60,7 +60,7 @@
     <script src="plugins/input-mask/jquery.inputmask.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
@@ -113,7 +113,7 @@
   <!-- Left side column. contains the logo and sidebar -->
   <?php 
     include("sub-scripts/nav/menu_ppal.php");
-    /* $usuario:perfil.php */
+    
     /* Data cotizaciones */
     $frt_c = obtenerFormatoPorUsuarioDocumento( $dbh, "ctz", $usuario["idUsuario"] );
     $datau = dataU( $frt_c, $usuario ); 	// en: "fn/fn-formato.php"
@@ -128,6 +128,12 @@
     $frt_f = obtenerFormatoPorUsuarioDocumento( $dbh, "fac", $usuario["idUsuario"] );
     $dof = dataObs( $frt_f, "fac" );
     $fobs = obtenerResumenObs( $frt_f );
+
+    /* Data facturas proforma */
+    $frt_fp = obtenerFormatoPorUsuarioDocumento( $dbh, "fpro", $usuario["idUsuario"] );
+    $datau = dataU( $frt_fp, $usuario );    // en: "fn/fn-formato.php"
+    $dofp = dataObs( $frt_fp, "fpro" );      // en: "fn/fn-formato.php"
+    $cobs = obtenerResumenObs( $frt_fp );   // en: "fn/fn-formato.php"
 
     /* Data orden de compra */
     $frt_oc = obtenerFormatoPorUsuarioDocumento( $dbh, "odc", $usuario["idUsuario"] );
@@ -176,6 +182,10 @@
                     <!-- Sección panel formato de facturas -->
                     <?php include( "sub-scripts/config-formatos/facturas.php" ); ?>
                     <!-- /.Sección panel formato de facturas -->
+
+                    <!-- Sección panel formato de facturas proformas -->
+                    <?php include( "sub-scripts/config-formatos/proformas.php" ); ?>
+                    <!-- /.Sección panel formato de facturas proformas -->
 
                     <!-- Sección panel formato de orden de compra -->
                     <?php include( "sub-scripts/config-formatos/orden_compra.php" ); ?>

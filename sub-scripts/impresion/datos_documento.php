@@ -66,6 +66,12 @@
       <td><?php echo $encabezado["oc"]; ?></td>
     </tr>
     <?php } ?>
+    <?php if($tdd == "fpro") { ?>
+      <tr>
+        <td><div id="doc_noc">N° Orden Compra:</div></td>
+        <td><?php echo $encabezado["oc"]; ?></td>
+      </tr>
+    <?php } ?>
   </table>
 
 </div><!-- /.col -->

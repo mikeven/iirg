@@ -10,6 +10,7 @@
   include( "bd/data-orden-compra.php" );
 	include( "bd/data-articulo.php" );
 	include( "bd/data-factura.php" );
+  include( "bd/data-factura-proforma.php" );
 	include( "bd/data-nota.php" );
   include( "bd/data-documento.php" );
 	include( "bd/data-formato.php" );
@@ -99,7 +100,6 @@
         $enlace_edc = enlaceAccion( $tdd, $id, "editar", "id" );    //fn-documento.php
         $enlace_cop = enlaceAccion( $tdd, $id, "nuevo", "idref" );  //fn-documento.php
         $iconoi = iconoEstado( $encabezado["estado"] );             //fn-documento.php 
-        //print_r($encabezado);
       ?>
       <!-- Left side column. contains the logo and sidebar -->
 	     <?php include( "sub-scripts/nav/menu_ppal.php" );?>
@@ -169,6 +169,9 @@
                 
                 <?php if( $tdd == "fac" ) { ?>
                   <div id="doc_fvenc">Fecha vencimiento: <?php echo $encabezado["fvencimiento"]; ?></div>
+                  <div id="doc_noc">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
+                <?php } ?>
+                <?php if( $tdd == "fpro" ) { ?>
                   <div id="doc_noc">N° Orden Compra: <?php echo $encabezado["oc"]; ?></div>
                 <?php } ?>
               
@@ -305,7 +308,8 @@
                 data-target="#ventana_estado" data-valor="pagada" data-taccion="Marcar como pagada" data-rdir="">
                 <i class="fa fa-check"></i>Marcar como pagada</a>
               <?php } ?>
-              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { //fn-documento.php ?>
+              <?php if( admiteCambioEstado( $tdd, $encabezado, "aprobar" ) ) { 
+              //fn-documento.php ?>
               <a class="btn btn-block btn-social btn-success actestado" data-toggle="modal" 
               data-target="#ventana_estado" data-valor="aprobada" data-taccion="Aprobar" data-rdir="">
               <i class="fa fa-thumbs-up"></i>Aprobar</a>
@@ -313,9 +317,13 @@
               <?php if( esModificable( $dbh, $tdd, $id, $encabezado ) ) { //fn-documento.php ?>
                 <a class="btn btn-social bg-teal btn-block" href="<?php echo $enlace_edc; ?>">
                 <i class="fa fa-edit"></i>Editar</a>
-              <?php } ?>              
-              <a class="btn btn-social btn-default btn-block" href="<?php echo $enlace_cop; ?>" target="_blank">
-              <i class="fa fa-copy"></i>Copiar</a>
+              <?php } ?>
+
+              <?php if( esCopiable( $tdd ) ) { ?>
+                <a class="btn btn-social btn-default btn-block" 
+                href="<?php echo $enlace_cop; ?>" target="_blank">
+                <i class="fa fa-copy"></i>Copiar</a>
+              <?php } ?>
 
               <a class="btn btn-social btn-default btn-block" href="#!">
               <i class="fa fa-send-o"></i>Enviar por email</a>

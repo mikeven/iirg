@@ -30,7 +30,7 @@ function reg_formato( documento, frm, param ){
         url:url_data,
         data:{ form: dataform( frm, param ), doc:documento, s:param },
         success: function( response ){
-            
+            console.log(response);
 			res = jQuery.parseJSON(response);
 			
 			if( res.exito == '1' ){
@@ -125,7 +125,38 @@ $( document ).ready(function() {
 			reg_formato( "fac", "#frm_mfacobs", "obs" );
         }
     });
-	/* --------------------------------------------------------------------------- */
+	/* --------------------------------------------------------------------------- */ 
+    /* Validaciones: facturas proforma */ 
+    $('#frm_mencabezfp').bootstrapValidator({
+        fields: {
+            l1: { validators: { notEmpty: { message: 'Debe indicar encabezado' } } }
+        },
+        onSuccess: function( e, data ) {
+            e.preventDefault();
+            reg_formato( "fpro", "#frm_mencabezfp", "enc" );
+        }
+    });
+
+    $('#frm_mfacpent').bootstrapValidator({
+        fields: {
+            entrada: { validators: { notEmpty: { message: 'Debe indicar texto de entrada' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "fpro", "#frm_mfacpent", "ent" );
+        }
+    });
+
+    $('#frm_mfacpobs').bootstrapValidator({
+        fields: {
+            obs1: { validators: { notEmpty: { message: 'Debe indicar texto' } } }
+        },
+        onSuccess: function(e, data) {
+            e.preventDefault();
+            reg_formato( "fpro", "#frm_mfacpobs", "obs" );
+        }
+    });
+    /* --------------------------------------------------------------------------- */
 	/* Validaciones: orden de compra */
     $('#frm_mencabezado_oc').bootstrapValidator({	// Encabezado
         fields: {

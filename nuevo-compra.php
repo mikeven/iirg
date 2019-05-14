@@ -64,7 +64,7 @@
     <script src="plugins/input-mask/jquery.inputmask.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js">
+    <script src="plugins/moment/moment.min.js">
     </script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>

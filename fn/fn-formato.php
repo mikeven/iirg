@@ -82,7 +82,7 @@
 		/*	p: parametro para indicar si el campo es readonly o no
 			t: texto de la observación
 			v: valor del campo de la observación
-			dv: 
+			dv: valor del parámetro data-v
 		*/
 		$cfg = configDoc( $doc );
 		$do[1]["p"] = ""; $do[2]["p"] = ""; $do[3]["p"] = "";

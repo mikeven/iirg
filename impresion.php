@@ -11,6 +11,7 @@
   include( "bd/data-sistema.php" );
   include( "bd/data-articulo.php" );
   include( "bd/data-factura.php" );
+  include( "bd/data-factura-proforma.php" );
   include( "bd/data-documento.php" );
   include( "bd/data-orden-compra.php" );
   include( "bd/data-cotizacion.php" );
@@ -39,6 +40,10 @@
     if( $tdd == "fac" ){
       $documento = obtenerFacturaPorId( $dbh, $id );
       $tdocumento = "Factura";
+    }
+    if( $tdd == "fpro" ){
+      $documento = obtenerFacturaProformaPorId( $dbh, $id );
+      $tdocumento = "Fact proforma";
     }
     if( $tdd == "nota" ){
 

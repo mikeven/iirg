@@ -65,6 +65,8 @@
           <ul class="treeview-menu">
           	<li><a href="facturas.php"><i class="fa fa-list-alt"></i>Consultar facturas</a></li>
             <li><a href="nuevo-factura.php"><i class="fa fa-plus"></i>Crear nueva factura</a></li>
+            <li><a href="proformas.php"><i class="fa fa-list-alt"></i>Consultar facturas proforma</a></li>
+            <li><a href="nuevo-proforma.php"><i class="fa fa-plus"></i>Crear nueva factura proforma</a></li>
           </ul>
         </li>
 

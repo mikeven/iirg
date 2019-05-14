@@ -17,10 +17,10 @@
 			and doc = '$documento'";
 		
 		if( $sec == "obs" )
-			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', obs1 = '$form->vobs1', 
-			obs2 = '$form->vobs2', obs3 = '$form->vobs3' where idUsuario = $form->idUsuario and doc = '$documento'";
+			$q = "update formato set doc = '$documento', titulo_obs = '$form->tobs', 
+					obs1 = '$form->vobs1', obs2 = '$form->vobs2', obs3 = '$form->vobs3' 
+					where idUsuario = $form->idUsuario and doc = '$documento'";
 		
-		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return mysql_affected_rows();
 	}
@@ -39,7 +39,7 @@
 
 		if( $idr != -1 ){
 			$res["exito"] = 1;
-			$res["mje"] = "Registro exitoso";
+			$res["mje"] = "Cambios realizados con éxito";
 		}else{
 			$res["exito"] = 0;
 			$res["mje"] = "Error al guardar información";

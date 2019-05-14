@@ -38,6 +38,9 @@
 			"factura"		=> array (
 								"param" => "fac", "etiqueta" => "Factura"
 							),
+			"proforma"		=> array (
+								"param" => "fpro", "etiqueta" => "Factura proforma"
+							),
 			"orden_compra"	=> array (
 								"param" => "odc", "etiqueta" => "Orden de compra"
 							),
@@ -68,7 +71,7 @@
 	function admiteCambioEstado( $doc, $encabezado, $accion ){
 		//Determina si un documento es anulable
 		$admite = true;
-		$no_anulables = array( "odc", "ctz", "sctz" );
+		$no_anulables = array( "odc", "ctz", "sctz", "fpro" );
 		
 		//Solo se actualizan los documentos con estado 'pendiente'
 		if( $encabezado["estado"] != "pendiente" ) $admite = false;
@@ -92,6 +95,9 @@
 		if( ( $doc == "fac" ) && ( $accion != "marcar_pagada" ) && ( $accion != "anular" ) ) 
 			$admite = false;
 
+		//Factura proforma: No permite acciones
+		if( ( $doc == "fpro" ) )  $admite = false;
+
 		//Nota: solo permite anular
 		if( ( $doc == "nota" ) && ( $accion != "anular" ) ) $admite = false;
 
@@ -113,11 +119,21 @@
 		return $modificable;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function esCopiable( $tdd ){
+		//Determina si se habilita la copia de un documento según el tipo 
+		$copiable = true;
+		
+		if ( $tdd == "fpro" ) $copiable = false;
+		
+		return $copiable;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function enlaceAccion( $documento, $id_doc, $accion, $p ){
 		//Retorna el enlace para modificar/copiar un documento de acuerdo al tipo indicado
 		$ndoc = array(
 			"ctz" => "cotizacion", "sctz" => "solicitud-cotizacion",
-			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota"
+			"odc" => "orden-compra", "fac" => "factura", "nota" => "nota", 
+			"fpro" => "proforma"
 		);
 		
 		$enlace = $accion."-".$ndoc[$documento].".php?".$p."=".$id_doc;
@@ -204,6 +220,14 @@
 			$tdocumento = "Factura"; $ftdd = $tdd; $filedoc = "factura";
 			$total_comision = obtenerTotalComisionVenta( $detalle_d ); //bd/data-documento.php	
 	    }
+
+		if( $tdd == "fpro" ){	//Factura proforma
+			$documento = obtenerFacturaProformaPorId( $dbh, $id );
+			$encabezado = $documento["encabezado"];
+			$detalle_d = $documento["detalle"];
+			$tdocumento = "Fact proforma"; $ftdd = $tdd; $filedoc = "factura_proforma";
+	    }
+
 	    if( $tdd == "nota" ){	//Nota
 			$tipo_n = $_GET["tn"];
 			$documento = obtenerNotaPorId( $dbh, $id, $tipo_n );

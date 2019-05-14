@@ -318,7 +318,7 @@
     <!-- jQuery 2.1.4 -->
       
       <!-- Bootstrap 3.3.5 -->
-      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+      <script src="plugins/jQuery/jQueryUI/jquery-ui.min.js"></script>
       <script src="bootstrap/js/bootstrap.min.js"></script>
       
       <script src="plugins/select2/select2.full.min.js"></script>
