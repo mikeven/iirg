@@ -139,7 +139,7 @@
                   <a class="btn btn-app" href="nuevo-proveedor.php">
                     <i class="fa fa-plus"></i> Nuevo
                   </a>
-                  <div class="icon-color"><i class="fa fa-contao fa-2x"></i></div>
+                  <div class="icon-color"><i class="fa fa-truck fa-2x"></i></div>
                 </div><!-- /.box-header -->
              	<div class="box-body">
                 	<?php include("sub-scripts/tablas/tabla_proveedores.php"); ?>

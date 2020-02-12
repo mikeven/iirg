@@ -88,6 +88,26 @@ function guardarCompra( form, modo_respuesta, idhtml, accion ){
     });
 }
 /* ----------------------------------------------------------------------------------- */
+function imprimirRetencion(){
+	//Invocación a generación e impresión de retención
+
+	var url_data = "bd/data-compra.php"; 
+	var idc = $( "#idCompra" ).val();
+	var idu = $( '#idu_sesion' ).val();
+
+	$.ajax({
+        type:"POST",
+        url:url_data,
+        data:{ imp_ret: idc, id_u: idu },
+        success: function( response ){
+			console.log(response);
+			if( response != -1 ){
+				window.location.href = "impresion-retencion.php?idr=" + idc;
+			}
+        }
+    });
+}
+/* ----------------------------------------------------------------------------------- */
 function estadoCompra( id, estado, modo_respuesta, idhtml ){
 	//Invocación a registrar compra
 	var url_data = "bd/data-compra.php";
@@ -212,6 +232,9 @@ $( document ).ready(function() {
 		});	
 	});
 	/*--------------------*/
+	$("#bt_imp_ret").on( "click", function() {	// Imprimir retención
+		imprimirRetencion();	
+	});
 });
 
 /* ----------------------------------------------------------------------------------- */

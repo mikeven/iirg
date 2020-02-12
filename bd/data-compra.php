@@ -22,23 +22,41 @@
 		return $nr.$num;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerNumeroComprobanteRetencion( $nret, $fecha ){
+	function obtenerNumeroComprobanteRetencion( $dbh, $idc, $idu ){
 		//Retorna el número de comprobante de retención de acuerdo al número y fecha
+		$nret = -1;
+		$hoy = obtenerFechaActual();
+		$fecha = $hoy["f1"]["fecha"];
+
+		$nret = obtenerProximoNumeroRetencion( $dbh, $idu );
 		$data_f = explode( '/', $fecha );
 		$nr = generarNumeroRetencion( $nret );
 		$nc = $data_f[2].$data_f[1].$nr; 
 		
-		return$nc;
+		actualizarRetencionCompra( $dbh, $fecha, $idc, $nret, $nc, $idu );
+
+		return $nret; 
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function actualizarRetencionCompra( $dbh, $fecha, $idc, $c_ret, $n_ret, $idu ){
+		// Actualiza el registro de compra para asignar valores de retención
+
+		$fecha_emision_r = cambiaf_a_mysql( $fecha );
+		
+		$q = "update compra set control_ret = $c_ret, num_retencion = '$n_ret', 
+		fecha_retencion = '$fecha_emision_r' where idCompra = $idc and idUsuario = $idu";
+		//echo $q;
+		$data = mysql_query( $q, $dbh );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function agregarCompra( $dbh, $compra, $idu ){
 		//Agrega un registro de compra
+
 		$fecha_emision = cambiaf_a_mysql( $compra["fecha_emision"] );
 		$q = "insert into compra ( idProveedor, fecha_registro, fecha_emision, monto, 
-		iva, retencion, ncontrol, nfactura, control_ret, num_retencion, idUsuario, estado ) 
+		iva, retencion, ncontrol, nfactura, idUsuario, estado ) 
 		values ( $compra[idProveedor], NOW(), '$fecha_emision', $compra[mbase], $compra[iva], 
-		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', $compra[nret], 
-		'$compra[ncomprobante]', $idu, 'creada' )";
+		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', $idu, 'creada' )";
 		
 		$data = mysql_query( $q, $dbh );
 		
@@ -46,11 +64,13 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerCompraPorId( $dbh, $id, $idu ){
-		//Devuelve registro de artículo dado el ID
+		//Devuelve registro de compra dado el ID
+
 		$q = "Select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, c.retencion as vret, 
 		((c.iva*c.monto/100)*c.retencion) as retencion, (c.retencion*100) as pret,  
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.estado as estado,  
-		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro, c.num_retencion as nret, 
+		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro,
+		date_format(c.fecha_retencion,'%d/%m/%Y') as fretencion, c.num_retencion as nret, 
 		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor,
 		p.rif as rif_p, p.Direccion1 as dir1, p.Direccion2 as dir2 from proveedor p, compra c 
 		where c.idProveedor = p.idProveedor and c.idCompra = $id and c.idUsuario = $idu";
@@ -60,7 +80,8 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaCompras( $dbh, $idu ){
-		//Devuelve registro de artículo dado el ID
+		//Devuelve listado de registros de compras de un usuario
+
 		$lista_c = array();
 		$q = "select c.idCompra as idcompra, c.monto as mbase, c.iva as iva, 
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, ((c.monto * c.iva/100) + c.monto) as mtotal,
@@ -146,8 +167,8 @@
 		$compra = array();
 		parse_str( $_POST["ncompra"], $compra );
 		if( $_POST["c_accion"] == "agregar" ){
-			$compra["ncomprobante"] = obtenerNumeroComprobanteRetencion( $compra["nret"], 
-				$compra["fecha_emision"] );
+			/*$compra["ncomprobante"] = obtenerNumeroComprobanteRetencion( $compra["nret"], 
+				$compra["fecha_emision"] );*/
 			$idc = agregarCompra( $dbh, $compra, $_POST["id_u"] );
 		}
 		if( $_POST["c_accion"] == "editar" )
@@ -164,7 +185,19 @@
 		}
 		echo json_encode( $res );
 	}
-
+	/* ----------------------------------------------------------------------------------- */
+	if( isset( $_POST["imp_ret"] ) ){
+		include( "bd.php" );
+		$r = 0;
+		$idu = $_POST["id_u"];
+		$idc = $_POST["imp_ret"];
+		
+		$compra = obtenerCompraPorId( $dbh, $idc, $idu );
+		if( $compra["nret"] == NULL )
+        	$r = obtenerNumeroComprobanteRetencion( $dbh, $idc, $idu );
+        
+        echo $r;
+	}
 	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_POST["ecompra"] ) ){
 		include( "bd.php" );

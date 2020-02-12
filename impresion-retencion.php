@@ -21,11 +21,18 @@
     } else  $idu = $usuario["idUsuario"];
 
     $compra = obtenerCompraPorId( $dbh, $idr, $idu );
-    $m_iva = $compra["mbase"] * ( $compra["iva"] / 100 );
-    $total_c = $compra["mbase"] + $m_iva;
-    $fecha_doc = $compra["femision"];
-    $data_fa = explode( '/', $fecha_doc );
-    $periodo_f = "Año: ".$data_fa[2]."  /Mes: ".$data_fa[1];
+    
+    if( $compra ){
+
+      $m_iva = $compra["mbase"] * ( $compra["iva"] / 100 );
+      $total_c = $compra["mbase"] + $m_iva;
+      $fecha_doc = $compra["femision"];
+      
+      $fecha_ret = $compra["fretencion"];
+      $data_fr = explode( '/', $fecha_ret );
+      $periodo_f = "Año: ".$data_fr[2]."  /Mes: ".$data_fr[1];
+
+    }
 
   }  
   /*========================================================*/
@@ -177,7 +184,7 @@
               <div class="col-sm-6 invoice-col" id="dcliente">
                   <div><span class="dato_enc">Ciudad: </span>Caracas</div>
                   <div><span class="dato_enc">Fecha de Emisión: </span>
-                  <?php echo $fecha_doc; ?></div>
+                  <?php echo $fecha_ret; ?></div>
                   <div align="center" class="dato_enc">DATOS DEL AGENTE DE RETENCIÓN</div>
                   <div>
                     <span class="dato_enc">Nombre o Razón Social: </span>

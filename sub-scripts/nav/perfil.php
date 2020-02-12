@@ -3,13 +3,13 @@
 ?>
 <li class="dropdown user user-menu">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+  <img src="dist/img/iirg-nidia.png" class="user-image" alt="User Image">
   <span class="hidden-xs"><?php echo $usuario["nombre"]; ?></span>
 </a>
 <ul class="dropdown-menu">
   <!-- User image -->
   <li class="user-header">
-    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+    <img src="dist/img/iirg-nidia.png" class="img-circle" alt="User Image">
     <p>
       <?php echo $usuario["nombre"]; ?>
       <small><?php echo $usuario["usuario"]; ?></small>

@@ -137,7 +137,7 @@
             <div class="col-md-12">
               <div class="box box-solid">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Ajustes</h3>
+                  <h3 class="box-title">AJUSTES</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div class="box-group" id="accordion">

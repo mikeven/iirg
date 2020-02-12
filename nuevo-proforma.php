@@ -20,7 +20,7 @@
   checkSession( '' );
 	
   if( isset( $_GET["idc"] ) ){  
-    //Obtención de datos para realizar factura desde una cotización
+    //Obtención de datos para realizar factura proforma desde una cotización
     $cotizacion = obtenerCotizacionPorId( $dbh, $_GET["idc"] ); //data-cotizacion.php
     $encabezado = $cotizacion["encabezado"];
     $detalle = $cotizacion["detalle"];
@@ -171,7 +171,8 @@
   </header>
   <?php
     $fecha_actual = obtenerFechaHoy();
-    $num_nvoproforma = obtenerProximoNumeroProforma( $dbh, $usuario["idUsuario"] );
+    //$num_nvoproforma = obtenerProximoNumeroProforma( $dbh, $usuario["idUsuario"] );
+    $num_nvoproforma = $encabezado["nro"];
     
     $frt_fp = obtenerFormatoPorUsuarioDocumento( $dbh, "fpro", $usuario["idUsuario"] );
     $condiciones = obtenerCondiciones( $dbh, "factura", $usuario["idUsuario"] );

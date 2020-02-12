@@ -23,7 +23,8 @@ function obtenerCostoMasIva(){
 }
 
 function obtenerPV() {
-	var costo = $("#costo_base").val();			//Costo base
+
+	var costo = obtenerCostoMasIva();			//Costo base + IVA
 	var pvar = $("#pganancia_estimada").val();	//porcentaje ganancia estimada
 	var r_db = $("#r_db").text();				//result débito bancario
 

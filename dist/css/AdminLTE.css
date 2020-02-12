@@ -3186,7 +3186,9 @@ table.text-center th {
 }
 .login-page,
 .register-page {
-  background: #d2d6de;
+  /*background: #d2d6de;*/
+  background-size: cover;
+  background-image: url('../img/lblue.jpg');
 }
 .login-box,
 .register-box {

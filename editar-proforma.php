@@ -180,7 +180,7 @@
               <!-- general form elements -->
 				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">EDITAR FACTURA</h3>
+                  <h3 class="box-title">EDITAR FACTURA PROFORMA</h3>
                   <div class="icon-color nuevo-reg-icono">
                     <a href="nuevo-proforma.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>

@@ -128,7 +128,6 @@
   </header>
   <?php
     $fecha_actual = obtenerFechaHoy();
-    $nret = obtenerProximoNumeroRetencion( $dbh, $usuario["idUsuario"] );
   ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include("sub-scripts/nav/menu_ppal.php");?>
@@ -199,11 +198,11 @@
                     </div>
                   </div><!-- /.form group -->
 
-                  <div class="form-group">
+                  <div class="form-group hidden">
                     <!--<label for="nfactura">N° Retención</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                        <input type="text" class="form-control" id="nret" placeholder="N° Retención" name="nret" value="<?php echo $nret; ?>">
+                        <input type="text" class="form-control" id="nret" placeholder="N° Retención" name="nret" value="">
                     </div>
                   </div><!-- /.form group -->
 

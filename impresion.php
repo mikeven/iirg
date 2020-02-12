@@ -27,8 +27,8 @@
     if( $tdd == "ctz" ){
       $documento = obtenerCotizacionPorId( $dbh, $id );
       $tdocumento = "Cotización";
-
     }
+
     if( $tdd == "sctz" ){
       $documento = obtenerSolicitudCotizacionPorId( $dbh, $id );
       $tdocumento = "Solicitud de Cotización";
@@ -93,8 +93,8 @@
     //Determina si un documento lleva el encabezado configurado en el formato
     $tiene = true;
 
-    if( $tdd == "fac" ) 
-        $tiene = false;
+    if( $tdd == "fac" ) $tiene = false;
+    
     if( ( $tdd == "nota" ) && ( $tn != "nota_entrega" ) ) 
       $tiene = false;
 
@@ -143,6 +143,18 @@
         margin: 15% 0 10px 0;  
       <?php } ?>
     }
+
+    <?php if( $tdd == "fpro" ) { ?>
+      #lin1, #lin2{ font-weight: bolder; }
+      
+      @media print {
+        #lin1 { 
+          font-size: 16px; font-family: Arial;
+          color: #1a428a !important; 
+          -webkit-print-color-adjust: exact;  
+        }
+      }
+    <?php } ?>
 
     #pie_documento{
       width: 100%;
@@ -223,6 +235,7 @@
   <?php 
     $frt = obtenerFormatoPorUsuarioDocumento( $dbh, $ftdd, $idusuario );
   ?>
+  <!-- <body onload="window.print();">-->
 <body onload="window.print();">
 <div class="wrapper">
   <!-- Main content -->
@@ -246,6 +259,9 @@
           
           <div class="row" id="encabezado">
               <div class="col-sm-8 invoice-col" id="dcliente">
+                  <?php if( $tdd == "fpro" ) { ?>
+                    <div><b>CLIENTE</b></div>
+                  <?php } ?>
                   <div id="dc_nombre"><?php echo $encabezado["nombre"]?></div>
                   <div id="dc_dir1"><?php echo $encabezado["dir1"]?></div>
                   <div id="dc_dir2"><?php echo $encabezado["dir2"]?></div>

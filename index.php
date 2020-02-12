@@ -45,7 +45,7 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a><b>Administrador </b>R&G</a>
+        <a><b>R&G</b> Facturación</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingreso al sistema</p>
@@ -81,7 +81,7 @@
 
     </div><!-- /.login-box -->
 
-    <div class="register-box">
+    <div class="register-box hidden">
       <div class="login-box-body">
         <p class="login-box-msg"><a href="#!" id="breguser"><i class="fa fa-database"></i> Registrar nuevo usuario</a></p>
         <div id="dformreg">

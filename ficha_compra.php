@@ -15,7 +15,8 @@
 	
   if( isset( $_GET["id"] ) ){
     $id_c = $_GET["id"];
-    $compra = obtenerCompraPorId( $dbh, $_GET["id"], $_SESSION["user"]["idUsuario"] );
+    $idu = $_SESSION["user"]["idUsuario"];
+    $compra = obtenerCompraPorId( $dbh, $_GET["id"], $idu );
 	}
 ?>
 <!DOCTYPE html>
@@ -200,6 +201,7 @@
                           <i class="fa fa-file-text-o"></i>&nbsp;
                           Número de factura: <?php echo $compra["nfactura"];?></span>
                         </div>
+                        <hr>
                         <div><span class="tx1">
                           <i class="fa fa-file-text-o"></i>&nbsp;
                           Número de retención: <?php echo $compra["nret"];?></span>
@@ -207,6 +209,10 @@
                         <div><span class="tx1">
                           <i class="fa fa-file-text-o"></i>&nbsp;
                           Monto base: <?php echo number_format( $compra["mbase"], 2, ",", "." );?></span>
+                        </div>
+                        <div><span class="tx1">
+                          <i class="fa fa-file-text-o"></i>&nbsp;
+                          Fecha emisión retención: <?php echo $compra["fretencion"];?></span>
                         </div>
                         <div><span class="tx1">
                           <i class="fa fa-percent"></i>&nbsp;
@@ -225,11 +231,11 @@
                           </div>
                         <?php } ?>
                         <hr>
-
-                        <a class="btn btn-app" 
-                           href="impresion-retencion.php?idr=<?php echo $id_c;?>">
-                          <i class="fa fa-print"></i> Imprimir comprobante retención
-                        </a>
+                        <?php if( $compra ) { ?>
+                          <a id="bt_imp_ret" class="btn btn-app" href="#!">
+                            <i class="fa fa-print"></i> Imprimir comprobante retención
+                          </a>
+                        <?php } ?>
                         
                         <?php if( $compra["estado"] == "creada" ) { ?>
                         <div class="box-footer" align="right">
