@@ -69,7 +69,7 @@
 		DATE_FORMAT(c.fecha_vencimiento,'%d/%m/%Y') as fvencimiento, 
 		c.valor_condicion as vcondicion, c.condicion as validez, c.iva as iva, c.pcontacto as pcontacto, 
 		c.iva as iva, c.introduccion as intro, c.Observaciones as obs0, c.Observaciones1 as obs1, 
-		c.Observaciones2 as obs2, c.Observaciones3 as obs3, k.Nombre as nombre, k.Rif as rif, 
+		c.Observaciones2 as obs2, c.Observaciones3 as obs3, c.moneda as moneda, k.Nombre as nombre, k.Rif as rif, 
 		k.direccion1 as dir1, k.direccion2 as dir2, k.telefono1 as tlf1, k.telefono2 as tlf2,
 		k.Email as email FROM cotizacion c, cliente k where c.idCotizacion = $idc and c.idCliente = k.idCliente";
 		
@@ -134,12 +134,11 @@
 		
 		$q = "insert into cotizacion ( numero, tipo, estado, idCliente, fecha_emision, fecha_vencimiento, 
 		fecha_registro, pcontacto, introduccion, observaciones, observaciones1, observaciones2, 
-		observaciones3, $param iva, Total, idUsuario ) 
+		observaciones3, moneda, $param iva, Total, idUsuario ) 
 		values ( $encabezado->numero, '$encabezado->tipo', '$encabezado->estado', 
 		$encabezado->idc, '$fecha_emision', '$encabezado->fvencimiento', NOW(), '$encabezado->pcontacto', 
 		'$encabezado->introduccion', '$encabezado->obs0', '$encabezado->obs1', '$encabezado->obs2', 
-		'$encabezado->obs3', $valores $encabezado->iva, 
-		$encabezado->total, $idu )";
+		'$encabezado->obs3', '$encabezado->moneda', $valores $encabezado->iva, $encabezado->total, $idu )";
 		
 		//echo $q;
 		$data = mysql_query( $q, $dbh );

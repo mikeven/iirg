@@ -23,10 +23,10 @@
     $id_do = $_GET["idref"];
     $cotizacion = obtenerCotizacionPorId( $dbh, $id_do );
     $encabezado = $cotizacion["encabezado"];
+    $moneda = $encabezado["moneda"];
     $detalle = $cotizacion["detalle"];
     $nitems = count( $detalle );
   }   
-  
   if( isset( $encabezado ) ){
     $iva = $encabezado["iva"];
     $eiva = $iva * 100;
@@ -35,6 +35,12 @@
   else  { 
     $iva = $sisval_iva; $eiva = $iva * 100; $nitems = 0;
     $iva2 = $sisval_iva2; $eiva2 = $iva2 * 100;
+
+    if( isset( $_GET["dolar"] ) ){ 
+      $iva = 0.00;
+      $moneda = "$"; 
+    }else{ $moneda = "BsS"; }
+
     unset( $encabezado );
   }
 
@@ -136,6 +142,8 @@
       #tabla_calculo_pv_comision{
         margin-top: 25px;
       }
+
+      .tipomoneda{ padding: 3px 6px; background-color: #ccc; font-weight: bolder; }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -202,11 +210,31 @@
               <!-- general form elements -->
 				      <div class="box box-default color-palette-box">
                 <div class="box-header with-border">
+                  
                   <h3 class="box-title">CREAR NUEVA COTIZACIÓN</h3>                  
                   <div class="icon-color nuevo-reg-icono">
                     <a href="nuevo-cotizacion.php"><i class="fa fa-plus fa-2x"></i></a>
                   </div>
-                  <div class="icon-color"><i class="fa fa fa-book fa-2x"></i></div>
+
+                  <!-- Selector de moneda para cotización -->
+                  <div class="icon-color">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info">Cotización en</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <?php if( $moneda == "$" ) { ?>
+                            <li><a href="nuevo-cotizacion.php">Bolívares</a></li>
+                          <?php } else { ?>
+                            <li><a href="nuevo-cotizacion.php?dolar">Dólares</a></li>
+                          <?php } ?>
+                        </ul>
+                    </div>
+                  </div>
+                  <!-- /.Selector de moneda para cotización -->
+                  
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" id="frm_ncotizacion" name="form_agregar_cotizacion" class="frm_documento">
@@ -423,7 +451,7 @@
                                         <tbody>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">SubTotal BsS</th>
+                                                <th width="15%">SubTotal <?php echo $moneda; ?></th>
                                                 <th width="15%">
                                                 	<div id="csub_total" class="totalizacion">
                                                     	<div class="input-group">
@@ -437,18 +465,25 @@
                                             <tr>
                                                 <th width="65%"></th>
                                                 <th width="15%">
-                                                  <select name="sel_valor_iva" id="sviva" class="form-control slo">
-                                                    <option value="0.00">0.00 %</option>
-                                                    <option value="<?php echo $iva;?>" selected>
-                                                      <?php echo $eiva;?> %
-                                                    </option>
-                                                    <option value="<?php echo $iva2;?>"><?php echo $eiva2;?> %</option>
-                                                  </select>
+                                                  <?php if ( isset( $_GET["dolar"] ) ) { ?>
+                                                    <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                      <option value="0.00" selected>0.00 %</option>
+                                                    </select>
+                                                  <?php } else { ?>
+                                                    <select name="sel_valor_iva" id="sviva" class="form-control slo">
+                                                      <option value="0.00">0.00 %</option>
+                                                      <option value="<?php echo $iva;?>" selected>
+                                                        <?php echo $eiva;?> %
+                                                      </option>
+                                                      <option value="<?php echo $iva2;?>"><?php echo $eiva2;?> %</option>
+                                                    </select>
+                                                  <?php } ?>
                                                 </th>
                                                 <th width="15%">
                                                 	<div id="cimpuesto" class="totalizacion">
                                                     	<div class="input-group">
                                                       <input id="iva" name="ivap" type="hidden" value="<?php echo $iva;?>">
+                                                      <input id="moneda_ctz" name="moneda" type="hidden" value="<?php echo $moneda;?>">
                                                     	<input type="text" class="form-control itemtotaldocumento totalizacion" 
                                                       id="v_iva" value="<?php if(isset( $cotizacion )) echo $totales["iva"]?>" readonly>
 
@@ -459,7 +494,7 @@
                                             </tr>
                                             <tr>
                                                 <th width="65%"></th>
-                                                <th width="15%">Total BsS</th>
+                                                <th width="15%">Total <?php echo $moneda; ?></th>
                                                 <th width="15%">
                                                 	<div id="ctz_total" class="totalizacion">
                                                     	<div class="input-group">

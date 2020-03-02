@@ -195,12 +195,37 @@
                         </div>
                         <div><span class="tx1">
                           <i class="fa fa fa-slack"></i>&nbsp;
-                          Número de control: <?php echo $compra["ncontrol"];?></span>
+                          N° de control: <?php echo $compra["ncontrol"];?></span>
                         </div>
-                        <div><span class="tx1">
-                          <i class="fa fa-file-text-o"></i>&nbsp;
-                          Número de factura: <?php echo $compra["nfactura"];?></span>
-                        </div>
+
+                        <?php if( $compra["nfactura"] != "" ) { ?>
+                            <div><span class="tx1">
+                              <i class="fa fa-file-text-o"></i>&nbsp;
+                              N° de factura: <?php echo $compra["nfactura"];?></span>
+                            </div>
+                        <?php } ?>
+
+                        <?php if( $compra["nnota_credito"] != "" ) { ?>
+                            <div><span class="tx1">
+                              <i class="fa fa-file-text-o"></i>&nbsp;
+                              N° de nota de crédito: <?php echo $compra["nnota_credito"];?></span>
+                            </div>
+                        <?php } ?>
+
+                        <?php if( $compra["nnota_debito"] != "" ) { ?>
+                            <div><span class="tx1">
+                              <i class="fa fa-file-text-o"></i>&nbsp;
+                              N° de nota de débito: <?php echo $compra["nnota_debito"];?></span>
+                            </div>
+                        <?php } ?>
+
+                        <?php if( $compra["nfactura_afec"] != "" ) { ?>
+                            <div><span class="tx1">
+                              <i class="fa fa-file-text-o"></i>&nbsp;
+                              N° de factura afectada: <?php echo $compra["nfactura_afec"];?></span>
+                            </div>
+                        <?php } ?>
+
                         <hr>
                         <div><span class="tx1">
                           <i class="fa fa-file-text-o"></i>&nbsp;
@@ -304,13 +329,54 @@
                                   </div>
                               </div><!-- /.form group -->
                               
-                              <div class="form-group">
-                                <label for="nfactura">N° Factura</label>
-                                  <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
-                                    <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required value="<?php echo $compra["nfactura"]; ?>">
-                                </div>
-                              </div><!-- /.form group -->
+                              <?php if( $compra["nfactura"] != "" ){ ?>
+                                <div class="form-group">
+                                  <label for="nfactura">N° Factura</label>
+                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                      <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required value="<?php echo $compra["nfactura"]; ?>">
+                                  </div>
+                                </div><!-- /.form group -->
+                              <?php } else { ?>
+                                <input type="hidden" id="nfactura" name="nfactura" value="">
+                              <?php } ?>
+
+                              <?php if( $compra["nnota_credito"] != "" ) { ?>
+                                <div class="form-group">
+                                  <label for="nndebito">N° Nota crédito</label>
+                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                      <input type="text" class="form-control" id="nnota_credito" placeholder="N° Nota crédito" name="nnota_credito" required value="<?php echo $compra["nnota_credito"]; ?>">
+                                  </div>
+                                </div><!-- /.form group -->
+                              <?php } else { ?>
+                                <input type="hidden" id="nnota_credito" name="nnota_credito" value="">
+                              <?php } ?>
+
+                              <?php if( $compra["nnota_debito"] != "" ) { ?>
+                                <div class="form-group">
+                                  <label for="nndebito">N° Nota Débito</label>
+                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                      <input type="text" class="form-control" id="nnota_debito" placeholder="N° Nota débito" name="nnota_debito" required value="<?php echo $compra["nnota_debito"]; ?>">
+                                  </div>
+                                </div><!-- /.form group -->
+                              <?php } else { ?>
+                                <input type="hidden" id="nnota_debito" name="nnota_debito" value="">
+                              <?php } ?>
+
+                              <?php if( $compra["nfactura_afec"] != "" ) { ?>
+                                  <div class="form-group">
+                                    <label for="nfactura_afec">N° Factura afectada</label>
+                                      <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                                        <input type="text" class="form-control" id="nfactura_afec" placeholder="N° Nota débito" 
+                                        name="nfactura_afec" required value="<?php echo $compra["nfactura_afec"]; ?>">
+                                    </div>
+                                  </div><!-- /.form group -->
+                              <?php } else { ?>
+                                <input type="hidden" id="nfactura_afec" name="nfactura_afec" value="">
+                              <?php } ?>
 
                               <div class="form-group">
                                 <label for="nfactura">N° Retención</label>

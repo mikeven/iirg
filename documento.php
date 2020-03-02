@@ -196,7 +196,7 @@
                       <th class="tit_tdf">Cant</th>
                       <th class="tit_tdf">UND</th>
                       <th class="tit_tdf">Precio Unitario</th>
-                      <th class="tit_tdf">Total BsS</th>
+                      <th class="tit_tdf">Total <?php echo $moneda; ?></th>
                     </tr>
                   </thead>
                   <tbody>

@@ -183,12 +183,14 @@
 	    //la hoja del documento
 	    $id = $_GET["id"];
 	    $tdd = $_GET["tipo_documento"]; 
+	    $moneda = "BsS";
 
 	    if( $tdd == "ctz" ){	//Cotización
 			$documento = obtenerCotizacionPorId( $dbh, $id );
-			$encabezado = $documento["encabezado"];;
+			$encabezado = $documento["encabezado"];
 			$detalle_d = $documento["detalle"];
 			$tdocumento = "Cotización"; $ftdd = $tdd; $filedoc = "cotizacion";
+			if( $encabezado["moneda"] == "$") $moneda = "US $";
 			$total_comision = obtenerTotalComisionVenta( $detalle_d ); //bd/data-documento.php	
 	    }
 

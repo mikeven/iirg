@@ -269,10 +269,10 @@
                     <td class="tit_tdf" align="center"><?php echo $compra["femision"]?></td>
                     <td class="tit_tdf" align="center"><?php echo $compra["nfactura"]?></td>
                     <td class="tit_tdf" align="center"><?php echo $compra["ncontrol"]?></td>
-                    <td class="tit_tdf" align="center"></td>
-                    <td class="tit_tdf" align="center"></td>
+                    <td class="tit_tdf" align="center"><?php echo $compra["nnota_debito"]?></td>
+                    <td class="tit_tdf" align="center"><?php echo $compra["nnota_credito"]?></td>
                     <td class="tit_tdf" align="right">01 Registro</td>
-                    <td class="tit_tdf" align="right"></td>
+                    <td class="tit_tdf" align="right"><?php echo $compra["nfactura_afec"]?></td>
                     <td class="tit_tdf" align="center">
                       <?php echo number_format( $total_c, 2, ",", "." ); ?>
                     </td>

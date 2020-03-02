@@ -153,16 +153,43 @@ function checkCompra( mje_destino ){
 		error = 1; mje = "Debe escribir un número de control";
 		marcarCampo( $("#ncontrol"), error );
 	}
+	/* ----------------------------- */
+	if( $("#sel_tipo_doc").val() == 'fac' ){
 
-	if( $("#nfactura").val() == '' ) {
-		error = 1; mje = "Debe escribir un número de factura";
-		marcarCampo( $("#nfactura"), error );
+		if( $("#nfactura").val() == '' ) {
+			error = 1; mje = "Debe escribir un número de factura";
+			marcarCampo( $("#nfactura"), error );
+		}
+
+	}
+	/* ............................. */
+	if( $("#sel_tipo_doc").val() == 'ndc' ){
+
+		if( $("#nncredito").val() == '' ) {
+			error = 1; mje = "Debe escribir un número de nota";
+			marcarCampo( $("#nncredito"), error );
+		}
+
+	}
+	/* ............................. */
+	if( $("#sel_tipo_doc").val() == 'ndd' ){
+
+		if( $("#nndebito").val() == '' ) {
+			error = 1; mje = "Debe escribir un número de nota";
+			marcarCampo( $("#nndebito"), error );
+		}
+
+	}
+	/* ............................. */
+	if( $("#sel_tipo_doc").val() == 'ndc' || $("#sel_tipo_doc").val() == 'ndd' ){
+	
+		if( $("#nfactura_afec").val() == '' ) {
+			error = 1; mje = "Debe ingresar número de factura afectada";
+			marcarCampo( $("#nfactura_afec"), error );
+		}
 	}
 
-	if( $("#mbase").val() == '' ) {
-		error = 1; mje = "Debe ingresar un monto base";
-		marcarCampo( $("#mbase"), error );
-	}
+	/* ----------------------------- */
 
 	if( $("#iva").val() == '' ) {
 		error = 1; mje = "Debe ingresar monto de IVA";
@@ -230,6 +257,23 @@ $( document ).ready(function() {
 		$("#ventana_mensaje").on("hidden.bs.modal", function () {
 		    location.reload();
 		});	
+	});
+	/*--------------------*/
+	$("#sel_tipo_doc").change( function(){
+		var tdoc = $(this).val();
+		if( tdoc == 'fac' ){
+			$(".campo_nota").fadeOut();
+			$("#campo_fac").fadeIn();
+			$("#campo_fac_afectada").fadeOut();
+			$("#nfactura_afec").val(""); $(".cmp_nota").val("");
+		}else{
+			$("#nfactura").val("");
+			$("#campo_fac").fadeOut();
+			$(".campo_nota").fadeOut();
+			$("#campo_fac_afectada").fadeIn();
+			if( tdoc == 'ndc' ) $("#campo_ndc").fadeIn();
+			if( tdoc == 'ndd' ) $("#campo_ndd").fadeIn();
+		}
 	});
 	/*--------------------*/
 	$("#bt_imp_ret").on( "click", function() {	// Imprimir retención

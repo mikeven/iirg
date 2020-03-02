@@ -78,11 +78,12 @@ function checkCotizacion(){
 /* --------------------------------------------------------- */
 function obtenerVectorEncabezado(){
 	//Retorna un objeto con los datos de encabezado de una cotización
-	encabezado = obtenerEncabezadoBase();
+	encabezado 				= obtenerEncabezadoBase();
 	
-	encabezado.tipo = $( '#tipo' ).val();
-	encabezado.idc = $( '#idCliente' ).val();
-	encabezado.pcontacto = $( '#cpcontacto' ).val();
+	encabezado.tipo 		= $( '#tipo' ).val();
+	encabezado.idc 			= $( '#idCliente' ).val();
+	encabezado.pcontacto 	= $( '#cpcontacto' ).val();
+	encabezado.moneda 		= $( '#moneda_ctz' ).val();
 
 	return JSON.stringify( encabezado );
 }

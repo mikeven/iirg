@@ -22,7 +22,7 @@
     <div class="table-responsive" style="float:right;">
       <table class="table_">
         <tr>
-          <th style="width:75%">Subtotal BsS:</th>
+          <th style="width:75%">Subtotal <?php echo $moneda; ?>:</th>
           <td class="tit_tdf_d" align="right">
           <?php echo number_format( $totales["subtotal"], 2, ",", "." ); ?></td>
         </tr>
@@ -32,12 +32,12 @@
           <?php echo number_format( $totales["iva"], 2, ",", "." ); ?></td>
         </tr>
         <tr class="destacado2">
-          <th>Total BsS.:</th>
+          <th>Total <?php echo $moneda; ?>.:</th>
           <td class="tit_tdf_d" align="right">
           <b><?php echo number_format( $totales["total"], 2, ",", "." ); ?></td></b>
         </tr>
         <tr class="destacado2 hidden">
-          <th>Total BsS:</th>
+          <th>Total <?php echo $moneda; ?>:</th>
           <td class="tit_tdf_d" align="right">
           <b><?php echo number_format( $totales["total_s"], 2, ",", "." ); ?></td></b>
         </tr>

@@ -88,6 +88,9 @@
     
     <script src="js/fn-compras.js"></script>
     <script src="js/fn-ui.js"></script>
+    <style type="text/css">
+      .campo_nota{ display: none; }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -181,6 +184,16 @@
                           <input type="text" class="form-control" id="femision" name="fecha_emision" required readonly value="<?php echo $fecha_actual; ?>">
                       </div>
                   </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label for="ncontrol">Tipo de documento</label>
+                    <select class="form-control" id="sel_tipo_doc" name="tipo_doc">
+                      <option value="0" disabled selected class="ofp">Documento</option>
+                      <option value="fac" selected>Factura</option>
+                      <option value="ndc">Nota de crédito</option>
+                      <option value="ndd">Nota de débito</option>
+                    </select>
+                  </div><!-- /.form group -->
                   
                   <div class="form-group">
                     <!--<label for="ncontrol">N° Control</label>-->
@@ -190,11 +203,38 @@
                     </div>
                   </div><!-- /.form group -->
                   
-                  <div class="form-group">
+                  <div id="campo_fac" class="form-group">
                     <!--<label for="nfactura">N° Factura</label>-->
                       <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
                         <input type="text" class="form-control" id="nfactura" placeholder="N° Factura" name="nfactura" required>
+                    </div>
+                  </div><!-- /.form group -->
+
+                  <div id="campo_ndc" class="form-group campo_nota">
+                    <!--<label for="nncredito">N° Nota de crédito</label>-->
+                    <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                      <input type="text" class="form-control" id="nncredito" 
+                      placeholder="N° Nota de crédito" name="nncredito" required>
+                    </div>
+                  </div><!-- /.form group -->
+
+                  <div id="campo_ndd" class="form-group campo_nota">
+                    <!--<label for="nndebito">N° Nota de débito</label>-->
+                    <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                      <input type="text" class="form-control cmp_nota" id="nndebito" 
+                      placeholder="N° Nota de débito" name="nndebito" required>
+                    </div>
+                  </div><!-- /.form group -->
+
+                  <div id="campo_fac_afectada" class="form-group campo_nota">
+                    <!--<label for="nfactura_afec">N° Factura afectada</label>-->
+                      <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa fa-slack"></i></div>
+                        <input type="text" class="form-control cmp_nota" id="nfactura_afec" placeholder="N° Factura afectada" 
+                        name="nfactura_afec" required>
                     </div>
                   </div><!-- /.form group -->
 

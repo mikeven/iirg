@@ -54,9 +54,10 @@
 
 		$fecha_emision = cambiaf_a_mysql( $compra["fecha_emision"] );
 		$q = "insert into compra ( idProveedor, fecha_registro, fecha_emision, monto, 
-		iva, retencion, ncontrol, nfactura, idUsuario, estado ) 
+		iva, retencion, ncontrol, nfactura, nfactura_afec, nnota_credito, nnota_debito, idUsuario, estado ) 
 		values ( $compra[idProveedor], NOW(), '$fecha_emision', $compra[mbase], $compra[iva], 
-		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', $idu, 'creada' )";
+		$compra[retencion], '$compra[ncontrol]', '$compra[nfactura]', '$compra[nfactura_afec]', 
+		'$compra[nncredito]', '$compra[nndebito]', $idu, 'creada' )";
 		
 		$data = mysql_query( $q, $dbh );
 		
@@ -71,9 +72,9 @@
 		date_format(c.fecha_emision,'%d/%m/%Y') as femision, c.estado as estado,  
 		date_format(c.fecha_registro,'%d/%m/%Y %h:%i %p') as fregistro,
 		date_format(c.fecha_retencion,'%d/%m/%Y') as fretencion, c.num_retencion as nret, 
-		c.ncontrol as ncontrol, c.nfactura as nfactura, p.idProveedor as idp, p.Nombre as proveedor,
-		p.rif as rif_p, p.Direccion1 as dir1, p.Direccion2 as dir2 from proveedor p, compra c 
-		where c.idProveedor = p.idProveedor and c.idCompra = $id and c.idUsuario = $idu";
+		c.ncontrol as ncontrol, c.nfactura as nfactura, c.nnota_credito, c.nnota_debito, c.nfactura_afec, 
+		p.idProveedor as idp, p.Nombre as proveedor, p.rif as rif_p, p.Direccion1 as dir1, p.Direccion2 as dir2 
+		from proveedor p, compra c where c.idProveedor = p.idProveedor and c.idCompra = $id and c.idUsuario = $idu";
 		
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );	
 		return $data;
@@ -122,9 +123,9 @@
 		$fecha_emision = cambiaf_a_mysql( $compra["fecha_emision"] );
 		$q = "update compra set idProveedor = $compra[idProveedor], fecha_modificacion = NOW(), 
 		monto = $compra[mbase], iva = $compra[iva], ncontrol = '$compra[ncontrol]', 
-		nfactura = '$compra[nfactura]', fecha_emision = '$fecha_emision',
-		num_retencion = '$compra[nret]', retencion = $compra[retencion]
-		where idCompra = $compra[idCompra] and idUsuario = $idu";
+		nfactura = '$compra[nfactura]', nnota_credito = '$compra[nnota_credito]', nnota_debito = '$compra[nnota_debito]', 
+		nfactura_afec = '$compra[nfactura_afec]', fecha_emision = '$fecha_emision', num_retencion = '$compra[nret]', 
+		retencion = $compra[retencion] where idCompra = $compra[idCompra] and idUsuario = $idu";
 		//echo $q;
 		$data = mysql_query( $q, $dbh );
 		return $compra["idCompra"];		

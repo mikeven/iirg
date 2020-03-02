@@ -23,10 +23,12 @@
     $id = $_GET["id"];
     $tdd = $_GET["tipo_documento"]; 
     $ftdd = $tdd; $tipo_n = "";
+    $moneda = "BsS";
 
     if( $tdd == "ctz" ){
       $documento = obtenerCotizacionPorId( $dbh, $id );
       $tdocumento = "Cotización";
+      if( $documento["encabezado"]["moneda"] == "$") $moneda = "$";
     }
 
     if( $tdd == "sctz" ){
@@ -302,7 +304,7 @@
                     <th class="enc_ac" width="10%">UND</th>
                     <?php if( $tipo_n != "nota_entrega" ){ ?>
                       <th class="enc_ad" width="10%">PRECIO <br>UNITARIO</th>
-                      <th class="enc_ad" width="15%">TOTAL BsS</th>
+                      <th class="enc_ad" width="15%">TOTAL <?php echo $moneda; ?></th>
                     <?php } ?>
                   </tr>
                 </thead>
